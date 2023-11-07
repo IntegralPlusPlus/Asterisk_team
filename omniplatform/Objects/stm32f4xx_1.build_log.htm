@@ -1,0 +1,446 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.38.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: David Avetisyan, HP Inc., LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.38.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.19
+Assembler:       Armasm.exe V6.19
+Linker/Locator:  ArmLink.exe V6.19
+Library Manager: ArmAr.exe V6.19
+Hex Converter:   FromElf.exe V6.19
+CPU DLL:         SARMCM3.DLL V5.38.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      UL2CM3.DLL V1.164.8.0
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+C:\PARK HAYASTANIN\Robotics\stm32f4xx_1\stm32f4xx_1.uvprojx
+Project File Date:  06/25/2023
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./user/stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./user/stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+./user/stm32f4xx.h(11582): warning: 'DBGMCU_APB2_FZ_DBG_TIM1_STOP' macro redefined [-Wmacro-redefined]
+#define  DBGMCU_APB2_FZ_DBG_TIM1_STOP        DBGMCU_APB1_FZ_DBG_TIM1_STOP    
+         ^
+./user/stm32f4xx.h(11575): note: previous definition is here
+#define  DBGMCU_APB2_FZ_DBG_TIM1_STOP        ((uint32_t)0x00000001)
+         ^
+./user/stm32f4xx.h(11583): warning: 'DBGMCU_APB2_FZ_DBG_TIM8_STOP' macro redefined [-Wmacro-redefined]
+#define  DBGMCU_APB2_FZ_DBG_TIM8_STOP        DBGMCU_APB1_FZ_DBG_TIM8_STOP
+         ^
+./user/stm32f4xx.h(11576): note: previous definition is here
+#define  DBGMCU_APB2_FZ_DBG_TIM8_STOP        ((uint32_t)0x00000002)
+         ^
+./user/stm32f4xx.h(11584): warning: 'DBGMCU_APB2_FZ_DBG_TIM9_STOP' macro redefined [-Wmacro-redefined]
+#define  DBGMCU_APB2_FZ_DBG_TIM9_STOP        DBGMCU_APB1_FZ_DBG_TIM9_STOP
+         ^
+./user/stm32f4xx.h(11577): note: previous definition is here
+#define  DBGMCU_APB2_FZ_DBG_TIM9_STOP        ((uint32_t)0x00010000)
+         ^
+./user/stm32f4xx.h(11585): warning: 'DBGMCU_APB2_FZ_DBG_TIM10_STOP' macro redefined [-Wmacro-redefined]
+#define  DBGMCU_APB2_FZ_DBG_TIM10_STOP       DBGMCU_APB1_FZ_DBG_TIM10_STOP
+         ^
+./user/stm32f4xx.h(11578): note: previous definition is here
+#define  DBGMCU_APB2_FZ_DBG_TIM10_STOP       ((uint32_t)0x00020000)
+         ^
+./user/stm32f4xx.h(11586): warning: 'DBGMCU_APB2_FZ_DBG_TIM11_STOP' macro redefined [-Wmacro-redefined]
+#define  DBGMCU_APB2_FZ_DBG_TIM11_STOP       DBGMCU_APB1_FZ_DBG_TIM11_STOP
+         ^
+./user/stm32f4xx.h(11579): note: previous definition is here
+#define  DBGMCU_APB2_FZ_DBG_TIM11_STOP       ((uint32_t)0x00040000)
+         ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(27): warning: In file included from...
+./spl/inc\stm32f4xx_adc.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(28): warning: In file included from...
+./spl/inc\stm32f4xx_crc.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(29): warning: In file included from...
+./spl/inc\stm32f4xx_dbgmcu.h(30): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(30): warning: In file included from...
+./spl/inc\stm32f4xx_dma.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(31): warning: In file included from...
+./spl/inc\stm32f4xx_exti.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(32): warning: In file included from...
+./spl/inc\stm32f4xx_flash.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(33): warning: In file included from...
+./spl/inc\stm32f4xx_gpio.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(34): warning: In file included from...
+./spl/inc\stm32f4xx_i2c.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(35): warning: In file included from...
+./spl/inc\stm32f4xx_iwdg.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(36): warning: In file included from...
+./spl/inc\stm32f4xx_pwr.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(37): warning: In file included from...
+./spl/inc\stm32f4xx_rcc.h(30): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(38): warning: In file included from...
+./spl/inc\stm32f4xx_rtc.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(39): warning: In file included from...
+./spl/inc\stm32f4xx_sdio.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(40): warning: In file included from...
+./spl/inc\stm32f4xx_spi.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(41): warning: In file included from...
+./spl/inc\stm32f4xx_syscfg.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(42): warning: In file included from...
+./spl/inc\stm32f4xx_tim.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(43): warning: In file included from...
+./spl/inc\stm32f4xx_usart.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(44): warning: In file included from...
+./spl/inc\stm32f4xx_wwdg.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(45): warning: In file included from...
+./spl/inc\misc.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(73): warning: In file included from...
+./spl/inc\stm32f4xx_cryp.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(74): warning: In file included from...
+./spl/inc\stm32f4xx_hash.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(75): warning: In file included from...
+./spl/inc\stm32f4xx_rng.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(76): warning: In file included from...
+./spl/inc\stm32f4xx_can.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(77): warning: In file included from...
+./spl/inc\stm32f4xx_dac.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(78): warning: In file included from...
+./spl/inc\stm32f4xx_dcmi.h(30): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+user/main.c(1): warning: In file included from...
+./user/stm32f4xx.h(12029): warning: In file included from...
+./user/stm32f4xx_conf.h(79): warning: In file included from...
+./spl/inc\stm32f4xx_fsmc.h(31): warning: In file included from...
+./spl\stm32f4xx.h(15): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
+                                               ^
+./spl\stm32f4xx.h(16): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *                code will be based on direct access to peripheral<92>s registers 
+                                                                    ^
+./spl\stm32f4xx.h(23): warning: invalid UTF-8 in comment [-Winvalid-utf8]
+  *           - Macros to access peripheral<92>s registers hardware
+                                           ^
+86 warnings generated.
+compiling main.c...
+linking...
+Program Size: Code=440 RO-data=408 RW-data=0 ZI-data=1632  
+".\Objects\stm32f4xx_1.axf" - 0 Error(s), 86 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F4xx_DFP.2.17.0.pack
+                Keil.STM32F4xx_DFP.2.17.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+   * Component: Startup Version: 2.6.3
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_Target_1
+  C:/Users/Arkady/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/Arkady/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.6.0
+
+   * Component: Keil::Device:Startup:2.6.3
+      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
+      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
+      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
+Build Time Elapsed:  00:00:08
+</pre>
+</body>
+</html>

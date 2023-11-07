@@ -1,0 +1,113 @@
+#include "Pin.h"
+#include "usable.h"
+#include "project_config.h"
+#include "global_macros.h"
+
+void usart2Init();
+volatile uint16_t rx[8], _rxCnt = 0;
+uint16_t tx[8], _sendCnt = 0;
+bool get = true;
+uint16_t _readCnt = 0;
+uint16_t pp = 49; //48
+
+void delays(int);
+
+extern "C" {
+	void USART2_IRQHandler(void) {
+			if (USART2->SR & USART_SR_RXNE) { //GET DATA
+				rx[_rxCnt] = USART2->DR;
+				pp = rx[_rxCnt];
+				_rxCnt++;
+				if(_rxCnt == 8) _rxCnt = 0;
+			} /*else if ((USART2->SR & USART_SR_TC) && !get) { //SEND DATA
+				USART_ClearITPendingBit(USART2, USART_IT_TC);
+				(USART2->DR) = tx[_sendCnt];
+				 _sendCnt++;
+				if(_sendCnt == 8) _sendCnt = 0;
+			}*/
+	} 
+}
+
+uint16_t readS() {  
+	uint16_t dt;
+	ENTER_CRITICAL_SECTION();
+	dt = rx[_readCnt];
+	_readCnt++;
+	if(_readCnt == 8) {
+		_readCnt = 0;
+	}
+	EXIT_CRITICAL_SECTION();
+		
+	return dt;
+}
+
+
+int main() {
+  usart2Init();
+  Pin diode('A', 1, write);
+	uint16_t nn;
+	
+  while(1) {
+		//ENTER_CRITICAL_SECTION();
+		//nn = rx[_rxCnt - 1];
+		//ENTER_CRITICAL_SECTION();
+		if (pp == 48) { //48
+			diode.resetBit();
+		} else diode.setBit();
+		//EXIT_CRITICAL_SECTION();
+	}
+	
+	return 0;
+}
+
+void usart2Init() {
+	//=================================PIN_CONFIG===============================================
+	GPIO_InitTypeDef init_GPIOx; 
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE); //разрешаем тактирование  
+ 
+	//PA2 -- TX UART
+	init_GPIOx.GPIO_OType = GPIO_OType_PP;
+	init_GPIOx.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	init_GPIOx.GPIO_Mode = GPIO_Mode_AF;
+	init_GPIOx.GPIO_Pin = GPIO_Pin_2;
+	init_GPIOx.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_Init(GPIOA, &init_GPIOx);
+ 
+	//PA3 -- RX UART
+	init_GPIOx.GPIO_OType = GPIO_OType_PP;
+	init_GPIOx.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	init_GPIOx.GPIO_Mode = GPIO_Mode_AF;
+	init_GPIOx.GPIO_Pin = GPIO_Pin_3;
+	init_GPIOx.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_Init(GPIOA, &init_GPIOx);
+	
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource2, GPIO_AF_USART2); //PA2 to TX USART2
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource3, GPIO_AF_USART2); //PA3 to RX USART2
+	
+	//===========================================USART_CONFIG=====================================
+	USART_InitTypeDef USART_InitStructure;
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE); //Разрешаем тактирование      
+  
+	USART_StructInit(&USART_InitStructure);
+  USART_InitStructure.USART_BaudRate = 9600;// скорость
+  USART_InitStructure.USART_WordLength = USART_WordLength_8b; //8 бит данных
+  USART_InitStructure.USART_StopBits = USART_StopBits_1; //один стоп бит
+  USART_InitStructure.USART_Parity = USART_Parity_No; //четность - нет
+  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None; // управлени потоком - нет
+  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;       // разрешаем прием и передачу
+        
+  USART_Init(USART2, &USART_InitStructure); //инизиализируем
+	
+  // Включаем прерывания и запускаем USART
+  //USART_ITConfig(USART2, USART_IT_TC, ENABLE);
+	USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
+	USART_Cmd(USART2, ENABLE);
+	
+	NVIC_SetPriority(USART2_IRQn, 0);
+	NVIC_EnableIRQ(USART2_IRQn);
+}
+
+
+void delays(int n) {
+	while (n > 0) --n;
+}
