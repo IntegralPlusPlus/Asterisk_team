@@ -16,12 +16,6 @@ void OpenMV::read() {
 	bool gotData = false;
 	//uartAvailable = uart1::available();
 	if (_usartNumber == 1 && uart1::available() >= 6) {
-		//uart1::read(); //                             START  BIT
-		//_distBlue = uart1::read();
-		//_angleBlue = uart1::read();
-		//_distYellow = uart1::read();
-		//_angleYellow = uart1::read();
-		//crc = uart1::read();
 		if (uart1::read() == 255) { //                             START  BIT
 			for (uint8_t i = 0; i < 4; ++i) data[i] = uart1::read(); 
 			
