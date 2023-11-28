@@ -52,12 +52,50 @@ arr = [[127, 185],
        [40, 18],
        [27, 13]]
 
-uart = UART(3, 115200)
+uart = UART(3, 115200, timeout = 100, timeout_char = 100)
+uart.init(115200, bits = 8, parity = False, stop = 1, timeout_char = 100)
 threshold_yellow = (38, 100, -128, 127, 50, 126)#(38, 100, -128, 127, 38, 125)
 threshold_blue = (10, 45, -34, 3, -128, -7)
-x0 = 161
-y0 = 147
-r0 = 140
+x0 = 161#162 #161
+y0 = 147#117 #147
+r0 = 140#90 #140
+
+def crc8(data, len): #function that calculates check sum
+    crc = 0xFF
+    j = 0
+    for i in range(0, len):
+        crc ^= data[i];
+        for j in range(0, 8):
+            if (crc & 0x80):
+                crc = ((crc << 1) ^ 0x31)
+            else:
+             crc <<= 1
+    return crc
+
+data = bytearray(5)
+def send_data(num1, num2, num3, num4):
+    uart.writechar(255)
+    num1 = int(num1)
+    num2 = int(num2)
+    num3 = int(num3)
+    num4 = int(num4)
+
+    data[0] = num1
+    data[1] = num2
+    data[2] = num3
+    data[3] = num4
+
+    for i in range(0, 4):
+        print(data[i], "\t", sep = "", end = "")
+
+    data[4] = crc8(data, 4)
+    print(data[4])
+
+    uart.writechar(int(data[0]))
+    uart.writechar(int(data[1]))
+    uart.writechar(int(data[2]))
+    uart.writechar(int(data[3]))
+    uart.writechar(int(data[4]))
 
 def getLine(x0, y0, x1, y1):
     return ((y1 - y0) / (x1 - x0), y0 - x0 * (y1 - y0)/(x1 - x0))
@@ -82,17 +120,10 @@ def toDistance(pix):
 
     return k * pix + b
 
-def crc8(data, len):
-    crc = 0xFF
-    j = 0
-    for i in range(0, len):
-        crc = crc ^ data[i];
-        for j in range(0, 8):
-            if (crc & 0x80):
-                crc = (crc << 1) ^ 0x31
-            else:
-                crc = crc << 1
-    return int(crc % 255)
+def adduction(value):
+    while value < 0: value += 360
+    while value > 360: value -= 360
+    return value
 
 setup()
 clock = time.clock()
@@ -109,8 +140,8 @@ while(True):
     pixB = 0
     distY = 0
     distB = 0
-    alphaB = 181
-    alphaY = 181
+    alphaB = 0
+    alphaY = 0
 
     #####################################################FIND_BLOBS
     for yb in img.find_blobs([threshold_yellow], merge = True, margin = 40, pixel_threshold = 880):
@@ -150,17 +181,7 @@ while(True):
         distB = toDistance(pixB)
         alphaB = math.atan2(blue[0] - x0, blue[1] - y0) * 180/math.pi
 
-    #####################################################SEND_UART
-    uart.writechar(255)
-    uart.writechar(int(distY))
-    uart.writechar(int(alphaY))
-    uart.writechar(int(distB))
-    uart.writechar(int(alphaB))
-
-    data = (int(distY), int(alphaY), int(distB), int(alphaB))
-    crc = crc8(data, 4)
-    for i in range(0, 4):
-        print(data[i], "\t", end = "")
-    print()
-
-    uart.writechar(int(crc))
+    alphaY = adduction(alphaY)
+    alphaB = adduction(alphaB)
+    #####################################################CRC__SEND_UART
+    send_data(distB, alphaB / 2, distY, alphaY / 2)
