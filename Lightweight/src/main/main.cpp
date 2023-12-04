@@ -18,6 +18,7 @@
 #include "TSOP.h"
 #include "I2C.h"
 #include "IR_Locator.h"
+#include "Vec2b.h"
 #include "usable.h"
 
 #define IMU_CALIBRATE_TIME 18000 
@@ -64,14 +65,16 @@ int main() {
 	omniplatform omni(motor3, motor4, motor2, motor1);
 	
 	volatile float ang, angRes;
-	//volatile uint32_t	dist = 0;
 	int t = time_service::millis();
 	volatile bool imuCalibrated = false;
 	volatile int16_t pow;
 	volatile float angleIMU, angSoft = 0, distSoft = 0;
 	volatile float dist, distOld = -1;
+	volatile int16_t angle, speed;
 	
-	//time_service::delay(4000);
+	Vec2b currentVector, goTo;
+	currentVector.length = 55.f / 100.f;
+	currentVector.angle = 90;
 	
 	while (true) {
 		ang = locator.getAngle();
@@ -81,42 +84,40 @@ int main() {
 		
 		gyro.read();
 		angleIMU = gyro.getCurrentAngle();
-		//targetAng = gyro.getTarget();
 		
 		if (!imuCalibrated && time_service::millis() - t > IMU_CALIBRATE_TIME) { //20000
 			gyro.setTarget(0);
 			gyro.setZeroAngle();
-			//gyro.setZeroAngle();
 			imuCalibrated = true;
 			t = time_service::millis();
 		} else if (imuCalibrated) {
 			gyro.setRotationForTarget();
 			pow = gyro.getRotation();
-			//gyro.setTarget(0);
 			
-			//if (lopcator.ballBehind(ang)) {// && distSoft > 13) {
-			//if (locator.ballBehind(ang) && distSoft > 9) {
-				//ang += 90;
-				//ang = locator.adduct(ang);
 			angRes = ang + locator.angleOffset(gyro.adduct(ang), distSoft) - 90;
 			angRes *= -1;
 			while (angRes < 0) angRes += 360;
-			//} else angRes = ang;
 			
 			if (abs(angRes - angSoft) < 180) {
 				angSoft = K_ANGLE * angRes + (1 - K_ANGLE) * angSoft;
-			} else {//else angSoft = ang * 0.01 + 0.99 * (360 - angSoft);
+			} else {
 				if (angSoft > angRes) angSoft = K_ANGLE * (angRes + 360) + (1 - K_ANGLE) * angSoft;
 				else angSoft = K_ANGLE * angRes + (1 - K_ANGLE) * (angSoft + 360);
 			}
 			
 			if (angSoft < 0) angSoft += 360;
 			else if (angSoft > 360) angSoft -= 360;
-				//if (angSoft < 0) angSoft += 360;
-			//	angSoft = ang;
-			//}
-				
-			omni.move(100, 55, angSoft, pow, gyro.getMaxRotation());
+			
+			if (time_service::millis() != t) {
+				goTo.length = 55.f / 100.f;
+				goTo.angle = angSoft;
+				currentVector.update(goTo);
+				t = time_service::millis();
+			}
+			
+			angle = currentVector.angle;
+			speed = currentVector.length;
+			//omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 		}
 	}
 	

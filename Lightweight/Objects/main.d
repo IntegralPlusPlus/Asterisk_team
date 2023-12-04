@@ -78,4 +78,6 @@
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\IR_Locator\IR_Locator.h
 .\objects\main.o: .\src\main\project_config.h
+.\objects\main.o: .\src\Vec2b\Vec2b.h
+.\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\usable\usable.h
