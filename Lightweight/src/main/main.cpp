@@ -21,7 +21,8 @@
 #include "Vec2b.h"
 #include "usable.h"
 
-#define IMU_CALIBRATE_TIME 18000 
+#define IMU_CALIBRATE_TIME 10000
+//18000
 #define K_ANGLE 0.004f
 
 int main() {
@@ -70,10 +71,11 @@ int main() {
 	volatile int16_t pow;
 	volatile float angleIMU, angSoft = 0, distSoft = 0;
 	volatile float dist, distOld = -1;
-	volatile int16_t angle, speed;
+	volatile double angle, speed;
+	volatile double x1, y1, x2, y2, len, lyambda;
 	
 	Vec2b currentVector, goTo;
-	currentVector.length = 55.f / 100.f;
+	currentVector.length = double(55) / double(100);
 	currentVector.angle = 90;
 	
 	while (true) {
@@ -109,15 +111,17 @@ int main() {
 			else if (angSoft > 360) angSoft -= 360;
 			
 			if (time_service::millis() != t) {
-				goTo.length = 55.f / 100.f;
-				goTo.angle = angSoft;
+				goTo.length = double(55) / double(100);
+				goTo.angle = double(angSoft);
 				currentVector.update(goTo);
+				//currentVector.length = goTo.length;
+				//currentVector.angle = goTo.angle;
 				t = time_service::millis();
 			}
 			
 			angle = currentVector.angle;
 			speed = currentVector.length;
-			//omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
+			omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());	
 		}
 	}
 	

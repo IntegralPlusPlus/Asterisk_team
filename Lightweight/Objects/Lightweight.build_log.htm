@@ -27,6 +27,22 @@ Project File Date:  12/04/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
+compiling IR_Locator.cpp...
+.\src\main\project_config.h(14): warning:  #1-D: last line of file ends without a newline
+  #define YELLOW_GOAL 1
+.\src\Pin\Pin.h(69): warning:  #1-D: last line of file ends without a newline
+  #endif /* PIN_H_ */
+.\src\main\project_config.h(14): warning:  #1-D: last line of file ends without a newline
+  #define YELLOW_GOAL 1
+.\src\I2C\I2C.h(26): warning:  #1-D: last line of file ends without a newline
+  };
+src\IR_Locator\IR_Locator.h(35): warning:  #1-D: last line of file ends without a newline
+  };
+src\IR_Locator\IR_Locator.cpp(72): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+    double angK = 0.045 * pow(double(Ec), double(0.12 * abs(angle))); //0.04 0.15
+src\IR_Locator\IR_Locator.cpp(95): warning:  #1-D: last line of file ends without a newline
+  }
+src\IR_Locator\IR_Locator.cpp: 7 warnings, 0 errors
 compiling main.cpp...
 .\src\Pin\Pin.h(69): warning:  #1-D: last line of file ends without a newline
   #endif /* PIN_H_ */
@@ -116,24 +132,18 @@ src\main\project_config.h(14): warning:  #1-D: last line of file ends without a 
   };
 .\src\main\project_config.h(14): warning:  #1-D: last line of file ends without a newline
   #define YELLOW_GOAL 1
-.\src\Vec2b\Vec2b.h(5): warning:  #47-D: incompatible redefinition of macro "RAD2DEG"  (declared at line 5 of ".\src\TSOP\TSOP.h")
-  #define RAD2DEG	57.2957795130823208767f
-.\src\Vec2b\Vec2b.h(6): warning:  #47-D: incompatible redefinition of macro "DEG2RAD"  (declared at line 6 of ".\src\TSOP\TSOP.h")
-  #define DEG2RAD	0.01745329251994329576f
-.\src\Vec2b\Vec2b.h(32): warning:  #1-D: last line of file ends without a newline
+.\src\Vec2b\Vec2b.h(35): warning:  #1-D: last line of file ends without a newline
   }
-.\src\Vec2b\Vec2b.h(16): warning:  #177-D: variable "result"  was declared but never referenced
-  	Vec2b result;
 .\src\usable\usable.h(18): warning:  #1-D: last line of file ends without a newline
   #endif /* USABLE_H_ */
-src\main\main.cpp(124): warning:  #111-D: statement is unreachable
+src\main\main.cpp(136): warning:  #111-D: statement is unreachable
   	return 0;
-src\main\main.cpp(125): warning:  #1-D: last line of file ends without a newline
+src\main\main.cpp(137): warning:  #1-D: last line of file ends without a newline
   }
-src\main\main.cpp: 51 warnings, 0 errors
+src\main\main.cpp: 48 warnings, 0 errors
 linking...
-Program Size: Code=19990 RO-data=666 RW-data=152 ZI-data=8048  
-".\Objects\Lightweight.axf" - 0 Error(s), 51 Warning(s).
+Program Size: Code=24054 RO-data=1106 RW-data=152 ZI-data=8048  
+".\Objects\Lightweight.axf" - 0 Error(s), 55 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -159,12 +169,12 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
-      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
       Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
+      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
