@@ -21,6 +21,7 @@ class gyro_imu {
 		void setRotationForTarget();
 		void setTarget(int16_t target);
 		void setZeroAngle();
+		float calculateSoft(float soft, float now, float koeff);
 		int16_t getCurrentAngle();
 		int16_t getRotation();
 		int16_t getMaxRotation();

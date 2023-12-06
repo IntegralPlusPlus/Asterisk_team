@@ -35,6 +35,20 @@ void gyro_imu::setRotationForTarget() {
 	errOld = err;
 }
 
+float gyro_imu::calculateSoft(float soft, float now, float koeff) {
+	if (abs(now - soft) < 180) {
+		soft = koeff * now + (1 - koeff) * soft;
+	} else {
+		if (soft > now) soft = koeff * (now + 360) + (1 - koeff) * soft;
+		else soft = koeff * now + (1 - koeff) * (soft + 360);
+	}
+			
+	if (soft < 0) soft += 360;
+	else if (soft > 360) soft -= 360;
+	
+	return soft;
+}
+
 int16_t gyro_imu::getRotation() {
 	return _rotation; 
 }

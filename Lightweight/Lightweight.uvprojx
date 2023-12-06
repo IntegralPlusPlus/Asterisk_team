@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F407xx,STM32F40_41xxx, USE_STDPERIPH_DRIVER,  HSE_VALUE = 8000000, USE_HSE</Define>
               <Undefine></Undefine>
-              <IncludePath>.\support_pacage;.\support_pacage\arm;.\support_pacage\gcc\linker;.\support_pacage\gcc;.\support_pacage\inc;.\src;.\src\time_service;.\src\usart2;.\src\usart3;.\src\usart1;.\src\adc;.\src\Motor;.\src\Pin;.\src\dma;.\src\PWM;.\src\IMU_SPI;.\src\main;.\src\external;.\src\SPI_DOT;.\src\SPI_1;.\src\usable;.\src\mpu9250;.\src\global_macros;.\src\omniplatform;.\src\IMU_USART;.\src\spl4;.\src\spl4\inc;.\src\spl4\src;.\src\cmsis;.\src\usart6;.\src\OpenMV;.\src\TSOP;.\src\I2C;.\src\IR_Locator;.\src\Vec2b</IncludePath>
+              <IncludePath>.\support_pacage;.\support_pacage\arm;.\support_pacage\gcc\linker;.\support_pacage\gcc;.\support_pacage\inc;.\src;.\src\time_service;.\src\usart2;.\src\usart3;.\src\usart1;.\src\adc;.\src\Motor;.\src\Pin;.\src\dma;.\src\PWM;.\src\IMU_SPI;.\src\main;.\src\external;.\src\SPI_DOT;.\src\SPI_1;.\src\usable;.\src\mpu9250;.\src\global_macros;.\src\omniplatform;.\src\IMU_USART;.\src\spl4;.\src\spl4\inc;.\src\spl4\src;.\src\cmsis;.\src\usart6;.\src\OpenMV;.\src\TSOP;.\src\I2C;.\src\IR_Locator;.\src\Vec2b;.\src\Robot</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -383,6 +383,126 @@
       </TargetOption>
       <Groups>
         <Group>
+          <GroupName>main</GroupName>
+          <Files>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\main\main.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>project_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\main\project_config.h</FilePath>
+            </File>
+            <File>
+              <FileName>RTE_Device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\main\RTE_Device.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Robot</GroupName>
+          <Files>
+            <File>
+              <FileName>Robot.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Robot\Robot.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Robot.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Robot\Robot.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Vec2b</GroupName>
+          <Files>
+            <File>
+              <FileName>Vec2b.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Vec2b\Vec2b.h</FilePath>
+            </File>
+            <File>
+              <FileName>Vec2b.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Vec2b\Vec2b.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>OpenMV</GroupName>
+          <Files>
+            <File>
+              <FileName>OpenMV.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\OpenMV\OpenMV.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>OpenMV.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\OpenMV\OpenMV.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>IR_Locator</GroupName>
+          <Files>
+            <File>
+              <FileName>IR_Locator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\IR_Locator\IR_Locator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>IR_Locator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\IR_Locator\IR_Locator.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>omniplatform</GroupName>
+          <Files>
+            <File>
+              <FileName>omniplatform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\omniplatform\omniplatform.h</FilePath>
+            </File>
+            <File>
+              <FileName>omniplatform.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\omniplatform\omniplatform.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usable</GroupName>
+          <Files>
+            <File>
+              <FileName>usable.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\usable\usable.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>TSOP</GroupName>
+          <Files>
+            <File>
+              <FileName>TSOP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\TSOP\TSOP.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TSOP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\TSOP\TSOP.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>time_service</GroupName>
           <Files>
             <File>
@@ -409,6 +529,81 @@
               <FileName>Pin.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Pin\Pin.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>IMU_USART</GroupName>
+          <Files>
+            <File>
+              <FileName>IMU_USART.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\IMU_USART\IMU_USART.h</FilePath>
+            </File>
+            <File>
+              <FileName>IMU_USART.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\IMU_USART\IMU_USART.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usart1</GroupName>
+          <Files>
+            <File>
+              <FileName>usart1.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\usart1\usart1.h</FilePath>
+            </File>
+            <File>
+              <FileName>usart1.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\usart1\usart1.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usart2</GroupName>
+          <Files>
+            <File>
+              <FileName>usart2.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\usart2\usart2.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usart2.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\usart2\usart2.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usart3</GroupName>
+          <Files>
+            <File>
+              <FileName>usart3.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\usart3\usart3.h</FilePath>
+            </File>
+            <File>
+              <FileName>usart3.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\usart3\usart3.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usart6</GroupName>
+          <Files>
+            <File>
+              <FileName>usart6.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\usart6\usart6.h</FilePath>
+            </File>
+            <File>
+              <FileName>usart6.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\usart6\usart6.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -518,16 +713,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>usable</GroupName>
-          <Files>
-            <File>
-              <FileName>usable.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\usable\usable.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>mpu9250</GroupName>
           <Files>
             <File>
@@ -548,157 +733,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>omniplatform</GroupName>
+          <GroupName>global_macros</GroupName>
           <Files>
             <File>
-              <FileName>omniplatform.h</FileName>
+              <FileName>global_macros.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\omniplatform\omniplatform.h</FilePath>
-            </File>
-            <File>
-              <FileName>omniplatform.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\omniplatform\omniplatform.cpp</FilePath>
+              <FilePath>.\src\global_macros\global_macros.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>IMU_USART</GroupName>
+          <GroupName>external</GroupName>
           <Files>
             <File>
-              <FileName>IMU_USART.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\IMU_USART\IMU_USART.h</FilePath>
-            </File>
-            <File>
-              <FileName>IMU_USART.cpp</FileName>
+              <FileName>retarget.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\IMU_USART\IMU_USART.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usart1</GroupName>
-          <Files>
-            <File>
-              <FileName>usart1.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\usart1\usart1.h</FilePath>
-            </File>
-            <File>
-              <FileName>usart1.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\usart1\usart1.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usart2</GroupName>
-          <Files>
-            <File>
-              <FileName>usart2.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\usart2\usart2.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>usart2.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\usart2\usart2.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usart3</GroupName>
-          <Files>
-            <File>
-              <FileName>usart3.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\usart3\usart3.h</FilePath>
-            </File>
-            <File>
-              <FileName>usart3.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\usart3\usart3.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usart6</GroupName>
-          <Files>
-            <File>
-              <FileName>usart6.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\usart6\usart6.h</FilePath>
-            </File>
-            <File>
-              <FileName>usart6.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\usart6\usart6.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>OpenMV</GroupName>
-          <Files>
-            <File>
-              <FileName>OpenMV.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\OpenMV\OpenMV.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>OpenMV.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\OpenMV\OpenMV.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>TSOP</GroupName>
-          <Files>
-            <File>
-              <FileName>TSOP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\TSOP\TSOP.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>TSOP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\TSOP\TSOP.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>IR_Locator</GroupName>
-          <Files>
-            <File>
-              <FileName>IR_Locator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\IR_Locator\IR_Locator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>IR_Locator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\IR_Locator\IR_Locator.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>main</GroupName>
-          <Files>
-            <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\main\main.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>project_config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\main\project_config.h</FilePath>
-            </File>
-            <File>
-              <FileName>RTE_Device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\main\RTE_Device.h</FilePath>
+              <FilePath>.\src\external\retarget.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -764,36 +814,6 @@
               <FileName>stm32f4xx_conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\spl4\stm32f4xx_conf.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>global_macros</GroupName>
-          <Files>
-            <File>
-              <FileName>global_macros.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\global_macros\global_macros.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>external</GroupName>
-          <Files>
-            <File>
-              <FileName>retarget.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\external\retarget.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Vec2b</GroupName>
-          <Files>
-            <File>
-              <FileName>Vec2b.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Vec2b\Vec2b.h</FilePath>
             </File>
           </Files>
         </Group>

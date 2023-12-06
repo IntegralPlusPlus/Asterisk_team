@@ -4,6 +4,7 @@
 
 class Motor {
 	public:
+		Motor(Pin& in1, uint8_t channelIN1, Pin& in2, uint8_t channelIN2);
 		Motor(Pin& in1, Pin& in2);
 		void go(int16_t speed);
 		void disable();

@@ -23,7 +23,6 @@ class IRLocator {
 		int16_t getAngle();
 		int16_t detourAngle(int16_t angle);
 		int32_t getDist();
-		bool ballBehind(int16_t angle);
 		double convertDist(double dist);
 		float angleOffset(float angle, float dist);
 		int16_t adduct(int16_t a);

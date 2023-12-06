@@ -1,5 +1,6 @@
 .\objects\main.o: src\main\main.cpp
-.\objects\main.o: .\src\Pin\Pin.h
+.\objects\main.o: src\main\project_config.h
+.\objects\main.o: .\src\global_macros\global_macros.h
 .\objects\main.o: .\support_pacage\inc\stm32f4xx.h
 .\objects\main.o: .\src\cmsis\core_cm4.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -34,11 +35,13 @@
 .\objects\main.o: .\src\spl4\inc\stm32f4xx_dac.h
 .\objects\main.o: .\src\spl4\inc\stm32f4xx_dcmi.h
 .\objects\main.o: .\src\spl4\inc\stm32f4xx_fsmc.h
-.\objects\main.o: .\src\usart1\usart1.h
-.\objects\main.o: .\src\main\project_config.h
-.\objects\main.o: .\src\global_macros\global_macros.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\main.o: .\src\Robot\Robot.h
+.\objects\main.o: .\src\main\project_config.h
+.\objects\main.o: .\src\Pin\Pin.h
+.\objects\main.o: .\src\usart1\usart1.h
+.\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\usart2\usart2.h
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\usart3\usart3.h
@@ -51,7 +54,6 @@
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\time_service\time_service.h
 .\objects\main.o: .\src\main\project_config.h
-.\objects\main.o: src\main\project_config.h
 .\objects\main.o: .\src\Motor\Motor.h
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\SPI_1\SPI_1.h
@@ -80,4 +82,3 @@
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\Vec2b\Vec2b.h
 .\objects\main.o: .\src\main\project_config.h
-.\objects\main.o: .\src\usable\usable.h

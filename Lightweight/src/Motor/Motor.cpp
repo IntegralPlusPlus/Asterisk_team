@@ -1,5 +1,11 @@
 #include "Motor.h"
 
+Motor::Motor(Pin& in1, uint8_t channelIN1, Pin& in2, uint8_t channelIN2): _in1(in1), _in2(in2) 
+{
+	_in1.pwmInit(2048, 1, channelIN1);
+	_in2.pwmInit(2048, 1, channelIN2);
+}
+
 Motor::Motor(Pin& in1, Pin& in2): _in1(in1), _in2(in2) 
 {
 }
@@ -12,8 +18,8 @@ void Motor::go(int16_t speed) {
 	else if (speed < -p) speed = -p;
 	
 	if (speed > 0) {
-		_in1.pwm(p);//speed);
-		_in2.pwm(p - speed);//p - speed);
+		_in1.pwm(p);
+		_in2.pwm(p - speed);
 	} else {
 		_in1.pwm(p + speed);
 		_in2.pwm(p);
