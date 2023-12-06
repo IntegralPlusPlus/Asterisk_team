@@ -23,7 +23,7 @@
 
 #define IMU_CALIBRATE_TIME 10000
 //18000
-#define K_ANGLE 0.004f
+#define K_ANGLE 0.01f
 
 int main() {
 	time_service::init();
@@ -81,7 +81,7 @@ int main() {
 	while (true) {
 		ang = locator.getAngle();
 		dist = locator.getDist();
-		if (abs(dist - distOld) < 5 || distOld == -1) distSoft = 0.02f * dist + 0.98f * distSoft;
+		if (abs(dist - distOld) < 5 || distOld == -1) distSoft = 0.05f * dist + 0.95f * distSoft;
 		distOld = dist;
 		
 		gyro.read();
@@ -95,6 +95,7 @@ int main() {
 		} else if (imuCalibrated) {
 			gyro.setRotationForTarget();
 			pow = gyro.getRotation();
+			
 			
 			angRes = ang + locator.angleOffset(gyro.adduct(ang), distSoft) - 90;
 			angRes *= -1;
@@ -114,8 +115,6 @@ int main() {
 				goTo.length = double(55) / double(100);
 				goTo.angle = double(angSoft);
 				currentVector.update(goTo);
-				//currentVector.length = goTo.length;
-				//currentVector.angle = goTo.angle;
 				t = time_service::millis();
 			}
 			
