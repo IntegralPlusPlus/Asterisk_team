@@ -1,3 +1,4 @@
-Lightweight/Lightweight.uvguix.Arkady
-Lightweight/Lightweight.uvoptx
-Lightweight/EventRecorderStub.scvd
+#Keil files
+*.uvguix.Arkady
+*.uvoptx
+*.scvd
