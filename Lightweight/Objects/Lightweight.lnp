@@ -1,6 +1,5 @@
 --cpu=Cortex-M4.fp.sp
 ".\objects\main.o"
-".\objects\robot.o"
 ".\objects\vec2b.o"
 ".\objects\openmv.o"
 ".\objects\ir_locator.o"

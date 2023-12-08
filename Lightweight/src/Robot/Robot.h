@@ -98,24 +98,21 @@ namespace Robot {
 	}
 
 	void goToBall() {
+		double goToLen = 55 * 0.01; //55 * 0.01
 		if (time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) {
 			angRes = ang + locator.angleOffset(gyro.adduct(ang), distSoft) - 90;
 			angRes *= -1;
 			while (angRes < 0) angRes += 360;
 				
-			angSoft = gyro.calculateSoft(angSoft, angRes, K_ANGLE);
-			//angSoft = angRes;
-			
-			if (time_service::millis() != t) {
-				Vec2b goTo(double(55) / double(100), double(angSoft));
-				currentVector.changeTo(goTo);
-				t = time_service::millis();
-			}
-
-			//omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());	
+			angSoft = gyro.calculateSoft(angSoft, angRes, K_ANGLE);	
 		} else {
-			currentVector.length = 0;
-			currentVector.angle = 90;
+			goToLen = 0;
+		}
+		
+		if (time_service::millis() != t) {
+			Vec2b goTo(goToLen, double(angSoft));
+			currentVector.changeTo(goTo);
+			t = time_service::millis();
 		}
 		
 		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
@@ -123,6 +120,5 @@ namespace Robot {
 
 	bool calibrated() {
 		return imuCalibrated;
-	}
-	
+	}	
 }

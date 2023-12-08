@@ -31,7 +31,7 @@ int16_t IRLocator::getAngle() {
 	if (_dist < 10) _angle = 5 * getValue(ANG_CLOSE);
 	else _angle = 5 * getValue(ANG_FAR);
 		
-	_angle -= (230);
+	_angle -= 230;
 	_angle = -(360 - _angle);
 
 	_angle = adduct(_angle);

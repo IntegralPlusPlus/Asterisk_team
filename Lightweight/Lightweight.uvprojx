@@ -406,11 +406,6 @@
           <GroupName>Robot</GroupName>
           <Files>
             <File>
-              <FileName>Robot.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Robot\Robot.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Robot.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Robot\Robot.h</FilePath>
