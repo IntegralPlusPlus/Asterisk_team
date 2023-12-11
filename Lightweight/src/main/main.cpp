@@ -3,7 +3,6 @@
 
 int main() {
 	Robot::init();
-	volatile float f;
 	
 	while (true) {
 		Robot::updateSensors();

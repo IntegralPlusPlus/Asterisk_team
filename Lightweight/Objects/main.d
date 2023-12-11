@@ -80,5 +80,7 @@
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\IR_Locator\IR_Locator.h
 .\objects\main.o: .\src\main\project_config.h
+.\objects\main.o: .\src\Queues_ball\Queues_ball.h
+.\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\Vec2b\Vec2b.h
 .\objects\main.o: .\src\main\project_config.h

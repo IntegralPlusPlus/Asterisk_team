@@ -19,6 +19,7 @@
 #include "TSOP.h"
 #include "I2C.h"
 #include "IR_Locator.h"
+#include "Queues_ball.h"
 #include "Vec2b.h"
 
 #define IMU_CALIBRATE_TIME 11000
@@ -32,12 +33,17 @@ namespace Robot {
 	volatile int16_t pow;
 	volatile float angleIMU, angSoft, distSoft;
 	volatile float dist, distOld;
-	volatile int t, timeNotSeenBall;
+	volatile int t, timeNotSeenBall, timeUpdateQueue;
+	volatile int16_t x, y;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
 	I2C locatorI2C(locatorSCL, locatorSDA);
 	IRLocator locator(locatorI2C, 0x0E);
+	
+	Pin tx_openMV('B', 10, usart3);
+	Pin rx_openMV('B', 11, usart3);
+	OpenMV camera(tx_openMV, rx_openMV, 3);
 	
 	Pin tx_imu('C', 6, usart6);
 	Pin rx_imu('C', 7, usart6);
@@ -60,6 +66,9 @@ namespace Robot {
 	Motor motor4(motor4in1, 2, motor4in2, 3);
 	
 	omniplatform omni(motor3, motor4, motor2, motor1);
+	BallVec2b ball;
+	int16_t angRaw;
+	int32_t distRaw;
 
 	void init() {
 		time_service::init();
@@ -75,11 +84,21 @@ namespace Robot {
 
 		currentVector.set(double(55) / double(100), 90);
 		timeNotSeenBall = time_service::millis();
+		timeUpdateQueue = time_service::millis();
 	}
 
 	void updateSensors() {
-		ang = locator.getAngle();
-		dist = locator.getDist();
+		angRaw = locator.getAngle();
+		distRaw = locator.getDist();
+		
+		if (timeUpdateQueue != time_service::millis()) {
+			ball.push(Vec2b(angRaw, distRaw), time_service::millis());
+			timeUpdateQueue = time_service::millis();
+		}
+		
+		ang = ball.getCurrentVec2b().angle;
+		dist = ball.getCurrentVec2b().length;
+	
 		gyro.read();
 		
 		angleIMU = gyro.getCurrentAngle();
@@ -88,13 +107,13 @@ namespace Robot {
 		
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
-		
+	
 		if (!imuCalibrated && time_service::millis() - t > IMU_CALIBRATE_TIME) {
 			gyro.setZeroAngle();
 			imuCalibrated = true;
 		}
 		
-		if (dist != 0) timeNotSeenBall = time_service::millis();
+		if (distRaw != 0) timeNotSeenBall = time_service::millis();
 	}
 
 	void goToBall() {
@@ -115,7 +134,7 @@ namespace Robot {
 			t = time_service::millis();
 		}
 		
-		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
+		//omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 
 	bool calibrated() {
