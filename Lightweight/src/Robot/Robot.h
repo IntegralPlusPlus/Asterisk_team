@@ -91,14 +91,16 @@ namespace Robot {
 		angRaw = locator.getAngle();
 		distRaw = locator.getDist();
 		
-		if (timeUpdateQueue != time_service::millis()) {
-			ball.push(Vec2b(angRaw, distRaw), time_service::millis());
+		if (distRaw && timeUpdateQueue != time_service::millis()) {
+			ball.push(Vec2b(distRaw, angRaw), time_service::millis());
 			timeUpdateQueue = time_service::millis();
 		}
 		
-		ang = ball.getCurrentVec2b().angle;
-		dist = ball.getCurrentVec2b().length;
-	
+		if (distRaw) {
+			ang = ball.getCurrentVec2b().angle;
+			dist = ball.getCurrentVec2b().length;
+		}
+			
 		gyro.read();
 		
 		angleIMU = gyro.getCurrentAngle();
@@ -113,14 +115,17 @@ namespace Robot {
 			imuCalibrated = true;
 		}
 		
-		if (distRaw != 0) timeNotSeenBall = time_service::millis();
+		if (distRaw) timeNotSeenBall = time_service::millis();
 	}
-
+	
+	volatile double testRes;
 	void goToBall() {
 		double goToLen = 55 * 0.01; //55 * 0.01
 		if (time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) {
-			angRes = ang + locator.angleOffset(gyro.adduct(ang), distSoft) - 90;
-			angRes *= -1;
+			angRes = ang + locator.angleOffset(gyro.adduct(ang), distSoft) + 90;
+			testRes = angRes;
+			//angRes *= -1;
+			while (angRes > 360) angRes -= 360;
 			while (angRes < 0) angRes += 360;
 				
 			angSoft = gyro.calculateSoft(angSoft, angRes, K_ANGLE);	
@@ -134,7 +139,7 @@ namespace Robot {
 			t = time_service::millis();
 		}
 		
-		//omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
+		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 
 	bool calibrated() {

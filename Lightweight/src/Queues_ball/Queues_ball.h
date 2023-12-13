@@ -3,16 +3,21 @@
 #include "Vec2b.h"
 
 #define QUEUE_SIZE 45 
-#define MS_DELTA 10
+#define MS_DELTA 15
 
 #define STATUS_POP_ELEMENT 0
 #define STATUS_PUSH_ELEMENT 1
 
 struct Vec2bTime {
-	void set(Vec2b v, uint32_t t) {
-		this->vector.length = v.length;
-		this->vector.angle = v.angle;
+	void set(double length, double angle, uint32_t t, int16_t transition = 0) {
+		this->vector.length = length;
+		this->vector.angle = angle;
 		this->time = t;
+		this->transition = transition;
+	}
+	
+	void setTransition(int16_t transition) {
+		this->transition = transition;
 	}
 	
 	bool correct() {
@@ -31,8 +36,13 @@ struct Vec2bTime {
 		return this->time;
 	}
 	
+	int16_t getTransition() {
+		return this->transition;
+	}
+	
 	Vec2b vector;
 	uint32_t time;
+	int16_t transition;
 };
 
 class BallVec2b {
