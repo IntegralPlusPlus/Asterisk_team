@@ -44,7 +44,7 @@ I (.\src\main\project_config.h)(0x6574A2EF)
 I (.\src\usart2\usart2.h)(0x654B909B)
 I (.\src\usart3\usart3.h)(0x654B91B4)
 I (.\src\usart6\usart6.h)(0x6558A4F8)
-I (.\src\Bluetooth_module\Bluetooth_module.h)(0x657C3684)
+I (.\src\Bluetooth_module\Bluetooth_module.h)(0x657D9662)
 F (.\src\main\project_config.h)(0x6574A2EF)()
 F (.\src\main\RTE_Device.h)(0x64FF2EDB)()
 F (.\src\Vec2b\Vec2b.h)(0x6574AE0C)()
@@ -1334,8 +1334,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5E8E7502)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E7502)
 I (.\src\Vec2b\Vec2b.h)(0x6574AE0C)
 F (.\src\Queues_ball\Queues_ball.h)(0x6579CF0F)()
-F (.\src\Bluetooth_module\Bluetooth_module.cpp)(0x657C3684)(--cpp -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I .\support_pacage -I .\support_pacage\arm -I .\support_pacage\gcc\linker -I .\support_pacage\gcc -I .\support_pacage\inc -I .\src -I .\src\time_service -I .\src\usart2 -I .\src\usart3 -I .\src\usart1 -I .\src\adc -I .\src\Motor -I .\src\Pin -I .\src\dma -I .\src\PWM -I .\src\IMU_SPI -I .\src\main -I .\src\external -I .\src\SPI_DOT -I .\src\SPI_1 -I .\src\usable -I .\src\mpu9250 -I .\src\global_macros -I .\src\omniplatform -I .\src\IMU_USART -I .\src\spl4 -I .\src\spl4\inc -I .\src\spl4\src -I .\src\cmsis -I .\src\usart6 -I .\src\OpenMV -I .\src\TSOP -I .\src\I2C -I .\src\IR_Locator -I .\src\Vec2b -I .\src\Queues_ball -I .\src\Bluetooth_module-I.\RTE\_Target_1-IC:\Users\Arkady\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Arkady\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000" -DUSE_HSE-o .\objects\bluetooth_module.o --omf_browse .\objects\bluetooth_module.crf --depend .\objects\bluetooth_module.d)
-I (src\Bluetooth_module\Bluetooth_module.h)(0x657C3684)
+F (.\src\Bluetooth_module\Bluetooth_module.cpp)(0x657D96E0)(--cpp -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I .\support_pacage -I .\support_pacage\arm -I .\support_pacage\gcc\linker -I .\support_pacage\gcc -I .\support_pacage\inc -I .\src -I .\src\time_service -I .\src\usart2 -I .\src\usart3 -I .\src\usart1 -I .\src\adc -I .\src\Motor -I .\src\Pin -I .\src\dma -I .\src\PWM -I .\src\IMU_SPI -I .\src\main -I .\src\external -I .\src\SPI_DOT -I .\src\SPI_1 -I .\src\usable -I .\src\mpu9250 -I .\src\global_macros -I .\src\omniplatform -I .\src\IMU_USART -I .\src\spl4 -I .\src\spl4\inc -I .\src\spl4\src -I .\src\cmsis -I .\src\usart6 -I .\src\OpenMV -I .\src\TSOP -I .\src\I2C -I .\src\IR_Locator -I .\src\Vec2b -I .\src\Queues_ball -I .\src\Bluetooth_module-I.\RTE\_Target_1-IC:\Users\Arkady\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Arkady\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000" -DUSE_HSE-o .\objects\bluetooth_module.o --omf_browse .\objects\bluetooth_module.crf --depend .\objects\bluetooth_module.d)
+I (src\Bluetooth_module\Bluetooth_module.h)(0x657D9662)
 I (.\src\main\project_config.h)(0x6574A2EF)
 I (.\src\global_macros\global_macros.h)(0x65183317)
 I (.\support_pacage\inc\stm32f4xx.h)(0x64FF2EE0)
@@ -1378,7 +1378,7 @@ I (.\src\usart1\usart1.h)(0x654B9B20)
 I (.\src\usart2\usart2.h)(0x654B909B)
 I (.\src\usart3\usart3.h)(0x654B91B4)
 I (.\src\usart6\usart6.h)(0x6558A4F8)
-F (.\src\Bluetooth_module\Bluetooth_module.h)(0x657C3684)()
+F (.\src\Bluetooth_module\Bluetooth_module.h)(0x657D9662)()
 F (RTE/Device/STM32F407VGTx/startup_stm32f407xx.s)(0x6554D70F)(--cpu Cortex-M4.fp.sp -g --apcs=interwork -I.\RTE\_Target_1-IC:\Users\Arkady\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Arkady\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 538" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1" --pd "_RTE_ SETA 1"--list .\listings\startup_stm32f407xx.lst --xref -o .\objects\startup_stm32f407xx.o --depend .\objects\startup_stm32f407xx.d)
 F (RTE/Device/STM32F407VGTx/system_stm32f4xx.c)(0x6554D904)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I .\support_pacage -I .\support_pacage\arm -I .\support_pacage\gcc\linker -I .\support_pacage\gcc -I .\support_pacage\inc -I .\src -I .\src\time_service -I .\src\usart2 -I .\src\usart3 -I .\src\usart1 -I .\src\adc -I .\src\Motor -I .\src\Pin -I .\src\dma -I .\src\PWM -I .\src\IMU_SPI -I .\src\main -I .\src\external -I .\src\SPI_DOT -I .\src\SPI_1 -I .\src\usable -I .\src\mpu9250 -I .\src\global_macros -I .\src\omniplatform -I .\src\IMU_USART -I .\src\spl4 -I .\src\spl4\inc -I .\src\spl4\src -I .\src\cmsis -I .\src\usart6 -I .\src\OpenMV -I .\src\TSOP -I .\src\I2C -I .\src\IR_Locator -I .\src\Vec2b -I .\src\Queues_ball -I .\src\Bluetooth_module-I.\RTE\_Target_1-IC:\Users\Arkady\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Arkady\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000" -DUSE_HSE-o .\objects\system_stm32f4xx.o --omf_browse .\objects\system_stm32f4xx.crf --depend .\objects\system_stm32f4xx.d)
 I (.\support_pacage\inc\stm32f4xx.h)(0x64FF2EE0)

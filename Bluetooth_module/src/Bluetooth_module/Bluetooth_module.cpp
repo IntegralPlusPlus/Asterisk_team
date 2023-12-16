@@ -8,44 +8,80 @@ Bluetooth::Bluetooth(Pin& tx, Pin& rx, uint8_t usartNum): _tx(tx), _rx(rx)
 
 void Bluetooth::read() {
 	bool gotData = false;
-	if (_usartNumber == 1 && uart1::available() >= 6) {
+	if (_usartNumber == 1 && uart1::available() >= PACKAGE_SIZE) {
 		if (uart1::read() == 255) { //                             START  BIT
-			for (uint8_t i = 0; i < 3; ++i) _data[i] = uart1::read(); 
+			for (uint8_t i = 0; i < DATA_SIZE; ++i) _data[i] = uart1::read(); 
 			crc = uart1::read();
 			gotData = true;
 		}
-	} else if (_usartNumber == 2 && uart2::available() >= 6) {
+	} else if (_usartNumber == 2 && uart2::available() >= PACKAGE_SIZE) {
 		if (uart2::read() == 255) { //                             START  BIT
-			for (uint8_t i = 0; i < 3; ++i) _data[i] = uart2::read(); 
+			for (uint8_t i = 0; i < DATA_SIZE; ++i) _data[i] = uart2::read(); 
 			crc = uart2::read();
 			gotData = true;
 		}
-	} else if (_usartNumber == 3 && uart3::available() >= 6) {
+	} else if (_usartNumber == 3 && uart3::available() >= PACKAGE_SIZE) {
 		if (uart3::read() == 255) { //                             START  BIT
-			for (uint8_t i = 0; i < 3; ++i) _data[i] = uart3::read(); 
+			for (uint8_t i = 0; i < DATA_SIZE; ++i) _data[i] = uart3::read(); 
 			crc = uart3::read();
 			gotData = true;
 		}
-	} else if (_usartNumber == 6 && uart6::available() >= 6) {
+	} else if (_usartNumber == 6 && uart6::available() >= PACKAGE_SIZE) {
 		if (uart6::read() == 255) { //                             START  BIT
-			for (uint8_t i = 0; i < 3; ++i) _data[i] = uart6::read(); 
+			for (uint8_t i = 0; i < DATA_SIZE; ++i) _data[i] = uart6::read(); 
 			crc = uart6::read();
 			gotData = true;
 		}
 	}
 	
-	if (gotData && crc == crc8(_data, 3)) {
-		_otherX = _data[0];
-		_otherY = _data[1];
-		_otherAngle = _data[2];
+	if (gotData && crc == crc8(_data, DATA_SIZE)) {
+		_otherX = convert(_data[0], UINT8T_TO_INT16T);
+		_otherY = convert(_data[1], UINT8T_TO_INT16T);
+		_otherAngle = convert(_data[2], ANGLE_255_TO_360);
 	}
 }
 
+void Bluetooth::send(int16_t myX, int16_t myY, int16_t myAngle) {
+	volatile uint8_t package[3] = {convert(myX, INT16T_TO_UINT8T), convert(myX, INT16T_TO_UINT8T), convert(myAngle, ANGLE_360_TO_255)};
+	uint8_t crc = crc8(package, DATA_SIZE);
+	if (_usartNumber == 1) {
+		uart1::write(255);
+		for (uint8_t i = 0; i < DATA_SIZE; ++i) uart1::write(package[i]);
+		uart1::write(crc);
+	} else if (_usartNumber == 2) {
+		uart2::write(255);
+		for (uint8_t i = 0; i < DATA_SIZE; ++i) uart2::write(package[i]);
+		uart2::write(crc);
+	} else if (_usartNumber == 3) {
+		uart3::write(255);
+		for (uint8_t i = 0; i < DATA_SIZE; ++i) uart3::write(package[i]);
+		uart3::write(crc);
+	} else if (_usartNumber == 6) {
+		uart6::write(255);
+		for (uint8_t i = 0; i < DATA_SIZE; ++i) uart6::write(package[i]);
+		uart6::write(crc);
+	}
+}
+
+int16_t Bluetooth::getXBall() {
+	return _xBall;
+}
+
+int16_t Bluetooth::getYBall() {
+	return _yBall;
+}
+
+int16_t Bluetooth::convert(int16_t data, uint8_t type) {
+	if (type == ANGLE_360_TO_255) return float(data) / RECEIVED2REAL;
+	else if (type == ANGLE_255_TO_360) return float(data) * RECEIVED2REAL;
+	else if (type == UINT8T_TO_INT16T) return data / 10 + 25;
+	else if (type == INT16T_TO_UINT8T) return (data - 25) * 10;
+}
+
 void Bluetooth::ballCalculate(int16_t myX, int16_t myY, int16_t myAngle) {
-	CoordsXY myPoint1(myX, myY);
-	CoordsXY myPoint2(myX + 100.f * cos(float(myAngle) * DEG2RAD), myY + 100.f * sin(float(myAngle) * DEG2RAD));
-	CoordsXY otherRobotPoint1(_otherX, _otherY);
-	CoordsXY otherRobotPoint2(_otherX + 100.f * cos(float(_otherAngle) * DEG2RAD), _otherY + 100.f * sin(float(_otherAngle) * DEG2RAD));
+	float myTg = tan(float(myAngle) * DEG2RAD), otherTg = tan(float(myAngle) * DEG2RAD);
+	_xBall = float(myTg * float(myX) - otherTg * float(_otherX) + (_otherY - myY)) / (myTg - otherTg);
+	_yBall = myTg * float(_xBall - myX) + myY;
 }
 
 void Bluetooth::initUSART(uint8_t num) {
