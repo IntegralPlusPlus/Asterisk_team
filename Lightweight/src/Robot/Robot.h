@@ -35,6 +35,8 @@ namespace Robot {
 	volatile float dist, distOld;
 	volatile int t, timeNotSeenBall, timeUpdateQueue;
 	volatile int16_t x, y;
+	volatile int16_t angRaw;
+	volatile int32_t distRaw;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -67,8 +69,6 @@ namespace Robot {
 	
 	omniplatform omni(motor3, motor4, motor2, motor1);
 	BallVec2b ball;
-	int16_t angRaw;
-	int32_t distRaw;
 
 	void init() {
 		time_service::init();

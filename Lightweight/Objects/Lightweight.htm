@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Lightweight.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Lightweight.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Dec 13 18:16:33 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Dec 19 17:11:01 2023
 <BR><P>
 <H3>Maximum Stack Usage =        472 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -681,15 +681,15 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[a6]"></a>RCC_APB1PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(i.RCC_APB1PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::RCC_ClockCmd()
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
+<BR><BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::RCC_ClockCmd()
 </UL>
 
 <P><STRONG><a name="[a5]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(i.RCC_APB2PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::RCC_ClockCmd()
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::usart6Init(unsigned, float, unsigned char)
+<BR><BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::usart6Init(unsigned, float, unsigned char)
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::usart1Init(unsigned, float, unsigned char)
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::RCC_ClockCmd()
 </UL>
 
 <P><STRONG><a name="[88]"></a>RCC_GetClocksFreq</STRONG> (Thumb, 214 bytes, Stack size 20 bytes, stm32f4xx_rcc.o(i.RCC_GetClocksFreq))
@@ -1046,7 +1046,7 @@ Global Symbols
 
 <P><STRONG><a name="[167]"></a>I2C::I2C__sub_object(Pin&, Pin&)</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, i2c.o(i._ZN3I2CC1ER3PinS1_), UNUSED)
 
-<P><STRONG><a name="[a4]"></a>Pin::RCC_ClockCmd()</STRONG> (Thumb, 256 bytes, Stack size 8 bytes, pin.o(i._ZN3Pin12RCC_ClockCmdEv))
+<P><STRONG><a name="[a4]"></a>Pin::RCC_ClockCmd()</STRONG> (Thumb, 256 bytes, Stack size 8 bytes, pin_1.o(i._ZN3Pin12RCC_ClockCmdEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Pin::RCC_ClockCmd()
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
@@ -1055,15 +1055,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::pwmInit(short, unsigned, unsigned char)
 </UL>
 
-<P><STRONG><a name="[ba]"></a>Pin::setTimParams(unsigned short)</STRONG> (Thumb, 198 bytes, Stack size 0 bytes, pin.o(i._ZN3Pin12setTimParamsEt))
+<P><STRONG><a name="[ba]"></a>Pin::setTimParams(unsigned short)</STRONG> (Thumb, 198 bytes, Stack size 0 bytes, pin_1.o(i._ZN3Pin12setTimParamsEt))
 <BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::Pin(char, unsigned char, unsigned short)
 </UL>
 
-<P><STRONG><a name="[bb]"></a>Pin::setAFforUSART(unsigned short)</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, pin.o(i._ZN3Pin13setAFforUSARTEt))
+<P><STRONG><a name="[bb]"></a>Pin::setAFforUSART(unsigned short)</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, pin_1.o(i._ZN3Pin13setAFforUSARTEt))
 <BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::Pin(char, unsigned char, unsigned short)
 </UL>
 
-<P><STRONG><a name="[a7]"></a>Pin::pwm(unsigned)</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, pin.o(i._ZN3Pin3pwmEj))
+<P><STRONG><a name="[a7]"></a>Pin::pwm(unsigned)</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, pin_1.o(i._ZN3Pin3pwmEj))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Pin::pwm(unsigned)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare4
@@ -1074,11 +1074,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor::go(short)
 </UL>
 
-<P><STRONG><a name="[a2]"></a>Pin::getPin()</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, pin.o(i._ZN3Pin6getPinEv))
+<P><STRONG><a name="[a2]"></a>Pin::getPin()</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, pin_1.o(i._ZN3Pin6getPinEv))
 <BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C::sdaRead()
 </UL>
 
-<P><STRONG><a name="[a0]"></a>Pin::setBit()</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, pin.o(i._ZN3Pin6setBitEv))
+<P><STRONG><a name="[a0]"></a>Pin::setBit()</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, pin_1.o(i._ZN3Pin6setBitEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Pin::setBit()
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
@@ -1087,35 +1087,35 @@ Global Symbols
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C::sclHigh()
 </UL>
 
-<P><STRONG><a name="[b8]"></a>Pin::setPin(unsigned char)</STRONG> (Thumb, 204 bytes, Stack size 0 bytes, pin.o(i._ZN3Pin6setPinEh))
+<P><STRONG><a name="[b8]"></a>Pin::setPin(unsigned char)</STRONG> (Thumb, 204 bytes, Stack size 0 bytes, pin_1.o(i._ZN3Pin6setPinEh))
 <BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::Pin(char, unsigned char, unsigned short)
 </UL>
 
-<P><STRONG><a name="[ad]"></a>Pin::pwmInit(short, unsigned, unsigned char)</STRONG> (Thumb, 260 bytes, Stack size 40 bytes, pin.o(i._ZN3Pin7pwmInitEsjh))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Pin::pwmInit(short, unsigned, unsigned char) &rArr; TIM_OC3Init
+<P><STRONG><a name="[ad]"></a>Pin::pwmInit(short, unsigned, unsigned char)</STRONG> (Thumb, 260 bytes, Stack size 40 bytes, pin_1.o(i._ZN3Pin7pwmInitEsjh))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Pin::pwmInit(short, unsigned, unsigned char) &rArr; TIM_OC4Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC3Init
+<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC4Init
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC3Init
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2Init
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1Init
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_CtrlPWMOutputs
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_BDTRConfig
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::RCC_ClockCmd()
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC4Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor::Motor(Pin&, unsigned char, Pin&, unsigned char)
 </UL>
 
-<P><STRONG><a name="[b9]"></a>Pin::setGPIO(char)</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, pin.o(i._ZN3Pin7setGPIOEc))
+<P><STRONG><a name="[b9]"></a>Pin::setGPIO(char)</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, pin_1.o(i._ZN3Pin7setGPIOEc))
 <BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::Pin(char, unsigned char, unsigned short)
 </UL>
 
-<P><STRONG><a name="[a1]"></a>Pin::getGPIOx()</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, pin.o(i._ZN3Pin8getGPIOxEv))
+<P><STRONG><a name="[a1]"></a>Pin::getGPIOx()</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, pin_1.o(i._ZN3Pin8getGPIOxEv))
 <BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C::sdaRead()
 </UL>
 
-<P><STRONG><a name="[9e]"></a>Pin::resetBit()</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, pin.o(i._ZN3Pin8resetBitEv))
+<P><STRONG><a name="[9e]"></a>Pin::resetBit()</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, pin_1.o(i._ZN3Pin8resetBitEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Pin::resetBit()
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
@@ -1124,12 +1124,12 @@ Global Symbols
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C::sclLow()
 </UL>
 
-<P><STRONG><a name="[bf]"></a>Pin::getPeriod()</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, pin.o(i._ZN3Pin9getPeriodEv))
+<P><STRONG><a name="[bf]"></a>Pin::getPeriod()</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, pin_1.o(i._ZN3Pin9getPeriodEv))
 <BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor::go(short)
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor::getMaxSpeed()
 </UL>
 
-<P><STRONG><a name="[b7]"></a>Pin::Pin(char, unsigned char, unsigned short)</STRONG> (Thumb, 526 bytes, Stack size 32 bytes, pin.o(i._ZN3PinC1Echt))
+<P><STRONG><a name="[b7]"></a>Pin::Pin(char, unsigned char, unsigned short)</STRONG> (Thumb, 526 bytes, Stack size 32 bytes, pin_1.o(i._ZN3PinC1Echt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = Pin::Pin(char, unsigned char, unsigned short) &rArr; GPIO_PinAFConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
@@ -1143,7 +1143,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_635db6cf
 </UL>
 
-<P><STRONG><a name="[168]"></a>Pin::Pin__sub_object(char, unsigned char, unsigned short)</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, pin.o(i._ZN3PinC1Echt), UNUSED)
+<P><STRONG><a name="[168]"></a>Pin::Pin__sub_object(char, unsigned char, unsigned short)</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, pin_1.o(i._ZN3PinC1Echt), UNUSED)
 
 <P><STRONG><a name="[8a]"></a>Motor::getMaxSpeed()</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, motor.o(i._ZN5Motor11getMaxSpeedEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Motor::getMaxSpeed()
@@ -1163,7 +1163,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c0]"></a>Motor::Motor(Pin&, unsigned char, Pin&, unsigned char)</STRONG> (Thumb, 70 bytes, Stack size 24 bytes, motor.o(i._ZN5MotorC1ER3PinhS1_h))
-<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = Motor::Motor(Pin&, unsigned char, Pin&, unsigned char) &rArr; Pin::pwmInit(short, unsigned, unsigned char) &rArr; TIM_OC3Init
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = Motor::Motor(Pin&, unsigned char, Pin&, unsigned char) &rArr; Pin::pwmInit(short, unsigned, unsigned char) &rArr; TIM_OC4Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::pwmInit(short, unsigned, unsigned char)
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
@@ -1256,8 +1256,8 @@ Global Symbols
 <P><STRONG><a name="[16a]"></a>Vec2b::Vec2b__sub_object(double, double)</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, vec2b.o(i._ZN5Vec2bC1Edd), UNUSED)
 
 <P><STRONG><a name="[10a]"></a>Vec2b::Vec2b()</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, vec2b.o(i._ZN5Vec2bC1Ev))
-<BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_635db6cf
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::Vec2bTime()
+<BR><BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::Vec2bTime()
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_635db6cf
 </UL>
 
 <P><STRONG><a name="[16b]"></a>Vec2b::Vec2b__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, vec2b.o(i._ZN5Vec2bC1Ev), UNUSED)
@@ -1265,11 +1265,11 @@ Global Symbols
 <P><STRONG><a name="[e1]"></a>uart1::usart1Init(unsigned, float, unsigned char)</STRONG> (Thumb, 308 bytes, Stack size 48 bytes, usart1.o(i._ZN5uart110usart1InitEjfh))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = uart1::usart1Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_StructInit
+<BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_StructInit
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 </UL>
@@ -1288,11 +1288,11 @@ Global Symbols
 <P><STRONG><a name="[e6]"></a>uart2::usart2Init(unsigned, float, unsigned char)</STRONG> (Thumb, 308 bytes, Stack size 48 bytes, usart2.o(i._ZN5uart210usart2InitEjfh))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = uart2::usart2Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_StructInit
+<BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_StructInit
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 </UL>
@@ -1311,11 +1311,11 @@ Global Symbols
 <P><STRONG><a name="[e7]"></a>uart3::usart3Init(unsigned, float, unsigned char)</STRONG> (Thumb, 308 bytes, Stack size 48 bytes, usart3.o(i._ZN5uart310usart3InitEjfh))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = uart3::usart3Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_StructInit
+<BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_StructInit
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 </UL>
@@ -1334,11 +1334,11 @@ Global Symbols
 <P><STRONG><a name="[e8]"></a>uart6::usart6Init(unsigned, float, unsigned char)</STRONG> (Thumb, 308 bytes, Stack size 48 bytes, usart6.o(i._ZN5uart610usart6InitEjfh))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = uart6::usart6Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_StructInit
+<BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_StructInit
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 </UL>
@@ -1444,13 +1444,13 @@ Global Symbols
 <P><STRONG><a name="[f5]"></a>BallVec2b::changeValues(bool)</STRONG> (Thumb, 750 bytes, Stack size 80 bytes, queues_ball.o(i._ZN9BallVec2b12changeValuesEb))
 <BR><BR>[Stack]<UL><LI>Max Depth = 368<LI>Call Chain = BallVec2b::changeValues(bool) &rArr; std::pow(double, int) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(double, int)
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(double, int)
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::getAngle()
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::getTime()
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::getLen()
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, unsigned)
 </UL>
@@ -1466,12 +1466,12 @@ Global Symbols
 <P><STRONG><a name="[fa]"></a>BallVec2b::setTransitionBy360()</STRONG> (Thumb, 262 bytes, Stack size 40 bytes, queues_ball.o(i._ZN9BallVec2b18setTransitionBy360Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = BallVec2b::setTransitionBy360() &rArr; Vec2bTime::correct() &rArr; __aeabi_cdcmpeq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
+<BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::getAngle()
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::correct()
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::getAngle()
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::correct()
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, unsigned)
 </UL>
@@ -1479,16 +1479,16 @@ Global Symbols
 <P><STRONG><a name="[c7]"></a>BallVec2b::push(Vec2b, unsigned)</STRONG> (Thumb, 308 bytes, Stack size 56 bytes, queues_ball.o(i._ZN9BallVec2b4pushE5Vec2bj))
 <BR><BR>[Stack]<UL><LI>Max Depth = 424<LI>Call Chain = BallVec2b::push(Vec2b, unsigned) &rArr; BallVec2b::calculate() &rArr; std::pow(double, int) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
-<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::getTime()
+<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::getTime()
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::correct()
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::set(double, double, unsigned, short)
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::changeValues(bool)
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
+<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot::updateSensors()
 </UL>
@@ -1507,16 +1507,16 @@ Global Symbols
 <P><STRONG><a name="[ff]"></a>BallVec2b::calculate()</STRONG> (Thumb, 1186 bytes, Stack size 80 bytes, queues_ball.o(i._ZN9BallVec2b9calculateEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 368<LI>Call Chain = BallVec2b::calculate() &rArr; std::pow(double, int) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(double, int)
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(double, int)
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::getAngle()
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::getTime()
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::getLen()
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::adduct(double)
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, unsigned)
 </UL>
@@ -1524,8 +1524,8 @@ Global Symbols
 <P><STRONG><a name="[102]"></a>BallVec2b::BallVec2b()</STRONG> (Thumb, 148 bytes, Stack size 16 bytes, queues_ball.o(i._ZN9BallVec2bC1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = BallVec2b::BallVec2b() &rArr; __aeabi_vec_ctor_nocookie_nodtor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_vec_ctor_nocookie_nodtor
-<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::set(double, double, unsigned, short)
+<BR>[Calls]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::set(double, double, unsigned, short)
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_vec_ctor_nocookie_nodtor
 </UL>
 <BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_635db6cf
 </UL>
@@ -1612,14 +1612,14 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, unsigned)
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
+<BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, unsigned)
 </UL>
 
 <P><STRONG><a name="[f8]"></a>Vec2bTime::getTime()</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, queues_ball.o(i._ZN9Vec2bTime7getTimeEv))
-<BR><BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, unsigned)
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
+<BR><BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::changeValues(bool)
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, unsigned)
 </UL>
 
 <P><STRONG><a name="[f9]"></a>Vec2bTime::getAngle()</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, queues_ball.o(i._ZN9Vec2bTime8getAngleEv))
@@ -1744,8 +1744,8 @@ Global Symbols
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_divzero
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::angleOffset(float, float)
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(double, int)
+<BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(double, int)
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::angleOffset(float, float)
 </UL>
 
 <P><STRONG><a name="[d9]"></a>__hardfp_sin</STRONG> (Thumb, 180 bytes, Stack size 32 bytes, sin.o(i.__hardfp_sin))
@@ -1993,12 +1993,12 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_dadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::convertDist(double)
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, unsigned)
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::adduct(double)
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::changeValues(bool)
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, unsigned)
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
@@ -2028,10 +2028,10 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_ddiv
 </UL>
 <BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::convertDist(double)
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_invalid
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_divzero
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan
@@ -2049,9 +2049,9 @@ Global Symbols
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::usart1Init(unsigned, float, unsigned char)
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::correct()
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 </UL>
 
 <P><STRONG><a name="[12c]"></a>_dcmpeq</STRONG> (Thumb, 120 bytes, Stack size 32 bytes, deqf.o(x$fpl$deqf), UNUSED)
@@ -2072,11 +2072,11 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c5]"></a>__aeabi_i2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt))
-<BR><BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, unsigned)
+<BR><BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(double, int)
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::changeValues(bool)
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, unsigned)
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot::updateSensors()
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(double, int)
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::changeValues(bool)
 <LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>
 
@@ -2093,9 +2093,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_cdcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::convertDist(double)
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::adduct(double)
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
 </UL>
 
 <P><STRONG><a name="[12f]"></a>_dcmple</STRONG> (Thumb, 120 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf), UNUSED)
@@ -2110,12 +2110,12 @@ Global Symbols
 <P><STRONG><a name="[8c]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::angleOffset(float, float)
+<BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::changeValues(bool)
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::angleOffset(float, float)
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;omniplatform::move(float, float, float, float, float)
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::changeValues(bool)
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
@@ -2155,11 +2155,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_cdrcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::convertDist(double)
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::adduct(double)
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::angleOffset(float, float)
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::adduct(double)
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
 </UL>
 
 <P><STRONG><a name="[131]"></a>_drcmple</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf), UNUSED)
@@ -2196,12 +2196,12 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::convertDist(double)
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::adduct(double)
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
