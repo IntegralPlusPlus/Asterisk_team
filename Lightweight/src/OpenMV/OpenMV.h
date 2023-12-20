@@ -19,10 +19,11 @@ class OpenMV {
 		void initUSART(uint8_t num);
 		int16_t adduct(int16_t ang);
 		uint8_t crc8(volatile uint8_t* data, uint8_t len);
-		//uint8_t crc8(uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4);
 		int16_t getX();
 		int16_t getY();
-	//private:
+		int16_t getDistYellow();
+		int16_t getDistBlue();
+	private:
 		int16_t _x, _y;
 		volatile int16_t _distBlue, _distYellow, _angleBlue, _angleYellow;
 		uint8_t _usartNumber, crc;

@@ -18,9 +18,13 @@ class ProcessingCoord {
 	public:
 		ProcessingCoord(uint8_t currentGoal);
 		Vec2b ñheckOUTs(Vec2b current);
-		void setParams(int16_t x, int16_t y, int16_t angle);
+		Vec2b getVecForMyCircle(int16_t x, int16_t y);
+		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
+		void setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow);
 		int16_t adduction(int16_t value);
-		int16_t getIMUTarget();
+		int16_t getTargetForIMU();
+		bool isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
+		bool isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool checkXLeft(int16_t x);
 		bool checkXRight(int16_t x);
 		bool checkYUp(int16_t y);
@@ -30,7 +34,8 @@ class ProcessingCoord {
 	private:
 		Vec2b _leftFast, _rightFast;
 		Vec2b _upFast, _downFast;
-		int16_t targetIMU;
+		int16_t _targetIMU;
 		int16_t _x, _y, _angle;
+		int16_t _dBlue, _dYellow;
 		uint8_t _goal;
 };
