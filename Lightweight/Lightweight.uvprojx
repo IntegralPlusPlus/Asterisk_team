@@ -413,6 +413,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Processing_coord</GroupName>
+          <Files>
+            <File>
+              <FileName>Processing_coord.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Processing_coord\Processing_coord.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Processing_coord.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Processing_coord\Processing_coord.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Vec2b</GroupName>
           <Files>
             <File>
@@ -439,21 +454,6 @@
               <FileName>Queues_ball.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Queues_ball\Queues_ball.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Processing_coord</GroupName>
-          <Files>
-            <File>
-              <FileName>Processing_coord.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Processing_coord\Processing_coord.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Processing_coord.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Processing_coord\Processing_coord.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -503,12 +503,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>usable</GroupName>
+          <GroupName>IMU_USART</GroupName>
           <Files>
             <File>
-              <FileName>usable.h</FileName>
+              <FileName>IMU_USART.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\usable\usable.h</FilePath>
+              <FilePath>.\src\IMU_USART\IMU_USART.h</FilePath>
+            </File>
+            <File>
+              <FileName>IMU_USART.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\IMU_USART\IMU_USART.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -524,6 +529,41 @@
               <FileName>TSOP.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\TSOP\TSOP.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>IMU_SPI</GroupName>
+          <Files>
+            <File>
+              <FileName>IMU_SPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\IMU_SPI\IMU_SPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>IMU_SPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\IMU_SPI\IMU_SPI.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>mpu9250</GroupName>
+          <Files>
+            <File>
+              <FileName>mpu9250_registers_spi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\mpu9250\mpu9250_registers_spi.h</FilePath>
+            </File>
+            <File>
+              <FileName>mpu9250_spi.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\mpu9250\mpu9250_spi.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>mpu9250_spi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\mpu9250\mpu9250_spi.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -558,17 +598,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>IMU_USART</GroupName>
+          <GroupName>Motor</GroupName>
           <Files>
             <File>
-              <FileName>IMU_USART.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\IMU_USART\IMU_USART.h</FilePath>
+              <FileName>Motor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Motor\Motor.cpp</FilePath>
             </File>
             <File>
-              <FileName>IMU_USART.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\IMU_USART\IMU_USART.cpp</FilePath>
+              <FileName>Motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Motor\Motor.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -678,36 +718,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Motor</GroupName>
-          <Files>
-            <File>
-              <FileName>Motor.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Motor\Motor.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Motor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Motor\Motor.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>IMU_SPI</GroupName>
-          <Files>
-            <File>
-              <FileName>IMU_SPI.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\IMU_SPI\IMU_SPI.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>IMU_SPI.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\IMU_SPI\IMU_SPI.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>SPI_DOT</GroupName>
           <Files>
             <File>
@@ -738,32 +748,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>mpu9250</GroupName>
-          <Files>
-            <File>
-              <FileName>mpu9250_registers_spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\mpu9250\mpu9250_registers_spi.h</FilePath>
-            </File>
-            <File>
-              <FileName>mpu9250_spi.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\mpu9250\mpu9250_spi.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>mpu9250_spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\mpu9250\mpu9250_spi.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>global_macros</GroupName>
           <Files>
             <File>
               <FileName>global_macros.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\global_macros\global_macros.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>usable</GroupName>
+          <Files>
+            <File>
+              <FileName>usable.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\usable\usable.h</FilePath>
             </File>
           </Files>
         </Group>
