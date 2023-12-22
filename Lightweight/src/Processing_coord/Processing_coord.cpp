@@ -1,13 +1,16 @@
 #include "Processing_coord.h"
 
-ProcessingCoord::ProcessingCoord(uint8_t currentGoal) {
-	_goal = currentGoal;
+ProcessingCoord::ProcessingCoord() {
 	_targetIMU = 0;
 	
 	_leftFast.set(1, 0);
 	_rightFast.set(1, 180);
 	_upFast.set(1, 90);
 	_downFast.set(1, 270);
+}
+
+void ProcessingCoord::setGoal(uint8_t currentGoal) {
+	_goal = currentGoal;
 }
 
 Vec2b ProcessingCoord::ñheckOUTs(Vec2b current) {
@@ -38,7 +41,7 @@ void ProcessingCoord::setParams(int16_t x, int16_t y, int16_t angle, int16_t dBl
 	_downFast.set(1, 270 - angle);
 }
 
-int16_t ProcessingCoord::adduction(int16_t value) {
+int16_t ProcessingCoord::adduct(int16_t value) {
 	while (value < 0) value += 360;
 	while (value > 360) value -= 360;
 	
@@ -52,7 +55,7 @@ int16_t ProcessingCoord::getTargetForIMU() {
 
 Vec2b ProcessingCoord::getVecForEnemyCircle(int16_t x, int16_t y) {
 	float ang = atan2(float(DIST_BETWEEN_GOALS - y), float(x)) * RAD2DEG;
-	return Vec2b(1, adduction(-ang));
+	return Vec2b(1, adduct(-ang));
 }
 
 bool ProcessingCoord::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
@@ -67,7 +70,7 @@ bool ProcessingCoord::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int
 
 Vec2b ProcessingCoord::getVecForMyCircle(int16_t x, int16_t y) {
 	float ang = atan2(float(y), float(x)) * RAD2DEG;
-	return Vec2b(1, adduction(ang));
+	return Vec2b(1, adduct(ang));
 }
 
 bool ProcessingCoord::isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {

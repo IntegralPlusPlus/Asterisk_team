@@ -84,3 +84,5 @@
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\Vec2b\Vec2b.h
 .\objects\main.o: .\src\main\project_config.h
+.\objects\main.o: .\src\Processing_coord\Processing_coord.h
+.\objects\main.o: .\src\main\project_config.h

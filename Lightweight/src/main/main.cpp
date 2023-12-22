@@ -2,7 +2,7 @@
 #include "Robot.h"
 
 int main() {
-	Robot::init();
+	Robot::init(BLUE_GOAL);
 	
 	while (true) {
 		Robot::updateSensors();

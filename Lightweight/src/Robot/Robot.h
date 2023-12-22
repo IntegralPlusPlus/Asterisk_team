@@ -20,6 +20,7 @@
 #include "I2C.h"
 #include "IR_Locator.h"
 #include "Queues_ball.h"
+#include "Processing_coord.h"
 #include "Vec2b.h"
 
 #define IMU_CALIBRATE_TIME 11000
@@ -37,6 +38,7 @@ namespace Robot {
 	volatile int16_t x, y;
 	volatile int16_t angRaw;
 	volatile int32_t distRaw;
+	volatile uint8_t myGoal;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -46,6 +48,7 @@ namespace Robot {
 	Pin tx_openMV('B', 10, usart3);
 	Pin rx_openMV('B', 11, usart3);
 	OpenMV camera(tx_openMV, rx_openMV, 3);
+	ProcessingCoord processXY;
 	
 	Pin tx_imu('C', 6, usart6);
 	Pin rx_imu('C', 7, usart6);
@@ -70,7 +73,8 @@ namespace Robot {
 	omniplatform omni(motor3, motor4, motor2, motor1);
 	BallVec2b ball;
 
-	void init() {
+	void init(uint8_t goal) {
+		myGoal = goal;
 		time_service::init();
 		time_service::startTime();
 		time_service::delay(100);
@@ -85,9 +89,11 @@ namespace Robot {
 		currentVector.set(double(55) / double(100), 90);
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
+		processXY.setGoal(myGoal);
 	}
 
 	void updateSensors() {
+		camera.read();
 		angRaw = locator.getAngle();
 		distRaw = locator.getDist();
 		
@@ -100,12 +106,16 @@ namespace Robot {
 			ang = ball.getCurrentVec2b().angle;
 			dist = ball.getCurrentVec2b().length;
 		}
-			
-		gyro.read();
 		
-		angleIMU = gyro.getCurrentAngle();
 		if (abs(dist - distOld) < 3 || distOld == -1) distSoft = 0.03f * dist + 0.97f * distSoft;
 		distOld = dist;
+			
+		gyro.read();
+		angleIMU = gyro.getCurrentAngle();
+		
+		camera.calculate(angleIMU, myGoal);
+		x = camera.getX();
+		y = camera.getY();
 		
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
@@ -120,11 +130,13 @@ namespace Robot {
 	
 	volatile double testRes;
 	void goToBall() {
+		processXY.setParams(x, y, angleIMU, camera.getDistBlue(), camera.getDistYellow());
+		
 		double goToLen = 55 * 0.01; //55 * 0.01
 		if (time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) {
 			angRes = ang + locator.angleOffset(gyro.adduct(ang), distSoft) + 90;
 			testRes = angRes;
-			//angRes *= -1;
+			
 			while (angRes > 360) angRes -= 360;
 			while (angRes < 0) angRes += 360;
 				
@@ -138,6 +150,8 @@ namespace Robot {
 			currentVector.changeTo(goTo);
 			t = time_service::millis();
 		}
+		
+		currentVector = processXY.ñheckOUTs(currentVector);
 		
 		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
