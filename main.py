@@ -1,10 +1,20 @@
 import sensor, utime, image, time, pyb, math
 from pyb import UART
 
-EXPOSURE_TIME_SCALE = 0.75
+EXPOSURE_TIME_SCALE = 0.8
 
 def setup():
     sensor.reset()
+    sensor.set_pixformat(sensor.RGB565)
+    sensor.set_framesize(sensor.QVGA)
+    sensor.set_auto_gain(True)
+    sensor.set_auto_whitebal(True)
+    sensor.set_auto_exposure(True)
+    current_exposure_time_in_microseconds =  sensor.get_exposure_us()
+    sensor.set_auto_exposure(True, exposure_us = int(current_exposure_time_in_microseconds* EXPOSURE_TIME_SCALE))
+    clock = time.clock()
+    sensor.skip_frames(time = 500)
+
     sensor.set_pixformat(sensor.RGB565)
     sensor.set_framesize(sensor.QVGA)
     sensor.set_auto_gain(False)
@@ -15,52 +25,50 @@ def setup():
     sensor.skip_frames(time = 1000)
 
 def dist(x0, y0, x1, y1):
-    return math.sqrt((x0 - x1)*(x0 - x1) + (y0 - y1)*(y0 - y1))
+    return math.sqrt((x0 - x1)**2 + (y0 - y1)**2)
 
-arr = [[127, 185],
-       [124, 180],
-       [122, 175],
-       [121, 170],
-       [120, 164],
-       [119, 150],
-       [118, 140],
-       [117, 135],
-       [116, 133],
-       [115, 127],
-       [114, 122],
-       [113, 114],
-       [112, 111],
-       [111, 106],
-       [110, 105],
-       [109, 103],
-       [108, 98],
-       [105, 93],
-       [104, 88],
-       [102, 83],
-       [100, 78],
-       [98, 73],
-       [94, 68],
-       [92, 63],
-       [89, 58],
-       [85, 53],
-       [80, 48],
-       [73, 43],
-       [68, 38],
-       [62, 33],
-       [56, 28],
-       [48, 23],
-       [40, 18],
-       [27, 13]]
+#       pix  sm
+arr = [[20, 9],
+       [29, 14],
+       [44, 19],
+       [53, 24],
+       [72, 29],
+       [76, 34],
+       [79, 39],
+       [82, 44],
+       [85, 49],
+       [88, 54],
+       [90, 59],
+       [93, 64],
+       [94, 69],
+       [97, 74],
+       [99, 79],
+       [100, 84],
+       [101, 89],
+       [103, 94],
+       [105, 99],
+       [106, 104],
+       [107, 109],
+       [108, 114],
+       [109, 120],
+       [110, 126],
+       [111, 131],
+       [112, 141],
+       [113, 147],
+       [114, 157],
+       [115, 175],
+       [116, 199],
+       [117, 217]]
 
 uart = UART(3, 115200, timeout = 100, timeout_char = 100)
 uart.init(115200, bits = 8, parity = False, stop = 1, timeout_char = 100)
-threshold_yellow = (38, 100, -128, 127, 50, 126)#(38, 100, -128, 127, 38, 125)
-threshold_blue = (10, 45, -34, 3, -128, -7)
-x0 = 161#162 #161
-y0 = 147#117 #147
-r0 = 140#90 #140
+threshold_yellow = (41, 100, -29, 127, 23, 127)#(38, 100, -128, 127, 50, 126)#(38, 100, -128, 127, 38, 125)
+threshold_blue = (10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
+x0 = 184 #162 #161
+y0 = 119 #117#117 #147
+r0 = 125#90 #140
 
-def crc8(data, len): #function that calculates check sum
+def crc8(data, len):
     crc = 0xFF
     j = 0
     for i in range(0, len):
@@ -73,7 +81,7 @@ def crc8(data, len): #function that calculates check sum
     return crc
 
 data = bytearray(5)
-def send_data(num1, num2, num3, num4):
+def send_uart(num1, num2, num3, num4):
     uart.writechar(255)
     num1 = int(num1)
     num2 = int(num2)
@@ -104,7 +112,7 @@ def toDistance(pix):
     ind = -1
     count = 0
     for element in arr:
-        if pix >= element[0]:
+        if pix <= element[0]:
             ind = count
             break
         count += 1
@@ -114,9 +122,7 @@ def toDistance(pix):
     elif ind == 0:
         ind = 1
 
-    #print(arr[ind - 1][0], arr[ind - 1][1])
     (k, b) = getLine(arr[ind - 1][0], arr[ind - 1][1], arr[ind][0], arr[ind][1])
-    #print(k, b)
 
     return k * pix + b
 
@@ -144,7 +150,7 @@ while(True):
     alphaY = 0
 
     #####################################################FIND_BLOBS
-    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 40, pixel_threshold = 880):
+    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 20, pixel_threshold = 880):
         if blobY != False:
             if blobY.area() < yb.area():
                 blobY = yb
@@ -153,12 +159,11 @@ while(True):
 
     if blobY != False:
         img.draw_rectangle(blobY.x(), blobY.y(), blobY.w(), blobY.h(), thickness = 2)
-        yellow = (blobY.cx(), blobY.cy())
+        yellow = (blobY.x()  + blobY.w() / 2, blobY.y() + blobY.h() / 2)
         img.draw_line(int(x0), int(y0), int(yellow[0]), int(yellow[1]), thickness = 2)
         pixY = dist(x0, y0, yellow[0], yellow[1])
-        #print("Y:", pixY, "\t", end = '')
 
-    for bb in img.find_blobs([threshold_blue], merge = True, margin = 40, pixel_threshold = 880):
+    for bb in img.find_blobs([threshold_blue], merge = True, margin = 20, pixel_threshold = 880):
         if blobB != False:
             if blobB.area() < bb.area():
                 blobB = bb
@@ -167,12 +172,12 @@ while(True):
 
     if blobB != False:
         img.draw_rectangle(blobB.x(), blobB.y(), blobB.w(), blobB.h(), thickness = 2)
-        blue = (blobB.cx(), blobB.cy())
+        blue = (blobB.x()  + blobB.w() / 2, blobB.y() + blobB.h() / 2)
         img.draw_line(int(x0), int(y0), int(blue[0]), int(blue[1]), thickness = 2)
         pixB = dist(x0, y0, blue[0], blue[1])
-        #print("B:", pixB, " ", end = '')
     #####################################################END_FIND
-    #print()
+
+    #print(pixB, "\t", pixY)
 
     if blobY:
         distY = toDistance(pixY)
@@ -183,5 +188,7 @@ while(True):
 
     alphaY = adduction(alphaY)
     alphaB = adduction(alphaB)
-    #####################################################CRC__SEND_UART
-    send_data(distB, alphaB / 2, distY, alphaY / 2)
+    dataN = (pixB, distB, alphaB / 2, pixY, distY, alphaY / 2)
+    #print(pixB, end = " ")
+
+    send_uart(distB, alphaB / 2, distY, alphaY / 2)
