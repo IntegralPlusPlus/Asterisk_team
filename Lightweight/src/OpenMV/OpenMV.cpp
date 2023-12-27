@@ -42,24 +42,27 @@ void OpenMV::read() {
 	
 	if (gotData && crc == crc8(data, 4)) {
 		_distBlue = data[0];
-		_angleBlue = adduct(2 * data[1]);
+		_angleBlue = adductionMV(2 * data[1]);
 		_distYellow = data[2];
-		_angleYellow = adduct(2 * data[3]);
+		_angleYellow = adductionMV(2 * data[3]);
 	}
 }
 
 void OpenMV::calculate(int16_t robotAngle, bool goal) {
 	float xYellow, yYellow, xBlue, yBlue;
-	if (goal == BLUE_GOAL) robotAngle = adduct(robotAngle + 180);
+	float angBlueWithIMU, angYellowWithIMU; 
+	if (goal == BLUE_GOAL) robotAngle = adductionMV(robotAngle + 180);
 	
-	_angleBlue += robotAngle;
-	_angleYellow += robotAngle;
+	angBlueWithIMU = adductionMV(_angleBlue + robotAngle);
+	angYellowWithIMU = adductionMV(_angleYellow + robotAngle);
 	
-	xYellow = float(_distYellow) * -sin(float(_angleYellow) * DEG2RAD); 
-	yYellow = float(_distYellow) * cos(float(_angleYellow) * DEG2RAD);
-	xBlue = float(_distBlue) * -sin(float(180 - _angleBlue) * DEG2RAD); 
-	yBlue = DIST_BETWEEN_GOALS - float(_distBlue) * cos(float(180 - _angleBlue) * DEG2RAD);
+	xYellow = float(_distYellow) * -sin(angYellowWithIMU * DEG2RAD); 
+	yYellow = float(_distYellow) * cos(angYellowWithIMU * DEG2RAD);
+	xBlue = float(_distBlue) * -sin((180 - angBlueWithIMU) * DEG2RAD); 
+	yBlue = DIST_BETWEEN_GOALS - float(_distBlue) * abs(cos((180 - angBlueWithIMU) * DEG2RAD));
 	
+	//_x = xBlue;
+	//_y = yBlue;
 	if (yYellow * xYellow * yBlue * xBlue != 0) {
 		_x = (1/yYellow * xYellow + 1/yBlue * xBlue) / (1/yYellow + 1/yBlue);
 		_y = (1/xYellow * yYellow + 1/xBlue * yBlue) / (1/xYellow + 1/xBlue);
@@ -75,8 +78,9 @@ void OpenMV::calculate(int16_t robotAngle, bool goal) {
 	
 	if (goal == BLUE_GOAL) {
 		_x *= -1;
-		_y = DIST_BETWEEN_GOALS - _y;
-	} 
+		_y -= DIST_BETWEEN_GOALS;
+		//_y = DIST_BETWEEN_GOALS - _y;
+	}
 }
 
 int16_t OpenMV::getDistYellow() {
@@ -108,15 +112,15 @@ uint8_t OpenMV::crc8(volatile uint8_t* data, uint8_t len) {
   return crc;
 }
 
-int16_t OpenMV::adduct(int16_t ang) {
-	while (ang > 180) ang -= 360;
-  while (ang < -180) ang += 360;
-  return ang;
+int16_t OpenMV::adductionMV(int16_t angleIMU) {
+	while (angleIMU > 360) angleIMU -= 360;
+  while (angleIMU < 0) angleIMU += 360;
+  return angleIMU;
 }
 
 void OpenMV::initUSART(uint8_t num) {
-	if (num == 1) uart1::usart1Init(115200, 1, 8);
-	else if (num == 2) uart2::usart2Init(115200, 1, 8);
-	else if (num == 3) uart3::usart3Init(115200, 1, 8);
-	else if (num == 6) uart6::usart6Init(115200, 1, 8);
+	if (num == 1) uart1::usart1Init(460800, 1, 8);
+	else if (num == 2) uart2::usart2Init(460800, 1, 8);
+	else if (num == 3) uart3::usart3Init(460800, 1, 8);
+	else if (num == 6) uart6::usart6Init(460800, 1, 8);
 }

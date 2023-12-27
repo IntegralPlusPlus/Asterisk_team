@@ -92,8 +92,10 @@ namespace Robot {
 		processXY.setGoal(myGoal);
 	}
 
+	volatile int16_t dBl, dYe;
+	volatile int16_t angBlue, angYellow;
 	void updateSensors() {
-		camera.read();
+		//camera.read();
 		angRaw = locator.getAngle();
 		distRaw = locator.getDist();
 		
@@ -113,9 +115,13 @@ namespace Robot {
 		gyro.read();
 		angleIMU = gyro.getCurrentAngle();
 		
-		camera.calculate(angleIMU, myGoal);
-		x = camera.getX();
-		y = camera.getY();
+		//camera.calculate(0, myGoal);
+		//dBl = camera.getDistBlue();
+		//dYe = camera.getDistYellow();
+		//angBlue = camera._angleBlue;
+		//angYellow = camera._angleYellow;
+		//x = camera.getX();
+		//y = camera.getY();
 		
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
@@ -130,7 +136,7 @@ namespace Robot {
 	
 	volatile double testRes;
 	void goToBall() {
-		processXY.setParams(x, y, angleIMU, camera.getDistBlue(), camera.getDistYellow());
+		//processXY.setParams(x, y, angleIMU, camera.getDistBlue(), camera.getDistYellow());
 		
 		double goToLen = 55 * 0.01; //55 * 0.01
 		if (time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) {
@@ -151,7 +157,7 @@ namespace Robot {
 			t = time_service::millis();
 		}
 		
-		currentVector = processXY.ñheckOUTs(currentVector);
+		//currentVector = processXY.ñheckOUTs(currentVector);
 		
 		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}

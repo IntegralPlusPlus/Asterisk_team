@@ -51,7 +51,7 @@ double IRLocator::convertDist(double dist) {
 }
 
 float IRLocator::angleOffset(float angle, float dist){
-  double angK = 0.011 * pow(double(Ec), double(0.18 * abs(angle))); //0.04 0.15
+  double angK = 0.02 * pow(double(Ec), double(0.21 * abs(angle))); //0.04 0.15
   if (angK > 90)
     angK = 90;
   dist = convertDist(dist);

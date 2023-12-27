@@ -28,7 +28,25 @@ Project File Date:  12/20/2023
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 Note: source file '.\src\Pin\Pin.cpp' - object file renamed from '.\Objects\Pin.o' to '.\Objects\pin_1.o'.
-".\Objects\Lightweight.axf" - 0 Error(s), 0 Warning(s).
+compiling IR_Locator.cpp...
+.\src\main\project_config.h(14): warning:  #1-D: last line of file ends without a newline
+  #define YELLOW_GOAL 1
+.\src\Pin\Pin.h(69): warning:  #1-D: last line of file ends without a newline
+  #endif /* PIN_H_ */
+.\src\main\project_config.h(14): warning:  #1-D: last line of file ends without a newline
+  #define YELLOW_GOAL 1
+.\src\I2C\I2C.h(26): warning:  #1-D: last line of file ends without a newline
+  };
+src\IR_Locator\IR_Locator.h(34): warning:  #1-D: last line of file ends without a newline
+  };
+src\IR_Locator\IR_Locator.cpp(54): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+    double angK = 0.02 * pow(double(Ec), double(0.21 * abs(angle))); //0.04 0.15
+src\IR_Locator\IR_Locator.cpp(73): warning:  #1-D: last line of file ends without a newline
+  }
+src\IR_Locator\IR_Locator.cpp: 7 warnings, 0 errors
+linking...
+Program Size: Code=28022 RO-data=1110 RW-data=232 ZI-data=11536  
+".\Objects\Lightweight.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -54,10 +72,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
       Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
+      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 Build Time Elapsed:  00:00:01
 </pre>

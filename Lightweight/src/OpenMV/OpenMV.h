@@ -17,15 +17,16 @@ class OpenMV {
 		void read();
 		void calculate(int16_t currentAngle, bool goal);
 		void initUSART(uint8_t num);
-		int16_t adduct(int16_t ang);
+		int16_t adductionMV(int16_t angleIMU);
 		uint8_t crc8(volatile uint8_t* data, uint8_t len);
 		int16_t getX();
 		int16_t getY();
 		int16_t getDistYellow();
 		int16_t getDistBlue();
-	private:
+	//private:
 		int16_t _x, _y;
-		volatile int16_t _distBlue, _distYellow, _angleBlue, _angleYellow;
+		volatile int16_t _distBlue, _distYellow;
+		volatile uint16_t _angleBlue, _angleYellow;
 		uint8_t _usartNumber, crc;
 		int16_t uartAvailable;
 		uint8_t data[4];
