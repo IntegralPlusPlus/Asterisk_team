@@ -2,3 +2,15 @@
 *.uvguix.Arkady
 *.uvoptx
 *.scvd
+*.map
+*.lst
+*.iex
+*.axf
+*.htm
+*.lnp
+*.sct
+*.dep
+*.crf
+*.d
+*.o
+
