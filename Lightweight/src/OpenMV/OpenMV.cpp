@@ -57,29 +57,26 @@ void OpenMV::calculate(int16_t robotAngle, bool goal) {
 	angYellowWithIMU = adductionMV(_angleYellow + robotAngle);
 	
 	xYellow = float(_distYellow) * -sin(angYellowWithIMU * DEG2RAD); 
-	yYellow = float(_distYellow) * cos(angYellowWithIMU * DEG2RAD);
+	yYellow = float(_distYellow) * abs(cos(angYellowWithIMU * DEG2RAD));
 	xBlue = float(_distBlue) * -sin((180 - angBlueWithIMU) * DEG2RAD); 
 	yBlue = DIST_BETWEEN_GOALS - float(_distBlue) * abs(cos((180 - angBlueWithIMU) * DEG2RAD));
 	
 	//_x = xBlue;
 	//_y = yBlue;
-	if (yYellow * xYellow * yBlue * xBlue != 0) {
-		_x = (1/yYellow * xYellow + 1/yBlue * xBlue) / (1/yYellow + 1/yBlue);
-		_y = (1/xYellow * yYellow + 1/xBlue * yBlue) / (1/xYellow + 1/xBlue);
-	} else {
-		if (yYellow == 0) _x = xBlue;
-		else if (yBlue == 0) _x = xYellow;
-		else _x = 0;
-		
-		if (xYellow == 0) _y = yBlue;
-		else if (xBlue == 0) _y = yYellow;
-		else _y = 0;
+	if (_distYellow * _distBlue != 0) {
+		_x = (xYellow / float(_distYellow) + xBlue / float(_distBlue)) / (1 / float(_distYellow) + 1 / float(_distBlue));
+		_y = (yYellow / float(_distYellow) + yBlue / float(_distBlue)) / (1 / float(_distYellow) + 1 / float(_distBlue));
+	} else if (_distYellow == 0) {
+		_x = xBlue;
+		_y = yBlue;
+	} else if (_distBlue == 0) {
+		_x = xYellow;
+		_y = yYellow;
 	}
 	
 	if (goal == BLUE_GOAL) {
 		_x *= -1;
-		_y -= DIST_BETWEEN_GOALS;
-		//_y = DIST_BETWEEN_GOALS - _y;
+		_y = DIST_BETWEEN_GOALS - _y;
 	}
 }
 
@@ -113,8 +110,8 @@ uint8_t OpenMV::crc8(volatile uint8_t* data, uint8_t len) {
 }
 
 int16_t OpenMV::adductionMV(int16_t angleIMU) {
-	while (angleIMU > 360) angleIMU -= 360;
-  while (angleIMU < 0) angleIMU += 360;
+	while (angleIMU > 180) angleIMU -= 360;
+  while (angleIMU < -180) angleIMU += 360;
   return angleIMU;
 }
 

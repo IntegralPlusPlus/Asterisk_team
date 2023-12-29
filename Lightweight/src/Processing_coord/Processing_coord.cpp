@@ -7,6 +7,7 @@ ProcessingCoord::ProcessingCoord() {
 	_rightFast.set(1, 180);
 	_upFast.set(1, 90);
 	_downFast.set(1, 270);
+	inOUT = false;
 }
 
 void ProcessingCoord::setGoal(uint8_t currentGoal) {
@@ -14,6 +15,7 @@ void ProcessingCoord::setGoal(uint8_t currentGoal) {
 }
 
 Vec2b ProcessingCoord::ñheckOUTs(Vec2b current) {
+	inOUT = true;
 	if (!checkXLeft(_x)) return _rightFast;
 	else if (!checkXRight(_x)) return _leftFast;
 	else if (!checkYUp(_y)) return _downFast;
@@ -24,7 +26,10 @@ Vec2b ProcessingCoord::ñheckOUTs(Vec2b current) {
 		else {
 			if (isMyGoalCircle(_x, _y, _dBlue, _dYellow)) return getVecForMyCircle(_x, _y);
 			else if (isEnemyGoalCircle(_x, _y, _dBlue, _dYellow)) return getVecForEnemyCircle(_x, _y);
-			else return current;
+			else {
+				inOUT = false;
+				return current;
+			}
 		}			
 	} 
 }
@@ -41,6 +46,10 @@ void ProcessingCoord::setParams(int16_t x, int16_t y, int16_t angle, int16_t dBl
 	_downFast.set(1, 270 - angle);
 }
 
+bool ProcessingCoord::robotInOUT() {
+	return inOUT;
+}
+
 int16_t ProcessingCoord::adduct(int16_t value) {
 	while (value < 0) value += 360;
 	while (value > 360) value -= 360;
@@ -49,7 +58,7 @@ int16_t ProcessingCoord::adduct(int16_t value) {
 }
 
 int16_t ProcessingCoord::getTargetForIMU() {
-	_targetIMU = RAD2DEG * atan2(float(_x - ENEMY_X), float(_y - ENEMY_Y));
+	_targetIMU = RAD2DEG * atan2(float(_x - ENEMY_X), float(_y - ENEMY_Y)) - 180;
 	return _targetIMU;
 }
 

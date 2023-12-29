@@ -32,6 +32,7 @@ class ProcessingCoord {
 		bool checkYDown(int16_t y);
 		bool myGoalLine(int16_t x, int16_t y);
 		bool enemyGoalLine(int16_t x, int16_t y);
+		bool robotInOUT();
 	private:
 		Vec2b _leftFast, _rightFast;
 		Vec2b _upFast, _downFast;
@@ -39,4 +40,5 @@ class ProcessingCoord {
 		int16_t _x, _y, _angle;
 		int16_t _dBlue, _dYellow;
 		uint8_t _goal;
+		bool inOUT;
 };

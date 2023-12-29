@@ -39,6 +39,9 @@ namespace Robot {
 	volatile int16_t angRaw;
 	volatile int32_t distRaw;
 	volatile uint8_t myGoal;
+	volatile int16_t dBl, dYe;
+	volatile int16_t angBlue, angYellow;
+	volatile int16_t target;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -92,10 +95,8 @@ namespace Robot {
 		processXY.setGoal(myGoal);
 	}
 
-	volatile int16_t dBl, dYe;
-	volatile int16_t angBlue, angYellow;
 	void updateSensors() {
-		//camera.read();
+		camera.read();
 		angRaw = locator.getAngle();
 		distRaw = locator.getDist();
 		
@@ -115,14 +116,18 @@ namespace Robot {
 		gyro.read();
 		angleIMU = gyro.getCurrentAngle();
 		
-		//camera.calculate(0, myGoal);
-		//dBl = camera.getDistBlue();
-		//dYe = camera.getDistYellow();
-		//angBlue = camera._angleBlue;
-		//angYellow = camera._angleYellow;
-		//x = camera.getX();
-		//y = camera.getY();
+		//camera.calculate(angleIMU, myGoal);
+		camera.calculate(angleIMU, myGoal);
+		dBl = camera.getDistBlue();
+		dYe = camera.getDistYellow();
+		angBlue = camera._angleBlue;
+		angYellow = camera._angleYellow;
+		x = camera.getX();
+		y = camera.getY();
 		
+		processXY.setParams(x, y, angleIMU, camera.getDistBlue(), camera.getDistYellow());
+		target = processXY.getTargetForIMU();
+		gyro.setTarget(target);
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 	
@@ -135,9 +140,7 @@ namespace Robot {
 	}
 	
 	volatile double testRes;
-	void goToBall() {
-		//processXY.setParams(x, y, angleIMU, camera.getDistBlue(), camera.getDistYellow());
-		
+	void goToBall() {	
 		double goToLen = 55 * 0.01; //55 * 0.01
 		if (time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) {
 			angRes = ang + locator.angleOffset(gyro.adduct(ang), distSoft) + 90;
@@ -157,7 +160,7 @@ namespace Robot {
 			t = time_service::millis();
 		}
 		
-		//currentVector = processXY.ñheckOUTs(currentVector);
+		currentVector = Vec2b(0, 0);//processXY.ñheckOUTs(currentVector);
 		
 		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
