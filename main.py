@@ -60,13 +60,17 @@ arr = [[20, 9],
        [116, 199],
        [117, 217]]
 
-uart = UART(3, 115200, timeout = 100, timeout_char = 100)
-uart.init(115200, bits = 8, parity = False, stop = 1, timeout_char = 100)
+uart = UART(3, 460800, timeout = 100, timeout_char = 100)
+uart.init(460800, bits = 8, parity = False, stop = 1, timeout_char = 100)
 threshold_yellow = (41, 100, -29, 127, 23, 127)#(38, 100, -128, 127, 50, 126)#(38, 100, -128, 127, 38, 125)
-threshold_blue = (10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
+threshold_blue = (30, 73, -128, 127, -128, -24)#(10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
 x0 = 184 #162 #161
 y0 = 119 #117#117 #147
 r0 = 125#90 #140
+
+def toSend(n):
+    if n > 255: return 255
+    else: return int(n)
 
 def crc8(data, len):
     crc = 0xFF
@@ -83,10 +87,10 @@ def crc8(data, len):
 data = bytearray(5)
 def send_uart(num1, num2, num3, num4):
     uart.writechar(255)
-    num1 = int(num1)
-    num2 = int(num2)
-    num3 = int(num3)
-    num4 = int(num4)
+    num1 = toSend(num1)
+    num2 = toSend(num2)
+    num3 = toSend(num3)
+    num4 = toSend(num4)
 
     data[0] = num1
     data[1] = num2
@@ -150,7 +154,7 @@ while(True):
     alphaY = 0
 
     #####################################################FIND_BLOBS
-    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 20, pixel_threshold = 880):
+    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 15, pixel_threshold = 880):
         if blobY != False:
             if blobY.area() < yb.area():
                 blobY = yb
@@ -163,7 +167,7 @@ while(True):
         img.draw_line(int(x0), int(y0), int(yellow[0]), int(yellow[1]), thickness = 2)
         pixY = dist(x0, y0, yellow[0], yellow[1])
 
-    for bb in img.find_blobs([threshold_blue], merge = True, margin = 20, pixel_threshold = 880):
+    for bb in img.find_blobs([threshold_blue], merge = True, margin = 15, pixel_threshold = 880):
         if blobB != False:
             if blobB.area() < bb.area():
                 blobB = bb
@@ -177,18 +181,21 @@ while(True):
         pixB = dist(x0, y0, blue[0], blue[1])
     #####################################################END_FIND
 
-    #print(pixB, "\t", pixY)
+    print(int(pixB), end = '\t')
 
     if blobY:
         distY = toDistance(pixY)
         alphaY = math.atan2(yellow[0] - x0, yellow[1] - y0) * 180/math.pi
+    else: alphaY = 0
+
     if blobB:
         distB = toDistance(pixB)
         alphaB = math.atan2(blue[0] - x0, blue[1] - y0) * 180/math.pi
+    else: alphaB = 0
 
     alphaY = adduction(alphaY)
     alphaB = adduction(alphaB)
-    dataN = (pixB, distB, alphaB / 2, pixY, distY, alphaY / 2)
+    #dataN = (pixB, distB, alphaB / 2, pixY, distY, alphaY / 2)
     #print(pixB, end = " ")
 
     send_uart(distB, alphaB / 2, distY, alphaY / 2)
