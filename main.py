@@ -1,7 +1,7 @@
 import sensor, utime, image, time, pyb, math
 from pyb import UART
 
-EXPOSURE_TIME_SCALE = 0.8
+EXPOSURE_TIME_SCALE = 0.5
 
 def setup():
     sensor.reset()
@@ -11,24 +11,30 @@ def setup():
     sensor.set_auto_whitebal(True)
     sensor.set_auto_exposure(True)
     current_exposure_time_in_microseconds =  sensor.get_exposure_us()
-    sensor.set_auto_exposure(True, exposure_us = int(current_exposure_time_in_microseconds* EXPOSURE_TIME_SCALE))
+    sensor.set_auto_exposure(True, \
+        exposure_us = int(current_exposure_time_in_microseconds* EXPOSURE_TIME_SCALE))
     clock = time.clock()
-    sensor.skip_frames(time = 500)
+    sensor.skip_frames(time = 1500)
 
+    #sensor.reset() #reset camera
     sensor.set_pixformat(sensor.RGB565)
     sensor.set_framesize(sensor.QVGA)
     sensor.set_auto_gain(False)
     sensor.set_auto_whitebal(False)
     sensor.set_auto_exposure(False)
-    current_exposure_time_in_microseconds = sensor.get_exposure_us()
-    sensor.set_auto_exposure(False, exposure_us = int(current_exposure_time_in_microseconds * EXPOSURE_TIME_SCALE))
-    sensor.skip_frames(time = 1000)
+    current_exposure_time_in_microseconds =  sensor.get_exposure_us()
+    sensor.set_auto_exposure(False, \
+        exposure_us = int(current_exposure_time_in_microseconds* EXPOSURE_TIME_SCALE))
+    #sensor.set_gainceiling(2)
+    clock = time.clock()
+    sensor.skip_frames(time = 2000) #delay
 
 def dist(x0, y0, x1, y1):
     return math.sqrt((x0 - x1)**2 + (y0 - y1)**2)
 
 #       pix  sm
-arr = [[20, 9],
+arr = [[0, 0],
+       [20, 9],
        [29, 14],
        [44, 19],
        [53, 24],
@@ -62,10 +68,10 @@ arr = [[20, 9],
 
 uart = UART(3, 460800, timeout = 100, timeout_char = 100)
 uart.init(460800, bits = 8, parity = False, stop = 1, timeout_char = 100)
-threshold_yellow = (41, 100, -29, 127, 23, 127)#(38, 100, -128, 127, 50, 126)#(38, 100, -128, 127, 38, 125)
+threshold_yellow = (35, 100, -36, 127, 22, 127)#(29, 100, -44, 127, 35, 127)#(42, 100, -29, 127, 30, 127)#(37, 100, -29, 127, 9, 127)#(0, 100, -34, 127, 29, 127)#(36, 100, -34, 127, 18, 127)#(32, 100, -37, 127, 22, 127)#(35, 100, -44, 36, 28, 127)#(31, 62, -56, 36, 28, 86)#(50, 67, -33, -3, 50, 127)#(38, 100, -128, 127, 50, 126)#(38, 100, -128, 127, 38, 125)
 threshold_blue = (30, 73, -128, 127, -128, -24)#(10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
-x0 = 184 #162 #161
-y0 = 119 #117#117 #147
+x0 = 179#184 #162 #161
+y0 = 113#119 #117#117 #147
 r0 = 125#90 #140
 
 def toSend(n):
@@ -154,7 +160,7 @@ while(True):
     alphaY = 0
 
     #####################################################FIND_BLOBS
-    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 15, pixel_threshold = 880):
+    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 7, pixel_threshold = 880):
         if blobY != False:
             if blobY.area() < yb.area():
                 blobY = yb
@@ -167,7 +173,7 @@ while(True):
         img.draw_line(int(x0), int(y0), int(yellow[0]), int(yellow[1]), thickness = 2)
         pixY = dist(x0, y0, yellow[0], yellow[1])
 
-    for bb in img.find_blobs([threshold_blue], merge = True, margin = 15, pixel_threshold = 880):
+    for bb in img.find_blobs([threshold_blue], merge = True, margin = 7, pixel_threshold = 880):
         if blobB != False:
             if blobB.area() < bb.area():
                 blobB = bb
