@@ -28,19 +28,16 @@ void gyro_imu::setRotationForTarget() {
 	else if (err < -180) err += 360;
 	
 	_rotation = float(err) * KOEFF_P;// + float(err - errOld) * KOEFF_D;
-	
-	//if (_rotation > MAXROTATION) _rotation = MAXROTATION;
-	//else if (_rotation < -MAXROTATION) _rotation = -MAXROTATION;
-	
+		
 	errOld = err;
 }
 
-float gyro_imu::calculateSoft(float soft, float now, float koeff) {
+float gyro_imu::calculateSoft(float soft, float now) {
 	if (abs(now - soft) < 180) {
-		soft = koeff * now + (1 - koeff) * soft;
+		soft = K_SOFT * now + (1 - K_SOFT) * soft;
 	} else {
-		if (soft > now) soft = koeff * (now + 360) + (1 - koeff) * soft;
-		else soft = koeff * now + (1 - koeff) * (soft + 360);
+		if (soft > now) soft = K_SOFT * (now + 360) + (1 - K_SOFT) * soft;
+		else soft = K_SOFT * now + (1 - K_SOFT) * (soft + 360);
 	}
 			
 	if (soft < 0) soft += 360;

@@ -25,7 +25,7 @@
 
 #define IMU_CALIBRATE_TIME 11000
 #define TIME_NOT_SEEN 1500
-#define K_ANGLE 0.01f
+#define USUAL_SPEED 0.55
 
 namespace Robot {
 	Vec2b currentVector;
@@ -38,10 +38,12 @@ namespace Robot {
 	volatile int16_t x, y;
 	volatile int16_t angRaw;
 	volatile int32_t distRaw;
-	volatile uint8_t myGoal;
+	volatile uint8_t myGoal, myRole;
 	volatile int16_t dBl, dYe;
 	volatile int16_t angBlue, angYellow;
 	volatile int16_t target;
+	volatile double speedForward;
+	volatile int16_t angleBallGoal;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -75,9 +77,18 @@ namespace Robot {
 	
 	omniplatform omni(motor3, motor4, motor2, motor1);
 	BallVec2b ball;
+	
+	bool calibrated() {
+		return imuCalibrated;
+	}	
+	
+	uint8_t getRole() {
+		return myRole;
+	}
 
-	void init(uint8_t goal) {
+	void init(uint8_t goal, uint8_t role) {
 		myGoal = goal;
+		myRole = role;
 		time_service::init();
 		time_service::startTime();
 		time_service::delay(100);
@@ -89,7 +100,7 @@ namespace Robot {
 		distSoft = 0;
 		distOld = -1;
 
-		currentVector.set(double(55) / double(100), 90);
+		currentVector.set(USUAL_SPEED, 90);
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
 		processXY.setGoal(myGoal);
@@ -116,20 +127,13 @@ namespace Robot {
 		gyro.read();
 		angleIMU = gyro.getCurrentAngle();
 		
-		//camera.calculate(angleIMU, myGoal);
 		camera.calculate(angleIMU, myGoal);
 		dBl = camera.getDistBlue();
 		dYe = camera.getDistYellow();
-		angBlue = camera._angleBlue;
-		angYellow = camera._angleYellow;
 		x = camera.getX();
 		y = camera.getY();
 		
 		processXY.setParams(x, y, angleIMU, camera.getDistBlue(), camera.getDistYellow());
-		target = processXY.getTargetForIMU();
-		gyro.setTarget(target);
-		gyro.setRotationForTarget();
-		pow = gyro.getRotation();
 	
 		if (!imuCalibrated && time_service::millis() - t > IMU_CALIBRATE_TIME) {
 			gyro.setZeroAngle();
@@ -139,33 +143,51 @@ namespace Robot {
 		if (distRaw) timeNotSeenBall = time_service::millis();
 	}
 	
-	volatile double testRes;
 	void goToBall() {	
-		double goToLen = 55 * 0.01; //55 * 0.01
+		target = processXY.getTargetForward();
+		gyro.setTarget(target);
+		gyro.setRotationForTarget();
+		pow = gyro.getRotation();
+		
+		speedForward = USUAL_SPEED;
 		if (time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) {
 			angRes = ang + locator.angleOffset(gyro.adduct(ang), distSoft) + 90;
-			testRes = angRes;
 			
 			while (angRes > 360) angRes -= 360;
 			while (angRes < 0) angRes += 360;
 				
-			angSoft = gyro.calculateSoft(angSoft, angRes, K_ANGLE);	
+			angSoft = gyro.calculateSoft(angSoft, angRes);	
 		} else {
-			goToLen = 0;
+			speedForward = 0;
 		}
 		
 		if (time_service::millis() != t) {
-			Vec2b goTo(goToLen, double(angSoft));
+			Vec2b goTo(speedForward, double(angSoft));
 			currentVector.changeTo(goTo);
 			t = time_service::millis();
 		}
 		
 		currentVector = Vec2b(0, 0);//processXY.ñheckOUTs(currentVector);
 		
+		//omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
+	}
+	
+	void keepGoal() {
+		Vec2b vecToCenter = processXY.getVecToGoalCenter();
+		Vec2b vecToBall = processXY.getVecToIntersection(ang);
+		Vec2b goTo;
+		goTo.summ(vecToCenter, vecToCenter);
+		
+		//direction: to ball
+		gyro.setTarget(gyro.adduct(ang - 90));
+		gyro.setRotationForTarget();
+		pow = gyro.getRotation();
+		
+		if (time_service::millis() != t) {
+			currentVector.changeTo(goTo);
+			t = time_service::millis();
+		}
+		
 		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
-
-	bool calibrated() {
-		return imuCalibrated;
-	}	
 }

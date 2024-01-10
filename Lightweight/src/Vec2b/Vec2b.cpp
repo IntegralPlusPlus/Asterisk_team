@@ -15,6 +15,13 @@ void Vec2b::set(double len, double ang) {
 	this->angle = ang;
 }
 
+void Vec2b::summ(Vec2b a, Vec2b b) {
+	double x = a.length * cos(DEG2RAD * a.angle) + b.length * cos(DEG2RAD * b.angle);
+	double y = a.length * sin(DEG2RAD * a.angle) + b.length * sin(DEG2RAD * b.angle);
+	this->angle = atan2(y, x) * RAD2DEG;
+	this->length = sqrt(x * x + y * y);
+}
+
 void Vec2b::changeTo(Vec2b to) {
 	double x1 = this->length * cos(this->angle * DEG2RAD);
 	double y1 = this->length * sin(this->angle * DEG2RAD);

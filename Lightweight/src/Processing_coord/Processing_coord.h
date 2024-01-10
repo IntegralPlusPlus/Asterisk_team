@@ -14,16 +14,24 @@
 #define GOAL_OUT_X_THRESHOLD_ALL 45
 #define DIST_BETWEEN_GOALS 231
 
+#define GO_RIGHT 0
+#define GO_LEFT 1
+
 class ProcessingCoord {
 	public:
 		ProcessingCoord();
 		void setGoal(uint8_t currentGoal);
+		void setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow);
 		Vec2b ñheckOUTs(Vec2b current);
 		Vec2b getVecForMyCircle(int16_t x, int16_t y);
 		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
-		void setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow);
 		int16_t adduct(int16_t value);
-		int16_t getTargetForIMU();
+		int16_t adduct180(int16_t value);
+		int16_t getTargetForward();
+		int16_t getTargetGoalkeeper();
+		Vec2b getVecToGoalCenter();
+		Vec2b getVecToIntersection(int16_t angBall);
+		bool getDirectionRobot(int16_t angle);
 		bool isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool checkXLeft(int16_t x);

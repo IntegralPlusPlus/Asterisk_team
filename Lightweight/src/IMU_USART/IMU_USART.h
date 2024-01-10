@@ -11,6 +11,7 @@
 #define KOEFF_P 15
 #define KOEFF_D 0
 #define MAXROTATION 2000
+#define K_SOFT 0.01f
 
 class gyro_imu {
 	public:
@@ -21,7 +22,8 @@ class gyro_imu {
 		void setRotationForTarget();
 		void setTarget(int16_t target);
 		void setZeroAngle();
-		float calculateSoft(float soft, float now, float koeff);
+		
+		float calculateSoft(float soft, float now);
 		int16_t getCurrentAngle();
 		int16_t getRotation();
 		int16_t getMaxRotation();

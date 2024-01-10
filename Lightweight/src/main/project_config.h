@@ -12,3 +12,5 @@
 
 #define BLUE_GOAL 0
 #define YELLOW_GOAL 1
+#define GOALKEEPER_ROLE 0
+#define FORWARD_ROLE 1
