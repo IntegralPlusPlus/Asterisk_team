@@ -70,7 +70,10 @@ int16_t ProcessingCoord::getTargetForward() {
 }
 
 int16_t ProcessingCoord::getTargetGoalkeeper() {
-	_targetIMU = RAD2DEG * atan2(float(_x), float(_y));
+	if (_x > GOAL_OUT_X_THRESHOLD) _targetIMU = RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD));
+	else if (_x < -GOAL_OUT_X_THRESHOLD) _targetIMU = RAD2DEG * atan2(float(_y), float(_x + GOAL_OUT_X_THRESHOLD));
+	else _targetIMU = RAD2DEG * atan2(float(_y), float(_x));
+		
 	return _targetIMU;
 }
 
@@ -91,18 +94,18 @@ bool ProcessingCoord::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int
 
 Vec2b ProcessingCoord::getVecToGoalCenter() {
 	if (_x >= -GOAL_OUT_X_THRESHOLD && _x <= GOAL_OUT_X_THRESHOLD) {
-		int16_t err = (GOAL_OUT_Y_THRESHOLD + DELTA_DIST) - _y;
-		double speed = err * 0.025; 
+		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
+		double speed = err * 0.04; 
 		Vec2b vec = Vec2b(speed, 270 + _angle); 
 	} else {
-		int16_t setpointDist;
-		if (_x > GOAL_OUT_X_THRESHOLD) setpointDist = sqrt(float(pow(float(_x - GOAL_OUT_X_THRESHOLD), 2) + pow(float(_y), 2)));
-		else if (_x < -GOAL_OUT_X_THRESHOLD) setpointDist = sqrt(float(pow(float(_x + GOAL_OUT_X_THRESHOLD), 2) + pow(float(_y), 2)));
+		float distToGoalCenter;
+		if (_x > GOAL_OUT_X_THRESHOLD) distToGoalCenter = sqrt(float(pow(float(_x - GOAL_OUT_X_THRESHOLD), 2) + pow(float(_y), 2)));
+		else if (_x < -GOAL_OUT_X_THRESHOLD) distToGoalCenter = sqrt(float(pow(float(_x + GOAL_OUT_X_THRESHOLD), 2) + pow(float(_y), 2)));
 		
-		int16_t distToGoalCenter = sqrt(float(_x * _x + _y * _y));
+		//float distToGoalCenter = sqrt(float(_x * _x + _y * _y));
 		
-		int16_t err = setpointDist - distToGoalCenter;
-		double speed = err * 0.025; 
+		float err = GOAL_OUT_Y_THRESHOLD - distToGoalCenter;
+		double speed = err * 0.0185; 
 		Vec2b vec = Vec2b(speed, getTargetGoalkeeper()); 
 	}
 }
@@ -118,10 +121,10 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 		if (dir == GO_LEFT) res.angle = 180 + _angle;
 		else if (dir == GO_RIGHT) res.angle = _angle;
 	
-		res.length = 0.5 * pow(abs(180 - float(angleBallGoal)), 2);
+		res.length = 0.1 * pow(abs(180 - float(angleBallGoal)), 2);
 	} else {
 		res.angle = angGoal;
-		res.length = 0.3 * pow(abs(180 - float(angleBallGoal)), 2);
+		res.length = 0.06 * pow(abs(180 - float(angleBallGoal)), 2);
 	}
 	
 	return res;

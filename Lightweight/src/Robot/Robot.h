@@ -1,27 +1,5 @@
 #pragma once
-#include "project_config.h"
-#include "Pin.h"
-#include "usart1.h"
-#include "usart2.h"
-#include "usart3.h"
-#include "usart6.h"
-#include "adc.h"
-#include "dma.h"
-#include "time_service.h"
-#include "Motor.h"
-#include "SPI_1.h"
-#include "SPI_DOT.h"
-#include "mpu9250_spi.h"
-#include "IMU_SPI.h"
-#include "omniplatform.h"
-#include "IMU_USART.h"
-#include "OpenMV.h"
-#include "TSOP.h"
-#include "I2C.h"
-#include "IR_Locator.h"
-#include "Queues_ball.h"
-#include "Processing_coord.h"
-#include "Vec2b.h"
+#include "libraries.h"
 
 #define IMU_CALIBRATE_TIME 11000
 #define TIME_NOT_SEEN 1500
@@ -77,14 +55,6 @@ namespace Robot {
 	
 	omniplatform omni(motor3, motor4, motor2, motor1);
 	BallVec2b ball;
-	
-	bool calibrated() {
-		return imuCalibrated;
-	}	
-	
-	uint8_t getRole() {
-		return myRole;
-	}
 
 	void init(uint8_t goal, uint8_t role) {
 		myGoal = goal;
@@ -104,9 +74,19 @@ namespace Robot {
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
 		processXY.setGoal(myGoal);
+	
+		if (myRole == GOALKEEPER_ROLE) gyro.setTarget(0);
+	}
+	
+	bool calibrated() {
+		return imuCalibrated;
+	}	
+	
+	uint8_t getRole() {
+		return myRole;
 	}
 
-	void updateSensors() {
+	void update() {
 		camera.read();
 		angRaw = locator.getAngle();
 		distRaw = locator.getDist();
@@ -127,11 +107,13 @@ namespace Robot {
 		gyro.read();
 		angleIMU = gyro.getCurrentAngle();
 		
-		camera.calculate(angleIMU, myGoal);
+		camera.calculate(angleIMU, myGoal, myRole);
 		dBl = camera.getDistBlue();
 		dYe = camera.getDistYellow();
 		x = camera.getX();
 		y = camera.getY();
+		angYellow = camera._angleYellow;
+		angBlue = camera._angleBlue;
 		
 		processXY.setParams(x, y, angleIMU, camera.getDistBlue(), camera.getDistYellow());
 	
@@ -172,14 +154,14 @@ namespace Robot {
 		//omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 	
-	void keepGoal() {
+	volatile int16_t angc;
+	volatile float val;
+	void protectGoal() {
 		Vec2b vecToCenter = processXY.getVecToGoalCenter();
 		Vec2b vecToBall = processXY.getVecToIntersection(ang);
 		Vec2b goTo;
-		goTo.summ(vecToCenter, vecToCenter);
+		goTo = vecToCenter;//.summ(vecToCenter, vecToCenter);
 		
-		//direction: to ball
-		gyro.setTarget(gyro.adduct(ang - 90));
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 		
@@ -188,6 +170,8 @@ namespace Robot {
 			t = time_service::millis();
 		}
 		
+		angc = currentVector.angle;
+		val = currentVector.length;
 		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 }

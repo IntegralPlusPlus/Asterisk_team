@@ -15,7 +15,7 @@ class OpenMV {
 	public:
 		OpenMV(Pin &tx, Pin &rx, uint8_t usartNum);
 		void read();
-		void calculate(int16_t currentAngle, bool goal);
+		void calculate(int16_t currentAngle, bool goal, bool role);
 		void initUSART(uint8_t num);
 		int16_t adductionMV(int16_t angleIMU);
 		uint8_t crc8(volatile uint8_t* data, uint8_t len);

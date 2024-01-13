@@ -400,6 +400,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\main\RTE_Device.h</FilePath>
             </File>
+            <File>
+              <FileName>libraries.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\main\libraries.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

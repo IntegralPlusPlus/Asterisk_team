@@ -9,7 +9,7 @@ Pin::Pin(char GPIOx, uint8_t pin, uint16_t fun) {
 		_speedGPIO = GPIO_Speed_100MHz;
 		_pupdGPIO = GPIO_PuPd_NOPULL;
 		_typeGPIO = GPIO_OType_PP;
-	} if (fun == write_pupd_down) {
+	} else if (fun == write_pupd_down) {
 		_modeGPIO = GPIO_Mode_OUT;
 		_speedGPIO = GPIO_Speed_50MHz;
 		_pupdGPIO = GPIO_PuPd_DOWN;
