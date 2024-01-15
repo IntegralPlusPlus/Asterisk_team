@@ -90,6 +90,14 @@ void OpenMV::calculate(int16_t robotAngle, bool goal, bool role) {
 	}
 }
 
+int16_t OpenMV::getAngleYellow() {
+	return _angleYellow;
+}
+
+int16_t OpenMV::getAngleBlue() {
+	return _angleBlue;
+}
+
 int16_t OpenMV::getDistYellow() {
 	return _distYellow;
 }

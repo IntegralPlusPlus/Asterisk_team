@@ -22,6 +22,7 @@ namespace Robot {
 	volatile int16_t target;
 	volatile double speedForward;
 	volatile int16_t angleBallGoal;
+	volatile bool doesntSeeGoals = false;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -110,12 +111,15 @@ namespace Robot {
 		camera.calculate(angleIMU, myGoal, myRole);
 		dBl = camera.getDistBlue();
 		dYe = camera.getDistYellow();
-		x = camera.getX();
-		y = camera.getY();
-		angYellow = camera._angleYellow;
-		angBlue = camera._angleBlue;
+		if (!(dBl == 0 && dYe == 0)) {
+			x = camera.getX();
+			y = camera.getY();
+			doesntSeeGoals = false;
+			processXY.setParams(x, y, angleIMU, camera.getDistBlue(), camera.getDistYellow());
+		} else doesntSeeGoals = true;
 		
-		processXY.setParams(x, y, angleIMU, camera.getDistBlue(), camera.getDistYellow());
+		angYellow = camera.getAngleYellow();
+		angBlue = camera.getAngleBlue();
 	
 		if (!imuCalibrated && time_service::millis() - t > IMU_CALIBRATE_TIME) {
 			gyro.setZeroAngle();
@@ -154,24 +158,35 @@ namespace Robot {
 		//omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 	
-	volatile int16_t angc;
+	volatile int16_t angc, ang0_360, angBallGoal;
 	volatile float val;
 	void protectGoal() {
-		Vec2b vecToCenter = processXY.getVecToGoalCenter();
-		Vec2b vecToBall = processXY.getVecToIntersection(ang);
-		Vec2b goTo;
-		goTo = vecToCenter;//.summ(vecToCenter, vecToCenter);
-		
-		gyro.setRotationForTarget();
-		pow = gyro.getRotation();
-		
-		if (time_service::millis() != t) {
-			currentVector.changeTo(goTo);
-			t = time_service::millis();
+		if (!doesntSeeGoals) {
+			Vec2b vecToCenter = processXY.getVecToGoalCenter();
+			
+			ang0_360 = ang + 90;
+			while (ang0_360 > 360) ang0_360 -= 360;
+			while (ang0_360 < 0) ang0_360 += 360;
+			
+			Vec2b vecToBall = processXY.getVecToIntersection(ang0_360);
+			Vec2b goTo;
+			goTo = vecToBall;//.summ(vecToCenter, vecToCenter);
+			
+			gyro.setRotationForTarget();
+			pow = gyro.getRotation();
+			
+			if (time_service::millis() != t) {
+				currentVector.changeTo(goTo);
+				t = time_service::millis();
+			}
+			
+			angBallGoal = processXY.angleBallGoal;
+			angc = currentVector.angle;
+			val = currentVector.length;
+			
+			//if (doesntSeeGoals) currentVector.length = 0;	
 		}
 		
-		angc = currentVector.angle;
-		val = currentVector.length;
 		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 }

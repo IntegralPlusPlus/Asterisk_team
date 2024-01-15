@@ -104,34 +104,35 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 		
 		//float distToGoalCenter = sqrt(float(_x * _x + _y * _y));
 		
-		float err = GOAL_OUT_Y_THRESHOLD - distToGoalCenter;
-		double speed = err * 0.0185; 
+		float err = 0.8f * GOAL_OUT_Y_THRESHOLD - distToGoalCenter;
+		double speed = err * 0.03; 
 		Vec2b vec = Vec2b(speed, getTargetGoalkeeper()); 
 	}
 }
 
 Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	Vec2b res;
-	int16_t angGoal = RAD2DEG * atan2(double(_y), double(_x));
+	int16_t angGoal = RAD2DEG * atan2(abs(double(_y)), abs(double(_x)));
+	//if (angGoal > 90) angGoal = 180 - angGoal; 
 	int16_t globalAngToBall = adduct(angBall + _angle);
-	int16_t angleBallGoal = adduct(360 - angGoal - globalAngToBall);
+	angleBallGoal = adduct(angGoal + globalAngToBall);
 	uint8_t dir = getDirectionRobot(angleBallGoal);
 	
-	if (_x >= -GOAL_OUT_X_THRESHOLD && _x <= GOAL_OUT_X_THRESHOLD) {
+	//if (_x >= -GOAL_OUT_X_THRESHOLD - 100 && _x <= GOAL_OUT_X_THRESHOLD + 100) {
 		if (dir == GO_LEFT) res.angle = 180 + _angle;
 		else if (dir == GO_RIGHT) res.angle = _angle;
 	
-		res.length = 0.1 * pow(abs(180 - float(angleBallGoal)), 2);
-	} else {
-		res.angle = angGoal;
-		res.length = 0.06 * pow(abs(180 - float(angleBallGoal)), 2);
-	}
+		res.length = 0.01 * pow(abs(180 - float(angleBallGoal)), 1); //0.0015 2
+	//} else {
+	//	res.angle = RAD2DEG * atan2(double(_y), double(_x));
+	//	res.length = 0 * pow(abs(180 - float(angleBallGoal)), 2);
+	//}
 	
 	return res;
 }
 
 bool ProcessingCoord::getDirectionRobot(int16_t angle) {
-	if (angle < 180) return GO_LEFT;
+	if (angle > 180) return GO_LEFT;
 	else return GO_RIGHT;
 }
 
