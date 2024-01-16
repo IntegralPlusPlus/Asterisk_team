@@ -73,7 +73,8 @@ int16_t ProcessingCoord::getTargetGoalkeeper() {
 	if (_x > GOAL_OUT_X_THRESHOLD) _targetIMU = RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD));
 	else if (_x < -GOAL_OUT_X_THRESHOLD) _targetIMU = RAD2DEG * atan2(float(_y), float(_x + GOAL_OUT_X_THRESHOLD));
 	else _targetIMU = RAD2DEG * atan2(float(_y), float(_x));
-		
+	_targetIMU = adduct(_targetIMU);
+	
 	return _targetIMU;
 }
 
@@ -93,10 +94,11 @@ bool ProcessingCoord::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int
 }
 
 Vec2b ProcessingCoord::getVecToGoalCenter() {
+	Vec2b vec;
 	if (_x >= -GOAL_OUT_X_THRESHOLD && _x <= GOAL_OUT_X_THRESHOLD) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		double speed = err * 0.04; 
-		Vec2b vec = Vec2b(speed, 270 + _angle); 
+		double speed = err * 0.08; 
+		vec = Vec2b(speed, 270 + _angle); 
 	} else {
 		float distToGoalCenter;
 		if (_x > GOAL_OUT_X_THRESHOLD) distToGoalCenter = sqrt(float(pow(float(_x - GOAL_OUT_X_THRESHOLD), 2) + pow(float(_y), 2)));
@@ -104,29 +106,31 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 		
 		//float distToGoalCenter = sqrt(float(_x * _x + _y * _y));
 		
-		float err = 0.8f * GOAL_OUT_Y_THRESHOLD - distToGoalCenter;
-		double speed = err * 0.03; 
-		Vec2b vec = Vec2b(speed, getTargetGoalkeeper()); 
+		float err = GOAL_OUT_Y_THRESHOLD - distToGoalCenter;
+		double speed = err * 0.04; 
+		vec = Vec2b(speed, getTargetGoalkeeper()); 
 	}
+	
+	return vec;
 }
 
 Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	Vec2b res;
 	int16_t angGoal = RAD2DEG * atan2(abs(double(_y)), abs(double(_x)));
-	//if (angGoal > 90) angGoal = 180 - angGoal; 
+	
 	int16_t globalAngToBall = adduct(angBall + _angle);
 	angleBallGoal = adduct(angGoal + globalAngToBall);
 	uint8_t dir = getDirectionRobot(angleBallGoal);
 	
-	//if (_x >= -GOAL_OUT_X_THRESHOLD - 100 && _x <= GOAL_OUT_X_THRESHOLD + 100) {
+	if (_x >= -GOAL_OUT_X_THRESHOLD && _x <= GOAL_OUT_X_THRESHOLD) {
 		if (dir == GO_LEFT) res.angle = 180 + _angle;
 		else if (dir == GO_RIGHT) res.angle = _angle;
 	
-		res.length = 0.01 * pow(abs(180 - float(angleBallGoal)), 1); //0.0015 2
-	//} else {
-	//	res.angle = RAD2DEG * atan2(double(_y), double(_x));
-	//	res.length = 0 * pow(abs(180 - float(angleBallGoal)), 2);
-	//}
+		res.length = 0.05 * pow(abs(180 - float(angleBallGoal)), 1); //0.0015 2
+	} else {
+		res.angle = adduct(RAD2DEG * atan2(double(_y), double(_x)));
+		res.length = 0.055 * pow(abs(180 - float(angleBallGoal)), 1);
+	}
 	
 	return res;
 }

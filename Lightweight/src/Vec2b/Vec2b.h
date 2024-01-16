@@ -13,7 +13,7 @@ struct Vec2b {
 		Vec2b();
 		Vec2b(double len, double ang);
 		void set(double len, double ang);
-		void summ(Vec2b a, Vec2b b);
+		Vec2b summ(Vec2b a);
 		void changeTo(Vec2b to);
 		double length;
 		double angle;

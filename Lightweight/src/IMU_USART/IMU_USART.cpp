@@ -23,7 +23,7 @@ void gyro_imu::read() {
 }
 
 void gyro_imu::setRotationForTarget() {
-	int err = -(_target - _angleNow);
+	int16_t err = -_target + _angleNow;
 	if (err > 180) err -= 360;
 	else if (err < -180) err += 360;
 	
