@@ -9,8 +9,11 @@
 #define UP_Y 225
 #define DOWN_Y 7.4f
 #define RADIUS_GOAL_OUT 44.7f
-#define GOAL_OUT_X_THRESHOLD 28
-#define GOAL_OUT_Y_THRESHOLD 32.4f
+#define GOAL_OUT_X_THRESHOLD_RIGHT 28
+#define GOAL_OUT_X_THRESHOLD_LEFT -20
+#define GOAL_OUT_Y_THRESHOLD 30.f
+#define GOAL_CIRCLE_Y_THRESHOLD_RIGHT 31.f
+#define GOAL_CIRCLE_Y_THRESHOLD_LEFT 22.f
 #define GOAL_OUT_X_THRESHOLD_ALL 45
 #define DIST_BETWEEN_GOALS 231
 
@@ -41,7 +44,7 @@ class ProcessingCoord {
 		bool myGoalLine(int16_t x, int16_t y);
 		bool enemyGoalLine(int16_t x, int16_t y);
 		bool robotInOUT();
-	//private:
+	private:
 		Vec2b _leftFast, _rightFast;
 		Vec2b _upFast, _downFast;
 		int16_t _targetIMU;

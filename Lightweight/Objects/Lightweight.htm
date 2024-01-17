@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Lightweight.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Lightweight.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Jan 16 17:06:20 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Jan 17 19:53:43 2024
 <BR><P>
 <H3>Maximum Stack Usage =        472 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -611,7 +611,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
+<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
@@ -621,7 +622,6 @@ Global Symbols
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_powf
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cosf
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 
 <P><STRONG><a name="[80]"></a>__aeabi_errno_addr</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, rt_errno_addr_intlibspace.o(.text))
@@ -685,9 +685,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ba]"></a>RCC_APB1PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(i.RCC_APB1PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
+<BR><BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pin::RCC_ClockCmd()
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
 </UL>
 
 <P><STRONG><a name="[b9]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(i.RCC_APB2PeriphClockCmd))
@@ -818,19 +818,19 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[100]"></a>USART_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_usart.o(i.USART_Cmd))
-<BR><BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
+<BR><BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::usart1Init(unsigned, float, unsigned char)
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::usart6Init(unsigned, float, unsigned char)
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
 </UL>
 
 <P><STRONG><a name="[ff]"></a>USART_ITConfig</STRONG> (Thumb, 74 bytes, Stack size 20 bytes, stm32f4xx_usart.o(i.USART_ITConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = USART_ITConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::usart1Init(unsigned, float, unsigned char)
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::usart6Init(unsigned, float, unsigned char)
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
 </UL>
 
 <P><STRONG><a name="[88]"></a>USART_Init</STRONG> (Thumb, 204 bytes, Stack size 48 bytes, stm32f4xx_usart.o(i.USART_Init))
@@ -838,17 +838,17 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetClocksFreq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::usart1Init(unsigned, float, unsigned char)
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::usart6Init(unsigned, float, unsigned char)
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
 </UL>
 
 <P><STRONG><a name="[fd]"></a>USART_StructInit</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_usart.o(i.USART_StructInit))
-<BR><BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
+<BR><BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::usart1Init(unsigned, float, unsigned char)
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::usart6Init(unsigned, float, unsigned char)
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
 </UL>
 
 <P><STRONG><a name="[8a]"></a>omniplatform::move(float, float, float, float, float)</STRONG> (Thumb, 494 bytes, Stack size 64 bytes, omniplatform.o(i._ZN12omniplatform4moveEfffff))
@@ -915,8 +915,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::getVecToIntersection(short)
 </UL>
 
-<P><STRONG><a name="[98]"></a>ProcessingCoord::getVecToGoalCenter()</STRONG> (Thumb, 402 bytes, Stack size 72 bytes, processing_coord.o(i._ZN15ProcessingCoord18getVecToGoalCenterEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = ProcessingCoord::getVecToGoalCenter() &rArr; ProcessingCoord::getTargetGoalkeeper() &rArr; std::atan2(float, float) &rArr; __hardfp_atan2f &rArr; __set_errno
+<P><STRONG><a name="[98]"></a>ProcessingCoord::getVecToGoalCenter()</STRONG> (Thumb, 450 bytes, Stack size 72 bytes, processing_coord.o(i._ZN15ProcessingCoord18getVecToGoalCenterEv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = ProcessingCoord::getVecToGoalCenter() &rArr; ProcessingCoord::getTargetGoalkeeper() &rArr; std::atan2(float, float) &rArr; __hardfp_atan2f &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::sqrt(float)
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(float, int)
@@ -926,18 +926,20 @@ Global Symbols
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot::protectGoal()
 </UL>
 
-<P><STRONG><a name="[9e]"></a>ProcessingCoord::getTargetGoalkeeper()</STRONG> (Thumb, 292 bytes, Stack size 32 bytes, processing_coord.o(i._ZN15ProcessingCoord19getTargetGoalkeeperEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = ProcessingCoord::getTargetGoalkeeper() &rArr; std::atan2(float, float) &rArr; __hardfp_atan2f &rArr; __set_errno
+<P><STRONG><a name="[9e]"></a>ProcessingCoord::getTargetGoalkeeper()</STRONG> (Thumb, 344 bytes, Stack size 40 bytes, processing_coord.o(i._ZN15ProcessingCoord19getTargetGoalkeeperEv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = ProcessingCoord::getTargetGoalkeeper() &rArr; std::atan2(float, float) &rArr; __hardfp_atan2f &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::atan2(float, float)
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::adduct(short)
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::getVecToGoalCenter()
 </UL>
@@ -1271,8 +1273,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d5]"></a>Robot::protectGoal()</STRONG> (Thumb, 392 bytes, Stack size 88 bytes, main.o(i._ZN5Robot11protectGoalEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 424<LI>Call Chain = Robot::protectGoal() &rArr; Vec2b::changeTo(Vec2b) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
+<P><STRONG><a name="[d5]"></a>Robot::protectGoal()</STRONG> (Thumb, 430 bytes, Stack size 88 bytes, main.o(i._ZN5Robot11protectGoalEv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 424<LI>Call Chain = Robot::protectGoal() &rArr; Vec2b::changeTo(Vec2b) &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::setTarget(short)
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::setRotationForTarget()
@@ -1338,7 +1340,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f2]"></a>Robot::goToBall()</STRONG> (Thumb, 380 bytes, Stack size 48 bytes, main.o(i._ZN5Robot8goToBallEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 384<LI>Call Chain = Robot::goToBall() &rArr; Vec2b::changeTo(Vec2b) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
+<BR><BR>[Stack]<UL><LI>Max Depth = 384<LI>Call Chain = Robot::goToBall() &rArr; Vec2b::changeTo(Vec2b) &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::angleOffset(float, float)
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::setTarget(short)
@@ -1362,23 +1364,24 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[d7]"></a>Vec2b::summ(Vec2b)</STRONG> (Thumb, 532 bytes, Stack size 120 bytes, vec2b.o(i._ZN5Vec2b4summES_))
-<BR><BR>[Stack]<UL><LI>Max Depth = 304<LI>Call Chain = Vec2b::summ(Vec2b) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
+<BR><BR>[Stack]<UL><LI>Max Depth = 304<LI>Call Chain = Vec2b::summ(Vec2b) &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::Vec2b(double, double)
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrt
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot::protectGoal()
 </UL>
 
 <P><STRONG><a name="[dc]"></a>Vec2b::changeTo(Vec2b)</STRONG> (Thumb, 870 bytes, Stack size 152 bytes, vec2b.o(i._ZN5Vec2b8changeToES_))
-<BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = Vec2b::changeTo(Vec2b) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
+<BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = Vec2b::changeTo(Vec2b) &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
+<BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
@@ -1387,7 +1390,6 @@ Global Symbols
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrt
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot::goToBall()
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot::protectGoal()
@@ -1553,7 +1555,8 @@ Global Symbols
 <P><STRONG><a name="[e3]"></a>OpenMV::read()</STRONG> (Thumb, 314 bytes, Stack size 16 bytes, openmv.o(i._ZN6OpenMV4readEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = OpenMV::read() &rArr; OpenMV::crc8(volatile unsigned char*, unsigned char)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::available()
+<BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::read()
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::available()
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::read()
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::available()
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::read()
@@ -1562,7 +1565,6 @@ Global Symbols
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::available()
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::read()
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::available()
-<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::read()
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot::update()
 </UL>
@@ -1578,18 +1580,18 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[10f]"></a>OpenMV::initUSART(unsigned char)</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, openmv.o(i._ZN6OpenMV9initUSARTEh))
-<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = OpenMV::initUSART(unsigned char) &rArr; uart2::usart2Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
+<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = OpenMV::initUSART(unsigned char) &rArr; uart3::usart3Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
+<BR>[Calls]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::usart1Init(unsigned, float, unsigned char)
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::usart6Init(unsigned, float, unsigned char)
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OpenMV::OpenMV(Pin&, Pin&, unsigned char)
 </UL>
 
 <P><STRONG><a name="[110]"></a>OpenMV::OpenMV(Pin&, Pin&, unsigned char)</STRONG> (Thumb, 42 bytes, Stack size 24 bytes, openmv.o(i._ZN6OpenMVC1ER3PinS1_h))
-<BR><BR>[Stack]<UL><LI>Max Depth = 156<LI>Call Chain = OpenMV::OpenMV(Pin&, Pin&, unsigned char) &rArr; OpenMV::initUSART(unsigned char) &rArr; uart2::usart2Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
+<BR><BR>[Stack]<UL><LI>Max Depth = 156<LI>Call Chain = OpenMV::OpenMV(Pin&, Pin&, unsigned char) &rArr; OpenMV::initUSART(unsigned char) &rArr; uart3::usart3Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OpenMV::initUSART(unsigned char)
 </UL>
@@ -1627,7 +1629,8 @@ Global Symbols
 <P><STRONG><a name="[e8]"></a>gyro_imu::read()</STRONG> (Thumb, 268 bytes, Stack size 16 bytes, imu_usart.o(i._ZN8gyro_imu4readEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = gyro_imu::read()
 </UL>
-<BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::available()
+<BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::read()
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::available()
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::read()
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::available()
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::read()
@@ -1635,7 +1638,6 @@ Global Symbols
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::available()
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::read()
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::available()
-<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::read()
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot::update()
 </UL>
@@ -1646,12 +1648,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[111]"></a>gyro_imu::initUSART(unsigned char)</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, imu_usart.o(i._ZN8gyro_imu9initUSARTEh))
-<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = gyro_imu::initUSART(unsigned char) &rArr; uart2::usart2Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
+<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = gyro_imu::initUSART(unsigned char) &rArr; uart3::usart3Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
+<BR>[Calls]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::usart1Init(unsigned, float, unsigned char)
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::usart6Init(unsigned, float, unsigned char)
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::gyro_imu(Pin&, Pin&, unsigned char)
 </UL>
@@ -1663,7 +1665,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[112]"></a>gyro_imu::gyro_imu(Pin&, Pin&, unsigned char)</STRONG> (Thumb, 36 bytes, Stack size 24 bytes, imu_usart.o(i._ZN8gyro_imuC1ER3PinS1_h))
-<BR><BR>[Stack]<UL><LI>Max Depth = 156<LI>Call Chain = gyro_imu::gyro_imu(Pin&, Pin&, unsigned char) &rArr; gyro_imu::initUSART(unsigned char) &rArr; uart2::usart2Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
+<BR><BR>[Stack]<UL><LI>Max Depth = 156<LI>Call Chain = gyro_imu::gyro_imu(Pin&, Pin&, unsigned char) &rArr; gyro_imu::initUSART(unsigned char) &rArr; uart3::usart3Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::initUSART(unsigned char)
 </UL>
@@ -2130,8 +2132,8 @@ Global Symbols
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dneg
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fabs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
 </UL>
 
 <P><STRONG><a name="[13b]"></a>__kernel_cos</STRONG> (Thumb, 322 bytes, Stack size 64 bytes, cos_i.o(i.__kernel_cos))
@@ -2143,8 +2145,8 @@ Global Symbols
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
 </UL>
 
 <P><STRONG><a name="[132]"></a>__kernel_poly</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, poly.o(i.__kernel_poly))
@@ -2170,8 +2172,8 @@ Global Symbols
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
 <LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
 </UL>
 
 <P><STRONG><a name="[13f]"></a>__mathlib_dbl_divzero</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_divzero))
@@ -2187,9 +2189,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan
+<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 
 <P><STRONG><a name="[133]"></a>__mathlib_dbl_infnan2</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_infnan2))
@@ -2206,9 +2208,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
+<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 
 <P><STRONG><a name="[140]"></a>__mathlib_dbl_overflow</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_overflow))
@@ -2311,12 +2313,12 @@ Global Symbols
 
 <P><STRONG><a name="[123]"></a>__aeabi_dneg</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, basic.o(x$fpl$basic))
 <BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::angleOffset(float, float)
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 
 <P><STRONG><a name="[198]"></a>_dneg</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, basic.o(x$fpl$basic), UNUSED)
@@ -2333,6 +2335,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::angleOffset(float, float)
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::getVecToGoalCenter()
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;omniplatform::move(float, float, float, float, float)
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot::update()
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot::protectGoal()
@@ -2400,12 +2403,12 @@ Global Symbols
 <P><STRONG><a name="[fe]"></a>__aeabi_cdcmpeq</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, deqf.o(x$fpl$deqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_cdcmpeq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::usart1Init(unsigned, float, unsigned char)
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2bTime::correct()
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::usart6Init(unsigned, float, unsigned char)
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 </UL>
 
@@ -2565,6 +2568,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::adduct(double)
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::getTargetGoalkeeper()
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::getTargetForward()
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::convertDist(double)
@@ -2584,7 +2588,8 @@ Global Symbols
 <P><STRONG><a name="[8c]"></a>__aeabi_f2d</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_f2d
 </UL>
-<BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::usart1Init(unsigned, float, unsigned char)
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::getTargetGoalkeeper()
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::angleOffset(float, float)
@@ -2594,7 +2599,6 @@ Global Symbols
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;omniplatform::move(float, float, float, float, float)
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Robot::goToBall()
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart6::usart6Init(unsigned, float, unsigned char)
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3::usart3Init(unsigned, float, unsigned char)
 </UL>
 
 <P><STRONG><a name="[15b]"></a>_f2d</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d), UNUSED)
@@ -2638,7 +2642,7 @@ Global Symbols
 Local Symbols
 </H3>
 <P><STRONG><a name="[6a]"></a>__sti___8_main_cpp_635db6cf</STRONG> (Thumb, 314 bytes, Stack size 8 bytes, main.o(i.__sti___8_main_cpp_635db6cf))
-<BR><BR>[Stack]<UL><LI>Max Depth = 164<LI>Call Chain = __sti___8_main_cpp_635db6cf &rArr; gyro_imu::gyro_imu(Pin&, Pin&, unsigned char) &rArr; gyro_imu::initUSART(unsigned char) &rArr; uart2::usart2Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
+<BR><BR>[Stack]<UL><LI>Max Depth = 164<LI>Call Chain = __sti___8_main_cpp_635db6cf &rArr; gyro_imu::gyro_imu(Pin&, Pin&, unsigned char) &rArr; gyro_imu::initUSART(unsigned char) &rArr; uart3::usart3Init(unsigned, float, unsigned char) &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRLocator::IRLocator(I2C&, unsigned)
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::BallVec2b()

@@ -1,7 +1,7 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 20000
+#define IMU_CALIBRATE_TIME 15000
 #define TIME_NOT_SEEN 1500
 #define USUAL_SPEED 0.55
 
@@ -158,39 +158,37 @@ namespace Robot {
 		//omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 	
-	volatile int16_t angc, ang0_360, angBallGoal;
-	volatile float val;
+	volatile int16_t ang0_360, angBallGoal;
 	void protectGoal() {
 		gyro.setTarget(0);
 		
 		Vec2b goTo;
-		//if (!doesntSeeGoals) {
-		Vec2b vecToCenter = processXY.getVecToGoalCenter();
-		
-		ang0_360 = ang + 90;
-		while (ang0_360 > 360) ang0_360 -= 360;
-		while (ang0_360 < 0) ang0_360 += 360;
-		
-		Vec2b vecToBall = processXY.getVecToIntersection(ang0_360);
-		goTo = Vec2b(0, 0).summ(vecToCenter);
-		if (goTo.length >= 0.45) goTo.length = 0.45;
-		
-		gyro.setRotationForTarget();
-		pow = gyro.getRotation();
-		
-		angBallGoal = processXY.angleBallGoal;
-		
-		if (time_service::millis() != t) {
-			currentVector.changeTo(goTo);
-			t = time_service::millis();
+		if (!doesntSeeGoals) {
+			Vec2b vecToCenter = processXY.getVecToGoalCenter();
+			
+			ang0_360 = ang + 90;
+			while (ang0_360 > 360) ang0_360 -= 360;
+			while (ang0_360 < 0) ang0_360 += 360;
+			
+			Vec2b vecToBall = processXY.getVecToIntersection(ang0_360);
+			goTo = Vec2b(0, 0).summ(vecToCenter);
+			if (goTo.length >= 0.45) goTo.length = 0.45;
+			
+			gyro.setRotationForTarget();
+			pow = gyro.getRotation();
+			
+			//angBallGoal = processXY.angleBallGoal;
+			
+			if (time_service::millis() != t) {
+				currentVector.changeTo(goTo);
+				t = time_service::millis();
+			}
+			
+			//if (doesntSeeGoals) currentVector.length = 0;	
+		} else {
+			currentVector = Vec2b(0, 0);
+			pow = 0;
 		}
-		
-		//angc = currentVector.angle;
-		//val = currentVector.length;
-		
-		//if (doesntSeeGoals) currentVector.length = 0;	
-	//} currentVector = Vec2b(0, 0);
-	
 	
 		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
