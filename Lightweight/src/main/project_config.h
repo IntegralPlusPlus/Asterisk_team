@@ -5,7 +5,7 @@
 #include "stm32f4xx_adc.h"
 #include "stm32f4xx_dma.h"
 #include "stm32f4xx_usart.h"
-#include "stm32f4xx_i2c.h"
+#include "stm32f4xx_flash.h"
 #include "math.h"
 #include "string.h"
 

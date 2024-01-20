@@ -9,11 +9,11 @@
 #define UP_Y 225
 #define DOWN_Y 7.4f
 #define RADIUS_GOAL_OUT 44.7f
-#define GOAL_OUT_X_THRESHOLD_RIGHT 28
-#define GOAL_OUT_X_THRESHOLD_LEFT -20
+#define GOAL_OUT_X_THRESHOLD_RIGHT 30
+#define GOAL_OUT_X_THRESHOLD_LEFT -24
 #define GOAL_OUT_Y_THRESHOLD 30.f
-#define GOAL_CIRCLE_Y_THRESHOLD_RIGHT 31.f
-#define GOAL_CIRCLE_Y_THRESHOLD_LEFT 22.f
+#define GOAL_CIRCLE_Y_THRESHOLD_RIGHT 30.f
+#define GOAL_CIRCLE_Y_THRESHOLD_LEFT 25.f
 #define GOAL_OUT_X_THRESHOLD_ALL 45
 #define DIST_BETWEEN_GOALS 231
 
@@ -34,7 +34,6 @@ class ProcessingCoord {
 		int16_t getTargetGoalkeeper();
 		Vec2b getVecToGoalCenter();
 		Vec2b getVecToIntersection(int16_t angBall);
-		bool getDirectionRobot(int16_t angle);
 		bool isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool checkXLeft(int16_t x);

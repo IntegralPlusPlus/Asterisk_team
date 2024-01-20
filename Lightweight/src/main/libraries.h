@@ -6,6 +6,7 @@
 #include "usart2.h"
 #include "usart3.h"
 #include "usart6.h"
+#include "usable.h"
 #include "adc.h"
 #include "dma.h"
 #include "time_service.h"
@@ -23,3 +24,4 @@
 #include "Queues_ball.h"
 #include "Processing_coord.h"
 #include "Vec2b.h"
+#include "flash.h"

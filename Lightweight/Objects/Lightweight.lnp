@@ -26,6 +26,7 @@
 ".\objects\misc.o"
 ".\objects\stm32f4xx_adc.o"
 ".\objects\stm32f4xx_crc.o"
+".\objects\stm32f4xx_flash.o"
 ".\objects\stm32f4xx_dac.o"
 ".\objects\stm32f4xx_dma.o"
 ".\objects\stm32f4xx_gpio.o"

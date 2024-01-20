@@ -48,6 +48,7 @@
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\usart6\usart6.h
 .\objects\main.o: .\src\main\project_config.h
+.\objects\main.o: .\src\usable\usable.h
 .\objects\main.o: .\src\adc\adc.h
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\dma\dma.h
@@ -85,4 +86,6 @@
 .\objects\main.o: .\src\Vec2b\Vec2b.h
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\Processing_coord\Processing_coord.h
+.\objects\main.o: .\src\main\project_config.h
+.\objects\main.o: .\src\flash\flash.h
 .\objects\main.o: .\src\main\project_config.h
