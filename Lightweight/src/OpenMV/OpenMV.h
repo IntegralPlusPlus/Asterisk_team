@@ -28,7 +28,7 @@ class OpenMV {
 	private:
 		int16_t _x, _y;
 		volatile int16_t _distBlue, _distYellow;
-		volatile uint16_t _angleBlue, _angleYellow;
+		volatile int16_t _angleBlue, _angleYellow;
 		uint8_t _usartNumber, crc;
 		int16_t uartAvailable;
 		uint8_t data[4];

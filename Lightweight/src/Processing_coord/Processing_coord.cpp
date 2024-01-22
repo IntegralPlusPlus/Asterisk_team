@@ -73,7 +73,6 @@ int16_t ProcessingCoord::getTargetGoalkeeper() {
 	if (_x > GOAL_OUT_X_THRESHOLD_RIGHT) _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_RIGHT)) - 180);
 	else if (_x < GOAL_OUT_X_THRESHOLD_LEFT) _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_LEFT)) - 180);
 	else _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 180);
-	//_targetIMU = adduct(_targetIMU);
 	
 	return _targetIMU;
 }
@@ -100,16 +99,16 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 		double speed = err * 0.045; 
 		vec = Vec2b(speed, 270 + _angle); 
 	} else {
-		float distToGoalCenter;
+		//float distToGoalCenter;
 		float err, speed;
 		if (_x > GOAL_OUT_X_THRESHOLD_RIGHT) {
 			distToGoalCenter = sqrt(float(pow(float(_x - GOAL_OUT_X_THRESHOLD_RIGHT), 2) + pow(float(_y), 2)));
 			err = -GOAL_CIRCLE_Y_THRESHOLD_RIGHT + distToGoalCenter;
-			speed = err * 0.04; //0.055
+			speed = err * 0.05; //0.055
 		} else {
 			distToGoalCenter = sqrt(float(pow(float(_x - GOAL_OUT_X_THRESHOLD_LEFT), 2) + pow(float(_y), 2)));
 			err = -GOAL_CIRCLE_Y_THRESHOLD_LEFT + distToGoalCenter;
-			speed = err * 0.045; //0.04
+			speed = err * 0.05; //0.04
 		}
 		
 		vec = Vec2b(speed, getTargetGoalkeeper()); 
@@ -122,7 +121,7 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	Vec2b res;
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	int16_t globalAngToBall = adduct(angBall + _angle);
-	angleBallGoal = adduct(angGoal + globalAngToBall);
+	int16_t angleBallGoal = adduct(angGoal + globalAngToBall);
 	if (globalAngToBall > 270) globalAngToBall -= 360;
 	
 	if (_x >= GOAL_OUT_X_THRESHOLD_LEFT && _x <= GOAL_OUT_X_THRESHOLD_RIGHT) {
@@ -149,6 +148,15 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	}
 	
 	return res;
+}
+
+Vec2b ProcessingCoord::checkProjectionOnY(Vec2b a) {
+  if (_y < DOWN_Y_GOALKEEPER && a.angle > 180) {  
+		double len = a.length * cos(DEG2RAD * a.angle);
+    
+    if (len > 0) return Vec2b(len, 80); //0
+    else return Vec2b(-len, 100); //180
+	} else return a;
 }
 
 Vec2b ProcessingCoord::getVecForMyCircle(int16_t x, int16_t y) {

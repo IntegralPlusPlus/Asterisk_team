@@ -45,7 +45,8 @@ void OpenMV::read() {
 		_angleBlue = adductionMV(2 * data[1]);
 		_distYellow = data[2];
 		_angleYellow = adductionMV(2 * data[3]);
-		_distBlue = (float)_distBlue / 1.7f;
+		if (_angleBlue > -48) _distBlue = (float)_distBlue / 1.7f; //1.26
+		else _distBlue = (float)_distBlue / 1.4f;
 		//_distYellow /= 2;//float(_distYellow) * 2.f * abs(float(_angleYellow)) / 180;
 	}
 }

@@ -2,6 +2,7 @@
 #include "libraries.h"
 
 #define IMU_CALIBRATE_TIME 20000
+//20000
 #define TIME_NOT_SEEN 1500
 #define USUAL_SPEED 0.55
 
@@ -158,7 +159,8 @@ namespace Robot {
 		
 		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
-	
+
+	volatile float distToGoal;
 	void protectGoal() {
 		gyro.setTarget(0);
 		
@@ -171,12 +173,15 @@ namespace Robot {
 			while (ang0_360 < 0) ang0_360 += 360;
 			
 			Vec2b vecToBall = processXY.getVecToIntersection(ang0_360);
-			goTo = vecToBall + vecToCenter;
+			//if (vecToBall.length > 10 * vecToCenter.length) vecToBall.length = 10 * vecToCenter.length;
+			
+			goTo = processXY.checkProjectionOnY(vecToBall + vecToCenter);
 			if (goTo.length >= 0.45) goTo.length = 0.45;
 			
 			gyro.setRotationForTarget();
 			pow = gyro.getRotation();
-				
+			distToGoal = processXY.distToGoalCenter;
+			
 			if (time_service::millis() != t) {
 				currentVector.changeTo(goTo);
 				t = time_service::millis();
