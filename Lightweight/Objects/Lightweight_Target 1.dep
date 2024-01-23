@@ -1,7 +1,7 @@
 Dependencies for Project 'Lightweight', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (.\src\main\main.cpp)(0x65ABEAB0)(--cpp -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I .\support_pacage -I .\support_pacage\arm -I .\support_pacage\gcc\linker -I .\support_pacage\gcc -I .\support_pacage\inc -I .\src -I .\src\time_service -I .\src\usart2 -I .\src\usart3 -I .\src\usart1 -I .\src\adc -I .\src\Motor -I .\src\Pin -I .\src\dma -I .\src\IMU_SPI -I .\src\main -I .\src\external -I .\src\SPI_DOT -I .\src\SPI_1 -I .\src\usable -I .\src\mpu9250 -I .\src\global_macros -I .\src\omniplatform -I .\src\IMU_USART -I .\src\spl4 -I .\src\spl4\inc -I .\src\spl4\src -I .\src\cmsis -I .\src\usart6 -I .\src\OpenMV -I .\src\TSOP -I .\src\I2C -I .\src\IR_Locator -I .\src\Vec2b -I .\src\Robot -I .\src\Queues_ball -I .\src\Processing_coord -I .\src\flash-I.\RTE\_Target_1-IC:\Users\Arkady\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Arkady\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000" -DUSE_HSE-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (.\src\Robot\Robot.h)(0x65AE9105)
+I (.\src\Robot\Robot.h)(0x65AFBCA6)
 I (.\src\main\libraries.h)(0x65AC0620)
 I (.\src\main\project_config.h)(0x65ABEBA5)
 I (.\src\global_macros\global_macros.h)(0x65183317)
@@ -62,15 +62,15 @@ I (.\src\TSOP\TSOP.h)(0x6565DE2B)
 I (.\src\I2C\I2C.h)(0x65672C0C)
 I (.\src\IR_Locator\IR_Locator.h)(0x657C326D)
 I (.\src\Queues_ball\Queues_ball.h)(0x6579CF0F)
-I (.\src\Vec2b\Vec2b.h)(0x65AC06EA)
-I (.\src\Processing_coord\Processing_coord.h)(0x65AE8F2D)
+I (.\src\Vec2b\Vec2b.h)(0x65AFB9F9)
+I (.\src\Processing_coord\Processing_coord.h)(0x65AFB99D)
 I (.\src\flash\flash.h)(0x65ABE665)
 F (.\src\main\project_config.h)(0x65ABEBA5)()
 F (.\src\main\RTE_Device.h)(0x64FF2EDB)()
 F (.\src\main\libraries.h)(0x65AC0620)()
-F (.\src\Robot\Robot.h)(0x65AE9105)()
-F (.\src\Processing_coord\Processing_coord.cpp)(0x65AE906E)(--cpp -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I .\support_pacage -I .\support_pacage\arm -I .\support_pacage\gcc\linker -I .\support_pacage\gcc -I .\support_pacage\inc -I .\src -I .\src\time_service -I .\src\usart2 -I .\src\usart3 -I .\src\usart1 -I .\src\adc -I .\src\Motor -I .\src\Pin -I .\src\dma -I .\src\IMU_SPI -I .\src\main -I .\src\external -I .\src\SPI_DOT -I .\src\SPI_1 -I .\src\usable -I .\src\mpu9250 -I .\src\global_macros -I .\src\omniplatform -I .\src\IMU_USART -I .\src\spl4 -I .\src\spl4\inc -I .\src\spl4\src -I .\src\cmsis -I .\src\usart6 -I .\src\OpenMV -I .\src\TSOP -I .\src\I2C -I .\src\IR_Locator -I .\src\Vec2b -I .\src\Robot -I .\src\Queues_ball -I .\src\Processing_coord -I .\src\flash-I.\RTE\_Target_1-IC:\Users\Arkady\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Arkady\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000" -DUSE_HSE-o .\objects\processing_coord.o --omf_browse .\objects\processing_coord.crf --depend .\objects\processing_coord.d)
-I (src\Processing_coord\Processing_coord.h)(0x65AE8F2D)
+F (.\src\Robot\Robot.h)(0x65AFBCA6)()
+F (.\src\Processing_coord\Processing_coord.cpp)(0x65AFBCA6)(--cpp -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I .\support_pacage -I .\support_pacage\arm -I .\support_pacage\gcc\linker -I .\support_pacage\gcc -I .\support_pacage\inc -I .\src -I .\src\time_service -I .\src\usart2 -I .\src\usart3 -I .\src\usart1 -I .\src\adc -I .\src\Motor -I .\src\Pin -I .\src\dma -I .\src\IMU_SPI -I .\src\main -I .\src\external -I .\src\SPI_DOT -I .\src\SPI_1 -I .\src\usable -I .\src\mpu9250 -I .\src\global_macros -I .\src\omniplatform -I .\src\IMU_USART -I .\src\spl4 -I .\src\spl4\inc -I .\src\spl4\src -I .\src\cmsis -I .\src\usart6 -I .\src\OpenMV -I .\src\TSOP -I .\src\I2C -I .\src\IR_Locator -I .\src\Vec2b -I .\src\Robot -I .\src\Queues_ball -I .\src\Processing_coord -I .\src\flash-I.\RTE\_Target_1-IC:\Users\Arkady\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Arkady\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000" -DUSE_HSE-o .\objects\processing_coord.o --omf_browse .\objects\processing_coord.crf --depend .\objects\processing_coord.d)
+I (src\Processing_coord\Processing_coord.h)(0x65AFB99D)
 I (.\src\main\project_config.h)(0x65ABEBA5)
 I (.\src\global_macros\global_macros.h)(0x65183317)
 I (.\support_pacage\inc\stm32f4xx.h)(0x64FF2EE0)
@@ -108,11 +108,11 @@ I (.\src\spl4\inc\stm32f4xx_dcmi.h)(0x64FF2EDD)
 I (.\src\spl4\inc\stm32f4xx_fsmc.h)(0x64FF2EDD)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5E8E7502)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E7502)
-I (.\src\Vec2b\Vec2b.h)(0x65AC06EA)
-F (.\src\Processing_coord\Processing_coord.h)(0x65AE8F2D)()
-F (.\src\Vec2b\Vec2b.h)(0x65AC06EA)()
+I (.\src\Vec2b\Vec2b.h)(0x65AFB9F9)
+F (.\src\Processing_coord\Processing_coord.h)(0x65AFB99D)()
+F (.\src\Vec2b\Vec2b.h)(0x65AFB9F9)()
 F (.\src\Vec2b\Vec2b.cpp)(0x65AC06EA)(--cpp -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I .\support_pacage -I .\support_pacage\arm -I .\support_pacage\gcc\linker -I .\support_pacage\gcc -I .\support_pacage\inc -I .\src -I .\src\time_service -I .\src\usart2 -I .\src\usart3 -I .\src\usart1 -I .\src\adc -I .\src\Motor -I .\src\Pin -I .\src\dma -I .\src\IMU_SPI -I .\src\main -I .\src\external -I .\src\SPI_DOT -I .\src\SPI_1 -I .\src\usable -I .\src\mpu9250 -I .\src\global_macros -I .\src\omniplatform -I .\src\IMU_USART -I .\src\spl4 -I .\src\spl4\inc -I .\src\spl4\src -I .\src\cmsis -I .\src\usart6 -I .\src\OpenMV -I .\src\TSOP -I .\src\I2C -I .\src\IR_Locator -I .\src\Vec2b -I .\src\Robot -I .\src\Queues_ball -I .\src\Processing_coord -I .\src\flash-I.\RTE\_Target_1-IC:\Users\Arkady\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Arkady\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000" -DUSE_HSE-o .\objects\vec2b.o --omf_browse .\objects\vec2b.crf --depend .\objects\vec2b.d)
-I (src\Vec2b\Vec2b.h)(0x65AC06EA)
+I (src\Vec2b\Vec2b.h)(0x65AFB9F9)
 I (.\src\main\project_config.h)(0x65ABEBA5)
 I (.\src\global_macros\global_macros.h)(0x65183317)
 I (.\support_pacage\inc\stm32f4xx.h)(0x64FF2EE0)
@@ -189,7 +189,7 @@ I (.\src\spl4\inc\stm32f4xx_dcmi.h)(0x64FF2EDD)
 I (.\src\spl4\inc\stm32f4xx_fsmc.h)(0x64FF2EDD)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5E8E7502)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E7502)
-I (.\src\Vec2b\Vec2b.h)(0x65AC06EA)
+I (.\src\Vec2b\Vec2b.h)(0x65AFB9F9)
 F (.\src\Queues_ball\Queues_ball.h)(0x6579CF0F)()
 F (.\src\OpenMV\OpenMV.cpp)(0x65AE8CCE)(--cpp -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I .\support_pacage -I .\support_pacage\arm -I .\support_pacage\gcc\linker -I .\support_pacage\gcc -I .\support_pacage\inc -I .\src -I .\src\time_service -I .\src\usart2 -I .\src\usart3 -I .\src\usart1 -I .\src\adc -I .\src\Motor -I .\src\Pin -I .\src\dma -I .\src\IMU_SPI -I .\src\main -I .\src\external -I .\src\SPI_DOT -I .\src\SPI_1 -I .\src\usable -I .\src\mpu9250 -I .\src\global_macros -I .\src\omniplatform -I .\src\IMU_USART -I .\src\spl4 -I .\src\spl4\inc -I .\src\spl4\src -I .\src\cmsis -I .\src\usart6 -I .\src\OpenMV -I .\src\TSOP -I .\src\I2C -I .\src\IR_Locator -I .\src\Vec2b -I .\src\Robot -I .\src\Queues_ball -I .\src\Processing_coord -I .\src\flash-I.\RTE\_Target_1-IC:\Users\Arkady\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\Arkady\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DHSE_VALUE="8000000" -DUSE_HSE-o .\objects\openmv.o --omf_browse .\objects\openmv.crf --depend .\objects\openmv.d)
 I (src\OpenMV\OpenMV.h)(0x65AE8D33)

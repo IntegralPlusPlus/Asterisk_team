@@ -96,7 +96,7 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 	Vec2b vec;
 	if (_x >= GOAL_OUT_X_THRESHOLD_LEFT && _x <= GOAL_OUT_X_THRESHOLD_RIGHT) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		double speed = err * 0.045; 
+		float speed = err * 0.035; 
 		vec = Vec2b(speed, 270 + _angle); 
 	} else {
 		//float distToGoalCenter;
@@ -128,7 +128,7 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 		if (globalAngToBall > angGoal) res.angle = 180 + _angle;
 		else res.angle = _angle;
 			
-		res.length = 0.015 * abs(float(globalAngToBall - angGoal)); //0.0015 2
+		res.length = 0.01 * abs(float(globalAngToBall - angGoal)); //0.0015 2
 	} else {
 		if (_x > GOAL_OUT_X_THRESHOLD_RIGHT) {
 			if (globalAngToBall > angGoal) 
@@ -151,11 +151,13 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 }
 
 Vec2b ProcessingCoord::checkProjectionOnY(Vec2b a) {
-  if (_y < DOWN_Y_GOALKEEPER && a.angle > 180) {  
-		double len = a.length * cos(DEG2RAD * a.angle);
+  if (_y < DOWN_Y_GOALKEEPER) {  
+		//double len = a.length * cos(DEG2RAD * a.angle);
     
-    if (len > 0) return Vec2b(len, 80); //0
-    else return Vec2b(-len, 100); //180
+    //if (len > 0) return Vec2b(len, 80); //0
+    //else return Vec2b(-len, 100); //180
+		//if (!(a.angle <= 160 || a.angle >= 20)) return a;
+		return Vec2b(0, 0);
 	} else return a;
 }
 
