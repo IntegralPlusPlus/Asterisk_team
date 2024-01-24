@@ -13,7 +13,6 @@ struct Vec2b {
 		Vec2b();
 		Vec2b(double len, double ang);
 		void set(double len, double ang);
-		Vec2b summ(Vec2b a);
 		void changeTo(Vec2b to);
 		Vec2b operator+ (const Vec2b& a);
 		double length;

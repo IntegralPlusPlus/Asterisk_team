@@ -8,6 +8,10 @@ ProcessingCoord::ProcessingCoord() {
 	_upFast.set(1, 90);
 	_downFast.set(1, 270);
 	inOUT = false;
+	
+	errOldGkLeft = 0;
+	errOldGkRight = 0;
+	errOldGkLine = 0;
 }
 
 void ProcessingCoord::setGoal(uint8_t currentGoal) {
@@ -40,10 +44,10 @@ void ProcessingCoord::setParams(int16_t x, int16_t y, int16_t angle, int16_t dBl
 	_dBlue = dBlue;
 	_dYellow = dYellow;
 	_angle = angle;
-	_leftFast.set(1, 0 - angle);
-	_rightFast.set(1, 180 - angle);
-	_upFast.set(1, 90 - angle);
-	_downFast.set(1, 270 - angle);
+	_leftFast.set(1, adduct(0 + angle));
+	_rightFast.set(1, adduct(180 + angle));
+	_upFast.set(1, adduct(90 + angle));
+	_downFast.set(1, adduct(270 + angle));
 }
 
 bool ProcessingCoord::robotInOUT() {
@@ -96,7 +100,7 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 	Vec2b vec;
 	if (_x >= GOAL_OUT_X_THRESHOLD_LEFT && _x <= GOAL_OUT_X_THRESHOLD_RIGHT) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		float speed = err * 0.035; 
+		float speed = err * 0.045; 
 		vec = Vec2b(speed, 270 + _angle); 
 	} else {
 		//float distToGoalCenter;
@@ -104,11 +108,11 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 		if (_x > GOAL_OUT_X_THRESHOLD_RIGHT) {
 			distToGoalCenter = sqrt(float(pow(float(_x - GOAL_OUT_X_THRESHOLD_RIGHT), 2) + pow(float(_y), 2)));
 			err = -GOAL_CIRCLE_Y_THRESHOLD_RIGHT + distToGoalCenter;
-			speed = err * 0.04; //0.05
+			speed = err * 0.043; //0.042
 		} else {
 			distToGoalCenter = sqrt(float(pow(float(_x - GOAL_OUT_X_THRESHOLD_LEFT), 2) + pow(float(_y), 2)));
 			err = -GOAL_CIRCLE_Y_THRESHOLD_LEFT + distToGoalCenter;
-			speed = err * 0.04; //0.05
+			speed = err * 0.043; //0.042
 		}
 		
 		vec = Vec2b(speed, getTargetGoalkeeper()); 
@@ -127,40 +131,59 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	if (_x >= GOAL_OUT_X_THRESHOLD_LEFT && _x <= GOAL_OUT_X_THRESHOLD_RIGHT) {
 		if (globalAngToBall > angGoal) res.angle = 180 + _angle;
 		else res.angle = _angle;
-			
-		res.length = 0.01 * abs(float(globalAngToBall - angGoal)); //0.0015 2
-	} else {
-		if (_x > GOAL_OUT_X_THRESHOLD_RIGHT) {
-			
-			if (globalAngToBall > angGoal) 
-				res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_RIGHT)) + 90);
-			else 
-				res.angle = 180 + adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_RIGHT)) + 90);
+
+		float err, p, d, u;
+		err = pow(abs(float(globalAngToBall - angGoal)), 1.21f);
+		p = 0.007 * err;
+		d = (err - errOldGkLine) * 0.01;
+		u = p + d;
+		errOldGkLine = err;
 		
-			res.length = 0.005 * abs(float(globalAngToBall - angGoal)); //0.007
+		res.length = u; //0.011 1.2
+	} else {
+		float err, p, d, u;
+		
+		if (_x > GOAL_OUT_X_THRESHOLD_RIGHT) {
+			if (globalAngToBall > angGoal) {
+				res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_RIGHT)) + 90);
+			} else { 
+				res.angle = 180 + adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_RIGHT)) + 90);
+			}
+				
+			err = pow(abs(float(globalAngToBall - angGoal)), 1.11f);
+			p = 0.005 * err;
+			d = (err - errOldGkRight) * 0.09; //0.05
+			u = p + d;
+			errOldGkRight = err;
+			res.length = u;
 			
-			if (_y < DOWN_Y_GOALKEEPER_RIGHT && (res.angle < 70 || res.angle > 180)) {
+			if (_y < DOWN_Y_GOALKEEPER_RIGHT && (res.angle + _angle < 70 || res.angle + _angle > 180)) {
 				res.angle = 90 + _angle;
-				res.length = 0.01 * (DOWN_Y_GOALKEEPER_RIGHT - _y);
+				res.length = 0.025 * (DOWN_Y_GOALKEEPER_RIGHT - _y);
 			}
 		} else if (_x < GOAL_OUT_X_THRESHOLD_LEFT) {
-			if (globalAngToBall > angGoal) 
+			if (globalAngToBall > angGoal) {
 				res.angle = 180 + adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_LEFT)) - 90);
-			else 
+			} else { 
 				res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_LEFT)) - 90);
+			}
 			
-			res.length = 0.004 * abs(float(globalAngToBall - angGoal)); //0.005
+			err = pow(abs(float(globalAngToBall - angGoal)), 1.11f);
+			p = 0.004 * err;
+			d = (err - errOldGkLeft) * 0.09; //0.05
+			u = p + d;
+			errOldGkLeft = err;
+			res.length = u;			
 			
-			if (_y < DOWN_Y_GOALKEEPER_LEFT && res.angle > 110) {
+			if (_y < DOWN_Y_GOALKEEPER_LEFT && res.angle + _angle > 110) {
 				res.angle = 90 + _angle;
-				res.length = 0.01 * (DOWN_Y_GOALKEEPER_LEFT - _y);
+				res.length = 0.025 * (DOWN_Y_GOALKEEPER_LEFT - _y);
 			}
 		}
 	}
 	
 	return res;
 }
-
 
 Vec2b ProcessingCoord::getVecForMyCircle(int16_t x, int16_t y) {
 	float ang = atan2(float(y), float(x)) * RAD2DEG;

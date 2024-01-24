@@ -8,8 +8,8 @@
 #define THRESHOLD_X 79
 #define UP_Y 225
 #define DOWN_Y 7.4f
-#define DOWN_Y_GOALKEEPER_RIGHT 34
-#define DOWN_Y_GOALKEEPER_LEFT 38
+#define DOWN_Y_GOALKEEPER_RIGHT 31
+#define DOWN_Y_GOALKEEPER_LEFT 35
 #define RADIUS_GOAL_OUT 44.7f
 #define GOAL_OUT_X_THRESHOLD_RIGHT 20
 #define GOAL_OUT_X_THRESHOLD_LEFT -25
@@ -49,6 +49,7 @@ class ProcessingCoord {
 		Vec2b _leftFast, _rightFast;
 		Vec2b _upFast, _downFast;
 		float distToGoalCenter;
+		float errOldGkLeft, errOldGkLine, errOldGkRight; 
 		int16_t _targetIMU;
 		int16_t _x, _y, _angle;
 		int16_t _dBlue, _dYellow;
