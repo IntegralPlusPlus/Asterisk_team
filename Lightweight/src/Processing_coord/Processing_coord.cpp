@@ -104,11 +104,11 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 		if (_x > GOAL_OUT_X_THRESHOLD_RIGHT) {
 			distToGoalCenter = sqrt(float(pow(float(_x - GOAL_OUT_X_THRESHOLD_RIGHT), 2) + pow(float(_y), 2)));
 			err = -GOAL_CIRCLE_Y_THRESHOLD_RIGHT + distToGoalCenter;
-			speed = err * 0.05; //0.055
+			speed = err * 0.04; //0.05
 		} else {
 			distToGoalCenter = sqrt(float(pow(float(_x - GOAL_OUT_X_THRESHOLD_LEFT), 2) + pow(float(_y), 2)));
 			err = -GOAL_CIRCLE_Y_THRESHOLD_LEFT + distToGoalCenter;
-			speed = err * 0.05; //0.04
+			speed = err * 0.04; //0.05
 		}
 		
 		vec = Vec2b(speed, getTargetGoalkeeper()); 
@@ -131,35 +131,36 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 		res.length = 0.01 * abs(float(globalAngToBall - angGoal)); //0.0015 2
 	} else {
 		if (_x > GOAL_OUT_X_THRESHOLD_RIGHT) {
+			
 			if (globalAngToBall > angGoal) 
 				res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_RIGHT)) + 90);
 			else 
 				res.angle = 180 + adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_RIGHT)) + 90);
 		
-			res.length = 0.007 * abs(float(globalAngToBall - angGoal));
+			res.length = 0.005 * abs(float(globalAngToBall - angGoal)); //0.007
+			
+			if (_y < DOWN_Y_GOALKEEPER_RIGHT && (res.angle < 70 || res.angle > 180)) {
+				res.angle = 90 + _angle;
+				res.length = 0.01 * (DOWN_Y_GOALKEEPER_RIGHT - _y);
+			}
 		} else if (_x < GOAL_OUT_X_THRESHOLD_LEFT) {
 			if (globalAngToBall > angGoal) 
 				res.angle = 180 + adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_LEFT)) - 90);
 			else 
 				res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_LEFT)) - 90);
-		
-			res.length = 0.005 * abs(float(globalAngToBall - angGoal));
+			
+			res.length = 0.004 * abs(float(globalAngToBall - angGoal)); //0.005
+			
+			if (_y < DOWN_Y_GOALKEEPER_LEFT && res.angle > 110) {
+				res.angle = 90 + _angle;
+				res.length = 0.01 * (DOWN_Y_GOALKEEPER_LEFT - _y);
+			}
 		}
 	}
 	
 	return res;
 }
 
-Vec2b ProcessingCoord::checkProjectionOnY(Vec2b a) {
-  if (_y < DOWN_Y_GOALKEEPER) {  
-		//double len = a.length * cos(DEG2RAD * a.angle);
-    
-    //if (len > 0) return Vec2b(len, 80); //0
-    //else return Vec2b(-len, 100); //180
-		//if (!(a.angle <= 160 || a.angle >= 20)) return a;
-		return Vec2b(0, 0);
-	} else return a;
-}
 
 Vec2b ProcessingCoord::getVecForMyCircle(int16_t x, int16_t y) {
 	float ang = atan2(float(y), float(x)) * RAD2DEG;

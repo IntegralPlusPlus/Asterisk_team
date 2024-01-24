@@ -175,8 +175,8 @@ namespace Robot {
 			Vec2b vecToBall = processXY.getVecToIntersection(ang0_360);
 			//if (vecToBall.length > 10 * vecToCenter.length) vecToBall.length = 10 * vecToCenter.length;
 			
-			goTo = processXY.checkProjectionOnY(vecToBall + vecToCenter);
-			//if (goTo.length >= 0.45) goTo.length = 0.45;
+			goTo = vecToBall + vecToCenter;
+			if (goTo.length >= 0.45) goTo.length = 0.45;
 			
 			gyro.setRotationForTarget();
 			pow = gyro.getRotation();
