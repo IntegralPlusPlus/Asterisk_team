@@ -1,7 +1,7 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 20000
+#define IMU_CALIBRATE_TIME 15000
 //20000
 #define TIME_NOT_SEEN 1500
 #define USUAL_SPEED 0.55
@@ -171,15 +171,17 @@ namespace Robot {
 			Vec2b vecToCenter = processXY.getVecToGoalCenter();
 			Vec2b vecToBall = processXY.getVecToIntersection(ang0_360);
 			goTo = vecToBall + vecToCenter;
-			if (goTo.length >= 0.55) goTo.length = 0.55;
+			if (goTo.length > 0.7) goTo.length = 0.7;
 			
 			gyro.setRotationForTarget();
 			pow = gyro.getRotation();
 			
-			if (time_service::millis() != t) {
-				currentVector.changeTo(goTo);
-				t = time_service::millis();
-			}
+			if (!processXY.robotInCritical()) {
+				if (time_service::millis() != t) {
+					currentVector.changeTo(goTo);
+					t = time_service::millis();
+				}
+			} else currentVector = goTo;
 		} else if (doesntSeeGoals) {
 			currentVector = Vec2b(0.1, 90);
 		} else {

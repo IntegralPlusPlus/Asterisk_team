@@ -12,6 +12,7 @@ ProcessingCoord::ProcessingCoord() {
 	errOldGkLeft = 0;
 	errOldGkRight = 0;
 	errOldGkLine = 0;
+	critical = false;
 }
 
 void ProcessingCoord::setGoal(uint8_t currentGoal) {
@@ -93,29 +94,40 @@ bool ProcessingCoord::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int
 	} else if (_goal == BLUE_GOAL) {
 		return dBlue < RADIUS_GOAL_OUT
 					&& y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + DELTA_DIST);
-	} else return 0;
+	} else return false;
 }
 
 Vec2b ProcessingCoord::getVecToGoalCenter() {
 	Vec2b vec;
 	if (_x >= GOAL_OUT_X_THRESHOLD_LEFT && _x <= GOAL_OUT_X_THRESHOLD_RIGHT) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		float speed = err * 0.045; 
+		float speed = err * 0.051; 
 		vec = Vec2b(speed, 270 + _angle); 
 	} else {
-		//float distToGoalCenter;
 		float err, speed;
+		bool goToOUT = false;
+	
 		if (_x > GOAL_OUT_X_THRESHOLD_RIGHT) {
 			distToGoalCenter = sqrt(float(pow(float(_x - GOAL_OUT_X_THRESHOLD_RIGHT), 2) + pow(float(_y), 2)));
 			err = -GOAL_CIRCLE_Y_THRESHOLD_RIGHT + distToGoalCenter;
 			speed = err * 0.043; //0.042
+			
+			if (speed < 0) {
+				speed = -speed;
+				goToOUT = true;
+			}
 		} else {
 			distToGoalCenter = sqrt(float(pow(float(_x - GOAL_OUT_X_THRESHOLD_LEFT), 2) + pow(float(_y), 2)));
 			err = -GOAL_CIRCLE_Y_THRESHOLD_LEFT + distToGoalCenter;
 			speed = err * 0.043; //0.042
+		
+			if (speed < 0) {
+				speed = -speed;
+				goToOUT = true;
+			}
 		}
 		
-		vec = Vec2b(speed, getTargetGoalkeeper()); 
+		vec = Vec2b(speed, adduct(180 * goToOUT + getTargetGoalkeeper())); 
 	}
 	
 	return vec;
@@ -123,6 +135,7 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 
 Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	Vec2b res;
+	critical = false;
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	int16_t globalAngToBall = adduct(angBall + _angle);
 	int16_t angleBallGoal = adduct(angGoal + globalAngToBall);
@@ -133,9 +146,9 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 		else res.angle = _angle;
 
 		float err, p, d, u;
-		err = pow(abs(float(globalAngToBall - angGoal)), 1.21f);
-		p = 0.007 * err;
-		d = (err - errOldGkLine) * 0.01;
+		err = pow(abs(float(globalAngToBall - angGoal)), 1.42f); //1.21
+		p = 0.0027 * err; //0.007
+		d = (err - errOldGkLine) * 0.17; //0.07
 		u = p + d;
 		errOldGkLine = err;
 		
@@ -150,16 +163,17 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 				res.angle = 180 + adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_RIGHT)) + 90);
 			}
 				
-			err = pow(abs(float(globalAngToBall - angGoal)), 1.11f);
-			p = 0.005 * err;
-			d = (err - errOldGkRight) * 0.09; //0.05
+			err = pow(abs(float(globalAngToBall - angGoal)), 1.14f); //1.11
+			p = 0.004 * err; //0.005
+			d = (err - errOldGkRight) * 0.08; //0.05
 			u = p + d;
 			errOldGkRight = err;
 			res.length = u;
 			
 			if (_y < DOWN_Y_GOALKEEPER_RIGHT && (res.angle + _angle < 70 || res.angle + _angle > 180)) {
 				res.angle = 90 + _angle;
-				res.length = 0.025 * (DOWN_Y_GOALKEEPER_RIGHT - _y);
+				res.length = 0.045 * (DOWN_Y_GOALKEEPER_RIGHT - _y);
+				critical = true;
 			}
 		} else if (_x < GOAL_OUT_X_THRESHOLD_LEFT) {
 			if (globalAngToBall > angGoal) {
@@ -168,7 +182,7 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 				res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_LEFT)) - 90);
 			}
 			
-			err = pow(abs(float(globalAngToBall - angGoal)), 1.11f);
+			err = pow(abs(float(globalAngToBall - angGoal)), 1.14f);
 			p = 0.004 * err;
 			d = (err - errOldGkLeft) * 0.09; //0.05
 			u = p + d;
@@ -177,12 +191,17 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 			
 			if (_y < DOWN_Y_GOALKEEPER_LEFT && res.angle + _angle > 110) {
 				res.angle = 90 + _angle;
-				res.length = 0.025 * (DOWN_Y_GOALKEEPER_LEFT - _y);
+				res.length = 0.045 * (DOWN_Y_GOALKEEPER_LEFT - _y);
+				critical = true;
 			}
 		}
 	}
 	
 	return res;
+}
+
+bool ProcessingCoord::robotInCritical() {
+	return critical;
 }
 
 Vec2b ProcessingCoord::getVecForMyCircle(int16_t x, int16_t y) {
@@ -197,7 +216,7 @@ bool ProcessingCoord::isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_
 	} else if (_goal == BLUE_GOAL) {
 		return dBlue && dBlue < RADIUS_GOAL_OUT 
 					&& y < GOAL_OUT_Y_THRESHOLD + DELTA_DIST;
-	} else return 0;
+	} else return false;
 }
 
 bool ProcessingCoord::myGoalLine(int16_t x, int16_t y) {

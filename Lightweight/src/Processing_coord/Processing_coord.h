@@ -8,7 +8,7 @@
 #define THRESHOLD_X 79
 #define UP_Y 225
 #define DOWN_Y 7.4f
-#define DOWN_Y_GOALKEEPER_RIGHT 31
+#define DOWN_Y_GOALKEEPER_RIGHT 35
 #define DOWN_Y_GOALKEEPER_LEFT 35
 #define RADIUS_GOAL_OUT 44.7f
 #define GOAL_OUT_X_THRESHOLD_RIGHT 20
@@ -45,6 +45,7 @@ class ProcessingCoord {
 		bool myGoalLine(int16_t x, int16_t y);
 		bool enemyGoalLine(int16_t x, int16_t y);
 		bool robotInOUT();
+		bool robotInCritical();
 	private:
 		Vec2b _leftFast, _rightFast;
 		Vec2b _upFast, _downFast;
@@ -55,4 +56,5 @@ class ProcessingCoord {
 		int16_t _dBlue, _dYellow;
 		uint8_t _goal;
 		bool inOUT;
+		bool critical;
 };
