@@ -28,6 +28,56 @@ Project File Date:  01/20/2024
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 Note: source file '.\src\Pin\Pin.cpp' - object file renamed from '.\Objects\Pin.o' to '.\Objects\pin_1.o'.
+compiling Processing_coord.cpp...
+.\src\main\project_config.h(15): warning:  #1-D: last line of file ends without a newline
+  #define FORWARD_ROLE 1
+.\src\main\project_config.h(15): warning:  #1-D: last line of file ends without a newline
+  #define FORWARD_ROLE 1
+.\src\Vec2b\Vec2b.h(22): warning:  #1-D: last line of file ends without a newline
+  #endif /* VEC2B_H_ */
+src\Processing_coord\Processing_coord.h(60): warning:  #1-D: last line of file ends without a newline
+  };
+src\Processing_coord\Processing_coord.cpp(73): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	_targetIMU = RAD2DEG * atan2(float(_x - ENEMY_X), float(_y - ENEMY_Y)) - 180;
+src\Processing_coord\Processing_coord.cpp(78): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if (_x > GOAL_OUT_X_THRESHOLD_RIGHT) _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_RIGHT)) - 180);
+src\Processing_coord\Processing_coord.cpp(79): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	else if (_x < GOAL_OUT_X_THRESHOLD_LEFT) _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_LEFT)) - 180);
+src\Processing_coord\Processing_coord.cpp(80): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	else _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 180);
+src\Processing_coord\Processing_coord.cpp(86): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	float ang = atan2(float(DIST_BETWEEN_GOALS - y), float(x)) * RAD2DEG;
+src\Processing_coord\Processing_coord.cpp(113): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			speed = err * 0.043; //0.042
+src\Processing_coord\Processing_coord.cpp(122): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			speed = err * 0.043; //0.042
+src\Processing_coord\Processing_coord.cpp(139): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Processing_coord\Processing_coord.cpp(150): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		p = 0.0027 * err; //0.007
+src\Processing_coord\Processing_coord.cpp(151): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		d = (err - errOldGkLine) * 0.17; //0.07
+src\Processing_coord\Processing_coord.cpp(161): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_RIGHT)) + 90);
+src\Processing_coord\Processing_coord.cpp(163): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				res.angle = 180 + adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_RIGHT)) + 90);
+src\Processing_coord\Processing_coord.cpp(167): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			p = 0.004 * err; //0.005
+src\Processing_coord\Processing_coord.cpp(168): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			d = (err - errOldGkRight) * 0.08; //0.05
+src\Processing_coord\Processing_coord.cpp(180): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				res.angle = 180 + adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_LEFT)) - 90);
+src\Processing_coord\Processing_coord.cpp(182): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x - GOAL_OUT_X_THRESHOLD_LEFT)) - 90);
+src\Processing_coord\Processing_coord.cpp(186): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			p = 0.004 * err;
+src\Processing_coord\Processing_coord.cpp(187): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			d = (err - errOldGkLeft) * 0.09; //0.05
+src\Processing_coord\Processing_coord.cpp(208): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	float ang = atan2(float(y), float(x)) * RAD2DEG;
+src\Processing_coord\Processing_coord.cpp(246): warning:  #1-D: last line of file ends without a newline
+  }
+src\Processing_coord\Processing_coord.cpp: 24 warnings, 0 errors
 compiling main.cpp...
 .\src\main\project_config.h(15): warning:  #1-D: last line of file ends without a newline
   #define FORWARD_ROLE 1
@@ -121,13 +171,13 @@ compiling main.cpp...
   #define FORWARD_ROLE 1
 .\src\main\project_config.h(15): warning:  #1-D: last line of file ends without a newline
   #define FORWARD_ROLE 1
-.\src\Vec2b\Vec2b.h(23): warning:  #1-D: last line of file ends without a newline
+.\src\Vec2b\Vec2b.h(22): warning:  #1-D: last line of file ends without a newline
   #endif /* VEC2B_H_ */
 .\src\Queues_ball\Queues_ball.h(63): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(15): warning:  #1-D: last line of file ends without a newline
   #define FORWARD_ROLE 1
-.\src\Processing_coord\Processing_coord.h(57): warning:  #1-D: last line of file ends without a newline
+.\src\Processing_coord\Processing_coord.h(60): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\libraries.h(27): warning:  #1-D: last line of file ends without a newline
   #include "flash.h"
@@ -137,7 +187,7 @@ compiling main.cpp...
     FLASH_Lock();
 .\src\flash\flash.h(17): warning:  #1-D: last line of file ends without a newline
   }
-.\src\Robot\Robot.h(196): warning:  #1-D: last line of file ends without a newline
+.\src\Robot\Robot.h(193): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp(18): warning:  #111-D: statement is unreachable
   	return 0;
@@ -145,8 +195,8 @@ src\main\main.cpp(19): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp: 57 warnings, 0 errors
 linking...
-Program Size: Code=35754 RO-data=1426 RW-data=248 ZI-data=11544  
-".\Objects\Lightweight.axf" - 0 Error(s), 57 Warning(s).
+Program Size: Code=36210 RO-data=1426 RW-data=248 ZI-data=11552  
+".\Objects\Lightweight.axf" - 0 Error(s), 81 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -172,9 +222,9 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
-      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
+      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 Build Time Elapsed:  00:00:02

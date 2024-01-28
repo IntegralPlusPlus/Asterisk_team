@@ -8,13 +8,14 @@
 #define THRESHOLD_X 79
 #define UP_Y 225
 #define DOWN_Y 7.4f
-#define DOWN_Y_GOALKEEPER 15
+#define DOWN_Y_GOALKEEPER_RIGHT 35
+#define DOWN_Y_GOALKEEPER_LEFT 35
 #define RADIUS_GOAL_OUT 44.7f
 #define GOAL_OUT_X_THRESHOLD_RIGHT 20
 #define GOAL_OUT_X_THRESHOLD_LEFT -25
 #define GOAL_OUT_Y_THRESHOLD 30.f
-#define GOAL_CIRCLE_Y_THRESHOLD_RIGHT 33.f
-#define GOAL_CIRCLE_Y_THRESHOLD_LEFT 22.f
+#define GOAL_CIRCLE_Y_THRESHOLD_RIGHT 35.f
+#define GOAL_CIRCLE_Y_THRESHOLD_LEFT 25.f
 #define GOAL_OUT_X_THRESHOLD_ALL 45
 #define DIST_BETWEEN_GOALS 231
 
@@ -31,7 +32,6 @@ class ProcessingCoord {
 		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
 		Vec2b getVecToGoalCenter();
 		Vec2b getVecToIntersection(int16_t angBall);
-		Vec2b checkProjectionOnY(Vec2b a);
 		int16_t adduct(int16_t value);
 		int16_t adduct180(int16_t value);
 		int16_t getTargetForward();
@@ -45,13 +45,16 @@ class ProcessingCoord {
 		bool myGoalLine(int16_t x, int16_t y);
 		bool enemyGoalLine(int16_t x, int16_t y);
 		bool robotInOUT();
-	//private:
+		bool robotInCritical();
+	private:
 		Vec2b _leftFast, _rightFast;
 		Vec2b _upFast, _downFast;
 		float distToGoalCenter;
+		float errOldGkLeft, errOldGkLine, errOldGkRight; 
 		int16_t _targetIMU;
 		int16_t _x, _y, _angle;
 		int16_t _dBlue, _dYellow;
 		uint8_t _goal;
 		bool inOUT;
+		bool critical;
 };

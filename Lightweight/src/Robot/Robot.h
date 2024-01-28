@@ -1,7 +1,7 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 20000
+#define IMU_CALIBRATE_TIME 15000
 //20000
 #define TIME_NOT_SEEN 1500
 #define USUAL_SPEED 0.55
@@ -73,7 +73,7 @@ namespace Robot {
 		distSoft = 0;
 		distOld = -1;
 
-		currentVector.set(USUAL_SPEED, 90);
+		currentVector.set(0, 90);
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
 		processXY.setGoal(myGoal);
@@ -162,33 +162,30 @@ namespace Robot {
 
 	volatile float distToGoal;
 	void protectGoal() {
-		gyro.setTarget(0);
-		
 		Vec2b goTo;
 		if (!doesntSeeGoals && time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) {
-			Vec2b vecToCenter = processXY.getVecToGoalCenter();
-			
 			ang0_360 = ang + 90;
 			while (ang0_360 > 360) ang0_360 -= 360;
 			while (ang0_360 < 0) ang0_360 += 360;
 			
+			Vec2b vecToCenter = processXY.getVecToGoalCenter();
 			Vec2b vecToBall = processXY.getVecToIntersection(ang0_360);
-			//if (vecToBall.length > 10 * vecToCenter.length) vecToBall.length = 10 * vecToCenter.length;
-			
-			goTo = processXY.checkProjectionOnY(vecToBall + vecToCenter);
-			if (goTo.length >= 0.45) goTo.length = 0.45;
+			goTo = vecToBall + vecToCenter;
+			if (goTo.length > 0.7) goTo.length = 0.7;
 			
 			gyro.setRotationForTarget();
 			pow = gyro.getRotation();
-			distToGoal = processXY.distToGoalCenter;
 			
-			if (time_service::millis() != t) {
-				currentVector.changeTo(goTo);
-				t = time_service::millis();
-			}
+			if (!processXY.robotInCritical()) {
+				if (time_service::millis() != t) {
+					currentVector.changeTo(goTo);
+					t = time_service::millis();
+				}
+			} else currentVector = goTo;
+		} else if (doesntSeeGoals) {
+			currentVector = Vec2b(0.1, 90);
 		} else {
 			currentVector = Vec2b(0, 0);
-			pow = 0;
 		}
 	
 		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
