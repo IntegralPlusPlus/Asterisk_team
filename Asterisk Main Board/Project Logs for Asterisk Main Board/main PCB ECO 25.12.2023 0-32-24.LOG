@@ -1,0 +1,22 @@
+Change Component Footprint: Designator=SB2 Old Footprint=TL3700AF160QG New Footprint=DTSM-61N-V-T/R
+Change Component Footprint: Designator=SB3 Old Footprint=TL3700AF160QG New Footprint=DTSM-61N-V-T/R
+Change Component Footprint: Designator=SB4 Old Footprint=TL3700AF160QG New Footprint=DTSM-61N-V-T/R
+Change Component Footprint: Designator=SB5 Old Footprint=TL3700AF160QG New Footprint=DTSM-61N-V-T/R
+Change Component Footprint: Designator=SB6 Old Footprint=TL3700AF160QG New Footprint=DTSM-61N-V-T/R
+Change Component Designator: OldDesignator=C47 NewDesignator=C17
+Change Component Designator: OldDesignator=C48 NewDesignator=C19
+Change Component Designator: OldDesignator=C49 NewDesignator=C26
+Change Component Designator: OldDesignator=C50 NewDesignator=C35
+Change Component Designator: OldDesignator=C51 NewDesignator=C37
+Change Component Designator: OldDesignator=R45 NewDesignator=R14
+Change Component Designator: OldDesignator=R46 NewDesignator=R15
+Change Component Designator: OldDesignator=R47 NewDesignator=R17
+Added Member To Class: ClassName=U_switches Member=Component C17 1uF
+Added Member To Class: ClassName=U_switches Member=Component C19 1uF
+Added Member To Class: ClassName=U_switches Member=Component C26 1uF
+Added Member To Class: ClassName=U_switches Member=Component C35 1uF
+Added Member To Class: ClassName=U_switches Member=Component C37 1uF
+Added Member To Class: ClassName=U_switches Member=Component R14 10K
+Added Member To Class: ClassName=U_switches Member=Component R15 10K
+Added Member To Class: ClassName=U_switches Member=Component R17 10K
+Added Member To Class: ClassName=U_switches Member=Component SB4 BTN2

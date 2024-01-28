@@ -1,0 +1,4 @@
+Change Component Comment : Designator=HL4 Old Comment=LED2 New Comment=LED3
+Change Component Comment : Designator=HL7 Old Comment=LED3 New Comment=LED2
+Change Net Name : Old Net Name=LED2 New Net Name=LED3
+Change Net Name : Old Net Name=LED3 New Net Name=LED2

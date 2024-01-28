@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=TB_OUT1 Pin=U1-15
+Removed Pin From Net: NetName=CAP_ADC Pin=U1-17
+Added Pin To Net: NetName=CAP_ADC Pin=U1-15
+Added Pin To Net: NetName=TB_OUT1 Pin=U1-17

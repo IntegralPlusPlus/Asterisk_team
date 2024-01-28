@@ -1,0 +1,79 @@
+Removed Pin From Net: NetName=GND Pin=C47-1
+Removed Pin From Net: NetName=RESET_BTN Pin=C47-2
+Removed Pin From Net: NetName=+3V3 Pin=C48-1
+Removed Pin From Net: NetName=BTN1 Pin=C48-2
+Removed Pin From Net: NetName=+3V3 Pin=C49-1
+Removed Pin From Net: NetName=BTN2 Pin=C49-2
+Removed Pin From Net: NetName=+3V3 Pin=C50-1
+Removed Pin From Net: NetName=RESET_IMU Pin=C50-2
+Removed Pin From Net: NetName=+3V3 Pin=C51-1
+Removed Pin From Net: NetName=BTN3 Pin=C51-2
+Removed Pin From Net: NetName=GND Pin=R45-1
+Removed Pin From Net: NetName=BTN2 Pin=R45-2
+Removed Pin From Net: NetName=GND Pin=R46-1
+Removed Pin From Net: NetName=RESET_IMU Pin=R46-2
+Removed Pin From Net: NetName=GND Pin=R47-1
+Removed Pin From Net: NetName=BTN3 Pin=R47-2
+Removed Member From Class: ClassName=U_switches Member=C47
+Removed Member From Class: ClassName=U_switches Member=C48
+Removed Member From Class: ClassName=U_switches Member=C49
+Removed Member From Class: ClassName=U_switches Member=C50
+Removed Member From Class: ClassName=U_switches Member=C51
+Removed Member From Class: ClassName=U_switches Member=R45
+Removed Member From Class: ClassName=U_switches Member=R46
+Removed Member From Class: ClassName=U_switches Member=R47
+Change Component Footprint: Designator=SB2 Old Footprint=TL3700AF160QG New Footprint=DTSM-61N-V-T/R
+Change Component Footprint: Designator=SB3 Old Footprint=TL3700AF160QG New Footprint=DTSM-61N-V-T/R
+Change Component Footprint: Designator=SB4 Old Footprint=TL3700AF160QG New Footprint=DTSM-61N-V-T/R
+Change Component Footprint: Designator=SB5 Old Footprint=TL3700AF160QG New Footprint=DTSM-61N-V-T/R
+Change Component Footprint: Designator=SB6 Old Footprint=TL3700AF160QG New Footprint=DTSM-61N-V-T/R
+Change component parameters: Designator = "SB2"; Footprint = "DTSM-61N-V-T/R"; UniqueID = "\YLTXVYXW\LWKHCQFV"
+Change component parameters. Clean all parameters for all variants
+Change component parameters: Designator = "SB3"; Footprint = "DTSM-61N-V-T/R"; UniqueID = "\YLTXVYXW\AGDFLODH"
+Change component parameters. Clean all parameters for all variants
+Change component parameters: Designator = "SB4"; Footprint = "DTSM-61N-V-T/R"; UniqueID = "\YLTXVYXW\QMNNNPIE"
+Change component parameters. Clean all parameters for all variants
+Change component parameters: Designator = "SB5"; Footprint = "DTSM-61N-V-T/R"; UniqueID = "\YLTXVYXW\BLCAMMFH"
+Change component parameters. Clean all parameters for all variants
+Change component parameters: Designator = "SB6"; Footprint = "DTSM-61N-V-T/R"; UniqueID = "\YLTXVYXW\WVTACHJV"
+Change component parameters. Clean all parameters for all variants
+Added Component: Designator=C17(CAP0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=C19(CAP0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=C26(CAP0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=C35(CAP0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=C37(CAP0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R14(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R15(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R17(RES0805)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=GND Pin=C17-1
+Added Pin To Net: NetName=RESET_BTN Pin=C17-2
+Added Pin To Net: NetName=+3V3 Pin=C19-1
+Added Pin To Net: NetName=BTN1 Pin=C19-2
+Added Pin To Net: NetName=+3V3 Pin=C26-1
+Added Pin To Net: NetName=BTN2 Pin=C26-2
+Added Pin To Net: NetName=+3V3 Pin=C35-1
+Added Pin To Net: NetName=RESET_IMU Pin=C35-2
+Added Pin To Net: NetName=+3V3 Pin=C37-1
+Added Pin To Net: NetName=BTN3 Pin=C37-2
+Added Pin To Net: NetName=GND Pin=R14-1
+Added Pin To Net: NetName=BTN2 Pin=R14-2
+Added Pin To Net: NetName=GND Pin=R15-1
+Added Pin To Net: NetName=RESET_IMU Pin=R15-2
+Added Pin To Net: NetName=GND Pin=R17-1
+Added Pin To Net: NetName=BTN3 Pin=R17-2
+Added Member To Class: ClassName=U_switches Member=Component C17 1uF
+Added Member To Class: ClassName=U_switches Member=Component C19 1uF
+Added Member To Class: ClassName=U_switches Member=Component C26 1uF
+Added Member To Class: ClassName=U_switches Member=Component C35 1uF
+Added Member To Class: ClassName=U_switches Member=Component C37 1uF
+Added Member To Class: ClassName=U_switches Member=Component R14 10K
+Added Member To Class: ClassName=U_switches Member=Component R15 10K
+Added Member To Class: ClassName=U_switches Member=Component R17 10K

@@ -1,0 +1,88 @@
+﻿Field=#~Integer~#~50|Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=LibRef~String~LibRef~100|Field=Quantity~Integer~Quantity~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~Asterisk Main Board.PrjPCB|ReportField=ProjectFullPath~D:\Denis\Documents\Altium projects\Asterisk Main Board\Asterisk Main Board.PrjPCB|ReportField=Title~Bill of Materials For Project [Asterisk Main Board.PrjPCB] (No PCB Document Selected)|ReportField=ReportTime~17:28:21|ReportField=ReportDate~16.10.2023|ReportField=ReportDateTime~16.10.2023 17:28:21|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=TotalQuantity~287|ReportField=TotalActualPrice~0|ReportField=TotalTargetPrice~0|ReportField=VersionControl_RevNumber~|ReportField=VersionControl_ProjFolderRevNumber~|ReportField=Address1~|ReportField=Address2~|ReportField=Address3~|ReportField=Address4~|ReportField=Application_BuildNumber~|ReportField=ApprovedBy~|ReportField=Author~|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=CurrentDate~16.10.2023|ReportField=CurrentTime~17:18:37|ReportField=Date~|ReportField=DocumentFullPathAndName~D:\Denis\Documents\Altium projects\Asterisk Main Board\main.SchDoc|ReportField=DocumentName~main.SchDoc|ReportField=DocumentNumber~|ReportField=DrawnBy~|ReportField=Engineer~|ReportField=ImagePath~|ReportField=ModifiedDate~16.10.2023|ReportField=Organization~|ReportField=ProjectName~Asterisk Main Board.PrjPCB|ReportField=Revision~|ReportField=Rule~|ReportField=SheetNumber~|ReportField=SheetTotal~|ReportField=Time~|ReportField=Title~|ReportField=DataSourceFileName~Asterisk Main Board.PrjPCB|ReportField=DataSourceFullPath~D:\Denis\Documents\Altium projects\Asterisk Main Board\Asterisk Main Board.PrjPCB|ReportField=PCBConfigurationName~Sources|ReportField=Item~|ReportField=ItemRevision~|ReportField=ItemAndRevision~|ReportField=ItemRevisionBase~|ReportField=ItemRevisionLevel1~|ReportField=ItemRevisionLevel2~|ReportField=ItemRevisionLevel1AndBase~|ReportField=ItemRevisionLevel2AndLevel1~
+1|HC-05|Bluetooth HC-05|BT?||HC-05|1
+2|10v 47uF|Tantal SMD Cap|C1|CAP_TANT_D|CAP Tantal|1
+3|25v 470uF||C2, C?|D8C3.5H12|Cap Aluminum|2
+4|25v 47uF|Tantal SMD Cap|C3_DRV1, C3_DRV2, C3_DRV3, C3_DRV4, C4_DRV1, C4_DRV2, C4_DRV3, C4_DRV4|CAP_TANT_D|CAP Tantal|8
+5|1uF|Ceramic SMD Cap, [NoValue]|C5, C6, C16, C23, C24, C25, C26, C27|CAP0603|CAP Ceramic, Cap SMD|8
+6|0.1uF|Ceramic SMD Cap|C7, C8, C9, C10, C11, C12, C15, C17, C18|CAP0603|CAP Ceramic|9
+7|100uF|Tantal SMD Cap|C13, C14|CAP_TANT_D|CAP Tantal|2
+8|2.2uF|Ceramic SMD Cap|C19, C20|CAP0603|CAP Ceramic|2
+9|20pF|Ceramic SMD Cap|C21, C22|CAP0603|CAP Ceramic|2
+10|1uF|Ceramic SMD Cap|C28|CAP0805|CAP Ceramic|1
+11|0.1uF|Ceramic SMD Cap|C29, C32, C33, C67, C68|CAP0805|CAP Ceramic|5
+12|10uF|Ceramic SMD Cap|C30|CAP0805|CAP Ceramic|1
+13|1uF|Ceramic SMD Cap|C34, C35, C36, C37, C38, C39, C40, C41, C42, C43, C44, C45, C46, C47, C48, C49, C50, C51, C52, C53, C54, C55, C56, C57, C58, C59, C60, C61, C62, C63, C64, C65|CAP1206|CAP Ceramic|32
+14|8.2V|Zener Diode|D3|BZV55C8V2|Diode Zener|1
+15|mini360 3V3||DA1|mini360|mini360|1
+16|mini360 5V||DA2|mini360|mini360|1
+17|8MHz|CRYSTAL 16.0000MHZ 20PF SMD|G1|CRYSTAL_HC49-US-SM|ECS-160-20-5PX-TR|1
+18|LED1|LED smd Green|HL1|LED0603_GREEN|LED|1
+19|LED2|LED smd Green|HL2|LED0603_GREEN|LED|1
+20|LED3|LED smd Green|HL3|LED0603_GREEN|LED|1
+21|BG|LED smd Green|HL4|LED0603_GREEN|LED|1
+22|YG|LED smd Green|HL5|LED0603_GREEN|LED|1
+23|ST|LED smd Green|HL6|LED0603_GREEN|LED|1
+24|GK|LED smd Green|HL7|LED0603_GREEN|LED|1
+25|M_PWR|LED smd Red|HL8|LED0603_RED|LED|1
+26|48V|LED smd Red|HL9|LED0603_RED|LED|1
+27|12V|LED smd Red|HL10|LED0603_RED|LED|1
+28|5V|LED smd Red|HL11|LED0603_RED|LED|1
+29|3V3|LED smd Red|HL12|LED0603_RED|LED|1
+30|white|LED smd White, LED smd|HL13, HL14, HL15, HL16, HL18, HL19|LED0603_WHITE|LED|6
+31|Vbat|LED smd Red|HL17|LED0603_RED|LED|1
+32|USB-C||J1||USB-C|1
+33|CD74HC4067SM96|SSOP-24|MUX1, MUX2|CD74HC4067SM96|CD74HC4067SM96|2
+34|150R|RES smd|R1|RES0805|RES|1
+35|5.1K|RES smd|R2, R51|RES0805|RES|2
+36|10K|RES smd|R3, R4_DRV1, R4_DRV2, R4_DRV3, R4_DRV4, R5_DRV1, R5_DRV2, R5_DRV3, R5_DRV4, R6_DRV1, R6_DRV2, R6_DRV3, R6_DRV4, R8, R9, R10_DRV1, R10_DRV2, R10_DRV3, R10_DRV4, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R36, R40, R41, R42, R43, R44, R50, R87, R88, R93|RES0805|RES|39
+37|10R|RES smd|R7|RES0805|RES|1
+38|1K|RES smd|R11, R12, R13, R14, R15, R16, R17, R22, R37, R46, R47, R48, R91, R92|RES0805|RES|14
+39|4.7K|RES smd|R18, R20|RES0805|RES|2
+40|22K|RES smd|R19|RES0805|RES|1
+41|1.5K|RES smd|R21|RES0805|RES|1
+42|100K|RES smd|R33, R35|RES0805|RES|2
+43|300K|RES smd|R34|RES0805|RES|1
+44|10K|RES smd|R39, R55, R56, R57, R58, R59, R60, R61, R62, R63, R64, R65, R66, R67, R68, R69, R70, R71, R72, R73, R74, R75, R76, R77, R78, R79, R80, R81, R82, R83, R84, R85|RES0603|RES|32
+45|27K|RES smd|R45|RES0805|RES|1
+46|24K|RES smd|R49|RES0805|RES|1
+47|4.7K|RES smd|R52, R53, R54|RES1206|RES|3
+48|0R|RES smd|R89, R90|RES0805|RES|2
+49|RESET|SWITCH TACTILE SPST-NO 0.02A 15V|SB1|TL3700AF160QG|TL3700AF160QG|1
+50|BTN1|SWITCH TACTILE SPST-NO 0.02A 15V|SB2|TL3700AF160QG|TL3700AF160QG|1
+51|BTN2|SWITCH TACTILE SPST-NO 0.02A 15V|SB3|TL3700AF160QG|TL3700AF160QG|1
+52|RESET_IMU|SWITCH TACTILE SPST-NO 0.02A 15V|SB4|TL3700AF160QG|TL3700AF160QG|1
+53|BTN3|SWITCH TACTILE SPST-NO 0.02A 15V|SB5|TL3700AF160QG|TL3700AF160QG|1
+54|POWER|SWITCH TACTILE SPST-NO 0.02A 15V|SB6|TL3700AF160QG|TL3700AF160QG|1
+55|#NAME?|TACT 6.0 X 3.5, 4.3 MM H, 320GF,|SB7|PTS636 SP43 LFS|PTS636 SP43 LFS|1
+56|DS1040-01|DIP 1 pin switch|SW1|DS1040-01|DS1040-01|1
+57|DS1040-02|DIP 2 pin switch|SW2|DS1040-02|DS1040-02|1
+58|ESP1010||SW4|ESP1010|ESP1010|1
+59|TSSP58038|TSSP58038|TS1, TS2, TS3, TS4, TS5, TS6, TS7, TS8, TS9, TS10, TS11, TS12, TS13, TS14, TS15, TS16, TS17, TS18, TS19, TS20, TS21, TS22, TS23, TS24, TS25, TS26, TS27, TS28, TS29, TS30, TS31, TS32|TSSP58038|TSSP58038|32
+60|STM32F407VGT6|ARM Cortex-M4 32-bit MCU+FPU, 210 DMIPS, 1024 kB Flash, 192 kB Internal RAM, 82 I/Os, 100-pin LQFP, -40 to 85 degC, Tray|U1|LQFP100|STM32F407VGT6|1
+61|DRV8870||U2_DRV1, U2_DRV2, U2_DRV3, U2_DRV4, U3_DRV1, U3_DRV2, U3_DRV3, U3_DRV4|HSOP-8|DRV8870|8
+62|LM339D||U4|LM339D|LM339D|1
+63|Diode Schottky||VD1, VD2, VD3, VD4|DO-214AC|Diode Schottky|4
+64|N-Channel Mosfet|DPAK|VT1, VT3|TO252AA|IRFR2405|2
+65|P-Channel MOSFET||VT2|TO252AA|IRFR9024N|1
+66|P-Channel||VT4|TO252AA|IRFR9024N|1
+67|IRFR9024N||VT5|TO252AA|IRFR9024N|1
+68|OpenMV Power|JST_B2B-XH-A(LF)(SN)|XP1|JST_XH-2|JST-XH-2|1
+69|Line Board|JST_B8B-XH-A(LF)(SN)|XP2|JST_XH-8|JST-XH-8|1
+70|BALL_LED|JST_B2B-XH-A(LF)(SN)|XP3|JST_XH-2|JST-XH-2|1
+71|OpenMV|JST_B2B-XH-A(LF)(SN)|XP4, XP21|JST_XH-2|JST-XH-2|2
+72|BALL_SEN|JST_B2B-XH-A(LF)(SN)|XP5|JST_XH-2|JST-XH-2|1
+73|ESC_IN|JST_B2B-XH-A(LF)(SN)|XP6|JST_XH-2|JST-XH-2|1
+74|ST-Link||XP7|4x2.54|Header 4|1
+75|Solenoid|JST_B2B-XH-A(LF)(SN)|XP8|JST_XH-2|JST-XH-2|1
+76|CAP|JST_B2B-XH-A(LF)(SN)|XP9|JST_XH-2|JST-XH-2|1
+77|HC-05|JST_B4B-XH-A(LF)(SN)|XP10, XP22, XP23|JST_XH-4|JST_XH-4|3
+78|IMU|JST_B4B-XH-A(LF)(SN)|XP11|JST_XH-4|JST_XH-4|1
+79|XL6009 IN|JST_B2B-XH-A(LF)(SN)|XP12|JST_XH-2|JST-XH-2|1
+80|XL6009 OUT|JST_B2B-XH-A(LF)(SN)|XP13|JST_XH-2|JST-XH-2|1
+81|M1|JST_B2B-XH-A(LF)(SN)|XP14|JST_XH-2|JST-XH-2|1
+82|M2|JST_B2B-XH-A(LF)(SN)|XP15|JST_XH-2|JST-XH-2|1
+83|M3|JST_B2B-XH-A(LF)(SN)|XP16|JST_XH-2|JST-XH-2|1
+84|M4|JST_B2B-XH-A(LF)(SN)|XP17|JST_XH-2|JST-XH-2|1
+85|ESC_PWR||XP18|XT30_3D|Power connectors|1
+86|XT30||XP19|XT30_3D|Power connectors|1
+87|PWR|JST_B2B-XH-A(LF)(SN)|XP20|JST_XH-2|JST-XH-2|1

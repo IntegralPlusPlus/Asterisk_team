@@ -1,0 +1,121 @@
+Change Component Comment : Designator=XP11 Old Comment=HC-05 New Comment=Free pins
+Added Component: Designator=C7(CAP0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=C13(CAP0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=C17(D8C3.2H12)
+Add component. Clean all parameters for all variants
+Added Component: Designator=C19(CAP0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=C53(CAP0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=HL18(LED0603_WHITE)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R15(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R18(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R22(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R35(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R38(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R41(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R42(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R71(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R72(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=U5(HSOP-8)
+Add component. Clean all parameters for all variants
+Added Component: Designator=U9(HSOP-8)
+Add component. Clean all parameters for all variants
+Added Component: Designator=VT2(DPAK)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Chipdip"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.chipdip.ru/product/std30nf06l-umw"; VariantName = "[No Variations]"
+Added Component: Designator=XP4(JST_XH-2)
+Add component. Clean all parameters for all variants
+Added Component: Designator=XP6(JST_XH-2)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=GND Pin=C7-1
+Added Pin To Net: NetName=+12V Pin=C7-2
+Added Pin To Net: NetName=GND Pin=C13-1
+Added Pin To Net: NetName=+12V Pin=C13-2
+Added Pin To Net: NetName=+12V Pin=C17-1
+Added Pin To Net: NetName=GND Pin=C17-2
+Added Pin To Net: NetName=GND Pin=C19-1
+Added Pin To Net: NetName=+12V Pin=C19-2
+Added Pin To Net: NetName=GND Pin=C53-1
+Added Pin To Net: NetName=+3V3 Pin=C53-2
+Added Pin To Net: NetName=NetHL18_1 Pin=HL18-1
+Added Pin To Net: NetName=NetBT1_31 Pin=HL18-2
+Added Pin To Net: NetName=GND Pin=R15-1
+Added Pin To Net: NetName=NetR14_1 Pin=R15-2
+Added Pin To Net: NetName=GND Pin=R18-1
+Added Pin To Net: NetName=KICK_IN Pin=R18-2
+Added Pin To Net: NetName=NetR21_1 Pin=R22-1
+Added Pin To Net: NetName=GND Pin=R22-2
+Added Pin To Net: NetName=GND Pin=R35-1
+Added Pin To Net: NetName=SW1 Pin=R35-2
+Added Pin To Net: NetName=GND Pin=R38-1
+Added Pin To Net: NetName=ROLE_SW Pin=R38-2
+Added Pin To Net: NetName=GND Pin=R41-1
+Added Pin To Net: NetName=GOAL_SW Pin=R41-2
+Added Pin To Net: NetName=GND Pin=R42-1
+Added Pin To Net: NetName=GND Pin=R71-1
+Added Pin To Net: NetName=NetHL18_1 Pin=R71-2
+Added Pin To Net: NetName=GND Pin=R72-1
+Added Pin To Net: NetName=NetHL19_1 Pin=R72-2
+Added Pin To Net: NetName=GND Pin=U5-1
+Added Pin To Net: NetName=+3V3 Pin=U5-4
+Added Pin To Net: NetName=+12V Pin=U5-5
+Added Pin To Net: NetName=M2_OUT1 Pin=U5-6
+Added Pin To Net: NetName=GND Pin=U5-7
+Added Pin To Net: NetName=M2_OUT2 Pin=U5-8
+Added Pin To Net: NetName=GND Pin=U5-9
+Added Pin To Net: NetName=GND Pin=U9-1
+Added Pin To Net: NetName=+3V3 Pin=U9-4
+Added Pin To Net: NetName=+12V Pin=U9-5
+Added Pin To Net: NetName=M3_OUT1 Pin=U9-6
+Added Pin To Net: NetName=GND Pin=U9-7
+Added Pin To Net: NetName=M3_OUT2 Pin=U9-8
+Added Pin To Net: NetName=GND Pin=U9-9
+Added Pin To Net: NetName=SOL2 Pin=VT2-D
+Added Pin To Net: NetName=NetR21_2 Pin=VT2-G
+Added Pin To Net: NetName=GND Pin=VT2-S
+Added Pin To Net: NetName=CAP Pin=XP4-1
+Added Pin To Net: NetName=GND Pin=XP4-2
+Added Pin To Net: NetName=CAP Pin=XP6-1
+Added Pin To Net: NetName=SOL2 Pin=XP6-2
+Added Member To Class: ClassName=U_drv Member=Component C7 0.1uF
+Added Member To Class: ClassName=U_drv Member=Component C13 0.1uF
+Added Member To Class: ClassName=U_stabs Member=Component C17 220uF
+Added Member To Class: ClassName=U_stabs Member=Component C19 1uF
+Added Member To Class: ClassName=U_bluetooth Member=Component C53 0.1uF
+Added Member To Class: ClassName=U_bluetooth Member=Component HL18 White
+Added Member To Class: ClassName=U_stabs Member=Component R15 10K
+Added Member To Class: ClassName=main Member=Component R18 10K
+Added Member To Class: ClassName=main Member=Component R22 10K
+Added Member To Class: ClassName=U_switches Member=Component R35 10K
+Added Member To Class: ClassName=U_switches Member=Component R38 10K
+Added Member To Class: ClassName=U_switches Member=Component R41 10K
+Added Member To Class: ClassName=U_switches Member=Component R42 10K
+Added Member To Class: ClassName=U_indicator Member=Component R51 39K
+Added Member To Class: ClassName=U_bluetooth Member=Component R71 1K
+Added Member To Class: ClassName=U_bluetooth Member=Component R72 1K
+Added Member To Class: ClassName=U_drv Member=Component U5 DRV8870
+Added Member To Class: ClassName=U_drv Member=Component U9 DRV8870
+Added Member To Class: ClassName=main Member=Component VT2 STD30NF06L
+Added Member To Class: ClassName=U_connectors Member=Component XP4 CAP
+Added Member To Class: ClassName=U_connectors Member=Component XP6 Solenoid
+Added Room: Name=main
+Added Room: Name=U_bluetooth
+Added Room: Name=U_connectors
+Added Room: Name=U_drv
+Added Room: Name=U_indicator
+Added Room: Name=U_stabs
+Added Room: Name=U_switches

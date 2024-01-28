@@ -1,0 +1,19 @@
+Output: Gerber X2 Files
+Type  : GerberX2
+From  : PCB Document [main.PcbDoc]
+   Generated File[main_Copper_Signal_Top.gbr]
+   Generated File[main_Copper_Signal_Bot.gbr]
+   Generated File[main_Legend_Bot.gbr]
+   Generated File[main_Soldermask_Bot.gbr]
+   Generated File[main_Legend_Top.gbr]
+   Generated File[main_Soldermask_Top.gbr]
+   Generated File[main_Mechanical_2.gbr]
+   Generated File[main.RUL]
+   Generated File[main.EXTREP]
+   Generated File[main.REP]
+
+
+Files Generated   : 10
+Documents Printed : 0
+
+Finished Output Generation At 19:25:32 On 24.01.2024

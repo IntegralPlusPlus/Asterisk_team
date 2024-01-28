@@ -1,0 +1,15 @@
+Added Pin To Net: NetName=RESET_IMU Pin=U1-23
+Added Pin To Net: NetName=BT_RESET Pin=U1-24
+Added Pin To Net: NetName=LB_IN4 Pin=U1-39
+Added Pin To Net: NetName=LB_IN3 Pin=U1-40
+Added Pin To Net: NetName=LB_IN2 Pin=U1-41
+Added Pin To Net: NetName=LB_IN1 Pin=U1-42
+Added Pin To Net: NetName=KICK_IN Pin=U1-67
+Added Pin To Net: NetName=BTN3 Pin=U1-68
+Added Pin To Net: NetName=LED2 Pin=U1-69
+Added Pin To Net: NetName=LED3 Pin=U1-70
+Added Pin To Net: NetName=LED1 Pin=U1-71
+Added Pin To Net: NetName=BTN2 Pin=U1-81
+Added Pin To Net: NetName=BTN1 Pin=U1-82
+Added Pin To Net: NetName=MTR_ON Pin=U1-83
+Added Pin To Net: NetName=SW1 Pin=U1-84

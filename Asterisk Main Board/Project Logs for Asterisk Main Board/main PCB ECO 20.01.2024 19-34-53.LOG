@@ -1,0 +1,30 @@
+Added Component: Designator=J?(USB-C VERTICAL)
+Added Pin To Net: NetName=GND Pin=J?-A1
+Added Pin To Net: NetName=SWDIO Pin=J?-A6
+Added Pin To Net: NetName=SWCLK Pin=J?-A7
+Added Pin To Net: NetName=GND Pin=J?-A12
+Added Pin To Net: NetName=GND Pin=J?-B1
+Added Pin To Net: NetName=SWDIO Pin=J?-B6
+Added Pin To Net: NetName=SWCLK Pin=J?-B7
+Added Pin To Net: NetName=GND Pin=J?-B12
+Added Pin To Net: NetName=GND Pin=J?-S1
+Added Pin To Net: NetName=GND Pin=J?-S2
+Added Pin To Net: NetName=GND Pin=J?-S3
+Added Pin To Net: NetName=GND Pin=J?-S4
+Added Pin To Net: NetName=NetJ?_A4 Pin=J?-A4
+Added Net: Name=NetJ?_A4
+Added Pin To Net: NetName=NetJ?_A5 Pin=J?-A5
+Added Net: Name=NetJ?_A5
+Added Pin To Net: NetName=NetJ?_A8 Pin=J?-A8
+Added Net: Name=NetJ?_A8
+Added Pin To Net: NetName=NetJ?_A9 Pin=J?-A9
+Added Net: Name=NetJ?_A9
+Added Pin To Net: NetName=NetJ?_B4 Pin=J?-B4
+Added Net: Name=NetJ?_B4
+Added Pin To Net: NetName=NetJ?_B5 Pin=J?-B5
+Added Net: Name=NetJ?_B5
+Added Pin To Net: NetName=NetJ?_B8 Pin=J?-B8
+Added Net: Name=NetJ?_B8
+Added Pin To Net: NetName=NetJ?_B9 Pin=J?-B9
+Added Net: Name=NetJ?_B9
+Added Member To Class: ClassName=U_connectors Member=Component J? USB

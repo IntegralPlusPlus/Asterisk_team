@@ -1,0 +1,36 @@
+Removed Pin From Net: NetName=+3V3 Pin=XP1-2
+Removed Pin From Net: NetName=LB_OUT2 Pin=XP1-8
+Removed Pin From Net: NetName=+3V3 Pin=XP2-2
+Removed Pin From Net: NetName=NetXP2_8 Pin=XP2-8
+Removed Pin From Net: NetName=+5V Pin=XP7-1
+Removed Pin From Net: NetName=GND Pin=XP7-2
+Removed Pin From Net: NetName=NetXP7_4 Pin=XP7-4
+Removed Pin From Net: NetName=+5V Pin=XP9-2
+Removed Pin From Net: NetName=NetXP9_4 Pin=XP9-4
+Removed Pin From Net: NetName=+3V3 Pin=XP10-2
+Removed Pin From Net: NetName=NetXP10_4 Pin=XP10-4
+Added Pin To Net: NetName=NetXP10_4 Pin=XP1-2
+Added Pin To Net: NetName=+3V3 Pin=XP1-8
+Added Pin To Net: NetName=LB_OUT2 Pin=XP2-2
+Added Pin To Net: NetName=+3V3 Pin=XP2-8
+Added Pin To Net: NetName=GND Pin=XP7-1
+Added Pin To Net: NetName=NetXP2_8 Pin=XP7-2
+Added Pin To Net: NetName=+5V Pin=XP7-4
+Added Pin To Net: NetName=NetXP7_4 Pin=XP9-2
+Added Pin To Net: NetName=+5V Pin=XP9-4
+Added Pin To Net: NetName=NetXP9_4 Pin=XP10-2
+Added Pin To Net: NetName=+3V3 Pin=XP10-4
+Change Net Name : Old Net Name=LB_IN1 New Net Name=LB_IN2
+Change Net Name : Old Net Name=LB_IN2 New Net Name=LB_IN3
+Change Net Name : Old Net Name=LB_IN3 New Net Name=LB_IN4
+Change Net Name : Old Net Name=LB_IN4 New Net Name=LB_OUT1
+Change Net Name : Old Net Name=LB_OUT1 New Net Name=LB_OUT2
+Change Net Name : Old Net Name=LB_OUT2 New Net Name=NetXP2_2
+Change Net Name : Old Net Name=NetU3_33 New Net Name=LB_IN1
+Change Net Name : Old Net Name=NetU3_34 New Net Name=LB_IN2
+Change Net Name : Old Net Name=NetU3_63 New Net Name=LB_IN3
+Change Net Name : Old Net Name=NetU3_64 New Net Name=LB_IN4
+Change Net Name : Old Net Name=NetXP2_8 New Net Name=NetXP7_2
+Change Net Name : Old Net Name=NetXP7_4 New Net Name=NetXP9_2
+Change Net Name : Old Net Name=NetXP9_4 New Net Name=NetXP10_2
+Change Net Name : Old Net Name=NetXP10_4 New Net Name=LB_IN1

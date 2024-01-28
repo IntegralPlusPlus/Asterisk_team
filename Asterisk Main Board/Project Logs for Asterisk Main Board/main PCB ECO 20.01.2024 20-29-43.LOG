@@ -1,0 +1,18 @@
+Removed Pin From Net: NetName=M4_IN1 Pin=R9-1
+Removed Pin From Net: NetName=M4_IN2 Pin=R11-1
+Change Component Comment : Designator=XP12 Old Comment=3V3 New Comment=+3V3
+Change Component Comment : Designator=VT6 Old Comment=IRLML0060 New Comment=IRLML2502
+Change Component Comment : Designator=VT7 Old Comment=IRLML0060 New Comment=IRLML2502
+Change Component Description : Designator=VT6 Old Description=N-MOSFET
+Uds = 20 V
+Ids = 4.2 A
+Rds = 0.035 Ohm
+P = 8 W New Description=N-MOSFET
+Uds = 20 V
+Ids = 4.2 A
+Rds = 0.035 Ohm
+P = 1,25 W
+Added Pin To Net: NetName=M4_IN2 Pin=R9-1
+Added Pin To Net: NetName=M4_IN1 Pin=R11-1
+Change Net Name : Old Net Name=M4_IN1 New Net Name=M4_IN2
+Change Net Name : Old Net Name=M4_IN2 New Net Name=M4_IN1

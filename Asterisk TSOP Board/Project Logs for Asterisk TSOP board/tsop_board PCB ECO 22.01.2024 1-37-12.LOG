@@ -1,0 +1,9 @@
+Added Component: Designator=HL1(LED0603_GREEN)
+Added Component: Designator=R37(RES0805)
+Added Pin To Net: NetName=VCC Pin=HL1-2
+Added Pin To Net: NetName=GND Pin=R37-1
+Added Pin To Net: NetName=NetHL1_1 Pin=HL1-1
+Added Pin To Net: NetName=NetHL1_1 Pin=R37-2
+Added Net: Name=NetHL1_1
+Added Member To Class: ClassName=tsop_board Member=Component HL1 12V
+Added Member To Class: ClassName=tsop_board Member=Component R37 4.7K

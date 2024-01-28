@@ -1,0 +1,29 @@
+Change Component Comment : Designator=XP11 Old Comment=Free pins New Comment=SPI
+Added Component: Designator=R31(RES0805)
+Added Component: Designator=R45(RES0805)
+Added Component: Designator=XP13(JST_XH-4)
+Added Pin To Net: NetName=+3V3 Pin=R31-1
+Added Pin To Net: NetName=+3V3 Pin=R45-1
+Added Pin To Net: NetName=GND Pin=XP11-1
+Added Pin To Net: NetName=GND Pin=XP13-1
+Added Pin To Net: NetName=+3V3 Pin=XP13-4
+Added Pin To Net: NetName=I2C1_SCL Pin=R45-2
+Added Pin To Net: NetName=I2C1_SCL Pin=U1-92
+Added Pin To Net: NetName=I2C1_SCL Pin=XP13-2
+Added Net: Name=I2C1_SCL
+Added Pin To Net: NetName=I2C1_SDA Pin=R31-2
+Added Pin To Net: NetName=I2C1_SDA Pin=U1-93
+Added Pin To Net: NetName=I2C1_SDA Pin=XP13-3
+Added Net: Name=I2C1_SDA
+Added Pin To Net: NetName=SPI2_MISO Pin=U1-53
+Added Pin To Net: NetName=SPI2_MISO Pin=XP11-3
+Added Net: Name=SPI2_MISO
+Added Pin To Net: NetName=SPI2_MOSI Pin=U1-54
+Added Pin To Net: NetName=SPI2_MOSI Pin=XP11-4
+Added Net: Name=SPI2_MOSI
+Added Pin To Net: NetName=SPI2_SCK Pin=U1-52
+Added Pin To Net: NetName=SPI2_SCK Pin=XP11-2
+Added Net: Name=SPI2_SCK
+Added Member To Class: ClassName=U_connectors Member=Component R31 1K
+Added Member To Class: ClassName=U_connectors Member=Component R45 1K
+Added Member To Class: ClassName=U_connectors Member=Component XP13 I2C

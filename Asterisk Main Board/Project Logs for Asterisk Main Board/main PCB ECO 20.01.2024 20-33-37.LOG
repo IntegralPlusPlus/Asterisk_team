@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=M3_IN1 Pin=R8-1
+Removed Pin From Net: NetName=M3_IN2 Pin=R10-1
+Added Pin To Net: NetName=M3_IN2 Pin=R8-1
+Added Pin To Net: NetName=M3_IN1 Pin=R10-1
+Added Member To Class: ClassName=U_drv Member=Component R10 10K

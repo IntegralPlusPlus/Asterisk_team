@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=VBAT_ADC Pin=U1-23
+Removed Pin From Net: NetName=BALL_SEN Pin=U1-30
+Added Pin To Net: NetName=BALL_SEN Pin=U1-29
+Added Pin To Net: NetName=VBAT_ADC Pin=U1-30
+Added Pin To Net: NetName=NetU1_23 Pin=U1-23
+Added Net: Name=NetU1_23

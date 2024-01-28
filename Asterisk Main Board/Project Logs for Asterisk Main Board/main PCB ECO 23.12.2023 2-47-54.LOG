@@ -1,0 +1,3 @@
+Added Pin To Net: NetName=NetU1_81 Pin=R42-2
+Added Pin To Net: NetName=NetU1_81 Pin=SW4-2
+Change Net Name : Old Net Name=NetU1_81 New Net Name=MTR_ON
