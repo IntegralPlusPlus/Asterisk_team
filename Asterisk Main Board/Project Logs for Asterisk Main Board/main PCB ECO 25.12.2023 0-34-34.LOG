@@ -1,0 +1,3 @@
+Change Component Footprint: Designator=SB1 Old Footprint=TL3700AF160QG New Footprint=DTSM-61N-V-T/R
+Change component parameters: Designator = "SB1"; Footprint = "DTSM-61N-V-T/R"; UniqueID = "\YLTXVYXW\XMWWHMWX"
+Change component parameters. Clean all parameters for all variants

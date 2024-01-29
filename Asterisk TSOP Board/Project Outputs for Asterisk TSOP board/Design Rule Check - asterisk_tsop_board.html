@@ -1,0 +1,634 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD21\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">24.01.2024</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">16:27:14</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:04</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc" class="file"><acronym title="C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc">C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">94</td></tr>
+</table>
+</td>
+</table><a name="IDPLTXYTUTEPGYFFQ3XIEFJ2KA2EPK1X0RV4NF3RIUWKZ43BXINK0D"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNXCDGRRFHSLLDVNIEVFLCD0PLKUSB3ROL4UT41GYB2F4GSBW0JMB">Clearance Constraint (Gap=0.2mm) (Disabled)(InPolygon),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDZJU0PP5YTCCFFLBEX1UKIZL4ODO1Q3FHP53OWWDFM3IY3BVGT4MC">Clearance Constraint (Gap=0.15mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMKZ5CQGY3R5YEGCBPKY115RQTNOR41PLB5YDYSN1PV4WOTPZWKQJ">Clearance Constraint (Gap=0.25mm) (OnLayer('Multi-Layer') and IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLYU3CQG541SUBGRO1CBPYSWCNK5FUQRZDDSJIQL0FZ2M0MGI35AO">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID2JKVRFIG0Q2GPSVXSYXNKCRLCHRAI5N5P43NJNNCXA3MCMGYJZBD">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDIKP3NMBZMPCBGFUW3D5YFYQSYKVLYFIRO1HB0CLXUSWU4ZC1LYUN">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID41GON5ADBLPNH24OJSF3YTJUMOHLABFSAGAFN4DQ3UDW5C0EBU2B">Width Constraint (Min=0.15mm) (Max=10mm) (Preferred=0.3mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDV0S4SKNMK3GPLM52VGVEYIFBLCIQEBLM35AJYINHLC0SMGK11QNO">Power Plane Connect Rule(Relief Connect )(Expansion=0.5mm) (Conductor Width=0.3mm) (Air Gap=0.2mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDJ4ZOIE3NMEZXDS54AYJNHBSMPHAPMLAVV0RT1HBNSZF54SSJ12QE">Minimum Annular Ring (Minimum=0.25mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDS0SWSLBKF3TCD4FWGBUIOY0GYHXJGMLICRY1WH3TICS1KWS33CJ">Minimum Annular Ring (Minimum=0.15mm) (IsVia)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXXEDSAALLXWRLE4FJRM3FV5XEM4O13M4IEMH2UOU5W4B4GQA21OB">Hole Size Constraint (Min=0.2mm) (Max=6.3mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDPJRTN0I2A0DI3O5UQYG50NOYM3GZLTD0BUC2N4UERKZ4MZYY0C">Hole To Hole Clearance (Gap=0.254mm) (IsVia),(IsVia)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDGKEFEK2ZUHHBFMH3QPM0O54W3ELD1RQ0HC2P2BGBCPIPMUJKW2AF">Hole To Hole Clearance (Gap=0.5mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDRS0ZLOT3SWVFISZKS1CYRQIDYCWZULOG5EYV4CD5KNGHGBIFFKBB">Minimum Solder Mask Sliver (Gap=0.244mm) (All),(All)</a></td>
+<td class="column2">44</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDKSFF22E0JFQPBV03YXZNVLUZLBLNWWMAZCDLNPJVVKXR2ZJA4QUE">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDNRQZWULW44XKNN5UHYUSQ5J31NJGRC2Z10HW3JZO13RUSXRPYNN">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">48</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNQDNUJA5Y24PGCYIUKEISEPCKYXO44WPCPMPQKJUQEEIZ2TSQHK">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (Disabled)(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">94</td>
+</tr>
+</table><br><a name="IDRS0ZLOT3SWVFISZKS1CYRQIDYCWZULOG5EYV4CD5KNGHGBIFFKBB"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=0.244mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=6544.847mil|Location2.Y=6555.703mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=6544.847mil|Location2.Y=6555.703mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-1(203.505mm,166.052mm) on Top Layer And Pad MUX1-2(203.505mm,166.702mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6775.162mil|Location2.Y=6786.018mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6775.162mil|Location2.Y=6786.018mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-10(203.505mm,171.902mm) on Top Layer And Pad MUX1-11(203.505mm,172.552mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6749.571mil|Location2.Y=6760.427mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6749.571mil|Location2.Y=6760.427mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-10(203.505mm,171.902mm) on Top Layer And Pad MUX1-9(203.505mm,171.252mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=6800.752mil|Location2.Y=6811.608mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=6800.752mil|Location2.Y=6811.608mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-11(203.505mm,172.552mm) on Top Layer And Pad MUX1-12(203.505mm,173.202mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.49mil|Location1.Y=6800.752mil|Location2.Y=6811.608mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.49mil|Location1.Y=6800.752mil|Location2.Y=6811.608mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-13(196.495mm,173.202mm) on Top Layer And Pad MUX1-14(196.495mm,172.552mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.49mil|Location1.Y=6775.162mil|Location2.Y=6786.018mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.49mil|Location1.Y=6775.162mil|Location2.Y=6786.018mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-14(196.495mm,172.552mm) on Top Layer And Pad MUX1-15(196.495mm,171.902mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=6749.571mil|Location2.Y=6760.427mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=6749.571mil|Location2.Y=6760.427mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-15(196.495mm,171.902mm) on Top Layer And Pad MUX1-16(196.495mm,171.252mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=6723.981mil|Location2.Y=6734.837mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=6723.981mil|Location2.Y=6734.837mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-16(196.495mm,171.252mm) on Top Layer And Pad MUX1-17(196.495mm,170.602mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.49mil|Location1.Y=6698.39mil|Location2.Y=6709.246mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.49mil|Location1.Y=6698.39mil|Location2.Y=6709.246mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-17(196.495mm,170.602mm) on Top Layer And Pad MUX1-18(196.495mm,169.952mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=6672.8mil|Location2.Y=6683.656mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=6672.8mil|Location2.Y=6683.656mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-18(196.495mm,169.952mm) on Top Layer And Pad MUX1-19(196.495mm,169.302mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.49mil|Location1.Y=6647.209mil|Location2.Y=6658.066mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.49mil|Location1.Y=6647.209mil|Location2.Y=6658.066mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-19(196.495mm,169.302mm) on Top Layer And Pad MUX1-20(196.495mm,168.652mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6570.438mil|Location2.Y=6581.294mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6570.438mil|Location2.Y=6581.294mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-2(203.505mm,166.702mm) on Top Layer And Pad MUX1-3(203.505mm,167.352mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.491mil|Location1.Y=6621.618mil|Location2.Y=6632.475mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.491mil|Location1.Y=6621.618mil|Location2.Y=6632.475mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-20(196.495mm,168.652mm) on Top Layer And Pad MUX1-21(196.495mm,168.002mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=6596.028mil|Location2.Y=6606.884mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=6596.028mil|Location2.Y=6606.884mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-21(196.495mm,168.002mm) on Top Layer And Pad MUX1-22(196.495mm,167.352mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.49mil|Location1.Y=6570.437mil|Location2.Y=6581.293mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.634mil|Location2.X=7776.49mil|Location1.Y=6570.437mil|Location2.Y=6581.293mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-22(196.495mm,167.352mm) on Top Layer And Pad MUX1-23(196.495mm,166.702mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=6544.846mil|Location2.Y=6555.703mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=6544.846mil|Location2.Y=6555.703mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-23(196.495mm,166.702mm) on Top Layer And Pad MUX1-24(196.495mm,166.052mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6596.028mil|Location2.Y=6606.884mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6596.028mil|Location2.Y=6606.884mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-3(203.505mm,167.352mm) on Top Layer And Pad MUX1-4(203.505mm,168.002mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=6621.618mil|Location2.Y=6632.475mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=6621.618mil|Location2.Y=6632.475mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-4(203.505mm,168.002mm) on Top Layer And Pad MUX1-5(203.505mm,168.652mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6647.209mil|Location2.Y=6658.065mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6647.209mil|Location2.Y=6658.065mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-5(203.505mm,168.652mm) on Top Layer And Pad MUX1-6(203.505mm,169.302mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=6672.799mil|Location2.Y=6683.655mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=6672.799mil|Location2.Y=6683.655mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-6(203.505mm,169.302mm) on Top Layer And Pad MUX1-7(203.505mm,169.952mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6698.39mil|Location2.Y=6709.246mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=6698.39mil|Location2.Y=6709.246mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-7(203.505mm,169.952mm) on Top Layer And Pad MUX1-8(203.505mm,170.602mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=6723.981mil|Location2.Y=6734.837mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=6723.981mil|Location2.Y=6734.837mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX1-8(203.505mm,170.602mm) on Top Layer And Pad MUX1-9(203.505mm,171.252mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9192.328mil|Location2.Y=9203.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9192.328mil|Location2.Y=9203.185mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-1(196.495mm,233.948mm) on Top Layer And Pad MUX2-2(196.495mm,233.298mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=8962.013mil|Location2.Y=8972.87mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=8962.013mil|Location2.Y=8972.87mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-10(196.495mm,228.098mm) on Top Layer And Pad MUX2-11(196.495mm,227.448mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=8987.604mil|Location2.Y=8998.46mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=8987.604mil|Location2.Y=8998.46mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-10(196.495mm,228.098mm) on Top Layer And Pad MUX2-9(196.495mm,228.748mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=8936.423mil|Location2.Y=8947.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=8936.423mil|Location2.Y=8947.279mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-11(196.495mm,227.448mm) on Top Layer And Pad MUX2-12(196.495mm,226.798mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=8936.423mil|Location2.Y=8947.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=8936.423mil|Location2.Y=8947.279mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-13(203.505mm,226.798mm) on Top Layer And Pad MUX2-14(203.505mm,227.448mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=8962.013mil|Location2.Y=8972.87mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=8962.013mil|Location2.Y=8972.87mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-14(203.505mm,227.448mm) on Top Layer And Pad MUX2-15(203.505mm,228.098mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=8987.604mil|Location2.Y=8998.46mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=8987.604mil|Location2.Y=8998.46mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-15(203.505mm,228.098mm) on Top Layer And Pad MUX2-16(203.505mm,228.748mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=9013.194mil|Location2.Y=9024.051mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=9013.194mil|Location2.Y=9024.051mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-16(203.505mm,228.748mm) on Top Layer And Pad MUX2-17(203.505mm,229.398mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=9038.785mil|Location2.Y=9049.641mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=9038.785mil|Location2.Y=9049.641mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-17(203.505mm,229.398mm) on Top Layer And Pad MUX2-18(203.505mm,230.048mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=9064.375mil|Location2.Y=9075.232mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=9064.375mil|Location2.Y=9075.232mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-18(203.505mm,230.048mm) on Top Layer And Pad MUX2-19(203.505mm,230.698mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=9089.966mil|Location2.Y=9100.822mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=9089.966mil|Location2.Y=9100.822mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-19(203.505mm,230.698mm) on Top Layer And Pad MUX2-20(203.505mm,231.348mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9166.738mil|Location2.Y=9177.594mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9166.738mil|Location2.Y=9177.594mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-2(196.495mm,233.298mm) on Top Layer And Pad MUX2-3(196.495mm,232.648mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=9115.557mil|Location2.Y=9126.413mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=9115.557mil|Location2.Y=9126.413mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-20(203.505mm,231.348mm) on Top Layer And Pad MUX2-21(203.505mm,231.998mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=9141.147mil|Location2.Y=9152.004mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.541mil|Location2.X=7982.397mil|Location1.Y=9141.147mil|Location2.Y=9152.004mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-21(203.505mm,231.998mm) on Top Layer And Pad MUX2-22(203.505mm,232.648mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=9166.738mil|Location2.Y=9177.594mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.397mil|Location1.Y=9166.738mil|Location2.Y=9177.594mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-22(203.505mm,232.648mm) on Top Layer And Pad MUX2-23(203.505mm,233.298mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=9192.328mil|Location2.Y=9203.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7971.54mil|Location2.X=7982.396mil|Location1.Y=9192.328mil|Location2.Y=9203.185mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-23(203.505mm,233.298mm) on Top Layer And Pad MUX2-24(203.505mm,233.948mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9141.147mil|Location2.Y=9152.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9141.147mil|Location2.Y=9152.003mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-3(196.495mm,232.648mm) on Top Layer And Pad MUX2-4(196.495mm,231.998mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9115.557mil|Location2.Y=9126.413mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9115.557mil|Location2.Y=9126.413mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-4(196.495mm,231.998mm) on Top Layer And Pad MUX2-5(196.495mm,231.348mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9089.966mil|Location2.Y=9100.822mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9089.966mil|Location2.Y=9100.822mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-5(196.495mm,231.348mm) on Top Layer And Pad MUX2-6(196.495mm,230.698mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9064.376mil|Location2.Y=9075.232mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9064.376mil|Location2.Y=9075.232mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-6(196.495mm,230.698mm) on Top Layer And Pad MUX2-7(196.495mm,230.048mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9038.785mil|Location2.Y=9049.641mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9038.785mil|Location2.Y=9049.641mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-7(196.495mm,230.048mm) on Top Layer And Pad MUX2-8(196.495mm,229.398mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9013.194mil|Location2.Y=9024.05mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7765.635mil|Location2.X=7776.491mil|Location1.Y=9013.194mil|Location2.Y=9024.05mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.07mm &lt; 0.244mm) Between Pad MUX2-8(196.495mm,229.398mm) on Top Layer And Pad MUX2-9(196.495mm,228.748mm) on Top Layer [Top Solder] Mask Sliver [0.07mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDKSFF22E0JFQPBV03YXZNVLUZLBLNWWMAZCDLNPJVVKXR2ZJA4QUE"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9533.901mil|Location2.X=9568.031mil|Location1.Y=7860.673mil|Location2.Y=7912.257mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9533.901mil|Location2.X=9568.031mil|Location1.Y=7860.673mil|Location2.Y=7912.257mil|Absolute=True">Net Antennae: Arc (200mm,200mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9533.901mil|Location2.X=9568.031mil|Location1.Y=7860.673mil|Location2.Y=7912.257mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9533.901mil|Location2.X=9568.031mil|Location1.Y=7860.673mil|Location2.Y=7912.257mil|Absolute=True">Net Antennae: Arc (200mm,200mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDNRQZWULW44XKNN5UHYUSQ5J31NJGRC2Z10HW3JZO13RUSXRPYNN"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6065.4mil|Location2.X=6076.493mil|Location1.Y=7979.046mil|Location2.Y=7990.138mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6065.4mil|Location2.X=6076.493mil|Location1.Y=7979.046mil|Location2.Y=7990.138mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (154.4mm,202.8mm)(155.2mm,202.8mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6078.581mil|Location2.X=6089.674mil|Location1.Y=7625.346mil|Location2.Y=7636.438mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6078.581mil|Location2.X=6089.674mil|Location1.Y=7625.346mil|Location2.Y=7636.438mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (154.73mm,193.85mm)(155.515mm,194.006mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6079.222mil|Location2.X=6090.314mil|Location1.Y=8115.471mil|Location2.Y=8126.564mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6079.222mil|Location2.X=6090.314mil|Location1.Y=8115.471mil|Location2.Y=8126.564mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (154.749mm,206.248mm)(155.534mm,206.092mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6120.896mil|Location2.X=6131.989mil|Location1.Y=7407.227mil|Location2.Y=7423.046mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6120.896mil|Location2.X=6131.989mil|Location1.Y=7407.227mil|Location2.Y=7423.046mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (155.803mm,188.456mm)(156.588mm,188.612mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6121.789mil|Location2.X=6132.881mil|Location1.Y=8328.813mil|Location2.Y=8344.668mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6121.789mil|Location2.X=6132.881mil|Location1.Y=8328.813mil|Location2.Y=8344.668mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (155.822mm,211.642mm)(156.607mm,211.486mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6160.335mil|Location2.X=6171.427mil|Location1.Y=7276.202mil|Location2.Y=7291.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6160.335mil|Location2.X=6171.427mil|Location1.Y=7276.202mil|Location2.Y=7291.716mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (156.8mm,185.136mm)(157.539mm,185.443mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6244.967mil|Location2.X=6256.059mil|Location1.Y=8660.633mil|Location2.Y=8675.788mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6244.967mil|Location2.X=6256.059mil|Location1.Y=8660.633mil|Location2.Y=8675.788mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (158.943mm,220.037mm)(159.682mm,219.731mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6307.868mil|Location2.X=6318.96mil|Location1.Y=6955.417mil|Location2.Y=6969.984mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6307.868mil|Location2.X=6318.96mil|Location1.Y=6955.417mil|Location2.Y=6969.984mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (160.529mm,176.994mm)(161.195mm,177.439mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6309.944mil|Location2.X=6321.036mil|Location1.Y=8781.385mil|Location2.Y=8796.021mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6309.944mil|Location2.X=6321.036mil|Location1.Y=8781.385mil|Location2.Y=8796.021mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (160.585mm,223.089mm)(161.25mm,222.645mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6428.623mil|Location2.X=6439.716mil|Location1.Y=6775.454mil|Location2.Y=6789.029mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6428.623mil|Location2.X=6439.716mil|Location1.Y=6775.454mil|Location2.Y=6789.029mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (163.585mm,172.421mm)(164.25mm,172.865mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6430.913mil|Location2.X=6442.006mil|Location1.Y=8962.197mil|Location2.Y=8975.856mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6430.913mil|Location2.X=6442.006mil|Location1.Y=8962.197mil|Location2.Y=8975.856mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (163.641mm,227.662mm)(164.306mm,227.218mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6515.318mil|Location2.X=6527.327mil|Location1.Y=6670.001mil|Location2.Y=6682.789mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6515.318mil|Location2.X=6527.327mil|Location1.Y=6670.001mil|Location2.Y=6682.789mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (165.776mm,169.736mm)(166.342mm,170.302mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6671.697mil|Location2.X=6684.484mil|Location1.Y=9221.621mil|Location2.Y=9233.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6671.697mil|Location2.X=6684.484mil|Location1.Y=9221.621mil|Location2.Y=9233.63mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (169.736mm,234.224mm)(170.302mm,233.658mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6774.742mil|Location2.X=6788.4mil|Location1.Y=6430.913mil|Location2.Y=6442.005mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6774.742mil|Location2.X=6788.4mil|Location1.Y=6430.913mil|Location2.Y=6442.005mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (172.338mm,163.641mm)(172.782mm,164.306mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6777.937mil|Location2.X=6791.512mil|Location1.Y=9308.315mil|Location2.Y=9319.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6777.937mil|Location2.X=6791.512mil|Location1.Y=9308.315mil|Location2.Y=9319.407mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (172.421mm,236.415mm)(172.865mm,235.75mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6955.554mil|Location2.X=6970.19mil|Location1.Y=6309.943mil|Location2.Y=6321.036mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6955.554mil|Location2.X=6970.19mil|Location1.Y=6309.943mil|Location2.Y=6321.036mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (176.911mm,160.585mm)(177.355mm,161.25mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6958.892mil|Location2.X=6973.459mil|Location1.Y=9429.071mil|Location2.Y=9440.163mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6958.892mil|Location2.X=6973.459mil|Location1.Y=9429.071mil|Location2.Y=9440.163mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (176.994mm,239.471mm)(177.439mm,238.805mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7076.305mil|Location2.X=7091.46mil|Location1.Y=6244.966mil|Location2.Y=6256.059mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7076.305mil|Location2.X=7091.46mil|Location1.Y=6244.966mil|Location2.Y=6256.059mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (179.963mm,158.943mm)(180.269mm,159.682mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7280.624mil|Location2.X=7296.139mil|Location1.Y=9576.604mil|Location2.Y=9587.696mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7280.624mil|Location2.X=7296.139mil|Location1.Y=9576.604mil|Location2.Y=9587.696mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (185.136mm,243.2mm)(185.443mm,242.461mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7408.126mil|Location2.X=7423.981mil|Location1.Y=6121.789mil|Location2.Y=6132.881mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7408.126mil|Location2.X=7423.981mil|Location1.Y=6121.789mil|Location2.Y=6132.881mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (188.358mm,155.822mm)(188.514mm,156.607mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7411.954mil|Location2.X=7427.774mil|Location1.Y=9616.042mil|Location2.Y=9627.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7411.954mil|Location2.X=7427.774mil|Location1.Y=9616.042mil|Location2.Y=9627.134mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (188.456mm,244.197mm)(188.612mm,243.412mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7621.467mil|Location2.X=7632.56mil|Location1.Y=6079.222mil|Location2.Y=6090.314mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7621.467mil|Location2.X=7632.56mil|Location1.Y=6079.222mil|Location2.Y=6090.314mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (193.752mm,154.749mm)(193.908mm,155.534mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7625.346mil|Location2.X=7636.438mil|Location1.Y=9658.357mil|Location2.Y=9669.45mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7625.346mil|Location2.X=7636.438mil|Location1.Y=9658.357mil|Location2.Y=9669.45mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (193.85mm,245.27mm)(194.006mm,244.485mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7757.893mil|Location2.X=7768.985mil|Location1.Y=6065.4mil|Location2.Y=6076.493mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7757.893mil|Location2.X=7768.985mil|Location1.Y=6065.4mil|Location2.Y=6076.493mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (197.2mm,154.4mm)(197.2mm,155.2mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7979.046mil|Location2.X=7990.138mil|Location1.Y=9671.538mil|Location2.Y=9682.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7979.046mil|Location2.X=7990.138mil|Location1.Y=9671.538mil|Location2.Y=9682.63mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (202.8mm,244.8mm)(202.8mm,245.6mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8111.593mil|Location2.X=8122.685mil|Location1.Y=6078.581mil|Location2.Y=6089.674mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8111.593mil|Location2.X=8122.685mil|Location1.Y=6078.581mil|Location2.Y=6089.674mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (205.994mm,155.515mm)(206.15mm,154.73mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8115.471mil|Location2.X=8126.564mil|Location1.Y=9657.717mil|Location2.Y=9668.809mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8115.471mil|Location2.X=8126.564mil|Location1.Y=9657.717mil|Location2.Y=9668.809mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (206.092mm,244.466mm)(206.248mm,245.251mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8324.985mil|Location2.X=8340.804mil|Location1.Y=6120.896mil|Location2.Y=6131.989mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8324.985mil|Location2.X=8340.804mil|Location1.Y=6120.896mil|Location2.Y=6131.989mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (211.388mm,156.588mm)(211.544mm,155.803mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8328.813mil|Location2.X=8344.668mil|Location1.Y=9615.149mil|Location2.Y=9626.242mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8328.813mil|Location2.X=8344.668mil|Location1.Y=9615.149mil|Location2.Y=9626.242mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.239mm &lt; 0.25mm) Between Board Edge And Track (211.486mm,243.393mm)(211.642mm,244.178mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8456.315mil|Location2.X=8471.83mil|Location1.Y=6160.335mil|Location2.Y=6171.427mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8456.315mil|Location2.X=8471.83mil|Location1.Y=6160.335mil|Location2.Y=6171.427mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (214.557mm,157.539mm)(214.864mm,156.8mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8660.633mil|Location2.X=8675.788mil|Location1.Y=9491.972mil|Location2.Y=9503.064mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8660.633mil|Location2.X=8675.788mil|Location1.Y=9491.972mil|Location2.Y=9503.064mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (219.731mm,240.318mm)(220.037mm,241.057mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8778.047mil|Location2.X=8792.614mil|Location1.Y=6307.868mil|Location2.Y=6318.96mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8778.047mil|Location2.X=8792.614mil|Location1.Y=6307.868mil|Location2.Y=6318.96mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (222.561mm,161.195mm)(223.006mm,160.529mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8781.385mil|Location2.X=8796.021mil|Location1.Y=9426.995mil|Location2.Y=9438.087mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8781.385mil|Location2.X=8796.021mil|Location1.Y=9426.995mil|Location2.Y=9438.087mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (222.645mm,238.75mm)(223.089mm,239.415mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8959.002mil|Location2.X=8972.576mil|Location1.Y=6428.624mil|Location2.Y=6439.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8959.002mil|Location2.X=8972.576mil|Location1.Y=6428.624mil|Location2.Y=6439.716mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (227.135mm,164.25mm)(227.579mm,163.585mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8962.197mil|Location2.X=8975.855mil|Location1.Y=9306.025mil|Location2.Y=9317.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8962.197mil|Location2.X=8975.855mil|Location1.Y=9306.025mil|Location2.Y=9317.118mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.239mm &lt; 0.25mm) Between Board Edge And Track (227.218mm,235.694mm)(227.662mm,236.359mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9065.242mil|Location2.X=9078.03mil|Location1.Y=6515.318mil|Location2.Y=6527.327mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9065.242mil|Location2.X=9078.03mil|Location1.Y=6515.318mil|Location2.Y=6527.327mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (229.698mm,166.342mm)(230.264mm,165.776mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9221.621mil|Location2.X=9233.63mil|Location1.Y=9063.547mil|Location2.Y=9076.335mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9221.621mil|Location2.X=9233.63mil|Location1.Y=9063.547mil|Location2.Y=9076.335mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (233.658mm,229.698mm)(234.224mm,230.264mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9306.026mil|Location2.X=9317.118mil|Location1.Y=6774.742mil|Location2.Y=6788.4mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9306.026mil|Location2.X=9317.118mil|Location1.Y=6774.742mil|Location2.Y=6788.4mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (235.694mm,172.782mm)(236.359mm,172.338mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9308.315mil|Location2.X=9319.407mil|Location1.Y=8956.519mil|Location2.Y=8970.094mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9308.315mil|Location2.X=9319.407mil|Location1.Y=8956.519mil|Location2.Y=8970.094mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (235.75mm,227.135mm)(236.415mm,227.579mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9426.995mil|Location2.X=9438.087mil|Location1.Y=6955.554mil|Location2.Y=6970.19mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9426.995mil|Location2.X=9438.087mil|Location1.Y=6955.554mil|Location2.Y=6970.19mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (238.75mm,177.355mm)(239.415mm,176.911mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9429.071mil|Location2.X=9440.163mil|Location1.Y=8774.572mil|Location2.Y=8789.139mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9429.071mil|Location2.X=9440.163mil|Location1.Y=8774.572mil|Location2.Y=8789.139mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.239mm &lt; 0.25mm) Between Board Edge And Track (238.805mm,222.561mm)(239.471mm,223.006mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9491.972mil|Location2.X=9503.064mil|Location1.Y=7076.306mil|Location2.Y=7091.46mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9491.972mil|Location2.X=9503.064mil|Location1.Y=7076.306mil|Location2.Y=7091.46mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (240.318mm,180.269mm)(241.057mm,179.963mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9576.603mil|Location2.X=9587.696mil|Location1.Y=8451.892mil|Location2.Y=8467.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9576.603mil|Location2.X=9587.696mil|Location1.Y=8451.892mil|Location2.Y=8467.407mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (242.461mm,214.557mm)(243.2mm,214.864mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9615.149mil|Location2.X=9626.242mil|Location1.Y=7408.126mil|Location2.Y=7423.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9615.149mil|Location2.X=9626.242mil|Location1.Y=7408.126mil|Location2.Y=7423.981mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (243.393mm,188.514mm)(244.178mm,188.358mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9616.042mil|Location2.X=9627.134mil|Location1.Y=8320.258mil|Location2.Y=8336.077mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9616.042mil|Location2.X=9627.134mil|Location1.Y=8320.258mil|Location2.Y=8336.077mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (243.412mm,211.388mm)(244.197mm,211.544mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9657.717mil|Location2.X=9668.809mil|Location1.Y=7621.467mil|Location2.Y=7632.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9657.717mil|Location2.X=9668.809mil|Location1.Y=7621.467mil|Location2.Y=7632.56mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (244.466mm,193.908mm)(245.251mm,193.752mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9658.357mil|Location2.X=9669.449mil|Location1.Y=8111.593mil|Location2.Y=8122.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9658.357mil|Location2.X=9669.449mil|Location1.Y=8111.593mil|Location2.Y=8122.685mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.24mm &lt; 0.25mm) Between Board Edge And Track (244.485mm,205.994mm)(245.27mm,206.15mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9671.538mil|Location2.X=9682.63mil|Location1.Y=7757.893mil|Location2.Y=7768.985mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\4s\Documents\Altium projects\Asterisk TSOP Board\asterisk_tsop_board.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9671.538mil|Location2.X=9682.63mil|Location1.Y=7757.893mil|Location2.Y=7768.985mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.246mm &lt; 0.25mm) Between Board Edge And Track (244.8mm,197.2mm)(245.6mm,197.2mm) on Top Overlay </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

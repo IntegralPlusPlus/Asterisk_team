@@ -1,0 +1,6 @@
+Added Pin To Net: NetName=BG_LED Pin=U1-1
+Added Pin To Net: NetName=ST_LED Pin=U1-2
+Added Pin To Net: NetName=GOAL_SW Pin=U1-3
+Added Pin To Net: NetName=ROLE_SW Pin=U1-4
+Added Pin To Net: NetName=YG_LED Pin=U1-5
+Added Pin To Net: NetName=GK_LED Pin=U1-7

@@ -1,0 +1,28 @@
+Removed Pin From Net: NetName=M3_IN1 Pin=U1-53
+Removed Pin From Net: NetName=M3_IN2 Pin=U1-54
+Removed Pin From Net: NetName=M4_IN1 Pin=U1-61
+Removed Pin From Net: NetName=M4_IN2 Pin=U1-62
+Removed Pin From Net: NetName=M3_OUT1 Pin=U8-6
+Removed Pin From Net: NetName=M3_OUT2 Pin=U8-8
+Removed Pin From Net: NetName=M3_OUT1 Pin=U9-6
+Removed Pin From Net: NetName=M3_OUT2 Pin=U9-8
+Added Pin To Net: NetName=M4_IN1 Pin=U1-53
+Added Pin To Net: NetName=M4_IN2 Pin=U1-54
+Added Pin To Net: NetName=M3_IN1 Pin=U1-61
+Added Pin To Net: NetName=M3_IN2 Pin=U1-62
+Added Pin To Net: NetName=M3_OUT1 Pin=U6-6
+Added Pin To Net: NetName=M3_OUT2 Pin=U6-8
+Added Pin To Net: NetName=M3_OUT1 Pin=U7-6
+Added Pin To Net: NetName=M3_OUT2 Pin=U7-8
+Change Net Name : Old Net Name=M3_IN1 New Net Name=M4_IN1
+Change Net Name : Old Net Name=M3_IN2 New Net Name=M4_IN2
+Change Net Name : Old Net Name=M4_IN1 New Net Name=M3_IN1
+Change Net Name : Old Net Name=M4_IN2 New Net Name=M3_IN2
+Added Pin To Net: NetName=M4_OUT1 Pin=U8-6
+Added Pin To Net: NetName=M4_OUT1 Pin=U9-6
+Added Pin To Net: NetName=M4_OUT1 Pin=XP19-2
+Added Net: Name=M4_OUT1
+Added Pin To Net: NetName=M4_OUT2 Pin=U8-8
+Added Pin To Net: NetName=M4_OUT2 Pin=U9-8
+Added Pin To Net: NetName=M4_OUT2 Pin=XP19-1
+Added Net: Name=M4_OUT2

@@ -1,0 +1,139 @@
+Change Net Name : Old Net Name=LB_IN1 New Net Name=NetU3_33
+Change Net Name : Old Net Name=LB_IN2 New Net Name=NetU3_34
+Change Net Name : Old Net Name=LB_IN3 New Net Name=NetU3_63
+Change Net Name : Old Net Name=LB_IN4 New Net Name=NetU3_64
+Added Pin To Net: NetName=NetBT1_3 Pin=BT1-3
+Added Net: Name=NetBT1_3
+Added Pin To Net: NetName=NetBT1_4 Pin=BT1-4
+Added Net: Name=NetBT1_4
+Added Pin To Net: NetName=NetBT1_5 Pin=BT1-5
+Added Net: Name=NetBT1_5
+Added Pin To Net: NetName=NetBT1_6 Pin=BT1-6
+Added Net: Name=NetBT1_6
+Added Pin To Net: NetName=NetBT1_7 Pin=BT1-7
+Added Net: Name=NetBT1_7
+Added Pin To Net: NetName=NetBT1_8 Pin=BT1-8
+Added Net: Name=NetBT1_8
+Added Pin To Net: NetName=NetBT1_9 Pin=BT1-9
+Added Net: Name=NetBT1_9
+Added Pin To Net: NetName=NetBT1_10 Pin=BT1-10
+Added Net: Name=NetBT1_10
+Added Pin To Net: NetName=NetBT1_11 Pin=BT1-11
+Added Net: Name=NetBT1_11
+Added Pin To Net: NetName=NetBT1_14 Pin=BT1-14
+Added Net: Name=NetBT1_14
+Added Pin To Net: NetName=NetBT1_15 Pin=BT1-15
+Added Net: Name=NetBT1_15
+Added Pin To Net: NetName=NetBT1_16 Pin=BT1-16
+Added Net: Name=NetBT1_16
+Added Pin To Net: NetName=NetBT1_17 Pin=BT1-17
+Added Net: Name=NetBT1_17
+Added Pin To Net: NetName=NetBT1_18 Pin=BT1-18
+Added Net: Name=NetBT1_18
+Added Pin To Net: NetName=NetBT1_19 Pin=BT1-19
+Added Net: Name=NetBT1_19
+Added Pin To Net: NetName=NetBT1_20 Pin=BT1-20
+Added Net: Name=NetBT1_20
+Added Pin To Net: NetName=NetBT1_23 Pin=BT1-23
+Added Net: Name=NetBT1_23
+Added Pin To Net: NetName=NetBT1_24 Pin=BT1-24
+Added Net: Name=NetBT1_24
+Added Pin To Net: NetName=NetBT1_25 Pin=BT1-25
+Added Net: Name=NetBT1_25
+Added Pin To Net: NetName=NetBT1_26 Pin=BT1-26
+Added Net: Name=NetBT1_26
+Added Pin To Net: NetName=NetBT1_27 Pin=BT1-27
+Added Net: Name=NetBT1_27
+Added Pin To Net: NetName=NetBT1_28 Pin=BT1-28
+Added Net: Name=NetBT1_28
+Added Pin To Net: NetName=NetBT1_29 Pin=BT1-29
+Added Net: Name=NetBT1_29
+Added Pin To Net: NetName=NetBT1_30 Pin=BT1-30
+Added Net: Name=NetBT1_30
+Added Pin To Net: NetName=NetBT1_33 Pin=BT1-33
+Added Pin To Net: NetName=NetBT1_33 Pin=BT1-33
+Added Net: Name=NetBT1_33
+Added Pin To Net: NetName=NetJ1_A4 Pin=J1-A4
+Added Net: Name=NetJ1_A4
+Added Pin To Net: NetName=NetJ1_A5 Pin=J1-A5
+Added Net: Name=NetJ1_A5
+Added Pin To Net: NetName=NetJ1_A8 Pin=J1-A8
+Added Net: Name=NetJ1_A8
+Added Pin To Net: NetName=NetJ1_A9 Pin=J1-A9
+Added Net: Name=NetJ1_A9
+Added Pin To Net: NetName=NetJ1_B4 Pin=J1-B4
+Added Net: Name=NetJ1_B4
+Added Pin To Net: NetName=NetJ1_B5 Pin=J1-B5
+Added Net: Name=NetJ1_B5
+Added Pin To Net: NetName=NetJ1_B8 Pin=J1-B8
+Added Net: Name=NetJ1_B8
+Added Pin To Net: NetName=NetJ1_B9 Pin=J1-B9
+Added Net: Name=NetJ1_B9
+Added Pin To Net: NetName=NetU3_1 Pin=U3-1
+Added Net: Name=NetU3_1
+Added Pin To Net: NetName=NetU3_2 Pin=U3-2
+Added Net: Name=NetU3_2
+Added Pin To Net: NetName=NetU3_3 Pin=U3-3
+Added Net: Name=NetU3_3
+Added Pin To Net: NetName=NetU3_7 Pin=U3-7
+Added Net: Name=NetU3_7
+Added Pin To Net: NetName=NetU3_8 Pin=U3-8
+Added Net: Name=NetU3_8
+Added Pin To Net: NetName=NetU3_9 Pin=U3-9
+Added Net: Name=NetU3_9
+Added Pin To Net: NetName=NetU3_23 Pin=U3-23
+Added Net: Name=NetU3_23
+Added Pin To Net: NetName=NetU3_37 Pin=U3-37
+Added Net: Name=NetU3_37
+Added Pin To Net: NetName=NetU3_38 Pin=U3-38
+Added Net: Name=NetU3_38
+Added Pin To Net: NetName=NetU3_46 Pin=U3-46
+Added Net: Name=NetU3_46
+Added Pin To Net: NetName=NetU3_51 Pin=U3-51
+Added Net: Name=NetU3_51
+Added Pin To Net: NetName=NetU3_52 Pin=U3-52
+Added Net: Name=NetU3_52
+Added Pin To Net: NetName=NetU3_55 Pin=U3-55
+Added Net: Name=NetU3_55
+Added Pin To Net: NetName=NetU3_56 Pin=U3-56
+Added Net: Name=NetU3_56
+Added Pin To Net: NetName=NetU3_57 Pin=U3-57
+Added Net: Name=NetU3_57
+Added Pin To Net: NetName=NetU3_58 Pin=U3-58
+Added Net: Name=NetU3_58
+Added Pin To Net: NetName=NetU3_59 Pin=U3-59
+Added Net: Name=NetU3_59
+Added Pin To Net: NetName=NetU3_60 Pin=U3-60
+Added Net: Name=NetU3_60
+Added Pin To Net: NetName=NetU3_65 Pin=U3-65
+Added Net: Name=NetU3_65
+Added Pin To Net: NetName=NetU3_66 Pin=U3-66
+Added Net: Name=NetU3_66
+Added Pin To Net: NetName=NetU3_67 Pin=U3-67
+Added Net: Name=NetU3_67
+Added Pin To Net: NetName=NetU3_68 Pin=U3-68
+Added Net: Name=NetU3_68
+Added Pin To Net: NetName=NetU3_69 Pin=U3-69
+Added Net: Name=NetU3_69
+Added Pin To Net: NetName=NetU3_70 Pin=U3-70
+Added Net: Name=NetU3_70
+Added Pin To Net: NetName=NetU3_71 Pin=U3-71
+Added Net: Name=NetU3_71
+Added Pin To Net: NetName=NetU3_77 Pin=U3-77
+Added Net: Name=NetU3_77
+Added Pin To Net: NetName=NetU3_81 Pin=U3-81
+Added Net: Name=NetU3_81
+Added Pin To Net: NetName=NetU3_85 Pin=U3-85
+Added Net: Name=NetU3_85
+Added Pin To Net: NetName=NetU3_88 Pin=U3-88
+Added Net: Name=NetU3_88
+Added Pin To Net: NetName=NetU3_89 Pin=U3-89
+Added Net: Name=NetU3_89
+Added Pin To Net: NetName=NetU3_90 Pin=U3-90
+Added Net: Name=NetU3_90
+Added Pin To Net: NetName=NetU3_92 Pin=U3-92
+Added Net: Name=NetU3_92
+Added Pin To Net: NetName=NetU3_97 Pin=U3-97
+Added Net: Name=NetU3_97
+Added Pin To Net: NetName=NetU3_98 Pin=U3-98
+Added Net: Name=NetU3_98

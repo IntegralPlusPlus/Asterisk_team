@@ -1,0 +1,231 @@
+Removed Pin From Net: NetName=GND Pin=C4_DRV1-1
+Removed Pin From Net: NetName=+12V Pin=C4_DRV1-2
+Removed Pin From Net: NetName=GND Pin=C4_DRV2-1
+Removed Pin From Net: NetName=+12V Pin=C4_DRV2-2
+Removed Pin From Net: NetName=GND Pin=C4_DRV3-1
+Removed Pin From Net: NetName=+12V Pin=C4_DRV3-2
+Removed Pin From Net: NetName=GND Pin=C4_DRV4-1
+Removed Pin From Net: NetName=+12V Pin=C4_DRV4-2
+Removed Pin From Net: NetName=GND Pin=C5_DRV1-1
+Removed Pin From Net: NetName=+12V Pin=C5_DRV1-2
+Removed Pin From Net: NetName=GND Pin=C5_DRV2-1
+Removed Pin From Net: NetName=+12V Pin=C5_DRV2-2
+Removed Pin From Net: NetName=GND Pin=C5_DRV3-1
+Removed Pin From Net: NetName=+12V Pin=C5_DRV3-2
+Removed Pin From Net: NetName=GND Pin=C5_DRV4-1
+Removed Pin From Net: NetName=+12V Pin=C5_DRV4-2
+Removed Pin From Net: NetName=GND Pin=C6_DRV1-1
+Removed Pin From Net: NetName=+12V Pin=C6_DRV1-2
+Removed Pin From Net: NetName=GND Pin=C6_DRV2-1
+Removed Pin From Net: NetName=+12V Pin=C6_DRV2-2
+Removed Pin From Net: NetName=GND Pin=C6_DRV3-1
+Removed Pin From Net: NetName=+12V Pin=C6_DRV3-2
+Removed Pin From Net: NetName=GND Pin=C6_DRV4-1
+Removed Pin From Net: NetName=+12V Pin=C6_DRV4-2
+Removed Pin From Net: NetName=GND Pin=C7_DRV1-1
+Removed Pin From Net: NetName=+12V Pin=C7_DRV1-2
+Removed Pin From Net: NetName=GND Pin=C7_DRV2-1
+Removed Pin From Net: NetName=+12V Pin=C7_DRV2-2
+Removed Pin From Net: NetName=GND Pin=C7_DRV3-1
+Removed Pin From Net: NetName=+12V Pin=C7_DRV3-2
+Removed Pin From Net: NetName=GND Pin=C7_DRV4-1
+Removed Pin From Net: NetName=+12V Pin=C7_DRV4-2
+Removed Pin From Net: NetName=IN2_DRV1 Pin=R4_DRV1-1
+Removed Pin From Net: NetName=+3V3 Pin=R4_DRV1-2
+Removed Pin From Net: NetName=+3V3 Pin=R4_DRV2-2
+Removed Pin From Net: NetName=+3V3 Pin=R4_DRV3-2
+Removed Pin From Net: NetName=+3V3 Pin=R4_DRV4-2
+Removed Pin From Net: NetName=IN2_DRV1 Pin=R5_DRV1-1
+Removed Pin From Net: NetName=+3V3 Pin=R5_DRV1-2
+Removed Pin From Net: NetName=+3V3 Pin=R5_DRV2-2
+Removed Pin From Net: NetName=+3V3 Pin=R5_DRV3-2
+Removed Pin From Net: NetName=+3V3 Pin=R5_DRV4-2
+Removed Pin From Net: NetName=IN1_DRV1 Pin=R6_DRV1-1
+Removed Pin From Net: NetName=+3V3 Pin=R6_DRV1-2
+Removed Pin From Net: NetName=+3V3 Pin=R6_DRV2-2
+Removed Pin From Net: NetName=+3V3 Pin=R6_DRV3-2
+Removed Pin From Net: NetName=+3V3 Pin=R6_DRV4-2
+Removed Pin From Net: NetName=IN1_DRV1 Pin=R7_DRV1-1
+Removed Pin From Net: NetName=+3V3 Pin=R7_DRV1-2
+Removed Pin From Net: NetName=+3V3 Pin=R7_DRV2-2
+Removed Pin From Net: NetName=+3V3 Pin=R7_DRV3-2
+Removed Pin From Net: NetName=+3V3 Pin=R7_DRV4-2
+Removed Pin From Net: NetName=GND Pin=U1_DRV1-1
+Removed Pin From Net: NetName=IN1_DRV1 Pin=U1_DRV1-2
+Removed Pin From Net: NetName=IN2_DRV1 Pin=U1_DRV1-3
+Removed Pin From Net: NetName=+3V3 Pin=U1_DRV1-4
+Removed Pin From Net: NetName=+12V Pin=U1_DRV1-5
+Removed Pin From Net: NetName=GND Pin=U1_DRV1-7
+Removed Pin From Net: NetName=GND Pin=U1_DRV1-9
+Removed Pin From Net: NetName=GND Pin=U1_DRV2-1
+Removed Pin From Net: NetName=+3V3 Pin=U1_DRV2-4
+Removed Pin From Net: NetName=+12V Pin=U1_DRV2-5
+Removed Pin From Net: NetName=GND Pin=U1_DRV2-7
+Removed Pin From Net: NetName=GND Pin=U1_DRV2-9
+Removed Pin From Net: NetName=GND Pin=U1_DRV3-1
+Removed Pin From Net: NetName=+3V3 Pin=U1_DRV3-4
+Removed Pin From Net: NetName=+12V Pin=U1_DRV3-5
+Removed Pin From Net: NetName=GND Pin=U1_DRV3-7
+Removed Pin From Net: NetName=GND Pin=U1_DRV3-9
+Removed Pin From Net: NetName=GND Pin=U1_DRV4-1
+Removed Pin From Net: NetName=+3V3 Pin=U1_DRV4-4
+Removed Pin From Net: NetName=+12V Pin=U1_DRV4-5
+Removed Pin From Net: NetName=GND Pin=U1_DRV4-7
+Removed Pin From Net: NetName=GND Pin=U1_DRV4-9
+Removed Pin From Net: NetName=GND Pin=U2_DRV1-1
+Removed Pin From Net: NetName=IN1_DRV1 Pin=U2_DRV1-2
+Removed Pin From Net: NetName=IN2_DRV1 Pin=U2_DRV1-3
+Removed Pin From Net: NetName=+3V3 Pin=U2_DRV1-4
+Removed Pin From Net: NetName=+12V Pin=U2_DRV1-5
+Removed Pin From Net: NetName=GND Pin=U2_DRV1-7
+Removed Pin From Net: NetName=GND Pin=U2_DRV1-9
+Removed Pin From Net: NetName=GND Pin=U2_DRV2-1
+Removed Pin From Net: NetName=+3V3 Pin=U2_DRV2-4
+Removed Pin From Net: NetName=+12V Pin=U2_DRV2-5
+Removed Pin From Net: NetName=GND Pin=U2_DRV2-7
+Removed Pin From Net: NetName=GND Pin=U2_DRV2-9
+Removed Pin From Net: NetName=GND Pin=U2_DRV3-1
+Removed Pin From Net: NetName=+3V3 Pin=U2_DRV3-4
+Removed Pin From Net: NetName=+12V Pin=U2_DRV3-5
+Removed Pin From Net: NetName=GND Pin=U2_DRV3-7
+Removed Pin From Net: NetName=GND Pin=U2_DRV3-9
+Removed Pin From Net: NetName=GND Pin=U2_DRV4-1
+Removed Pin From Net: NetName=+3V3 Pin=U2_DRV4-4
+Removed Pin From Net: NetName=+12V Pin=U2_DRV4-5
+Removed Pin From Net: NetName=GND Pin=U2_DRV4-7
+Removed Pin From Net: NetName=GND Pin=U2_DRV4-9
+Removed Member From Class: ClassName=DRV1 Member=C4_DRV1
+Removed Member From Class: ClassName=DRV1 Member=C5_DRV1
+Removed Member From Class: ClassName=DRV1 Member=C6_DRV1
+Removed Member From Class: ClassName=DRV1 Member=C7_DRV1
+Removed Member From Class: ClassName=DRV1 Member=R4_DRV1
+Removed Member From Class: ClassName=DRV1 Member=R5_DRV1
+Removed Member From Class: ClassName=DRV1 Member=R6_DRV1
+Removed Member From Class: ClassName=DRV1 Member=R7_DRV1
+Removed Member From Class: ClassName=DRV1 Member=U1_DRV1
+Removed Member From Class: ClassName=DRV1 Member=U2_DRV1
+Change Component Comment : Designator=SB7 Old Comment=#NAME? New Comment=PTS636 SP43 LFS
+Added Component: Designator=C4(CAP_TANT_D)
+Add component. Clean all parameters for all variants
+Added Component: Designator=C5(CAP_TANT_D)
+Add component. Clean all parameters for all variants
+Added Component: Designator=C6(CAP0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=C7(CAP0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R4(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R5(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R6(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=R7(RES0805)
+Add component. Clean all parameters for all variants
+Added Component: Designator=U1(HSOP-8)
+Add component. Clean all parameters for all variants
+Added Component: Designator=U2(HSOP-8)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=GND Pin=C4-1
+Added Pin To Net: NetName=+12V Pin=C4-2
+Added Pin To Net: NetName=GND Pin=C5-1
+Added Pin To Net: NetName=+12V Pin=C5-2
+Added Pin To Net: NetName=GND Pin=C6-1
+Added Pin To Net: NetName=+12V Pin=C6-2
+Added Pin To Net: NetName=GND Pin=C7-1
+Added Pin To Net: NetName=+12V Pin=C7-2
+Added Pin To Net: NetName=+3V3 Pin=R4-2
+Added Pin To Net: NetName=+3V3 Pin=R5-2
+Added Pin To Net: NetName=+3V3 Pin=R6-2
+Added Pin To Net: NetName=+3V3 Pin=R7-2
+Added Pin To Net: NetName=NetC39_2 Pin=R16-2
+Added Pin To Net: NetName=GND Pin=U1-1
+Added Pin To Net: NetName=+3V3 Pin=U1-4
+Added Pin To Net: NetName=+12V Pin=U1-5
+Added Pin To Net: NetName=GND Pin=U1-7
+Added Pin To Net: NetName=GND Pin=U1-9
+Added Pin To Net: NetName=GND Pin=U2-1
+Added Pin To Net: NetName=+3V3 Pin=U2-4
+Added Pin To Net: NetName=+12V Pin=U2-5
+Added Pin To Net: NetName=GND Pin=U2-7
+Added Pin To Net: NetName=GND Pin=U2-9
+Added Pin To Net: NetName=NetC39_2 Pin=U3-14
+Added Pin To Net: NetName=NetR3_2 Pin=U3-25
+Added Pin To Net: NetName=NetR2_2 Pin=U3-26
+Added Pin To Net: NetName=LB_IN1 Pin=U3-33
+Added Pin To Net: NetName=LB_IN2 Pin=U3-34
+Added Pin To Net: NetName=LB_OUT1 Pin=U3-35
+Added Pin To Net: NetName=LB_OUT2 Pin=U3-36
+Added Pin To Net: NetName=LB_IN3 Pin=U3-63
+Added Pin To Net: NetName=LB_IN4 Pin=U3-64
+Added Pin To Net: NetName=NetJ1_A6 Pin=U3-72
+Added Pin To Net: NetName=NetJ1_A7 Pin=U3-76
+Added Pin To Net: NetName=NetR59_2 Pin=U3-78
+Added Pin To Net: NetName=NetR60_2 Pin=U3-79
+Added Pin To Net: NetName=NetBT1_34 Pin=U3-80
+Added Pin To Net: NetName=NetC40_2 Pin=U3-82
+Added Pin To Net: NetName=NetC41_2 Pin=U3-83
+Added Pin To Net: NetName=NetC43_2 Pin=U3-84
+Added Pin To Net: NetName=NetC42_2 Pin=U3-91
+Added Pin To Net: NetName=NetR37_2 Pin=U3-93
+Added Pin To Net: NetName=NetR34_2 Pin=U3-95
+Added Pin To Net: NetName=NetR31_2 Pin=U3-96
+Added Pin To Net: NetName=NetR66_2 Pin=VD5-K
+Added Pin To Net: NetName=NetR66_2 Pin=VT3-D
+Added Pin To Net: NetName=NetU3_15 Pin=XP2-2
+Added Pin To Net: NetName=NetU3_16 Pin=XP2-3
+Added Pin To Net: NetName=NetU3_17 Pin=XP2-4
+Added Pin To Net: NetName=NetU3_18 Pin=XP2-5
+Added Pin To Net: NetName=NetU3_29 Pin=XP2-6
+Added Pin To Net: NetName=NetU3_30 Pin=XP2-7
+Added Pin To Net: NetName=NetR66_2 Pin=XP4-1
+Added Pin To Net: NetName=NetR66_2 Pin=XP6-1
+Added Pin To Net: NetName=NetVD5_A Pin=XP6-2
+Added Pin To Net: NetName=NetR60_2 Pin=XP7-2
+Added Pin To Net: NetName=NetR59_2 Pin=XP7-3
+Added Pin To Net: NetName=NetU3_87 Pin=XP9-2
+Added Pin To Net: NetName=NetU3_86 Pin=XP9-3
+Added Pin To Net: NetName=NetU3_47 Pin=XP10-2
+Added Pin To Net: NetName=NetU3_48 Pin=XP10-3
+Change Net Name : Old Net Name=IN1_DRV1 New Net Name=M1_IN1
+Change Net Name : Old Net Name=IN2_DRV1 New Net Name=M1_IN2
+Added Pin To Net: NetName=IN1 Pin=R6-1
+Added Pin To Net: NetName=IN1 Pin=R7-1
+Added Pin To Net: NetName=IN1 Pin=U1-2
+Added Pin To Net: NetName=IN1 Pin=U2-2
+Added Net: Name=IN1
+Added Pin To Net: NetName=IN2 Pin=R4-1
+Added Pin To Net: NetName=IN2 Pin=R5-1
+Added Pin To Net: NetName=IN2 Pin=U1-3
+Added Pin To Net: NetName=IN2 Pin=U2-3
+Added Net: Name=IN2
+Added Pin To Net: NetName=M2_IN1 Pin=U3-31
+Added Net: Name=M2_IN1
+Added Pin To Net: NetName=M2_IN2 Pin=U3-32
+Added Net: Name=M2_IN2
+Added Pin To Net: NetName=M3_IN1 Pin=U3-53
+Added Net: Name=M3_IN1
+Added Pin To Net: NetName=M3_IN2 Pin=U3-54
+Added Net: Name=M3_IN2
+Added Pin To Net: NetName=M4_IN1 Pin=U3-61
+Added Net: Name=M4_IN1
+Added Pin To Net: NetName=M4_IN2 Pin=U3-62
+Added Net: Name=M4_IN2
+Added Pin To Net: NetName=OUT1 Pin=U1-6
+Added Pin To Net: NetName=OUT1 Pin=U2-6
+Added Net: Name=OUT1
+Added Pin To Net: NetName=OUT2 Pin=U1-8
+Added Pin To Net: NetName=OUT2 Pin=U2-8
+Added Net: Name=OUT2
+Change Class Name : Old Net Name=DRV1 New Net Name=drv
+Added Member To Class: ClassName=drv Member=Component C4 25v 47uF
+Added Member To Class: ClassName=drv Member=Component C5 25v 47uF
+Added Member To Class: ClassName=drv Member=Component C6 0.1uF
+Added Member To Class: ClassName=drv Member=Component C7 0.1uF
+Added Member To Class: ClassName=drv Member=Component R4 10K
+Added Member To Class: ClassName=drv Member=Component R5 10K
+Added Member To Class: ClassName=drv Member=Component R6 10K
+Added Member To Class: ClassName=drv Member=Component R7 10K
+Added Member To Class: ClassName=drv Member=Component U1 DRV8870
+Added Member To Class: ClassName=drv Member=Component U2 DRV8870
+Added Room: Name=bluetooth
+Added Room: Name=drv

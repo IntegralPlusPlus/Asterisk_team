@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=LB_IN1 Pin=XP1-2
+Removed Pin From Net: NetName=LB_IN2 Pin=XP1-3
+Removed Pin From Net: NetName=LB_IN3 Pin=XP1-4
+Removed Pin From Net: NetName=LB_IN4 Pin=XP1-5
+Removed Pin From Net: NetName=LB_OUT1 Pin=XP1-6
+Removed Pin From Net: NetName=LB_OUT2 Pin=XP1-7
+Change Component Designator: OldDesignator=L? NewDesignator=L1
+Change Component Designator: OldDesignator=VT? NewDesignator=VT6
+Added Pin To Net: NetName=LB_OUT1 Pin=XP1-2
+Added Pin To Net: NetName=LB_OUT2 Pin=XP1-3
+Added Pin To Net: NetName=LB_IN1 Pin=XP1-4
+Added Pin To Net: NetName=LB_IN2 Pin=XP1-5
+Added Pin To Net: NetName=LB_IN3 Pin=XP1-6
+Added Pin To Net: NetName=LB_IN4 Pin=XP1-7
+Added Member To Class: ClassName=U_connectors Member=Component R31 1K

@@ -1,0 +1,3 @@
+Change Component Designator: OldDesignator=R8 NewDesignator=R10
+Change Component Designator: OldDesignator=R10 NewDesignator=R8
+Added Member To Class: ClassName=U_drv Member=Component R10 10K

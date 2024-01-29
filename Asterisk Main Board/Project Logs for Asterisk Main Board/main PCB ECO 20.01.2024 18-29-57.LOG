@@ -1,0 +1,35 @@
+Removed Pin From Net: NetName=NetR21_1 Pin=R22-1
+Removed Pin From Net: NetName=GND Pin=R22-2
+Removed Pin From Net: NetName=NetR21_2 Pin=VT2-G
+Removed Pin From Net: NetName=NetR21_2 Pin=VT6-G
+Removed Pin From Net: NetName=+12V Pin=VT6-S
+Change Component Comment : Designator=VT6 Old Comment=AO3401A New Comment=IRLML0060
+Change component parameters: Designator = "VT6" ("VT6"); Footprint = "SOT-23-3"; UniqueID = "\DEWHYIWD" ("\DEWHYIWD")
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Chipdip"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.chipdip.ru/product/irlml2502-umw"; VariantName = "[No Variations]"
+Added Component: Designator=R46(RES1206)
+Added Component: Designator=R47(RES1206)
+Added Component: Designator=VT7(SOT-23-3)
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Chipdip"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.chipdip.ru/product/irlml2502-umw"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=R22-1
+Added Pin To Net: NetName=+48V Pin=R46-2
+Added Pin To Net: NetName=+12V Pin=R47-2
+Added Pin To Net: NetName=GND Pin=VT6-S
+Added Pin To Net: NetName=NetR21_2 Pin=VT7-G
+Change Net Name : Old Net Name=MTR_ON New Net Name=MTR_SW
+Added Pin To Net: NetName=NetR22_2 Pin=R22-2
+Added Pin To Net: NetName=NetR22_2 Pin=VT2-G
+Added Pin To Net: NetName=NetR22_2 Pin=VT7-S
+Added Net: Name=NetR22_2
+Added Pin To Net: NetName=NetR46_1 Pin=R46-1
+Added Pin To Net: NetName=NetR46_1 Pin=VT3-G
+Added Pin To Net: NetName=NetR46_1 Pin=VT6-D
+Added Net: Name=NetR46_1
+Added Pin To Net: NetName=NetR47_1 Pin=R47-1
+Added Pin To Net: NetName=NetR47_1 Pin=VT6-G
+Added Pin To Net: NetName=NetR47_1 Pin=VT7-D
+Added Net: Name=NetR47_1
+Added Member To Class: ClassName=main Member=Component R46 10K
+Added Member To Class: ClassName=main Member=Component R47 10K
+Added Member To Class: ClassName=main Member=Component VT7 IRLML0060

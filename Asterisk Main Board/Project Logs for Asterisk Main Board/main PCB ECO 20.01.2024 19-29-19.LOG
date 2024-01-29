@@ -1,0 +1,13 @@
+Removed Pin From Net: NetName=GND Pin=J1-A1
+Removed Pin From Net: NetName=SWDIO Pin=J1-A6
+Removed Pin From Net: NetName=SWCLK Pin=J1-A7
+Removed Pin From Net: NetName=GND Pin=J1-A12
+Removed Pin From Net: NetName=GND Pin=J1-B1
+Removed Pin From Net: NetName=SWDIO Pin=J1-B6
+Removed Pin From Net: NetName=SWCLK Pin=J1-B7
+Removed Pin From Net: NetName=GND Pin=J1-B12
+Removed Pin From Net: NetName=GND Pin=J1-S1
+Removed Pin From Net: NetName=GND Pin=J1-S2
+Removed Pin From Net: NetName=GND Pin=J1-S3
+Removed Pin From Net: NetName=GND Pin=J1-S4
+Removed Member From Class: ClassName=U_connectors Member=J1

@@ -1,0 +1,14 @@
+Removed Pin From Net: NetName=VCC Pin=XP1-2
+Removed Pin From Net: NetName=IN1 Pin=XP1-3
+Removed Pin From Net: NetName=IN2 Pin=XP1-4
+Removed Pin From Net: NetName=IN3 Pin=XP1-5
+Removed Pin From Net: NetName=IN4 Pin=XP1-6
+Removed Pin From Net: NetName=OUT1 Pin=XP1-7
+Removed Pin From Net: NetName=OUT2 Pin=XP1-8
+Added Pin To Net: NetName=IN1 Pin=XP1-2
+Added Pin To Net: NetName=IN2 Pin=XP1-3
+Added Pin To Net: NetName=IN3 Pin=XP1-4
+Added Pin To Net: NetName=IN4 Pin=XP1-5
+Added Pin To Net: NetName=OUT1 Pin=XP1-6
+Added Pin To Net: NetName=OUT2 Pin=XP1-7
+Added Pin To Net: NetName=VCC Pin=XP1-8

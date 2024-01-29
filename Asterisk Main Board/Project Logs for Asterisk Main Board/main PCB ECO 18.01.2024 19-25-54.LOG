@@ -1,0 +1,24 @@
+Removed Pin From Net: NetName=NetR21_2 Pin=VT3-G
+Change Component Footprint: Designator=U2 Old Footprint=HSOP-8 New Footprint=DRV8870
+Change Component Footprint: Designator=U3 Old Footprint=HSOP-8 New Footprint=DRV8870
+Change Component Footprint: Designator=U4 Old Footprint=HSOP-8 New Footprint=DRV8870
+Change Component Footprint: Designator=U5 Old Footprint=HSOP-8 New Footprint=DRV8870
+Change Component Footprint: Designator=U6 Old Footprint=HSOP-8 New Footprint=DRV8870
+Change Component Footprint: Designator=U7 Old Footprint=HSOP-8 New Footprint=DRV8870
+Change Component Footprint: Designator=U8 Old Footprint=HSOP-8 New Footprint=DRV8870
+Change Component Footprint: Designator=U9 Old Footprint=HSOP-8 New Footprint=DRV8870
+Added Component: Designator=L?(IND: B82477G)
+Added Component: Designator=VT?(SOT-23-3)
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Chipdip"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.chipdip.ru/product/ao3401a-umw"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetR21_2 Pin=VT?-G
+Added Pin To Net: NetName=+12V Pin=VT?-S
+Added Pin To Net: NetName=NetL?_1 Pin=L?-1
+Added Net: Name=NetL?_1
+Added Pin To Net: NetName=NetL?_2 Pin=L?-2
+Added Net: Name=NetL?_2
+Added Pin To Net: NetName=NetVT3_G Pin=VT3-G
+Added Pin To Net: NetName=NetVT3_G Pin=VT?-D
+Added Net: Name=NetVT3_G
+Added Member To Class: ClassName=U_stabs Member=Component L? Value
+Added Member To Class: ClassName=main Member=Component VT? AO3401A

@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=M3_IN1 Pin=R8-1
+Removed Pin From Net: NetName=M4_IN1 Pin=R9-1
+Removed Pin From Net: NetName=M3_IN2 Pin=R10-1
+Removed Pin From Net: NetName=M4_IN2 Pin=R11-1
+Change Component Designator: OldDesignator=R8 NewDesignator=R10
+Change Component Designator: OldDesignator=R10 NewDesignator=R8
+Added Pin To Net: NetName=M3_IN1 Pin=R8-1
+Added Pin To Net: NetName=M4_IN2 Pin=R9-1
+Added Pin To Net: NetName=M3_IN2 Pin=R10-1
+Added Pin To Net: NetName=M4_IN1 Pin=R11-1
+Change Net Name : Old Net Name=M3_IN1 New Net Name=M3_IN2
+Change Net Name : Old Net Name=M3_IN2 New Net Name=M3_IN1

@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=+12V Pin=R66-2
+Added Pin To Net: NetName=Vbat Pin=R66-2

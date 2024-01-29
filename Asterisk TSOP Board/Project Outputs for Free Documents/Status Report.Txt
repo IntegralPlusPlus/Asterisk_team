@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [asterisk_tsop_board.PcbDoc]
+   Generated File[asterisk_tsop_board.TXT]
+   Generated File[asterisk_tsop_board.LDP]
+   Generated File[asterisk_tsop_board.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 19:28:28 On 24.01.2024

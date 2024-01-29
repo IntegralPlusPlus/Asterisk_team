@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=NetDA1_3 Pin=L1-1
+Removed Pin From Net: NetName=NetC34_2 Pin=L1-2
+Removed Member From Class: ClassName=U_stabs Member=L1
+Change Component Comment : Designator=L? Old Comment=Value New Comment=47uH
+Change component parameters: Designator = "L?" ("L?"); Footprint = "IND: B82477G"; UniqueID = "\LCBMDGIT\QPTGCZLQ" ("\LCBMDGIT\QPTGCZLQ")
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Chipdip"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.chipdip.ru/product/b82477g4473m"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetDA1_3 Pin=L?-1
+Added Pin To Net: NetName=NetC34_2 Pin=L?-2

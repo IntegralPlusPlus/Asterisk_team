@@ -1,0 +1,29 @@
+Change Component Footprint: Designator=C36 Old Footprint=D8C3.2H12 New Footprint=D10C4.4H10
+Change Component Footprint: Designator=C37 Old Footprint=D8C3.2H12 New Footprint=D10C4.4H10
+Change Component Footprint: Designator=C2 Old Footprint=D8C3.5H12 New Footprint=D10C4.4H10
+Change Component Footprint: Designator=C3 Old Footprint=D8C3.5H12 New Footprint=D10C4.4H10
+Change Component Comment : Designator=SW1 Old Comment=SW1 New Comment=ESP1010
+Change component parameters: Designator = "C2"; Footprint = "D10C4.4H10"; UniqueID = "\QSIERYDD\AOIOYHAR"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Chipdip"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.chipdip.ru/product0/9000565743"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C3"; Footprint = "D10C4.4H10"; UniqueID = "\QSIERYDD\GJOPBRXJ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Chipdip"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.chipdip.ru/product0/9000565743"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C16"; Footprint = "D8C3.2H12"; UniqueID = "\LCBMDGIT\UBXSGPMP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Chipdip"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.chipdip.ru/product0/9000565743"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C17"; Footprint = "D8C3.2H12"; UniqueID = "\LCBMDGIT\SHOESSJR"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Chipdip"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.chipdip.ru/product0/9000565743"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C36"; Footprint = "D10C4.4H10"; UniqueID = "\LCBMDGIT\BMYLWNGG"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Chipdip"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.chipdip.ru/product0/9000565748"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C37"; Footprint = "D10C4.4H10"; UniqueID = "\LCBMDGIT\ECHMQURJ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Chipdip"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.chipdip.ru/product0/9000565748"; VariantName = "[No Variations]"
