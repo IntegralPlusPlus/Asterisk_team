@@ -170,8 +170,8 @@ namespace Robot {
 			
 			Vec2b vecToCenter = processXY.getVecToGoalCenter();
 			Vec2b vecToBall = processXY.getVecToIntersection(ang0_360);
-			goTo = vecToBall + vecToCenter;
-			if (goTo.length > 0.7) goTo.length = 0.7;
+			goTo = vecToCenter + vecToBall;
+			if (goTo.length > 0.6) goTo.length = 0.6;
 			
 			gyro.setRotationForTarget();
 			pow = gyro.getRotation();
@@ -183,7 +183,7 @@ namespace Robot {
 				}
 			} else currentVector = goTo;
 		} else if (doesntSeeGoals) {
-			currentVector = Vec2b(0.1, 90);
+			currentVector = Vec2b(0.2, 90);
 		} else {
 			currentVector = Vec2b(0, 0);
 		}

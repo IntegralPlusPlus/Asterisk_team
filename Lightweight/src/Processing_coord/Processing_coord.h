@@ -8,14 +8,14 @@
 #define THRESHOLD_X 79
 #define UP_Y 225
 #define DOWN_Y 7.4f
-#define DOWN_Y_GOALKEEPER_RIGHT 35
-#define DOWN_Y_GOALKEEPER_LEFT 35
+#define DOWN_Y_GOALKEEPER_RIGHT 27
+#define DOWN_Y_GOALKEEPER_LEFT 25
 #define RADIUS_GOAL_OUT 44.7f
-#define GOAL_OUT_X_THRESHOLD_RIGHT 20
-#define GOAL_OUT_X_THRESHOLD_LEFT -25
-#define GOAL_OUT_Y_THRESHOLD 30.f
+#define GOAL_OUT_X_THRESHOLD_RIGHT 25
+#define GOAL_OUT_X_THRESHOLD_LEFT -23
+#define GOAL_OUT_Y_THRESHOLD 32.f
 #define GOAL_CIRCLE_Y_THRESHOLD_RIGHT 35.f
-#define GOAL_CIRCLE_Y_THRESHOLD_LEFT 25.f
+#define GOAL_CIRCLE_Y_THRESHOLD_LEFT 34.f
 #define GOAL_OUT_X_THRESHOLD_ALL 45
 #define DIST_BETWEEN_GOALS 231
 
@@ -27,7 +27,7 @@ class ProcessingCoord {
 		ProcessingCoord();
 		void setGoal(uint8_t currentGoal);
 		void setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow);
-		Vec2b ñheckOUTs(Vec2b current);
+		Vec2b checkOUTs(Vec2b current);
 		Vec2b getVecForMyCircle(int16_t x, int16_t y);
 		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
 		Vec2b getVecToGoalCenter();
