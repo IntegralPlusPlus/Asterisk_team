@@ -1,7 +1,7 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 15000
+#define IMU_CALIBRATE_TIME 16500
 //20000
 #define TIME_NOT_SEEN 1500
 #define USUAL_SPEED 0.55
@@ -161,27 +161,40 @@ namespace Robot {
 	}
 
 	volatile float distToGoal;
+	volatile int16_t angGoal;
 	void protectGoal() {
 		Vec2b goTo;
+		gyro.setRotationForTarget();
+		pow = gyro.getRotation();
+		angGoal = RAD2DEG * atan2(float(y), float(x));
+		
 		if (!doesntSeeGoals && time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) {
 			ang0_360 = ang + 90;
 			while (ang0_360 > 360) ang0_360 -= 360;
 			while (ang0_360 < 0) ang0_360 += 360;
 			
-			Vec2b vecToCenter = processXY.getVecToGoalCenter();
 			Vec2b vecToBall = processXY.getVecToIntersection(ang0_360);
+			Vec2b vecToCenter = processXY.getVecToGoalCenter();
+			if (processXY.robotInCritical()) vecToCenter.length = 0;
+			//if (vecToBall.length == 0) vecToCenter.length *= 0.65;
+			
 			goTo = vecToCenter + vecToBall;
 			if (goTo.length > 0.6) goTo.length = 0.6;
 			
-			gyro.setRotationForTarget();
-			pow = gyro.getRotation();
-			
-			if (!processXY.robotInCritical()) {
+			/*if (!processXY.robotInCritical()) {
 				if (time_service::millis() != t) {
 					currentVector.changeTo(goTo);
 					t = time_service::millis();
 				}
-			} else currentVector = goTo;
+			} else*/
+			if (time_service::millis() != t) {
+				//currentVector.changeTo(goTo);
+				currentVector.length = goTo.length;
+				currentVector.angle = goTo.angle;
+				t = time_service::millis();
+			}
+			//currentVector.length = goTo.length;
+			//currentVector.angle = goTo.angle;
 		} else if (doesntSeeGoals) {
 			currentVector = Vec2b(0.2, 90);
 		} else {
