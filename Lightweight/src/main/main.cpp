@@ -1,16 +1,16 @@
 #include "Robot.h"
 
 int main() {
-		Robot::init(BLUE_GOAL, GOALKEEPER_ROLE);
+	Asterisk::init(BLUE_GOAL, GOALKEEPER_ROLE);
 	
 	while (true) {
-		Robot::update();
+		Asterisk::update();
 		
-		if (Robot::calibrated()) {
-			if (Robot::getRole() == FORWARD_ROLE) {
-				Robot::goToBall();
-			} else if (Robot::getRole() == GOALKEEPER_ROLE) {
-				Robot::protectGoal();
+		if (Asterisk::calibrated()) {
+			if (Asterisk::getRole() == FORWARD_ROLE) {
+				Asterisk::goToBall();
+			} else if (Asterisk::getRole() == GOALKEEPER_ROLE) {
+				Asterisk::protectGoal();
 			}
 		}
 	}

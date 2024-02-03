@@ -45,10 +45,6 @@ void OpenMV::read() {
 		_angleBlue = adductionMV(2 * data[1]);
 		_distYellow = data[2];
 		_angleYellow = adductionMV(2 * data[3]);
-		//_distBlue
-		//if (_angleBlue > -48) _distBlue = (float)_distBlue / 1.7f; //1.26
-		//else _distBlue = (float)_distBlue / 1.4f;
-		//_distYellow /= 2;//float(_distYellow) * 2.f * abs(float(_angleYellow)) / 180;
 	}
 }
 
@@ -73,8 +69,6 @@ void OpenMV::calculate(int16_t robotAngle, bool goal, bool role) {
 		}
 	}
 	
-	//_x = xBlue;
-	//_y = yBlue;
 	if (_distYellow * _distBlue != 0) {
 		_x = (xYellow / float(_distYellow) + xBlue / float(_distBlue)) / (1 / float(_distYellow) + 1 / float(_distBlue));
 		_y = (yYellow / float(_distYellow) + yBlue / float(_distBlue)) / (1 / float(_distYellow) + 1 / float(_distBlue));

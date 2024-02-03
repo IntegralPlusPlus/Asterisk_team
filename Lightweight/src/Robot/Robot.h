@@ -6,7 +6,7 @@
 #define TIME_NOT_SEEN 1500
 #define USUAL_SPEED 0.55
 
-namespace Robot {
+namespace Asterisk {
 	Vec2b currentVector;
 	volatile float ang, angRes;
 	volatile bool imuCalibrated;
@@ -99,7 +99,7 @@ namespace Robot {
 			timeUpdateQueue = time_service::millis();
 		}
 		
-		if (distRaw) {
+		if (distRaw && distRaw != 255) {
 			ang = ball.getCurrentVec2b().angle;
 			dist = ball.getCurrentVec2b().length;
 		}
@@ -128,7 +128,7 @@ namespace Robot {
 			imuCalibrated = true;
 		}
 		
-		if (distRaw) timeNotSeenBall = time_service::millis();
+		if (distRaw && distRaw != 255) timeNotSeenBall = time_service::millis();
 	}
 	
 	void goToBall() {	
@@ -168,33 +168,23 @@ namespace Robot {
 		pow = gyro.getRotation();
 		angGoal = RAD2DEG * atan2(float(y), float(x));
 		
-		if (!doesntSeeGoals && time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) {
+		if (!doesntSeeGoals) {
 			ang0_360 = ang + 90;
 			while (ang0_360 > 360) ang0_360 -= 360;
 			while (ang0_360 < 0) ang0_360 += 360;
 			
-			Vec2b vecToBall = processXY.getVecToIntersection(ang0_360);
+			Vec2b vecToBall;
+			if (time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) vecToBall = processXY.getVecToIntersection(ang0_360);
+			else vecToBall = Vec2b(0, 0);
 			Vec2b vecToCenter = processXY.getVecToGoalCenter();
-			if (processXY.robotInCritical()) vecToCenter.length = 0;
-			//if (vecToBall.length == 0) vecToCenter.length *= 0.65;
-			
+
 			goTo = vecToCenter + vecToBall;
 			if (goTo.length > 0.6) goTo.length = 0.6;
 			
-			/*if (!processXY.robotInCritical()) {
-				if (time_service::millis() != t) {
-					currentVector.changeTo(goTo);
-					t = time_service::millis();
-				}
-			} else*/
 			if (time_service::millis() != t) {
-				//currentVector.changeTo(goTo);
-				currentVector.length = goTo.length;
-				currentVector.angle = goTo.angle;
+				currentVector.changeTo(goTo);
 				t = time_service::millis();
 			}
-			//currentVector.length = goTo.length;
-			//currentVector.angle = goTo.angle;
 		} else if (doesntSeeGoals) {
 			currentVector = Vec2b(0.2, 90);
 		} else {
