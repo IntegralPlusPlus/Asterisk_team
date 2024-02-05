@@ -1,9 +1,9 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 16500
+#define IMU_CALIBRATE_TIME 20000
 //20000
-#define TIME_NOT_SEEN 1500
+#define TIME_NOT_SEEN 300
 #define USUAL_SPEED 0.55
 
 namespace Asterisk {
@@ -25,6 +25,7 @@ namespace Asterisk {
 	volatile int16_t angleBallGoal;
 	volatile bool doesntSeeGoals = false;
 	volatile int16_t ang0_360;
+	uint8_t myMode;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -59,7 +60,7 @@ namespace Asterisk {
 	omniplatform omni(motor3, motor4, motor2, motor1);
 	BallVec2b ball;
 
-	void init(uint8_t goal, uint8_t role) {
+	void init(uint8_t goal, uint8_t role, uint8_t mode) {
 		myGoal = goal;
 		myRole = role;
 		time_service::init();
@@ -79,6 +80,7 @@ namespace Asterisk {
 		processXY.setGoal(myGoal);
 	
 		if (myRole == GOALKEEPER_ROLE) gyro.setTarget(0);
+		myMode = mode;
 	}
 	
 	bool calibrated() {
@@ -99,7 +101,7 @@ namespace Asterisk {
 			timeUpdateQueue = time_service::millis();
 		}
 		
-		if (distRaw && distRaw != 255) {
+		if (!locator.distBad(distRaw)) {
 			ang = ball.getCurrentVec2b().angle;
 			dist = ball.getCurrentVec2b().length;
 		}
@@ -128,7 +130,7 @@ namespace Asterisk {
 			imuCalibrated = true;
 		}
 		
-		if (distRaw && distRaw != 255) timeNotSeenBall = time_service::millis();
+		if (!locator.distBad(distRaw)) timeNotSeenBall = time_service::millis();
 	}
 	
 	void goToBall() {	
@@ -174,23 +176,20 @@ namespace Asterisk {
 			while (ang0_360 < 0) ang0_360 += 360;
 			
 			Vec2b vecToBall;
-			if (time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) vecToBall = processXY.getVecToIntersection(ang0_360);
+			if (!locator.distBad(distRaw)) vecToBall = processXY.getVecToIntersection(ang0_360);
 			else vecToBall = Vec2b(0, 0);
 			Vec2b vecToCenter = processXY.getVecToGoalCenter();
+			vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
 
 			goTo = vecToCenter + vecToBall;
-			if (goTo.length > 0.6) goTo.length = 0.6;
+			if (goTo.length > 1) goTo.length = 1;
 			
 			if (time_service::millis() != t) {
 				currentVector.changeTo(goTo);
 				t = time_service::millis();
 			}
-		} else if (doesntSeeGoals) {
-			currentVector = Vec2b(0.2, 90);
-		} else {
-			currentVector = Vec2b(0, 0);
-		}
+		} else if (doesntSeeGoals) currentVector = Vec2b(0.2, 90);
 	
-		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
+		if (myMode == PLAY_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 }

@@ -37,6 +37,8 @@ void Vec2b::changeTo(Vec2b to) {
 Vec2b Vec2b::operator+ (const Vec2b& a) {
 	double x = a.length * cos(DEG2RAD * a.angle) + this->length * cos(DEG2RAD * this->angle);
 	double y = a.length * sin(DEG2RAD * a.angle) + this->length * sin(DEG2RAD * this->angle);
+	int16_t ang = atan2(y, x) * RAD2DEG;
+	if (ang < 0) ang += 360;
 	
-	return Vec2b(sqrt(x * x + y * y), atan2(y, x) * RAD2DEG);
+	return Vec2b(sqrt(x * x + y * y), ang);
 }

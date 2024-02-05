@@ -22,13 +22,14 @@ class IRLocator {
 		int16_t getValue(uint8_t data);
 		int16_t getAngle();
 		int16_t detourAngle(int16_t angle);
+		int16_t adduct(int16_t a);
 		int32_t getDist();
 		double convertDist(double dist);
 		float angleOffset(float angle, float dist);
-		int16_t adduct(int16_t a);
+		bool distBad(int16_t distLocator);
 	private:
 		I2C _irlI2C;
 		uint32_t _address;
-		volatile uint32_t _dist;
-		volatile int16_t _angle;
+		uint32_t _dist;
+		int16_t _angle;
 };

@@ -103,21 +103,20 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	if (angGoal >= ANGLE_LOW_TO_CIRCLE && angGoal <= ANGLE_HIGH_TO_CIRCLE) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		float speed = err * 0.048; 
+		float speed = err * 0.055f; 
 		vec = Vec2b(speed, 270 + _angle); 
 	} else {
 		float err, speed;
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			speed = err * 0.03; //0.042
+			speed = err * 0.04f; //0.042
 		} else if (angGoal < ANGLE_LOW_TO_CIRCLE) {
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
-			speed = err * 0.03; //0.042
+			speed = err * 0.04f; //0.042
 		}
 		
 		vec = Vec2b(speed, getTargetGoalkeeper()); 
-		//else vec = Vec2b(-speed, adduct(180 + getTargetGoalkeeper()));
 	}
 	
 	return vec;
@@ -136,7 +135,7 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 		else res.angle = _angle;
 
 		float err, p, d, u;
-		err = pow(abs(float(globalAngToBall - angGoal)), 1.21f);
+		err = pow(abs(float(globalAngToBall - angGoal)), 1.3f);
 		p = 0.005 * err;
 		d = (err - errOldGkLine) * 0.1;
 		u = p + d;
@@ -145,51 +144,39 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 		res.length = u; //0.011 1.2
 	} else {
 		float err, p, d, u;
-		//critical = true;
 		
 		if (angGoal < ANGLE_LOW_TO_CIRCLE) {
-			if (globalAngToBall > angGoal) {
-				res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
-			} else { 
-				res.angle = 180 + adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
-			}
+			if (globalAngToBall > angGoal) res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
+			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
 				
-			err = pow(abs(float(globalAngToBall - angGoal)), 1.f);
-			p = 0.005 * err;
-			d = (err - errOldGkRight) * 0.05; //0.05
+			err = pow(abs(float(globalAngToBall - angGoal)), 1.2f);
+			p = 0.006 * err;
+			d = (err - errOldGkRight) * 0.5; //0.05
 			u = p + d;
 			errOldGkRight = err;
 			
 			res.length = u;
-			if (adduct(angBall + _angle) > 180 || (_y <= DOWN_Y_GOALKEEPER_RIGHT && 
-					(adduct(angBall + _angle) < 60 || adduct(angBall + _angle) > 190))) {
+			if ((_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 || res.angle < 90)) 
+					|| (_y <= DOWN_Y_GOALKEEPER_RIGHT && 
+					(adduct(angBall + _angle) < 20 || adduct(angBall + _angle) > 255))) {
 				res.angle = 0;
 				res.length = 0;
-				//int16_t pointX = sqrt(pow(float(RADIUS_GOAL_OUT_RIGHT), 2) - pow(float(DOWN_Y_GOALKEEPER_RIGHT), 2));
-				//res.angle = adduct(RAD2DEG * atan2(float(DOWN_Y_GOALKEEPER_RIGHT - _y), float(pointX - _x)));//90 + _angle;
-				//res.length = 0.025 * sqrt(pow(float(DOWN_Y_GOALKEEPER_RIGHT - _y), 2) + pow(float(pointX - _x), 2));
-				//critical = true;
 			}
 		} else if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
-			if (globalAngToBall > angGoal) {
-				res.angle = 180 + adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
-			} else { 
-				res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
-			}
+			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
+			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			
-			err = pow(abs(float(globalAngToBall - angGoal)), 1.f);
-			p = 0.005 * err;
+			err = pow(abs(float(globalAngToBall - angGoal)), 1.2f);
+			p = 0.006 * err;
 			d = (err - errOldGkLeft) * 0.05; //0.05
 			u = p + d;
 			errOldGkLeft = err;
 			res.length = u;			
 			
-			if (adduct(angBall + _angle) > 180 || (_y <= DOWN_Y_GOALKEEPER_LEFT && 
-					(adduct(angBall + _angle) < 60 || adduct(angBall + _angle) > 190))) {
-				//int16_t pointX = sqrt(pow(float(RADIUS_GOAL_OUT_LEFT), 2) - pow(float(DOWN_Y_GOALKEEPER_LEFT), 2));
-				//res.angle = adduct(RAD2DEG * atan2(float(DOWN_Y_GOALKEEPER_LEFT - _y), float(pointX - _x)));//90 + _angle;
-				//res.length = 0.025 * sqrt(pow(float(DOWN_Y_GOALKEEPER_LEFT - _y), 2) + pow(float(pointX - _x), 2));
-				//critical = true;
+			//(adduct(angBall + _angle) > 180 && adduct(angBall + _angle) < 300) || 
+			if ((_x < GK_X_THRESHOLD_LEFT && res.angle > 90 && res.angle < 270) 
+				|| (_y <= DOWN_Y_GOALKEEPER_LEFT && 
+					(adduct(angBall + _angle) > 100 && adduct(angBall + _angle) < 290))) {
 				res.angle = 0;
 				res.length = 0;
 			}
@@ -197,6 +184,15 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	}
 	
 	return res;
+}
+
+float ProcessingCoord::getCoeffToGoalCenter(float intersec) {
+	if (intersec < MAX_LEN_TO_INCREASE_VEC) return 1;
+	else return map(intersec, MAX_LEN_TO_INCREASE_VEC, 1, 1, MAX_COEFF_TO_GOAL_CENTER);
+}
+
+float ProcessingCoord::map(float a, float from1, float to1, float from2, float to2) {
+	return to1 + a * (to2 - to1) / (from2 - from1);
 }
 
 bool ProcessingCoord::robotInCritical() {
