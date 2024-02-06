@@ -103,7 +103,7 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	if (angGoal >= ANGLE_LOW_TO_CIRCLE && angGoal <= ANGLE_HIGH_TO_CIRCLE) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		float speed = err * 0.055f; 
+		float speed = err * 0.03f; 
 		vec = Vec2b(speed, 270 + _angle); 
 	} else {
 		float err, speed;
@@ -136,8 +136,8 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 
 		float err, p, d, u;
 		err = pow(abs(float(globalAngToBall - angGoal)), 1.3f);
-		p = 0.005 * err;
-		d = (err - errOldGkLine) * 0.1;
+		p = 0.004f * err;
+		d = (err - errOldGkLine) * 0.08f;
 		u = p + d;
 		errOldGkLine = err;
 		
@@ -149,9 +149,9 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 			if (globalAngToBall > angGoal) res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
 			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
 				
-			err = pow(abs(float(globalAngToBall - angGoal)), 1.2f);
-			p = 0.006 * err;
-			d = (err - errOldGkRight) * 0.5; //0.05
+			err = pow(abs(float(globalAngToBall - angGoal)), 1.3f);
+			p = 0.005f * err;
+			d = (err - errOldGkRight) * 0.1f; //0.05
 			u = p + d;
 			errOldGkRight = err;
 			
@@ -166,9 +166,9 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			
-			err = pow(abs(float(globalAngToBall - angGoal)), 1.2f);
-			p = 0.006 * err;
-			d = (err - errOldGkLeft) * 0.05; //0.05
+			err = pow(abs(float(globalAngToBall - angGoal)), 1.3f);
+			p = 0.005f * err;
+			d = (err - errOldGkLeft) * 0.08f; //0.05
 			u = p + d;
 			errOldGkLeft = err;
 			res.length = u;			

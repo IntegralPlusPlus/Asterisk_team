@@ -50,6 +50,7 @@ void OpenMV::read() {
 
 void OpenMV::calculate(int16_t robotAngle, bool goal, bool role) {
 	float xYellow, yYellow, xBlue, yBlue;
+	float xRaw = -1, yRaw = -1;
 	float angBlueWithIMU, angYellowWithIMU; 
 	if (goal == BLUE_GOAL) robotAngle = adductionMV(robotAngle + 180);
 	
@@ -70,19 +71,24 @@ void OpenMV::calculate(int16_t robotAngle, bool goal, bool role) {
 	}
 	
 	if (_distYellow * _distBlue != 0) {
-		_x = (xYellow / float(_distYellow) + xBlue / float(_distBlue)) / (1 / float(_distYellow) + 1 / float(_distBlue));
-		_y = (yYellow / float(_distYellow) + yBlue / float(_distBlue)) / (1 / float(_distYellow) + 1 / float(_distBlue));
+		xRaw = (xYellow / float(_distYellow) + xBlue / float(_distBlue)) / (1 / float(_distYellow) + 1 / float(_distBlue));
+		yRaw = (yYellow / float(_distYellow) + yBlue / float(_distBlue)) / (1 / float(_distYellow) + 1 / float(_distBlue));
 	} else if (_distYellow == 0) {
-		_x = xBlue;
-		_y = yBlue;
+		xRaw = xBlue;
+		yRaw = yBlue;
 	} else if (_distBlue == 0) {
-		_x = xYellow;
-		_y = yYellow;
+		xRaw = xYellow;
+		yRaw = yYellow;
 	}
 	
 	if (goal == BLUE_GOAL) {
-		_x *= -1;
-		_y = DIST_BETWEEN_GOALS - _y;
+		xRaw *= -1;
+		yRaw = DIST_BETWEEN_GOALS - yRaw;
+	}
+	
+	if (!(xRaw == -1 && yRaw == -1)) {
+		_x = float(_x) * XY_KOEFF + float(1 - XY_KOEFF) * xRaw;
+		_y = float(_y) * XY_KOEFF + float(1 - XY_KOEFF) * yRaw;
 	}
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 20000
+#define IMU_CALIBRATE_TIME 22000
 //20000
 #define TIME_NOT_SEEN 300
 #define USUAL_SPEED 0.55
@@ -159,17 +159,14 @@ namespace Asterisk {
 		
 		//currentVector = Vec2b(0, 0);//processXY.ñheckOUTs(currentVector);
 		
-		omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
+		if (myMode == PLAY_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 
-	volatile float distToGoal;
-	volatile int16_t angGoal;
 	void protectGoal() {
 		Vec2b goTo;
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
-		angGoal = RAD2DEG * atan2(float(y), float(x));
-		
+
 		if (!doesntSeeGoals) {
 			ang0_360 = ang + 90;
 			while (ang0_360 > 360) ang0_360 -= 360;
@@ -179,7 +176,7 @@ namespace Asterisk {
 			if (!locator.distBad(distRaw)) vecToBall = processXY.getVecToIntersection(ang0_360);
 			else vecToBall = Vec2b(0, 0);
 			Vec2b vecToCenter = processXY.getVecToGoalCenter();
-			vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
+			//vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
 
 			goTo = vecToCenter + vecToBall;
 			if (goTo.length > 1) goTo.length = 1;

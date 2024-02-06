@@ -28,7 +28,47 @@ Project File Date:  01/20/2024
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 Note: source file '.\src\Pin\Pin.cpp' - object file renamed from '.\Objects\Pin.o' to '.\Objects\pin_1.o'.
-".\Objects\Lightweight.axf" - 0 Error(s), 0 Warning(s).
+compiling Processing_coord.cpp...
+.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
+  #define PLAY_MODE 1
+.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
+  #define PLAY_MODE 1
+.\src\Vec2b\Vec2b.h(22): warning:  #1-D: last line of file ends without a newline
+  #endif /* VEC2B_H_ */
+src\Processing_coord\Processing_coord.h(72): warning:  #1-D: last line of file ends without a newline
+  };
+src\Processing_coord\Processing_coord.cpp(73): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	_targetIMU = RAD2DEG * atan2(float(_x - ENEMY_X), float(_y - ENEMY_Y)) - 180;
+src\Processing_coord\Processing_coord.cpp(78): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t a = adduct(RAD2DEG * atan2(float(_y), float(_x)));
+src\Processing_coord\Processing_coord.cpp(79): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if (a > ANGLE_HIGH_TO_CIRCLE) _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 180);
+src\Processing_coord\Processing_coord.cpp(80): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	else if (a < ANGLE_LOW_TO_CIRCLE) _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 180);
+src\Processing_coord\Processing_coord.cpp(81): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	else _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 180);
+src\Processing_coord\Processing_coord.cpp(87): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	float ang = atan2(float(DIST_BETWEEN_GOALS - y), float(x)) * RAD2DEG;
+src\Processing_coord\Processing_coord.cpp(103): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Processing_coord\Processing_coord.cpp(128): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Processing_coord\Processing_coord.cpp(149): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if (globalAngToBall > angGoal) res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
+src\Processing_coord\Processing_coord.cpp(150): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
+src\Processing_coord\Processing_coord.cpp(166): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
+src\Processing_coord\Processing_coord.cpp(167): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
+src\Processing_coord\Processing_coord.cpp(203): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	float ang = atan2(float(y), float(x)) * RAD2DEG;
+src\Processing_coord\Processing_coord.cpp(241): warning:  #1-D: last line of file ends without a newline
+  }
+src\Processing_coord\Processing_coord.cpp: 18 warnings, 0 errors
+linking...
+Program Size: Code=35942 RO-data=1430 RW-data=240 ZI-data=11552  
+".\Objects\Lightweight.axf" - 0 Error(s), 18 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -54,12 +94,12 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
       Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
       Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
