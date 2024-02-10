@@ -103,17 +103,17 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	if (angGoal >= ANGLE_LOW_TO_CIRCLE && angGoal <= ANGLE_HIGH_TO_CIRCLE) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		float speed = err * 0.03f; 
+		float speed = err * 0.051f; 
 		vec = Vec2b(speed, 270 + _angle); 
 	} else {
 		float err, speed;
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			speed = err * 0.04f; //0.042
+			speed = err * 0.03f; //0.042
 		} else if (angGoal < ANGLE_LOW_TO_CIRCLE) {
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
-			speed = err * 0.04f; //0.042
+			speed = err * 0.051f; //0.042
 		}
 		
 		vec = Vec2b(speed, getTargetGoalkeeper()); 
@@ -128,16 +128,16 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	int16_t globalAngToBall = adduct(angBall + _angle);
 	int16_t angleBallGoal = adduct(angGoal + globalAngToBall);
-	if (globalAngToBall > 270) globalAngToBall -= 360;
+	if (globalAngToBall > 180) globalAngToBall = 360 - globalAngToBall;
 	
 	if (angGoal >= ANGLE_LOW_TO_CIRCLE && angGoal <= ANGLE_HIGH_TO_CIRCLE) {
 		if (globalAngToBall > angGoal) res.angle = 180 + _angle;
 		else res.angle = _angle;
 
 		float err, p, d, u;
-		err = pow(abs(float(globalAngToBall - angGoal)), 1.3f);
-		p = 0.004f * err;
-		d = (err - errOldGkLine) * 0.08f;
+		err = pow(abs(float(globalAngToBall - angGoal)), 1.3f); //1.3f
+		p = 0.004f * err; //0.0035f
+		d = (err - errOldGkLine) * 0.065f;
 		u = p + d;
 		errOldGkLine = err;
 		
@@ -149,36 +149,41 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 			if (globalAngToBall > angGoal) res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
 			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
 				
-			err = pow(abs(float(globalAngToBall - angGoal)), 1.3f);
-			p = 0.005f * err;
-			d = (err - errOldGkRight) * 0.1f; //0.05
+			err = pow(abs(float(globalAngToBall - angGoal)), 1.1f);
+			p = 0.004f * err;
+			d = (err - errOldGkRight) * 0.065f; //0.05
 			u = p + d;
 			errOldGkRight = err;
 			
 			res.length = u;
-			if ((_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 || res.angle < 90)) 
-					|| (_y <= DOWN_Y_GOALKEEPER_RIGHT && 
+			if (//(_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 || res.angle < 90)) 
+					(_y <= DOWN_Y_GOALKEEPER_RIGHT && 
 					(adduct(angBall + _angle) < 20 || adduct(angBall + _angle) > 255))) {
 				res.angle = 0;
 				res.length = 0;
+			} else if ((_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 || res.angle < 90))) {
+				res.angle = 180;
+				res.length = 0.05;
 			}
 		} else if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
 			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			
-			err = pow(abs(float(globalAngToBall - angGoal)), 1.3f);
+			err = pow(abs(float(globalAngToBall - angGoal)), 1.1f);
 			p = 0.005f * err;
-			d = (err - errOldGkLeft) * 0.08f; //0.05
+			d = (err - errOldGkLeft) * 0.065f; //0.05
 			u = p + d;
 			errOldGkLeft = err;
 			res.length = u;			
 			
 			//(adduct(angBall + _angle) > 180 && adduct(angBall + _angle) < 300) || 
-			if ((_x < GK_X_THRESHOLD_LEFT && res.angle > 90 && res.angle < 270) 
-				|| (_y <= DOWN_Y_GOALKEEPER_LEFT && 
-					(adduct(angBall + _angle) > 100 && adduct(angBall + _angle) < 290))) {
+			if ((_y <= DOWN_Y_GOALKEEPER_LEFT && 
+					(adduct(angBall + _angle) > 100 && adduct(angBall + _angle) < 300))) {
 				res.angle = 0;
 				res.length = 0;
+			} else if ((_x < GK_X_THRESHOLD_LEFT && res.angle > 90 && res.angle < 270)) {
+				res.angle = 0;
+				res.length = 0.05;
 			}
 		}
 	}

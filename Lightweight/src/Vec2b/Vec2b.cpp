@@ -16,8 +16,8 @@ void Vec2b::set(double len, double ang) {
 }
 
 void Vec2b::changeTo(Vec2b to) {
-	double x1 = this->length * cos(this->angle * DEG2RAD);
-	double y1 = this->length * sin(this->angle * DEG2RAD);
+	double x1 = double(this->length) * cos(double(this->angle) * DEG2RAD);
+	double y1 = double(this->length) * sin(double(this->angle) * DEG2RAD);
 	double x2 = to.length * cos(to.angle * DEG2RAD);
 	double y2 = to.length * sin(to.angle * DEG2RAD);
 	double xDiff = x2 - x1, yDiff = y2 - y1;

@@ -1,7 +1,7 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 22000
+#define IMU_CALIBRATE_TIME 21000
 //20000
 #define TIME_NOT_SEEN 300
 #define USUAL_SPEED 0.55
@@ -22,7 +22,7 @@ namespace Asterisk {
 	volatile int16_t angBlue, angYellow;
 	volatile int16_t target;
 	volatile double speedForward;
-	volatile int16_t angleBallGoal;
+	volatile int16_t angleBallGoal, angToGoal;
 	volatile bool doesntSeeGoals = false;
 	volatile int16_t ang0_360;
 	uint8_t myMode;
@@ -115,11 +115,13 @@ namespace Asterisk {
 		camera.calculate(angleIMU, myGoal, myRole);
 		dBl = camera.getDistBlue();
 		dYe = camera.getDistYellow();
-		if (!(dBl == 0 && dYe == 0)) {
+		//if (myRole == FORWARD_ROLE) {
+		if ((myRole == FORWARD_ROLE && !(dBl == 0 && dYe == 0)) ||
+			 (myRole == GOALKEEPER_ROLE && ((myGoal == YELLOW_GOAL && dYe) || (myGoal == BLUE_GOAL && dBl)))) {
 			x = camera.getX();
 			y = camera.getY();
 			doesntSeeGoals = false;
-			processXY.setParams(x, y, angleIMU, camera.getDistBlue(), camera.getDistYellow());
+			processXY.setParams(x, y, angleIMU, dBl, dYe);
 		} else doesntSeeGoals = true;
 		
 		angYellow = camera.getAngleYellow();
@@ -130,7 +132,7 @@ namespace Asterisk {
 			imuCalibrated = true;
 		}
 		
-		if (!locator.distBad(distRaw)) timeNotSeenBall = time_service::millis();
+		if (!locator.distBad(dist)) timeNotSeenBall = time_service::millis();
 	}
 	
 	void goToBall() {	
@@ -168,6 +170,7 @@ namespace Asterisk {
 		pow = gyro.getRotation();
 
 		if (!doesntSeeGoals) {
+			angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
 			ang0_360 = ang + 90;
 			while (ang0_360 > 360) ang0_360 -= 360;
 			while (ang0_360 < 0) ang0_360 += 360;

@@ -42,9 +42,9 @@ void OpenMV::read() {
 	
 	if (gotData && crc == crc8(data, 4)) {
 		_distBlue = data[0];
-		_angleBlue = adductionMV(2 * data[1]);
+		_angleBlue = 2 * data[1];//adductionMV(2 * data[1]);
 		_distYellow = data[2];
-		_angleYellow = adductionMV(2 * data[3]);
+		_angleYellow = 2 * data[3];//adductionMV(2 * data[3]);
 	}
 }
 
@@ -53,6 +53,9 @@ void OpenMV::calculate(int16_t robotAngle, bool goal, bool role) {
 	float xRaw = -1, yRaw = -1;
 	float angBlueWithIMU, angYellowWithIMU; 
 	if (goal == BLUE_GOAL) robotAngle = adductionMV(robotAngle + 180);
+	
+	//ETO KOSTIL DLYA CRINGE-ROBOTA
+	if ((_angleYellow > 280 || _angleYellow < 110) && _distYellow > 50) _distYellow = int16_t(float(_distYellow) * 0.78f);
 	
 	angBlueWithIMU = adductionMV(_angleBlue + robotAngle);
 	angYellowWithIMU = adductionMV(_angleYellow + robotAngle);
@@ -81,14 +84,12 @@ void OpenMV::calculate(int16_t robotAngle, bool goal, bool role) {
 		yRaw = yYellow;
 	}
 	
-	if (goal == BLUE_GOAL) {
-		xRaw *= -1;
-		yRaw = DIST_BETWEEN_GOALS - yRaw;
-	}
+	xRaw *= -1;
+	if (goal == BLUE_GOAL) yRaw = DIST_BETWEEN_GOALS - yRaw;
 	
 	if (!(xRaw == -1 && yRaw == -1)) {
-		_x = float(_x) * XY_KOEFF + float(1 - XY_KOEFF) * xRaw;
-		_y = float(_y) * XY_KOEFF + float(1 - XY_KOEFF) * yRaw;
+		_x = float(_x) * float(1 - XY_KOEFF) + float(XY_KOEFF) * xRaw;
+		_y = float(_y) * float(1 - XY_KOEFF) + float(XY_KOEFF) * yRaw;
 	}
 }
 
@@ -130,8 +131,8 @@ uint8_t OpenMV::crc8(volatile uint8_t* data, uint8_t len) {
 }
 
 int16_t OpenMV::adductionMV(int16_t angleIMU) {
-	while (angleIMU > 180) angleIMU -= 360;
-  while (angleIMU < -180) angleIMU += 360;
+	while (angleIMU > 360) angleIMU -= 360;
+  while (angleIMU < 0) angleIMU += 360;
   return angleIMU;
 }
 

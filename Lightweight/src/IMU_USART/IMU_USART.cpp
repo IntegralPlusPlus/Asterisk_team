@@ -27,7 +27,7 @@ void gyro_imu::setRotationForTarget() {
 	if (err > 180) err -= 360;
 	else if (err < -180) err += 360;
 	
-	_rotation = float(err) * KOEFF_P;// + float(err - errOld) * KOEFF_D;
+	_rotation = float(err) * KOEFF_P + float(err - errOld) * KOEFF_D;
 		
 	errOld = err;
 }
