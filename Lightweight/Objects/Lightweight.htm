@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Lightweight.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Lightweight.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Feb 10 20:32:21 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Feb 13 19:41:04 2024
 <BR><P>
 <H3>Maximum Stack Usage =        472 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -913,7 +913,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[98]"></a>ProcessingCoord::getVecToGoalCenter()</STRONG> (Thumb, 386 bytes, Stack size 72 bytes, processing_coord.o(i._ZN15ProcessingCoord18getVecToGoalCenterEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = ProcessingCoord::getVecToGoalCenter() &rArr; ProcessingCoord::getTargetGoalkeeper() &rArr; std::atan2(float, float) &rArr; __hardfp_atan2f &rArr; __set_errno
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = ProcessingCoord::getVecToGoalCenter() &rArr; ProcessingCoord::getTargetGoalkeeper() &rArr; std::atan2(float, float) &rArr; __hardfp_atan2f &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::atan2(float, float)
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(float, int)
@@ -929,8 +929,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::protectGoal()
 </UL>
 
-<P><STRONG><a name="[9e]"></a>ProcessingCoord::getTargetGoalkeeper()</STRONG> (Thumb, 416 bytes, Stack size 48 bytes, processing_coord.o(i._ZN15ProcessingCoord19getTargetGoalkeeperEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = ProcessingCoord::getTargetGoalkeeper() &rArr; std::atan2(float, float) &rArr; __hardfp_atan2f &rArr; __set_errno
+<P><STRONG><a name="[9e]"></a>ProcessingCoord::getTargetGoalkeeper()</STRONG> (Thumb, 122 bytes, Stack size 40 bytes, processing_coord.o(i._ZN15ProcessingCoord19getTargetGoalkeeperEv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = ProcessingCoord::getTargetGoalkeeper() &rArr; std::atan2(float, float) &rArr; __hardfp_atan2f &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::atan2(float, float)
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::adduct(short)
@@ -942,7 +942,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::getVecToGoalCenter()
 </UL>
 
-<P><STRONG><a name="[a0]"></a>ProcessingCoord::getVecToIntersection(short)</STRONG> (Thumb, 1290 bytes, Stack size 104 bytes, processing_coord.o(i._ZN15ProcessingCoord20getVecToIntersectionEs))
+<P><STRONG><a name="[a0]"></a>ProcessingCoord::getVecToIntersection(short)</STRONG> (Thumb, 1294 bytes, Stack size 104 bytes, processing_coord.o(i._ZN15ProcessingCoord20getVecToIntersectionEs))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = ProcessingCoord::getVecToIntersection(short) &rArr; std::atan2(float, float) &rArr; __hardfp_atan2f &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::atan2(float, float)
@@ -1483,7 +1483,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::update()
 </UL>
 
-<P><STRONG><a name="[ef]"></a>OpenMV::calculate(short, bool, bool)</STRONG> (Thumb, 664 bytes, Stack size 64 bytes, openmv.o(i._ZN6OpenMV9calculateEsbb))
+<P><STRONG><a name="[ef]"></a>OpenMV::calculate(short, bool, bool)</STRONG> (Thumb, 682 bytes, Stack size 64 bytes, openmv.o(i._ZN6OpenMV9calculateEsbb))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = OpenMV::calculate(short, bool, bool) &rArr; std::sin(float) &rArr; __hardfp_sinf &rArr; __mathlib_rredf2
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::sin(float)

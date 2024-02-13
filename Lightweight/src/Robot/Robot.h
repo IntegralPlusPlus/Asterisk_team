@@ -161,7 +161,7 @@ namespace Asterisk {
 		
 		//currentVector = Vec2b(0, 0);//processXY.ñheckOUTs(currentVector);
 		
-		if (myMode == PLAY_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
+		if (myMode == P_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 
 	void protectGoal() {
@@ -181,8 +181,8 @@ namespace Asterisk {
 			Vec2b vecToCenter = processXY.getVecToGoalCenter();
 			//vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
 
-			goTo = vecToCenter + vecToBall;
-			if (goTo.length > 1) goTo.length = 1;
+			goTo = vecToCenter  + vecToBall;
+			if (goTo.length > 0.85) goTo.length = 0.85;
 			
 			if (time_service::millis() != t) {
 				currentVector.changeTo(goTo);
@@ -190,6 +190,6 @@ namespace Asterisk {
 			}
 		} else if (doesntSeeGoals) currentVector = Vec2b(0.2, 90);
 	
-		if (myMode == PLAY_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
+		if (myMode == P_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 }

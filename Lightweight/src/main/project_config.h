@@ -13,5 +13,5 @@
 #define YELLOW_GOAL 1
 #define GOALKEEPER_ROLE 0
 #define FORWARD_ROLE 1
-#define DEBUG_MODE 0
-#define PLAY_MODE 1
+#define D_MODE 0
+#define P_MODE 1

@@ -75,12 +75,9 @@ int16_t ProcessingCoord::getTargetForward() {
 }
 
 int16_t ProcessingCoord::getTargetGoalkeeper() {
-	int16_t a = adduct(RAD2DEG * atan2(float(_y), float(_x)));
-	if (a > ANGLE_HIGH_TO_CIRCLE) _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 180);
-	else if (a < ANGLE_LOW_TO_CIRCLE) _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 180);
-	else _targetIMU = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 180);
+	_targetIMU = RAD2DEG * atan2(float(_y), float(_x)) - 180;
 	
-	return _targetIMU;
+	return adduct(_angle + _targetIMU);
 }
 
 Vec2b ProcessingCoord::getVecForEnemyCircle(int16_t x, int16_t y) {
@@ -110,10 +107,10 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			speed = err * 0.03f; //0.042
+			speed = err * 0.04f; //0.042
 		} else if (angGoal < ANGLE_LOW_TO_CIRCLE) {
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
-			speed = err * 0.051f; //0.042
+			speed = err * 0.04f; //0.042
 		}
 		
 		vec = Vec2b(speed, getTargetGoalkeeper()); 
@@ -136,7 +133,7 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 
 		float err, p, d, u;
 		err = pow(abs(float(globalAngToBall - angGoal)), 1.3f); //1.3f
-		p = 0.004f * err; //0.0035f
+		p = 0.0031f * err; //0.0035f
 		d = (err - errOldGkLine) * 0.065f;
 		u = p + d;
 		errOldGkLine = err;
