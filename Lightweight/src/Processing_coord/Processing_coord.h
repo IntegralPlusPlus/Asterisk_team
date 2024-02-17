@@ -9,19 +9,19 @@
 #define UP_Y 225
 #define DOWN_Y 27.f
 
-#define DOWN_Y_GOALKEEPER_RIGHT 18
+#define DOWN_Y_GOALKEEPER_RIGHT 16
 #define DOWN_Y_GOALKEEPER_LEFT 18
 #define GOAL_OUT_X_THRESHOLD_RIGHT 27
 #define GOAL_OUT_X_THRESHOLD_LEFT -23
-#define GOAL_OUT_Y_THRESHOLD 25
+#define GOAL_OUT_Y_THRESHOLD 24
 #define GOAL_CIRCLE_Y_THRESHOLD_RIGHT 35.f
 #define GOAL_CIRCLE_Y_THRESHOLD_LEFT 34.f
 #define GOAL_OUT_X_THRESHOLD_ALL 45
 #define DIST_BETWEEN_GOALS 231
 
-#define ANGLE_LOW_TO_CIRCLE 70
-#define ANGLE_HIGH_TO_CIRCLE 120
-#define RADIUS_GOAL_OUT_RIGHT 39
+#define ANGLE_LOW_TO_CIRCLE 60
+#define ANGLE_HIGH_TO_CIRCLE 137
+#define RADIUS_GOAL_OUT_RIGHT 35
 #define RADIUS_GOAL_OUT_LEFT 44
 //44.7f
 #define MAX_COEFF_TO_GOAL_CENTER 1.05f
@@ -29,8 +29,7 @@
 #define GK_X_THRESHOLD_LEFT -37
 #define GK_X_THRESHOLD_RIGHT 36
 
-#define GO_RIGHT 0
-#define GO_LEFT 1
+#define BACK_ANGLE 80
 
 class ProcessingCoord {
 	public:
@@ -42,6 +41,7 @@ class ProcessingCoord {
 		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
 		Vec2b getVecToGoalCenter();
 		Vec2b getVecToIntersection(int16_t angBall);
+		Vec2b getVecToPoint(int16_t pointX = 0, int16_t pointY = GOAL_OUT_Y_THRESHOLD);
 		int16_t adduct(int16_t value);
 		int16_t adduct180(int16_t value);
 		int16_t getTargetForward();

@@ -1,9 +1,9 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 21000
+#define IMU_CALIBRATE_TIME 19000
 //20000
-#define TIME_NOT_SEEN 300
+#define TIME_NOT_SEEN 700
 #define USUAL_SPEED 0.55
 
 namespace Asterisk {
@@ -26,6 +26,7 @@ namespace Asterisk {
 	volatile bool doesntSeeGoals = false;
 	volatile int16_t ang0_360;
 	uint8_t myMode;
+	bool seeBall;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -73,7 +74,8 @@ namespace Asterisk {
 		angSoft = 0;
 		distSoft = 0;
 		distOld = -1;
-
+		seeBall = true;
+		
 		currentVector.set(0, 90);
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
@@ -133,6 +135,7 @@ namespace Asterisk {
 		}
 		
 		if (!locator.distBad(dist)) timeNotSeenBall = time_service::millis();
+		seeBall = time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN;
 	}
 	
 	void goToBall() {	
@@ -142,7 +145,7 @@ namespace Asterisk {
 		pow = gyro.getRotation();
 		
 		speedForward = USUAL_SPEED;
-		if (time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN) {
+		if (seeBall) {
 			angRes = ang + locator.angleOffset(gyro.adduct(ang), distSoft) + 90;
 			
 			while (angRes > 360) angRes -= 360;
@@ -176,13 +179,16 @@ namespace Asterisk {
 			while (ang0_360 < 0) ang0_360 += 360;
 			
 			Vec2b vecToBall;
-			if (!locator.distBad(distRaw)) vecToBall = processXY.getVecToIntersection(ang0_360);
-			else vecToBall = Vec2b(0, 0);
+			if (!locator.distBad(dist) && seeBall) vecToBall = processXY.getVecToIntersection(ang0_360);
+			else if (locator.distBad(dist) && !seeBall) {
+				vecToBall = processXY.getVecToPoint();
+			} else vecToBall = Vec2b(0, 0);
+				
 			Vec2b vecToCenter = processXY.getVecToGoalCenter();
-			//vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
+			vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
 
 			goTo = vecToCenter  + vecToBall;
-			if (goTo.length > 0.85) goTo.length = 0.85;
+			if (goTo.length > 0.91) goTo.length = 0.91;
 			
 			if (time_service::millis() != t) {
 				currentVector.changeTo(goTo);
