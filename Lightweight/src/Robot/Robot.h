@@ -1,10 +1,11 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 19000
+#define IMU_CALIBRATE_TIME 21000
 //20000
-#define TIME_NOT_SEEN 700
+#define TIME_NOT_SEEN 750
 #define USUAL_SPEED 0.55
+#define MAX_VEC2B_LEN 0.91
 
 namespace Asterisk {
 	Vec2b currentVector;
@@ -26,7 +27,7 @@ namespace Asterisk {
 	volatile bool doesntSeeGoals = false;
 	volatile int16_t ang0_360;
 	uint8_t myMode;
-	bool seeBall;
+	volatile bool seeBall;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -80,6 +81,7 @@ namespace Asterisk {
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
 		processXY.setGoal(myGoal);
+		processXY.setMaxLen(MAX_VEC2B_LEN);
 	
 		if (myRole == GOALKEEPER_ROLE) gyro.setTarget(0);
 		myMode = mode;
@@ -134,7 +136,7 @@ namespace Asterisk {
 			imuCalibrated = true;
 		}
 		
-		if (!locator.distBad(dist)) timeNotSeenBall = time_service::millis();
+		if (!locator.distBad(distRaw)) timeNotSeenBall = time_service::millis();
 		seeBall = time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN;
 	}
 	
@@ -180,15 +182,15 @@ namespace Asterisk {
 			
 			Vec2b vecToBall;
 			if (!locator.distBad(dist) && seeBall) vecToBall = processXY.getVecToIntersection(ang0_360);
-			else if (locator.distBad(dist) && !seeBall) {
+			else if (!seeBall) {
 				vecToBall = processXY.getVecToPoint();
 			} else vecToBall = Vec2b(0, 0);
 				
 			Vec2b vecToCenter = processXY.getVecToGoalCenter();
 			vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
 
-			goTo = vecToCenter  + vecToBall;
-			if (goTo.length > 0.91) goTo.length = 0.91;
+			goTo = vecToCenter + vecToBall;
+			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
 			
 			if (time_service::millis() != t) {
 				currentVector.changeTo(goTo);

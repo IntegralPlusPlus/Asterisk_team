@@ -12,7 +12,6 @@ ProcessingCoord::ProcessingCoord() {
 	errOldGkLeft = 0;
 	errOldGkRight = 0;
 	errOldGkLine = 0;
-	critical = false;
 }
 
 void ProcessingCoord::setGoal(uint8_t currentGoal) {
@@ -98,22 +97,34 @@ bool ProcessingCoord::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int
 Vec2b ProcessingCoord::getVecToGoalCenter() {
 	Vec2b vec;
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+	float p, d, u;
+	static float errOld = 0;
+	
 	if (angGoal >= ANGLE_LOW_TO_CIRCLE && angGoal <= ANGLE_HIGH_TO_CIRCLE) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
 		float speed = err * 0.053f; 
 		vec = Vec2b(speed, 270 + _angle); 
+		//errOld = 0;
 	} else {
 		float err, speed;
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			speed = err * 0.046f; //0.042
+			p = err * 0.042f; //0.042
+			d = (err - errOld) * 0.7f;
+			u = p + d;
+			errOld = err;
 		} else if (angGoal < ANGLE_LOW_TO_CIRCLE) {
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
-			speed = err * 0.046f; //0.042
+			p = err * 0.054f;
+			d = (err - errOld) * 0.7f;
+			u = p + d;
+			errOld = err;
+			//speed = err * 0.054f; //0.042
 		}
 		
-		vec = Vec2b(speed, getTargetGoalkeeper()); 
+		//speed = u;
+		vec = Vec2b(u, getTargetGoalkeeper()); 
 	}
 	
 	return vec;
@@ -121,7 +132,7 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 
 Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	Vec2b res;
-	critical = false;
+	
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	int16_t globalAngToBall = adduct(angBall + _angle);
 	int16_t angleBallGoal = adduct(angGoal + globalAngToBall);
@@ -130,8 +141,6 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	else if (globalAngToBall > 270) {
 		globalAngToBall -= 360;
 	}
-	
-	//globalAngToBall = 360 - globalAngToBall;
 	
 	if (angGoal >= ANGLE_LOW_TO_CIRCLE && angGoal <= ANGLE_HIGH_TO_CIRCLE) {
 		if (globalAngToBall > angGoal) res.angle = 180 + _angle;
@@ -153,7 +162,7 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
 				
 			err = pow(abs(float(globalAngToBall - angGoal)), 1.1f);
-			p = 0.004f * err;
+			p = 0.0032f * err;
 			d = (err - errOldGkRight) * 0.065f; //0.05
 			u = p + d;
 			errOldGkRight = err;
@@ -166,27 +175,26 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 				res.length = 0;
 			} else if ((_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 || res.angle < 90))) {
 				res.angle = 180;
-				res.length = 0.05;
+				res.length = 0.4;
 			}
 		} else if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
 			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			
 			err = pow(abs(float(globalAngToBall - angGoal)), 1.1f);
-			p = 0.005f * err;
+			p = 0.004f * err;
 			d = (err - errOldGkLeft) * 0.065f; //0.05
 			u = p + d;
 			errOldGkLeft = err;
 			res.length = u;			
 			
-			//(adduct(angBall + _angle) > 180 && adduct(angBall + _angle) < 300) || 
 			if ((_y <= DOWN_Y_GOALKEEPER_LEFT && 
 					(adduct(angBall + _angle) > 100 && adduct(angBall + _angle) < 300))) {
 				res.angle = 0;
 				res.length = 0;
 			} else if ((_x < GK_X_THRESHOLD_LEFT && res.angle > 90 && res.angle < 270)) {
 				res.angle = 0;
-				res.length = 0.05;
+				res.length = 0.4;
 			}
 		}
 	}
@@ -195,23 +203,23 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 }
 
 Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
-	int16_t dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
-	float u = dist * 0.1;
+	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
+	float u = dist * 0.033f;
 	
 	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
 }
 
+void ProcessingCoord::setMaxLen(float len) {
+	_maxLen = len;
+}
+
 float ProcessingCoord::getCoeffToGoalCenter(float intersec) {
 	if (intersec < MAX_LEN_TO_INCREASE_VEC) return 1;
-	else return map(intersec, MAX_LEN_TO_INCREASE_VEC, 1, 1, MAX_COEFF_TO_GOAL_CENTER);
+	else return map(intersec, MAX_LEN_TO_INCREASE_VEC, _maxLen, 1, MAX_COEFF_TO_GOAL_CENTER);
 }
 
 float ProcessingCoord::map(float a, float from1, float to1, float from2, float to2) {
 	return to1 + a * (to2 - to1) / (from2 - from1);
-}
-
-bool ProcessingCoord::robotInCritical() {
-	return critical;
 }
 
 Vec2b ProcessingCoord::getVecForMyCircle(int16_t x, int16_t y) {

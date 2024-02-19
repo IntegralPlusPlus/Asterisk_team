@@ -9,8 +9,8 @@
 #define UP_Y 225
 #define DOWN_Y 27.f
 
-#define DOWN_Y_GOALKEEPER_RIGHT 16
-#define DOWN_Y_GOALKEEPER_LEFT 18
+#define DOWN_Y_GOALKEEPER_RIGHT 15
+#define DOWN_Y_GOALKEEPER_LEFT 20
 #define GOAL_OUT_X_THRESHOLD_RIGHT 27
 #define GOAL_OUT_X_THRESHOLD_LEFT -23
 #define GOAL_OUT_Y_THRESHOLD 24
@@ -24,18 +24,19 @@
 #define RADIUS_GOAL_OUT_RIGHT 35
 #define RADIUS_GOAL_OUT_LEFT 44
 //44.7f
-#define MAX_COEFF_TO_GOAL_CENTER 1.05f
-#define MAX_LEN_TO_INCREASE_VEC 0.9f
-#define GK_X_THRESHOLD_LEFT -37
+#define MAX_COEFF_TO_GOAL_CENTER 1.075f
+#define MAX_LEN_TO_INCREASE_VEC 0.88f
+#define GK_X_THRESHOLD_LEFT -38
 #define GK_X_THRESHOLD_RIGHT 36
 
-#define BACK_ANGLE 80
+#define BACK_ANGLE 60
 
 class ProcessingCoord {
 	public:
 		ProcessingCoord();
 		void setGoal(uint8_t currentGoal);
 		void setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow);
+		void setMaxLen(float len);
 		Vec2b checkOUTs(Vec2b current);
 		Vec2b getVecForMyCircle(int16_t x, int16_t y);
 		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
@@ -55,7 +56,6 @@ class ProcessingCoord {
 		bool myGoalLine(int16_t x, int16_t y);
 		bool enemyGoalLine(int16_t x, int16_t y);
 		bool robotInOUT();
-		bool robotInCritical();
 		float getCoeffToGoalCenter(float intersec);
 		float map(float a, float from1, float to1, float from2, float to2);
 	private:
@@ -63,10 +63,10 @@ class ProcessingCoord {
 		Vec2b _upFast, _downFast;
 		float distToGoalCenter;
 		float errOldGkLeft, errOldGkLine, errOldGkRight; 
+		float _maxLen;
 		int16_t _targetIMU;
 		int16_t _x, _y, _angle;
 		int16_t _dBlue, _dYellow;
 		uint8_t _goal;
 		bool inOUT;
-		bool critical;
 };
