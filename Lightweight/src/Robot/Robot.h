@@ -6,6 +6,8 @@
 #define TIME_NOT_SEEN 750
 #define USUAL_SPEED 0.55
 #define MAX_VEC2B_LEN 0.91
+#define TIME_LEAVE 3500
+#define TIME_FINISH_LEAVE 4000
 
 namespace Asterisk {
 	Vec2b currentVector;
@@ -13,8 +15,8 @@ namespace Asterisk {
 	volatile bool imuCalibrated;
 	volatile int16_t pow;
 	volatile float angleIMU, angSoft, distSoft;
-	volatile float dist, distOld;
-	volatile int t, timeNotSeenBall, timeUpdateQueue;
+	volatile float dist, distOld, angOld;
+	volatile uint32_t t, timeNotSeenBall, timeUpdateQueue, timeCheckLeave, timeInLeaving;
 	volatile int16_t x, y;
 	volatile int16_t angRaw;
 	volatile int32_t distRaw;
@@ -26,8 +28,9 @@ namespace Asterisk {
 	volatile int16_t angleBallGoal, angToGoal;
 	volatile bool doesntSeeGoals = false;
 	volatile int16_t ang0_360;
-	uint8_t myMode;
+	volatile uint8_t myMode;
 	volatile bool seeBall;
+	volatile bool inLeave, inReturn;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -75,11 +78,16 @@ namespace Asterisk {
 		angSoft = 0;
 		distSoft = 0;
 		distOld = -1;
+		angOld = -1;
 		seeBall = true;
+		
+		inLeave = false;
+		inReturn = false;
 		
 		currentVector.set(0, 90);
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
+		timeCheckLeave = time_service::millis();
 		processXY.setGoal(myGoal);
 		processXY.setMaxLen(MAX_VEC2B_LEN);
 	
@@ -140,12 +148,7 @@ namespace Asterisk {
 		seeBall = time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN;
 	}
 	
-	void goToBall() {	
-		target = processXY.getTargetForward();
-		gyro.setTarget(target);
-		gyro.setRotationForTarget();
-		pow = gyro.getRotation();
-		
+	Vec2b getVec2bToBallFollow() {
 		speedForward = USUAL_SPEED;
 		if (seeBall) {
 			angRes = ang + locator.angleOffset(gyro.adduct(ang), distSoft) + 90;
@@ -157,9 +160,16 @@ namespace Asterisk {
 		} else {
 			speedForward = 0;
 		}
+	}
+	
+	void goToBall() {	
+		target = processXY.getTargetForward();
+		gyro.setTarget(target);
+		gyro.setRotationForTarget();
+		pow = gyro.getRotation();
 		
 		if (time_service::millis() != t) {
-			Vec2b goTo(speedForward, double(angSoft));
+			Vec2b goTo = getVec2bToBallFollow();
 			currentVector.changeTo(goTo);
 			t = time_service::millis();
 		}
@@ -168,6 +178,14 @@ namespace Asterisk {
 		
 		if (myMode == P_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
+	
+	bool mustLeave() {
+		if (seeBall) {
+			if (dist == distOld && ang == angOld) timeCheckLeave = time_service::millis();
+		} else timeCheckLeave = time_service::millis();
+		
+		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
+	}
 
 	void protectGoal() {
 		Vec2b goTo;
@@ -175,21 +193,37 @@ namespace Asterisk {
 		pow = gyro.getRotation();
 
 		if (!doesntSeeGoals) {
-			angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
-			ang0_360 = ang + 90;
-			while (ang0_360 > 360) ang0_360 -= 360;
-			while (ang0_360 < 0) ang0_360 += 360;
-			
-			Vec2b vecToBall;
-			if (!locator.distBad(dist) && seeBall) vecToBall = processXY.getVecToIntersection(ang0_360);
-			else if (!seeBall) {
-				vecToBall = processXY.getVecToPoint();
-			} else vecToBall = Vec2b(0, 0);
+			if (!mustLeave() && !inLeave && !inReturn) {
+				Vec2b vecToBall, vecToCenter;
+				angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
+				ang0_360 = ang + 90;
+				while (ang0_360 > 360) ang0_360 -= 360;
+				while (ang0_360 < 0) ang0_360 += 360;
 				
-			Vec2b vecToCenter = processXY.getVecToGoalCenter();
-			vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
-
-			goTo = vecToCenter + vecToBall;
+				if (!locator.distBad(dist) && seeBall) vecToBall = processXY.getVecToIntersection(ang0_360);
+				else if (!seeBall) {
+					vecToBall = processXY.getVecToPoint();
+				} else vecToBall = Vec2b(0, 0);
+					
+				vecToCenter = processXY.getVecToGoalCenter();
+				vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
+			
+				goTo = vecToCenter + vecToBall;
+			} else if (mustLeave() && !inLeave && !inReturn) {
+				inLeave = true;
+				timeInLeaving = time_service::millis();
+			} else if (inLeave) {
+				goTo = getVec2bToBallFollow();
+				if (time_service::millis() - timeInLeaving > TIME_FINISH_LEAVE 
+					|| sqrt(float(x * x + y * y)) > 0.5 * DIST_BETWEEN_GOALS) {
+					inLeave = false;
+					inReturn = true;
+				}
+			} else if (inReturn) {
+				goTo = processXY.getVecToReturn();
+				if (processXY.changeFromReturn()) inReturn = false;
+			}
+			
 			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
 			
 			if (time_service::millis() != t) {

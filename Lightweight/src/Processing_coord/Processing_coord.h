@@ -43,6 +43,7 @@ class ProcessingCoord {
 		Vec2b getVecToGoalCenter();
 		Vec2b getVecToIntersection(int16_t angBall);
 		Vec2b getVecToPoint(int16_t pointX = 0, int16_t pointY = GOAL_OUT_Y_THRESHOLD);
+		Vec2b getVecToReturn();
 		int16_t adduct(int16_t value);
 		int16_t adduct180(int16_t value);
 		int16_t getTargetForward();
@@ -56,6 +57,8 @@ class ProcessingCoord {
 		bool myGoalLine(int16_t x, int16_t y);
 		bool enemyGoalLine(int16_t x, int16_t y);
 		bool robotInOUT();
+		bool changeFromReturn();
+		float distance(float x, float y, float startX = 0, float startY = 0);
 		float getCoeffToGoalCenter(float intersec);
 		float map(float a, float from1, float to1, float from2, float to2);
 	private:

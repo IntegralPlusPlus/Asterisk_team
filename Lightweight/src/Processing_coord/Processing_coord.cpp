@@ -202,6 +202,19 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	return res;
 }
 
+Vec2b ProcessingCoord::getVecToReturn() {
+	float yTo = GOAL_OUT_Y_THRESHOLD, xTo = _x * yTo / _y;
+	return getVecToPoint(xTo, yTo);
+}
+
+bool ProcessingCoord::changeFromReturn() {
+	return distance(_x, _y) < 2 * GOAL_OUT_Y_THRESHOLD;
+}
+
+float ProcessingCoord::distance(float x, float y, float startX, float startY) {
+	return sqrt(pow(x - startX, 2) + pow(y - startY, 2));
+}
+
 Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
 	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
 	float u = dist * 0.033f;
