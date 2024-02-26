@@ -1,13 +1,13 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 21000
+#define IMU_CALIBRATE_TIME 10000
 //20000
 #define TIME_NOT_SEEN 750
 #define USUAL_SPEED 0.55
 #define MAX_VEC2B_LEN 0.91
-#define TIME_LEAVE 3500
-#define TIME_FINISH_LEAVE 4000
+#define TIME_LEAVE 2200
+#define TIME_FINISH_LEAVE 2500
 
 namespace Asterisk {
 	Vec2b currentVector;
@@ -18,8 +18,8 @@ namespace Asterisk {
 	volatile float dist, distOld, angOld;
 	volatile uint32_t t, timeNotSeenBall, timeUpdateQueue, timeCheckLeave, timeInLeaving;
 	volatile int16_t x, y;
-	volatile int16_t angRaw;
-	volatile int32_t distRaw;
+	volatile int16_t angRaw, angRawOld;
+	volatile int32_t distRaw, distSoftOld;
 	volatile uint8_t myGoal, myRole;
 	volatile int16_t dBl, dYe;
 	volatile int16_t angBlue, angYellow;
@@ -31,6 +31,7 @@ namespace Asterisk {
 	volatile uint8_t myMode;
 	volatile bool seeBall;
 	volatile bool inLeave, inReturn;
+	volatile double kLen, kAng;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -105,6 +106,7 @@ namespace Asterisk {
 
 	void update() {
 		camera.read();
+		angRawOld = angRaw;
 		angRaw = locator.getAngle();
 		distRaw = locator.getDist();
 		
@@ -118,8 +120,12 @@ namespace Asterisk {
 			dist = ball.getCurrentVec2b().length;
 		}
 		
+		kAng = ball.getDerivativeAng();
+		kLen = ball.getDerivativeDist();
+		
 		if (abs(dist - distOld) < 3 || distOld == -1) distSoft = 0.03f * dist + 0.97f * distSoft;
 		distOld = dist;
+		distSoftOld = distSoft;
 			
 		gyro.read();
 		angleIMU = gyro.getCurrentAngle();
@@ -127,7 +133,6 @@ namespace Asterisk {
 		camera.calculate(angleIMU, myGoal, myRole);
 		dBl = camera.getDistBlue();
 		dYe = camera.getDistYellow();
-		//if (myRole == FORWARD_ROLE) {
 		if ((myRole == FORWARD_ROLE && !(dBl == 0 && dYe == 0)) ||
 			 (myRole == GOALKEEPER_ROLE && ((myGoal == YELLOW_GOAL && dYe) || (myGoal == BLUE_GOAL && dBl)))) {
 			x = camera.getX();
@@ -160,6 +165,8 @@ namespace Asterisk {
 		} else {
 			speedForward = 0;
 		}
+		
+		return Vec2b(speedForward, angSoft);
 	}
 	
 	void goToBall() {	
@@ -180,9 +187,7 @@ namespace Asterisk {
 	}
 	
 	bool mustLeave() {
-		if (seeBall) {
-			if (dist == distOld && ang == angOld) timeCheckLeave = time_service::millis();
-		} else timeCheckLeave = time_service::millis();
+		if (seeBall && !(kAng < 0.0015 && kLen < 0.0015)) timeCheckLeave = time_service::millis();
 		
 		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
 	}
@@ -193,7 +198,8 @@ namespace Asterisk {
 		pow = gyro.getRotation();
 
 		if (!doesntSeeGoals) {
-			if (!mustLeave() && !inLeave && !inReturn) {
+			bool robotMustLeave = mustLeave();
+			if (!robotMustLeave && !inLeave && !inReturn) {
 				Vec2b vecToBall, vecToCenter;
 				angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
 				ang0_360 = ang + 90;
@@ -209,19 +215,23 @@ namespace Asterisk {
 				vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
 			
 				goTo = vecToCenter + vecToBall;
-			} else if (mustLeave() && !inLeave && !inReturn) {
+			} else if (robotMustLeave && !inLeave && !inReturn) {
 				inLeave = true;
 				timeInLeaving = time_service::millis();
 			} else if (inLeave) {
 				goTo = getVec2bToBallFollow();
 				if (time_service::millis() - timeInLeaving > TIME_FINISH_LEAVE 
-					|| sqrt(float(x * x + y * y)) > 0.5 * DIST_BETWEEN_GOALS) {
+					|| sqrt(float(x * x + y * y)) > 0.22 * DIST_BETWEEN_GOALS || doesntSeeGoals) {
 					inLeave = false;
 					inReturn = true;
 				}
 			} else if (inReturn) {
-				goTo = processXY.getVecToReturn();
-				if (processXY.changeFromReturn()) inReturn = false;
+				if (!doesntSeeGoals) goTo = processXY.getVecToReturn();
+					
+				if (processXY.changeFromReturn()) {
+					inReturn = false;
+					timeCheckLeave = time_service::millis();
+				}
 			}
 			
 			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
@@ -230,8 +240,11 @@ namespace Asterisk {
 				currentVector.changeTo(goTo);
 				t = time_service::millis();
 			}
-		} else if (doesntSeeGoals) currentVector = Vec2b(0.2, 90);
-	
+		} else if (doesntSeeGoals) {
+			if (!inReturn) currentVector = Vec2b(0.2, 90);
+			else currentVector = Vec2b(0.5, 270);
+		}
+			
 		if (myMode == P_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 }

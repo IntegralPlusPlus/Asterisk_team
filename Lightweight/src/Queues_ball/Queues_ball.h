@@ -2,11 +2,12 @@
 #include "project_config.h"
 #include "Vec2b.h"
 
-#define QUEUE_SIZE 35 
+#define QUEUE_SIZE 105
 #define MS_DELTA 30
 
 #define STATUS_POP_ELEMENT 0
 #define STATUS_PUSH_ELEMENT 1
+#define QUANTITY_CYCLES 20
 
 struct Vec2bTime {
 	void set(double length, double angle, uint32_t t, int16_t transition = 0) {
@@ -54,10 +55,14 @@ class BallVec2b {
 		void calculate();
 		void setTransitionBy360();
 		double adduct(double a);
+		double getDerivativeAng();
+		double getDerivativeDist();
 	private:
 		Vec2bTime _queue[QUEUE_SIZE];
 		int8_t _last;
 		double _sLen, _s2Len, _sAng, _s2Ang, _sLenT, _sAngT, _timeSumm;
 		double _length, _angle;
 		double _transition360; 
+		double aLen, bLen, aAng, bAng;
+		double tgDiffDist, tgDiffAng;
 };

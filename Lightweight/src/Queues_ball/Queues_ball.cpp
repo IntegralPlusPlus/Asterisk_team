@@ -14,10 +14,16 @@ BallVec2b::BallVec2b() {
 	_length = 0;
 	_angle = 0;
 	_transition360 = 0;
+
+	tgDiffDist = 0;
+	tgDiffAng = 0;
 }
 
 void BallVec2b::push(Vec2b vec, uint32_t millis) {
 	if (_queue[_last].correct()) {
+		tgDiffDist = double(_queue[_last].getLen() - vec.length) / double(millis - _queue[_last].getTime());
+		tgDiffAng = double(_queue[_last].getAngle() - vec.angle) / double(millis - _queue[_last].getTime());
+		
 		changeValues(STATUS_POP_ELEMENT);
 		_timeSumm -= _queue[_last].getTime();
 	}	
@@ -37,8 +43,8 @@ void BallVec2b::calculate() {
 	if (_s2Len / double(QUEUE_SIZE) - pow((_sLen / double(QUEUE_SIZE)), 2) == 0) {
 		_length = _queue[_last].getLen();
 	} else {
-		double bLen = (_sLenT / double(QUEUE_SIZE) - _sLen * _timeSumm / pow(double(QUEUE_SIZE), 2)) / (_s2Len / double(QUEUE_SIZE) - pow((_sLen / double(QUEUE_SIZE)), 2));
-		double aLen = _timeSumm / double(QUEUE_SIZE) - bLen * _sLen / double(QUEUE_SIZE);
+		bLen = (_sLenT / double(QUEUE_SIZE) - _sLen * _timeSumm / pow(double(QUEUE_SIZE), 2)) / (_s2Len / double(QUEUE_SIZE) - pow((_sLen / double(QUEUE_SIZE)), 2));
+		aLen = _timeSumm / double(QUEUE_SIZE) - bLen * _sLen / double(QUEUE_SIZE);
 
 		if (bLen != 0) {
 			uint32_t futureTime = _queue[_last].getTime() + MS_DELTA;
@@ -49,8 +55,8 @@ void BallVec2b::calculate() {
 	if (_s2Ang / double(QUEUE_SIZE) - pow((_sAng / double(QUEUE_SIZE)), 2) == 0) {
 		_angle = _queue[_last].getAngle();
 	} else {
-		double bAng = (_sAngT / double(QUEUE_SIZE) - _sAng * _timeSumm / pow(double(QUEUE_SIZE), 2)) / (_s2Ang / double(QUEUE_SIZE) - pow((_sAng / double(QUEUE_SIZE)), 2));
-		double aAng = _timeSumm / double(QUEUE_SIZE) - bAng * _sAng / double(QUEUE_SIZE);
+		bAng = (_sAngT / double(QUEUE_SIZE) - _sAng * _timeSumm / pow(double(QUEUE_SIZE), 2)) / (_s2Ang / double(QUEUE_SIZE) - pow((_sAng / double(QUEUE_SIZE)), 2));
+		aAng = _timeSumm / double(QUEUE_SIZE) - bAng * _sAng / double(QUEUE_SIZE);
 		
 		if (bAng != 0) {
 			uint32_t futureTime = _queue[_last].getTime() + MS_DELTA;
@@ -85,6 +91,14 @@ void BallVec2b::setTransitionBy360() {
 		if (_queue[current].getAngle() - _queue[elder].getAngle() > 180) _transition360--;
 		else if (_queue[current].getAngle() - _queue[elder].getAngle() < -180) _transition360++;
 	}
+}
+
+double BallVec2b::getDerivativeAng() {
+	return tgDiffAng;
+}
+
+double BallVec2b::getDerivativeDist() {
+	return tgDiffDist;
 }
 
 double BallVec2b::adduct(double a) {
