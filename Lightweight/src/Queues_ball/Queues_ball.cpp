@@ -2,7 +2,7 @@
 
 BallVec2b::BallVec2b() {
 	_last = 0;
-	for (int8_t i = 0; i < QUEUE_SIZE; ++i) _queue[i].set(-1, -1, 0);
+	for (uint8_t i = 0; i < QUEUE_SIZE; ++i) _queue[i].set(-1, -1, 0);
 	
 	_sLen = 0;
 	_s2Len = 0;

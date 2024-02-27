@@ -208,7 +208,7 @@ Vec2b ProcessingCoord::getVecToReturn() {
 }
 
 bool ProcessingCoord::changeFromReturn() {
-	return distance(_x, _y) < 1.1f * GOAL_OUT_Y_THRESHOLD;
+	return distance(_x, _y) < 1.5f * GOAL_OUT_Y_THRESHOLD;
 }
 
 float ProcessingCoord::distance(float x, float y, float startX, float startY) {

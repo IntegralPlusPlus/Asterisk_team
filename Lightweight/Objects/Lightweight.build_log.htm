@@ -28,18 +28,42 @@ Project File Date:  01/20/2024
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 Note: source file '.\src\Pin\Pin.cpp' - object file renamed from '.\Objects\Pin.o' to '.\Objects\pin_1.o'.
-compiling Queues_ball.cpp...
+compiling Processing_coord.cpp...
 .\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
 .\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
 .\src\Vec2b\Vec2b.h(22): warning:  #1-D: last line of file ends without a newline
   #endif /* VEC2B_H_ */
-src\Queues_ball\Queues_ball.h(68): warning:  #1-D: last line of file ends without a newline
+src\Processing_coord\Processing_coord.h(75): warning:  #1-D: last line of file ends without a newline
   };
-src\Queues_ball\Queues_ball.cpp(113): warning:  #1-D: last line of file ends without a newline
+src\Processing_coord\Processing_coord.cpp(72): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	_targetIMU = RAD2DEG * atan2(float(_x - ENEMY_X), float(_y - ENEMY_Y)) - 180;
+src\Processing_coord\Processing_coord.cpp(77): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	_targetIMU = RAD2DEG * atan2(float(_y), float(_x)) - 180;
+src\Processing_coord\Processing_coord.cpp(83): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	float ang = atan2(float(DIST_BETWEEN_GOALS - y), float(x)) * RAD2DEG;
+src\Processing_coord\Processing_coord.cpp(99): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Processing_coord\Processing_coord.cpp(109): warning:  #177-D: variable "speed"  was declared but never referenced
+  		float err, speed;
+src\Processing_coord\Processing_coord.cpp(136): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Processing_coord\Processing_coord.cpp(161): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if (globalAngToBall > angGoal) res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
+src\Processing_coord\Processing_coord.cpp(162): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
+src\Processing_coord\Processing_coord.cpp(181): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
+src\Processing_coord\Processing_coord.cpp(182): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
+src\Processing_coord\Processing_coord.cpp(222): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
+src\Processing_coord\Processing_coord.cpp(239): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	float ang = atan2(float(y), float(x)) * RAD2DEG;
+src\Processing_coord\Processing_coord.cpp(277): warning:  #1-D: last line of file ends without a newline
   }
-src\Queues_ball\Queues_ball.cpp: 5 warnings, 0 errors
+src\Processing_coord\Processing_coord.cpp: 17 warnings, 0 errors
 compiling main.cpp...
 .\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -135,7 +159,7 @@ compiling main.cpp...
   #define P_MODE 1
 .\src\Vec2b\Vec2b.h(22): warning:  #1-D: last line of file ends without a newline
   #endif /* VEC2B_H_ */
-.\src\Queues_ball\Queues_ball.h(68): warning:  #1-D: last line of file ends without a newline
+.\src\Queues_ball\Queues_ball.h(67): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -149,9 +173,9 @@ compiling main.cpp...
     FLASH_Lock();
 .\src\flash\flash.h(17): warning:  #1-D: last line of file ends without a newline
   }
-.\src\Robot\Robot.h(204): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  				angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
-.\src\Robot\Robot.h(250): warning:  #1-D: last line of file ends without a newline
+.\src\Robot\Robot.h(206): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
+.\src\Robot\Robot.h(254): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp(18): warning:  #111-D: statement is unreachable
   	return 0;
@@ -159,8 +183,8 @@ src\main\main.cpp(19): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp: 58 warnings, 0 errors
 linking...
-Program Size: Code=37766 RO-data=1430 RW-data=288 ZI-data=13056  
-".\Objects\Lightweight.axf" - 0 Error(s), 63 Warning(s).
+Program Size: Code=37902 RO-data=1430 RW-data=288 ZI-data=13584  
+".\Objects\Lightweight.axf" - 0 Error(s), 75 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -187,8 +211,8 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:2.6.3
       Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
-      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
+      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 Build Time Elapsed:  00:00:02

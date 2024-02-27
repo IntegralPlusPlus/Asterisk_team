@@ -1,13 +1,13 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 10000
+#define IMU_CALIBRATE_TIME 20000
 //20000
-#define TIME_NOT_SEEN 750
-#define USUAL_SPEED 0.55
+#define TIME_NOT_SEEN 550
+#define USUAL_SPEED 0.6
 #define MAX_VEC2B_LEN 0.91
-#define TIME_LEAVE 2200
-#define TIME_FINISH_LEAVE 2500
+#define TIME_LEAVE 3200
+#define TIME_FINISH_LEAVE 3000
 
 namespace Asterisk {
 	Vec2b currentVector;
@@ -19,7 +19,7 @@ namespace Asterisk {
 	volatile uint32_t t, timeNotSeenBall, timeUpdateQueue, timeCheckLeave, timeInLeaving;
 	volatile int16_t x, y;
 	volatile int16_t angRaw, angRawOld;
-	volatile int32_t distRaw, distSoftOld;
+	volatile int16_t distRaw, distRaw2, distSoftOld;
 	volatile uint8_t myGoal, myRole;
 	volatile int16_t dBl, dYe;
 	volatile int16_t angBlue, angYellow;
@@ -30,6 +30,7 @@ namespace Asterisk {
 	volatile int16_t ang0_360;
 	volatile uint8_t myMode;
 	volatile bool seeBall;
+	volatile bool robotMustLeave;
 	volatile bool inLeave, inReturn;
 	volatile double kLen, kAng;
 	
@@ -106,9 +107,9 @@ namespace Asterisk {
 
 	void update() {
 		camera.read();
-		angRawOld = angRaw;
 		angRaw = locator.getAngle();
 		distRaw = locator.getDist();
+		//distRaw2 = distRaw;
 		
 		if (distRaw && timeUpdateQueue != time_service::millis()) {
 			ball.push(Vec2b(distRaw, angRaw), time_service::millis());
@@ -126,7 +127,7 @@ namespace Asterisk {
 		if (abs(dist - distOld) < 3 || distOld == -1) distSoft = 0.03f * dist + 0.97f * distSoft;
 		distOld = dist;
 		distSoftOld = distSoft;
-			
+		
 		gyro.read();
 		angleIMU = gyro.getCurrentAngle();
 		
@@ -187,7 +188,8 @@ namespace Asterisk {
 	}
 	
 	bool mustLeave() {
-		if (seeBall && !(kAng < 0.0015 && kLen < 0.0015)) timeCheckLeave = time_service::millis();
+		//0.073 0.015
+		if (!seeBall || (seeBall && !(abs(kAng) < 0.7 && abs(kLen) < 0.021))) timeCheckLeave = time_service::millis();
 		
 		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
 	}
@@ -197,50 +199,52 @@ namespace Asterisk {
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 
-		if (!doesntSeeGoals) {
-			bool robotMustLeave = mustLeave();
-			if (!robotMustLeave && !inLeave && !inReturn) {
-				Vec2b vecToBall, vecToCenter;
-				angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
-				ang0_360 = ang + 90;
-				while (ang0_360 > 360) ang0_360 -= 360;
-				while (ang0_360 < 0) ang0_360 += 360;
+		//if (!doesntSeeGoals) {
+		robotMustLeave = mustLeave();
+		if (!robotMustLeave && !inLeave && !inReturn) {
+			Vec2b vecToBall, vecToCenter;
+			angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
+			ang0_360 = ang + 90;
+			while (ang0_360 > 360) ang0_360 -= 360;
+			while (ang0_360 < 0) ang0_360 += 360;
+			
+			if (!locator.distBad(distSoft) && seeBall) vecToBall = processXY.getVecToIntersection(ang0_360);
+			else if (!seeBall) {
+				vecToBall = processXY.getVecToPoint();
+			} else vecToBall = Vec2b(0, 0);
 				
-				if (!locator.distBad(dist) && seeBall) vecToBall = processXY.getVecToIntersection(ang0_360);
-				else if (!seeBall) {
-					vecToBall = processXY.getVecToPoint();
-				} else vecToBall = Vec2b(0, 0);
-					
-				vecToCenter = processXY.getVecToGoalCenter();
-				vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
-			
-				goTo = vecToCenter + vecToBall;
-			} else if (robotMustLeave && !inLeave && !inReturn) {
-				inLeave = true;
-				timeInLeaving = time_service::millis();
-			} else if (inLeave) {
-				goTo = getVec2bToBallFollow();
-				if (time_service::millis() - timeInLeaving > TIME_FINISH_LEAVE 
-					|| sqrt(float(x * x + y * y)) > 0.22 * DIST_BETWEEN_GOALS || doesntSeeGoals) {
-					inLeave = false;
-					inReturn = true;
-				}
-			} else if (inReturn) {
-				if (!doesntSeeGoals) goTo = processXY.getVecToReturn();
-					
-				if (processXY.changeFromReturn()) {
-					inReturn = false;
-					timeCheckLeave = time_service::millis();
-				}
+			vecToCenter = processXY.getVecToGoalCenter();
+			vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
+		
+			goTo = vecToCenter + vecToBall;
+		} else if (robotMustLeave && !inLeave && !inReturn) {
+			inLeave = true;
+			timeInLeaving = time_service::millis();
+		} else if (inLeave) {
+			goTo = getVec2bToBallFollow();
+			if (time_service::millis() - timeInLeaving > TIME_FINISH_LEAVE 
+				|| sqrt(float(x * x + y * y)) > 0.22 * DIST_BETWEEN_GOALS || doesntSeeGoals) {
+				inLeave = false;
+				inReturn = true;
 			}
-			
-			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
-			
-			if (time_service::millis() != t) {
-				currentVector.changeTo(goTo);
-				t = time_service::millis();
+		} else if (inReturn) {
+			if (!doesntSeeGoals) goTo = processXY.getVecToReturn();
+				
+			if (processXY.changeFromReturn()) {
+				inReturn = false;
+				inLeave = false;
+				timeCheckLeave = time_service::millis();
 			}
-		} else if (doesntSeeGoals) {
+		}
+		
+		if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
+		
+		if (time_service::millis() != t) {
+			currentVector.changeTo(goTo);
+			t = time_service::millis();
+		}
+		
+		if (doesntSeeGoals) {
 			if (!inReturn) currentVector = Vec2b(0.2, 90);
 			else currentVector = Vec2b(0.5, 270);
 		}

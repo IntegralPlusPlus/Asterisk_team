@@ -233,52 +233,47 @@
         <Ww>
           <count>16</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ang0_360,0x0A</ItemText>
+          <ItemText>currentVector,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>17</count>
           <WinNumber>1</WinNumber>
-          <ItemText>currentVector,0x0A</ItemText>
+          <ItemText>angToGoal,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>18</count>
           <WinNumber>1</WinNumber>
-          <ItemText>angToGoal,0x0A</ItemText>
+          <ItemText>seeBall,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>19</count>
           <WinNumber>1</WinNumber>
-          <ItemText>seeBall,0x0A</ItemText>
+          <ItemText>inLeave,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>20</count>
           <WinNumber>1</WinNumber>
-          <ItemText>inLeave,0x0A</ItemText>
+          <ItemText>inReturn,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>21</count>
           <WinNumber>1</WinNumber>
-          <ItemText>inReturn,0x0A</ItemText>
+          <ItemText>kLen</ItemText>
         </Ww>
         <Ww>
           <count>22</count>
           <WinNumber>1</WinNumber>
-          <ItemText>timeInLeaving,0x0A</ItemText>
+          <ItemText>kAng</ItemText>
         </Ww>
         <Ww>
           <count>23</count>
           <WinNumber>1</WinNumber>
-          <ItemText>kLen</ItemText>
+          <ItemText>distSoft</ItemText>
         </Ww>
         <Ww>
           <count>24</count>
           <WinNumber>1</WinNumber>
-          <ItemText>kAng</ItemText>
-        </Ww>
-        <Ww>
-          <count>25</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>distSoft</ItemText>
+          <ItemText>robotMustLeave</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>

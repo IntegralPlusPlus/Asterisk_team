@@ -2,12 +2,11 @@
 #include "project_config.h"
 #include "Vec2b.h"
 
-#define QUEUE_SIZE 105
+#define QUEUE_SIZE 127
 #define MS_DELTA 30
 
 #define STATUS_POP_ELEMENT 0
 #define STATUS_PUSH_ELEMENT 1
-#define QUANTITY_CYCLES 20
 
 struct Vec2bTime {
 	void set(double length, double angle, uint32_t t, int16_t transition = 0) {
