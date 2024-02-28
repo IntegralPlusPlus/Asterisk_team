@@ -49,6 +49,7 @@
 .\objects\main.o: .\src\usart6\usart6.h
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\usable\usable.h
+.\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\adc\adc.h
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\dma\dma.h

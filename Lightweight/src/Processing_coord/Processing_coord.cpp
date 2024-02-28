@@ -12,10 +12,19 @@ ProcessingCoord::ProcessingCoord() {
 	errOldGkLeft = 0;
 	errOldGkRight = 0;
 	errOldGkLine = 0;
+	DOWN_Y_GOALKEEPER_RIGHT = 15;
+	DOWN_Y_GOALKEEPER_LEFT = 20;
 }
 
 void ProcessingCoord::setGoal(uint8_t currentGoal) {
 	_goal = currentGoal;
+	if (_goal == BLUE_GOAL) {
+		DOWN_Y_GOALKEEPER_RIGHT = 20;
+		DOWN_Y_GOALKEEPER_LEFT = 26;
+	} else {
+		DOWN_Y_GOALKEEPER_RIGHT = 15;
+		DOWN_Y_GOALKEEPER_LEFT = 20;
+	}
 }
 
 Vec2b ProcessingCoord::checkOUTs(Vec2b current) {
@@ -94,13 +103,31 @@ bool ProcessingCoord::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int
 	} else return false;
 }
 
+void ProcessingCoord::setLeaveTime(int16_t leaveTime) {
+	_leaveTime = leaveTime;
+}
+
+int16_t ProcessingCoord::getCurrentLeaveTime() {
+	uint8_t gkPos = getGoalkeeperPos();
+	
+	if (gkPos == leftPart || gkPos == rightPart) return _leaveTime / 8;
+	else return _leaveTime;
+}
+
+uint8_t ProcessingCoord::getGoalkeeperPos() {
+	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+	if (angGoal >= ANGLE_LOW_TO_CIRCLE && angGoal <= ANGLE_HIGH_TO_CIRCLE) return centralLine;
+	else if (angGoal > ANGLE_HIGH_TO_CIRCLE) return leftPart;
+	else return rightPart;
+}
+
 Vec2b ProcessingCoord::getVecToGoalCenter() {
 	Vec2b vec;
-	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	float p, d, u;
 	static float errOld = 0;
+	uint8_t gkPos = getGoalkeeperPos();
 	
-	if (angGoal >= ANGLE_LOW_TO_CIRCLE && angGoal <= ANGLE_HIGH_TO_CIRCLE) {
+	if (gkPos == centralLine) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
 		float speed = err * 0.053f; 
 		vec = Vec2b(speed, 270 + _angle); 
@@ -108,16 +135,16 @@ Vec2b ProcessingCoord::getVecToGoalCenter() {
 	} else {
 		float err, speed;
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
-		if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
+		if (gkPos == leftPart) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			p = err * 0.042f; //0.042
-			d = (err - errOld) * 0.7f;
+			p = err * 0.041f; //0.042
+			d = (err - errOld) * 0.6f;
 			u = p + d;
 			errOld = err;
-		} else if (angGoal < ANGLE_LOW_TO_CIRCLE) {
+		} else if (gkPos == rightPart) {
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
-			p = err * 0.054f;
-			d = (err - errOld) * 0.7f;
+			p = err * 0.051f;
+			d = (err - errOld) * 0.5f;
 			u = p + d;
 			errOld = err;
 			//speed = err * 0.054f; //0.042
@@ -136,13 +163,15 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	int16_t globalAngToBall = adduct(angBall + _angle);
 	int16_t angleBallGoal = adduct(angGoal + globalAngToBall);
+	uint8_t gkPos = getGoalkeeperPos();
+	
 	if (globalAngToBall > 180 + (180 - BACK_ANGLE) / 2 
 			&& globalAngToBall < 360 - (180 - BACK_ANGLE) / 2) return Vec2b(0, 0);
 	else if (globalAngToBall > 270) {
 		globalAngToBall -= 360;
 	}
 	
-	if (angGoal >= ANGLE_LOW_TO_CIRCLE && angGoal <= ANGLE_HIGH_TO_CIRCLE) {
+	if (gkPos == centralLine) {
 		if (globalAngToBall > angGoal) res.angle = 180 + _angle;
 		else res.angle = _angle;
 
@@ -157,7 +186,7 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 	} else {
 		float err, p, d, u;
 		
-		if (angGoal < ANGLE_LOW_TO_CIRCLE) {
+		if (gkPos == rightPart) {
 			if (globalAngToBall > angGoal) res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
 			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
 				
@@ -177,7 +206,7 @@ Vec2b ProcessingCoord::getVecToIntersection(int16_t angBall) {
 				res.angle = 180;
 				res.length = 0.4;
 			}
-		} else if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
+		} else if (gkPos == leftPart) {
 			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			

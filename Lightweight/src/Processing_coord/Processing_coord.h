@@ -9,8 +9,8 @@
 #define UP_Y 225
 #define DOWN_Y 27.f
 
-#define DOWN_Y_GOALKEEPER_RIGHT 15
-#define DOWN_Y_GOALKEEPER_LEFT 20
+//#define DOWN_Y_GOALKEEPER_RIGHT 15
+//#define DOWN_Y_GOALKEEPER_LEFT 20
 #define GOAL_OUT_X_THRESHOLD_RIGHT 27
 #define GOAL_OUT_X_THRESHOLD_LEFT -23
 #define GOAL_OUT_Y_THRESHOLD 24
@@ -20,7 +20,7 @@
 #define DIST_BETWEEN_GOALS 231
 
 #define ANGLE_LOW_TO_CIRCLE 60
-#define ANGLE_HIGH_TO_CIRCLE 137
+#define ANGLE_HIGH_TO_CIRCLE 135
 #define RADIUS_GOAL_OUT_RIGHT 35
 #define RADIUS_GOAL_OUT_LEFT 44
 //44.7f
@@ -32,7 +32,7 @@
 #define BACK_ANGLE 60
 
 enum GoalkeeperPos {
-	centeralLine,
+	centralLine,
 	leftPart,
 	rightPart
 };
@@ -43,6 +43,7 @@ class ProcessingCoord {
 		void setGoal(uint8_t currentGoal);
 		void setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow);
 		void setMaxLen(float len);
+		void setLeaveTime(int16_t leaveTime);
 		Vec2b checkOUTs(Vec2b current);
 		Vec2b getVecForMyCircle(int16_t x, int16_t y);
 		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
@@ -54,6 +55,8 @@ class ProcessingCoord {
 		int16_t adduct180(int16_t value);
 		int16_t getTargetForward();
 		int16_t getTargetGoalkeeper();
+		int16_t getCurrentLeaveTime();
+		uint8_t getGoalkeeperPos();
 		bool isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool checkXLeft(int16_t x);
@@ -76,6 +79,8 @@ class ProcessingCoord {
 		int16_t _targetIMU;
 		int16_t _x, _y, _angle;
 		int16_t _dBlue, _dYellow;
+		int16_t DOWN_Y_GOALKEEPER_RIGHT, DOWN_Y_GOALKEEPER_LEFT;
 		uint8_t _goal;
+		int16_t _leaveTime;
 		bool inOUT;
 };

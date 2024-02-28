@@ -10,7 +10,7 @@
 #define TIME_FINISH_LEAVE 2650
 
 namespace Asterisk {
-	Vec2b currentVector;
+	Vec2b currentVector, goTo;
 	volatile float ang, angRes;
 	volatile bool imuCalibrated;
 	volatile int16_t pow;
@@ -34,6 +34,7 @@ namespace Asterisk {
 	volatile bool robotMustLeave;
 	volatile bool inLeave, inReturn;
 	volatile double kLen, kAng;
+	volatile int16_t currLeaveTime;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -86,14 +87,17 @@ namespace Asterisk {
 		
 		inLeave = false;
 		inReturn = false;
+		currLeaveTime = TIME_FINISH_LEAVE;
 		
 		currentVector.set(0, 90);
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
 		timeCheckLeave = time_service::millis();
 		timeCalibrEnd = 0;
+		
 		processXY.setGoal(myGoal);
 		processXY.setMaxLen(MAX_VEC2B_LEN);
+		processXY.setLeaveTime(TIME_FINISH_LEAVE);
 	
 		if (myRole == GOALKEEPER_ROLE) gyro.setTarget(0);
 		myMode = mode;
@@ -125,7 +129,7 @@ namespace Asterisk {
 		kAng = ball.getDerivativeAng();
 		kLen = ball.getDerivativeDist();
 		
-		if (abs(dist - distOld) < 3 || distOld == -1) distSoft = 0.03f * dist + 0.97f * distSoft;
+		if (abs(dist - distOld) < 3 || distOld == -1) distSoft = 0.02f * dist + 0.98f * distSoft;
 		distOld = dist;
 		distSoftOld = distSoft;
 		
@@ -198,7 +202,6 @@ namespace Asterisk {
 	}
 
 	void protectGoal() {
-		Vec2b goTo;
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 
@@ -215,7 +218,7 @@ namespace Asterisk {
 			else if (!seeBall) {
 				vecToBall = processXY.getVecToPoint();
 			} else vecToBall = Vec2b(0, 0);
-				
+			
 			vecToCenter = processXY.getVecToGoalCenter();
 			vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
 		
@@ -223,9 +226,10 @@ namespace Asterisk {
 		} else if (robotMustLeave && !inLeave && !inReturn) {
 			inLeave = true;
 			timeInLeaving = time_service::millis();
+			currLeaveTime = processXY.getCurrentLeaveTime();
 		} else if (inLeave) {
 			goTo = getVec2bToBallFollow();
-			if (time_service::millis() - timeInLeaving > TIME_FINISH_LEAVE 
+			if (time_service::millis() - timeInLeaving > currLeaveTime 
 				|| sqrt(float(x * x + y * y)) > 0.27 * DIST_BETWEEN_GOALS || doesntSeeGoals) {
 				inLeave = false;
 				inReturn = true;
@@ -242,14 +246,15 @@ namespace Asterisk {
 		
 		if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
 		
-		if (time_service::millis() != t) {
+		if (!doesntSeeGoals && time_service::millis() != t) {
 			currentVector.changeTo(goTo);
 			t = time_service::millis();
 		}
 		
 		if (doesntSeeGoals) {
-			if (y < 20) currentVector = Vec2b(0.2, 90);
-			else currentVector = Vec2b(0.5, 270);
+			if (!inReturn) currentVector = Vec2b(0.2, 90);
+			//else currentVector = Vec2b(0.5, 270);
+			//currentVector.set(goTo.length, adduct180_360(180 - goTo.angle));
 		}
 			
 		if (myMode == P_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
