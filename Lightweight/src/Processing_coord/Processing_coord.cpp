@@ -217,7 +217,7 @@ float ProcessingCoord::distance(float x, float y, float startX, float startY) {
 
 Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
 	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
-	float u = dist * 0.033f;
+	float u = dist * 0.027f;
 	
 	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
 }

@@ -1,13 +1,13 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 20000
+#define IMU_CALIBRATE_TIME 18000
 //20000
 #define TIME_NOT_SEEN 550
 #define USUAL_SPEED 0.6
 #define MAX_VEC2B_LEN 0.91
-#define TIME_LEAVE 3200
-#define TIME_FINISH_LEAVE 3000
+#define TIME_LEAVE 3150
+#define TIME_FINISH_LEAVE 2650
 
 namespace Asterisk {
 	Vec2b currentVector;
@@ -17,6 +17,7 @@ namespace Asterisk {
 	volatile float angleIMU, angSoft, distSoft;
 	volatile float dist, distOld, angOld;
 	volatile uint32_t t, timeNotSeenBall, timeUpdateQueue, timeCheckLeave, timeInLeaving;
+	volatile uint32_t timeCalibrEnd;
 	volatile int16_t x, y;
 	volatile int16_t angRaw, angRawOld;
 	volatile int16_t distRaw, distRaw2, distSoftOld;
@@ -90,6 +91,7 @@ namespace Asterisk {
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
 		timeCheckLeave = time_service::millis();
+		timeCalibrEnd = 0;
 		processXY.setGoal(myGoal);
 		processXY.setMaxLen(MAX_VEC2B_LEN);
 	
@@ -109,7 +111,6 @@ namespace Asterisk {
 		camera.read();
 		angRaw = locator.getAngle();
 		distRaw = locator.getDist();
-		//distRaw2 = distRaw;
 		
 		if (distRaw && timeUpdateQueue != time_service::millis()) {
 			ball.push(Vec2b(distRaw, angRaw), time_service::millis());
@@ -148,6 +149,7 @@ namespace Asterisk {
 		if (!imuCalibrated && time_service::millis() - t > IMU_CALIBRATE_TIME) {
 			gyro.setZeroAngle();
 			imuCalibrated = true;
+			timeCalibrEnd = time_service::millis();
 		}
 		
 		if (!locator.distBad(distRaw)) timeNotSeenBall = time_service::millis();
@@ -189,7 +191,8 @@ namespace Asterisk {
 	
 	bool mustLeave() {
 		//0.073 0.015
-		if (!seeBall || (seeBall && !(abs(kAng) < 0.7 && abs(kLen) < 0.021))) timeCheckLeave = time_service::millis();
+		if (time_service::millis() - timeCalibrEnd < 3000 || !seeBall || 
+				(seeBall && !(abs(kAng) < 0.75 && abs(kLen) < 0.023))) timeCheckLeave = time_service::millis();
 		
 		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
 	}
@@ -223,7 +226,7 @@ namespace Asterisk {
 		} else if (inLeave) {
 			goTo = getVec2bToBallFollow();
 			if (time_service::millis() - timeInLeaving > TIME_FINISH_LEAVE 
-				|| sqrt(float(x * x + y * y)) > 0.22 * DIST_BETWEEN_GOALS || doesntSeeGoals) {
+				|| sqrt(float(x * x + y * y)) > 0.27 * DIST_BETWEEN_GOALS || doesntSeeGoals) {
 				inLeave = false;
 				inReturn = true;
 			}
@@ -245,7 +248,7 @@ namespace Asterisk {
 		}
 		
 		if (doesntSeeGoals) {
-			if (!inReturn) currentVector = Vec2b(0.2, 90);
+			if (y < 20) currentVector = Vec2b(0.2, 90);
 			else currentVector = Vec2b(0.5, 270);
 		}
 			

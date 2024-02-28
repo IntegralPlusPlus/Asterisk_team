@@ -31,6 +31,12 @@
 
 #define BACK_ANGLE 60
 
+enum GoalkeeperPos {
+	centeralLine,
+	leftPart,
+	rightPart
+};
+
 class ProcessingCoord {
 	public:
 		ProcessingCoord();

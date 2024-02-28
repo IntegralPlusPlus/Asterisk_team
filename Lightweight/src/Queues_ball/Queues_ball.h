@@ -58,7 +58,7 @@ class BallVec2b {
 		double getDerivativeDist();
 	private:
 		Vec2bTime _queue[QUEUE_SIZE];
-		int8_t _last;
+		uint8_t _last;
 		double _sLen, _s2Len, _sAng, _s2Ang, _sLenT, _sAngT, _timeSumm;
 		double _length, _angle;
 		double _transition360; 
