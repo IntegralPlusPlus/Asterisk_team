@@ -1,10 +1,10 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 18000
+#define IMU_CALIBRATE_TIME 15000
 //20000
 #define TIME_NOT_SEEN 550
-#define USUAL_SPEED 0.6
+#define USUAL_SPEED 0.7
 #define MAX_VEC2B_LEN 0.91
 #define TIME_LEAVE 3150
 #define TIME_FINISH_LEAVE 2650
@@ -177,18 +177,21 @@ namespace Asterisk {
 	}
 	
 	void goToBall() {	
-		target = processXY.getTargetForward();
-		gyro.setTarget(target);
+		//target = processXY.getTargetForward();
+		//gyro.setTarget(target);
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 		
 		if (time_service::millis() != t) {
 			Vec2b goTo = getVec2bToBallFollow();
+			
+			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
+		
 			currentVector.changeTo(goTo);
 			t = time_service::millis();
 		}
 		
-		//currentVector = Vec2b(0, 0);//processXY.ñheckOUTs(currentVector);
+		//currentVector = processXY.ñheckOUTs(currentVector);
 		
 		if (myMode == P_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}

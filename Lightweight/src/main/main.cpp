@@ -1,7 +1,7 @@
 #include "Robot.h"
 
 int main() {
-	Asterisk::init(BLUE_GOAL, GOALKEEPER_ROLE, P_MODE);
+	Asterisk::init(BLUE_GOAL, FORWARD_ROLE, P_MODE);
 	
 	while (true) {
 		Asterisk::update();

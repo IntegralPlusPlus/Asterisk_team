@@ -55,11 +55,11 @@ bool IRLocator::distBad(int16_t distLocator) {
 }
 
 float IRLocator::angleOffset(float angle, float dist){
-  double angK = 0.02 * pow(double(Ec), double(0.21 * abs(angle))); //0.04 0.15
+  double angK = 0.031 * pow(double(Ec), double(0.29 * abs(angle))); //0.04 0.15
   if (angK > 90)
     angK = 90;
   dist = convertDist(dist);
-  double distK = 0.044 * pow(double(Ec), double(4 * dist));//0.05 4
+  double distK = 0.031 * pow(double(Ec), double(5 * dist));//0.05 4
   if (distK > 1)
     distK = 1;
   if (angle > 0) {
