@@ -3,7 +3,7 @@
 #include "Vec2b.h"
 
 #define QUEUE_SIZE 127
-#define MS_DELTA 30
+#define MS_DELTA 35
 
 #define STATUS_POP_ELEMENT 0
 #define STATUS_PUSH_ELEMENT 1

@@ -28,52 +28,6 @@ Project File Date:  01/20/2024
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 Note: source file '.\src\Pin\Pin.cpp' - object file renamed from '.\Objects\Pin.o' to '.\Objects\pin_1.o'.
-compiling IMU_USART.cpp...
-.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\time_service\time_service.h(13): warning:  #1-D: last line of file ends without a newline
-  }
-.\src\Pin\Pin.h(69): warning:  #1-D: last line of file ends without a newline
-  #endif /* PIN_H_ */
-.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\usart1\usart1.h(17): warning:  #1-D: last line of file ends without a newline
-  }
-.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\usart2\usart2.h(17): warning:  #1-D: last line of file ends without a newline
-  }
-.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\usart3\usart3.h(17): warning:  #1-D: last line of file ends without a newline
-  }
-.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\usart6\usart6.h(17): warning:  #1-D: last line of file ends without a newline
-  }
-src\IMU_USART\IMU_USART.h(34): warning:  #1-D: last line of file ends without a newline
-  };
-src\IMU_USART\IMU_USART.cpp(79): warning:  #1-D: last line of file ends without a newline
-  }
-src\IMU_USART\IMU_USART.cpp: 14 warnings, 0 errors
-compiling IR_Locator.cpp...
-.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\Pin\Pin.h(69): warning:  #1-D: last line of file ends without a newline
-  #endif /* PIN_H_ */
-.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\I2C\I2C.h(26): warning:  #1-D: last line of file ends without a newline
-  };
-src\IR_Locator\IR_Locator.h(35): warning:  #1-D: last line of file ends without a newline
-  };
-src\IR_Locator\IR_Locator.cpp(58): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-    double angK = 0.031 * pow(double(Ec), double(0.29 * abs(angle))); //0.04 0.15
-src\IR_Locator\IR_Locator.cpp(77): warning:  #1-D: last line of file ends without a newline
-  }
-src\IR_Locator\IR_Locator.cpp: 7 warnings, 0 errors
 compiling main.cpp...
 .\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -195,8 +149,8 @@ src\main\main.cpp(19): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp: 59 warnings, 0 errors
 linking...
-Program Size: Code=38006 RO-data=1430 RW-data=288 ZI-data=13608  
-".\Objects\Lightweight.axf" - 0 Error(s), 80 Warning(s).
+Program Size: Code=38086 RO-data=1430 RW-data=288 ZI-data=13608  
+".\Objects\Lightweight.axf" - 0 Error(s), 59 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -222,10 +176,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
-      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
+      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
+      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 Build Time Elapsed:  00:00:02
 </pre>

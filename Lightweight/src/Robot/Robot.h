@@ -1,12 +1,12 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 15000
+#define IMU_CALIBRATE_TIME 21000
 //20000
 #define TIME_NOT_SEEN 550
 #define USUAL_SPEED 0.7
-#define MAX_VEC2B_LEN 0.91
-#define TIME_LEAVE 3150
+#define MAX_VEC2B_LEN 0.9
+#define TIME_LEAVE 2850
 #define TIME_FINISH_LEAVE 2650
 
 namespace Asterisk {

@@ -25,7 +25,7 @@ class IRLocator {
 		int16_t adduct(int16_t a);
 		int32_t getDist();
 		double convertDist(double dist);
-		float angleOffset(float angle, float dist);
+		double angleOffset(double angle, double dist);
 		bool distBad(int16_t distLocator);
 	private:
 		I2C _irlI2C;
