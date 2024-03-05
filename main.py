@@ -54,9 +54,9 @@ arr = [[42, 14],
 
 uart = UART(3, 460800, timeout = 100, timeout_char = 100)
 uart.init(460800, bits = 8, parity = False, stop = 1, timeout_char = 100)
-threshold_yellow = (25, 63, -38, 25, 22, 127)#(14, 63, -32, -12, 15, 43)#(28, 42, -13, 25, 13, 127)#(23, 55, -13, 127, 11, 127)#(30, 48, -30, 127, 22, 127)#(31, 100, -14, 127, 14, 127)
-threshold_blue = (0, 32, -15, 18, -128, -7)#(0, 34, -29, 127, -128, -12) #(12, 28, -13, -3, -50, -10)#(12, 23, -128, 127, -28, -5)#(12, 23, -128, 127, -28, -4)#(12, 23, -128, 127, -33, -3)#(30, 73, -128, 127, -128, -24)#(10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
-x0 = 175 #175#184 #162 #161
+threshold_yellow = (35, 100, -26, -7, 12, 52)#(36, 62, -16, 127, 11, 127)#(25, 63, -31, 33, 25, 127)#(25, 63, -38, 25, 22, 127)#(14, 63, -32, -12, 15, 43)#(28, 42, -13, 25, 13, 127)#(23, 55, -13, 127, 11, 127)#(30, 48, -30, 127, 22, 127)#(31, 100, -14, 127, 14, 127)
+threshold_blue = (23, 47, -128, 0, -128, -15)#(0, 32, -15, 18, -128, -7)#(0, 34, -29, 127, -128, -12) #(12, 28, -13, -3, -50, -10)#(12, 23, -128, 127, -28, -5)#(12, 23, -128, 127, -28, -4)#(12, 23, -128, 127, -33, -3)#(30, 73, -128, 127, -128, -24)#(10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
+x0 = 168 #175#184 #162 #161
 y0 = 121 #115 #119 #117#117 #147
 r0 = 132#90 #140
 
@@ -159,7 +159,7 @@ while(True):
         img.draw_line(int(x0), int(y0), int(yellow[0]), int(yellow[1]), thickness = 2)
         pixY = dist(x0, y0, yellow[0], yellow[1])
 
-    for bb in img.find_blobs([threshold_blue], merge = True, margin = 40, pixel_threshold = 980):
+    for bb in img.find_blobs([threshold_blue], merge = True, margin = 40, pixel_threshold = 1560, area_threshold = 450):
         if blobB != False:
             if blobB.area() < bb.area():
                 blobB = bb
@@ -187,6 +187,6 @@ while(True):
     alphaB = adduction(alphaB)
     print(distY, alphaY)
     #dataN = (pixB, distB, alphaB / 2, pixY, distY, alphaY / 2)
-    #print(pixB, end = " ")
+    #print(alphaY, end = " ")
 
     send_uart(distB, alphaB / 2, distY, alphaY / 2)
