@@ -3,11 +3,8 @@
 ProcessingCoord::ProcessingCoord() {
 	_targetIMU = 0;
 	
-	_leftFast.set(1, 0);
-	_rightFast.set(1, 180);
-	_upFast.set(1, 90);
-	_downFast.set(1, 270);
 	inOUT = false;
+	_maxLen = 1;
 	
 	errOldGkLeft = 0;
 	errOldGkRight = 0;
@@ -27,24 +24,49 @@ void ProcessingCoord::setGoal(uint8_t currentGoal) {
 	}
 }
 
-Vec2b ProcessingCoord::checkOUTs(Vec2b current) {
+uint8_t ProcessingCoord::checkOUTs() {
 	inOUT = true;
-	if (!checkXLeft(_x)) return _rightFast;
-	else if (!checkXRight(_x)) return _leftFast;
-	else if (!checkYUp(_y)) return _downFast;
-	else if (!checkYDown(_y)) return _upFast;
+	if (!checkXLeft(_x)) return right;
+	else if (!checkXRight(_x)) return left;
+	else if (!checkYUp(_y)) return down;
+	else if (!checkYDown(_y)) return up;
 	else {
-		if (myGoalLine(_x, _y)) return _upFast;
-		else if (enemyGoalLine(_x, _y)) return _downFast;
+		if (myGoalLine(_x, _y)) return up;
+		else if (enemyGoalLine(_x, _y)) return down;
 		else {
-			if (isMyGoalCircle(_x, _y, _dBlue, _dYellow)) return getVecForMyCircle(_x, _y);
-			else if (isEnemyGoalCircle(_x, _y, _dBlue, _dYellow)) return getVecForEnemyCircle(_x, _y);
+			if (isMyGoalCircle(_x, _y, _dBlue, _dYellow)) return myCircle;//getVecForMyCircle(_x, _y);
+			else if (isEnemyGoalCircle(_x, _y, _dBlue, _dYellow)) return enemyCircle;//getVecForEnemyCircle(_x, _y);
 			else {
 				inOUT = false;
-				return current;
+				return unknow;
 			}
 		}			
 	} 
+}
+
+Vec2b ProcessingCoord::setOUTVector(uint8_t status, Vec2b current) {
+	switch (status) {
+		case up:
+			return Vec2b(_maxLen, adduct(90 + _angle));
+			break;
+		case down:
+			return Vec2b(_maxLen, adduct(270 + _angle));
+			break;
+		case left:
+			return Vec2b(_maxLen, adduct(_angle));
+			break;
+		case right:
+			return Vec2b(_maxLen, adduct(180 + _angle));
+			break;
+		case enemyCircle:
+			return getVecForEnemyCircle(_x, _y);
+			break;
+		case myCircle:
+			return getVecForMyCircle(_x, _y);
+			break;
+		default:
+			return current;
+	}
 }
 
 void ProcessingCoord::setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow) {
@@ -53,32 +75,14 @@ void ProcessingCoord::setParams(int16_t x, int16_t y, int16_t angle, int16_t dBl
 	_dBlue = dBlue;
 	_dYellow = dYellow;
 	_angle = angle;
-	_leftFast.set(1, adduct(0 + angle));
-	_rightFast.set(1, adduct(180 + angle));
-	_upFast.set(1, adduct(90 + angle));
-	_downFast.set(1, adduct(270 + angle));
 }
 
 bool ProcessingCoord::robotInOUT() {
 	return inOUT;
 }
 
-int16_t ProcessingCoord::adduct(int16_t value) {
-	while (value < 0) value += 360;
-	while (value > 360) value -= 360;
-	
-	return value;
-}
-
-int16_t ProcessingCoord::adduct180(int16_t value) {
-	while (value < -180) value += 360;
-	while (value > 180) value -= 360;
-	
-	return value;
-}
-
 int16_t ProcessingCoord::getTargetForward() {
-	_targetIMU = RAD2DEG * atan2(float(_x - ENEMY_X), float(_y - ENEMY_Y)) - 180;
+	_targetIMU = -(90 - RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(-_x)));
 	return _targetIMU;
 }
 
@@ -86,21 +90,6 @@ int16_t ProcessingCoord::getTargetGoalkeeper() {
 	_targetIMU = RAD2DEG * atan2(float(_y), float(_x)) - 180;
 	
 	return adduct(_angle + _targetIMU);
-}
-
-Vec2b ProcessingCoord::getVecForEnemyCircle(int16_t x, int16_t y) {
-	float ang = atan2(float(DIST_BETWEEN_GOALS - y), float(x)) * RAD2DEG;
-	return Vec2b(1, adduct(-ang));
-}
-
-bool ProcessingCoord::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
-	if (_goal == YELLOW_GOAL) {
-		return dBlue && dBlue < RADIUS_GOAL_OUT_RIGHT
-					&& y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + DELTA_DIST);
-	} else if (_goal == BLUE_GOAL) {
-		return dBlue < RADIUS_GOAL_OUT_RIGHT
-					&& y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + DELTA_DIST);
-	} else return false;
 }
 
 void ProcessingCoord::setLeaveTime(int16_t leaveTime) {
@@ -266,41 +255,68 @@ float ProcessingCoord::map(float a, float from1, float to1, float from2, float t
 
 Vec2b ProcessingCoord::getVecForMyCircle(int16_t x, int16_t y) {
 	float ang = atan2(float(y), float(x)) * RAD2DEG;
-	return Vec2b(1, adduct(ang));
+	return Vec2b(_maxLen, adduct(ang + _angle));
+}
+
+Vec2b ProcessingCoord::getVecForEnemyCircle(int16_t x, int16_t y) {
+	float ang = atan2(float(DIST_BETWEEN_GOALS - y), float(x)) * RAD2DEG;
+	return Vec2b(_maxLen, adduct(180 + ang + _angle));
+}
+
+bool ProcessingCoord::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
+	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
+	
+	if (x > 0) return distance(x, y, 0, DIST_BETWEEN_GOALS) < RADIUS_GOAL_OUT_LEFT && angGoal < ANGLE_LOW_TO_CIRCLE; 
+	else return distance(x, y, 0, DIST_BETWEEN_GOALS) < RADIUS_GOAL_OUT_RIGHT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
 }
 
 bool ProcessingCoord::isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
-	if (_goal == YELLOW_GOAL) {
-		return dYellow && dYellow < RADIUS_GOAL_OUT_RIGHT
-					&& y < GOAL_OUT_Y_THRESHOLD + DELTA_DIST;
-	} else if (_goal == BLUE_GOAL) {
-		return dBlue && dBlue < RADIUS_GOAL_OUT_RIGHT
-					&& y < GOAL_OUT_Y_THRESHOLD + DELTA_DIST;
-	} else return false;
+	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+	
+	if (x > 0) return distance(x, y) < RADIUS_GOAL_OUT_RIGHT && angGoal < ANGLE_LOW_TO_CIRCLE; 
+	else return distance(x, y) < RADIUS_GOAL_OUT_LEFT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
 }
 
 bool ProcessingCoord::myGoalLine(int16_t x, int16_t y) {
-	return x >= GOAL_OUT_X_THRESHOLD_LEFT && x <= GOAL_OUT_X_THRESHOLD_RIGHT
-				&& y < GOAL_OUT_Y_THRESHOLD + DELTA_DIST;
+	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
+	
+	return y < GOAL_OUT_Y_THRESHOLD + DELTA_DIST &&
+				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
 }
 
 bool ProcessingCoord::enemyGoalLine(int16_t x, int16_t y) {
-	return x >= GOAL_OUT_X_THRESHOLD_LEFT && x <= GOAL_OUT_X_THRESHOLD_RIGHT
-				&& y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + DELTA_DIST);
+	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
+	
+	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + DELTA_DIST) &&
+				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
 }
 
 bool ProcessingCoord::checkXLeft(int16_t x) {
-	return x > -THRESHOLD_X + DELTA_DIST;
+	return x > -THRESHOLD_X + 3 * DELTA_DIST;
 }
 
 bool ProcessingCoord::checkXRight(int16_t x) {
-	return x < THRESHOLD_X - DELTA_DIST;
+	return x < THRESHOLD_X - 3 * DELTA_DIST;
 }
 
 bool ProcessingCoord::checkYUp(int16_t y) {
-	return y < UP_Y - DELTA_DIST;
+	return y < UP_Y - 3 * DELTA_DIST;
 }
 
 bool ProcessingCoord::checkYDown(int16_t y) {
-	return y > DOWN_Y + DELTA_DIST;
+	return y > DOWN_Y + 3 * DELTA_DIST;
+}
+
+int16_t ProcessingCoord::adduct(int16_t value) {
+	while (value < 0) value += 360;
+	while (value > 360) value -= 360;
+	
+	return value;
+}
+
+int16_t ProcessingCoord::adduct180(int16_t value) {
+	while (value < -180) value += 360;
+	while (value > 180) value -= 360;
+	
+	return value;
 }
