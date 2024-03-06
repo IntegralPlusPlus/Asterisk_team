@@ -19,7 +19,7 @@ BallVec2b::BallVec2b() {
 	tgDiffAng = 0;
 }
 
-void BallVec2b::push(Vec2b vec, uint32_t millis) {
+void BallVec2b::push(Vec2b vec, uint64_t millis) {
 	if (_queue[_last].correct()) {
 		tgDiffDist = double(_queue[_last].getLen() - vec.length) / double(millis - _queue[_last].getTime());
 		tgDiffAng = double(_queue[_last].getAngle() - vec.angle) / double(millis - _queue[_last].getTime());

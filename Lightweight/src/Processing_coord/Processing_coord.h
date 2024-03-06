@@ -4,7 +4,7 @@
 
 #define ENEMY_X 0
 #define ENEMY_Y 231
-#define DELTA_DIST 1
+#define DELTA_DIST 13
 #define THRESHOLD_X 79
 #define UP_Y 211.f
 #define DOWN_Y 30.f
@@ -21,13 +21,14 @@
 #define ANGLE_HIGH_TO_CIRCLE 135
 #define RADIUS_GOAL_OUT_RIGHT 35
 #define RADIUS_GOAL_OUT_LEFT 44
-//44.7f
+
 #define MAX_COEFF_TO_GOAL_CENTER 1.075f
 #define MAX_LEN_TO_INCREASE_VEC 0.88f
 #define GK_X_THRESHOLD_LEFT -38
 #define GK_X_THRESHOLD_RIGHT 36
 
 #define BACK_ANGLE 60
+#define LIMIT_OUT_CYCLES 5
 
 enum GoalkeeperPos {
 	centralLine,
@@ -52,6 +53,7 @@ class ProcessingCoord {
 		void setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow);
 		void setMaxLen(float len);
 		void setLeaveTime(int16_t leaveTime);
+		void resetCounts();
 		Vec2b getVecForMyCircle(int16_t x, int16_t y);
 		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
 		Vec2b getVecToGoalCenter();
@@ -75,6 +77,7 @@ class ProcessingCoord {
 		bool myGoalLine(int16_t x, int16_t y);
 		bool enemyGoalLine(int16_t x, int16_t y);
 		bool robotInOUT();
+		bool robotInFreeField();
 		bool changeFromReturn();
 		float distance(float x, float y, float startX = 0, float startY = 0);
 		float getCoeffToGoalCenter(float intersec);
@@ -87,7 +90,8 @@ class ProcessingCoord {
 		int16_t _x, _y, _angle;
 		int16_t _dBlue, _dYellow;
 		int16_t DOWN_Y_GOALKEEPER_RIGHT, DOWN_Y_GOALKEEPER_LEFT;
-		uint8_t _goal;
 		int16_t _leaveTime;
+		int16_t _countCyclesOUT, _countCyclesField;
+		uint8_t _goal;
 		bool inOUT;
 };

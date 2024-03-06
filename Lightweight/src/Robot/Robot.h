@@ -6,7 +6,7 @@
 #define TIME_NOT_SEEN 550
 #define TIME_LEAVE 2850
 #define TIME_FINISH_LEAVE 2650
-#define TIME_GO_FROM_OUT 60
+#define TIME_GO_FROM_OUT 20
 
 #define USUAL_SPEED 0.7
 #define MAX_VEC2B_LEN 0.4
@@ -18,26 +18,26 @@ namespace Asterisk {
 	volatile int16_t pow;
 	volatile float angleIMU, angSoft, distSoft;
 	volatile float dist, distOld, angOld;
-	volatile uint32_t t, timeNotSeenBall, timeUpdateQueue, timeCheckLeave, timeInLeaving;
-	volatile uint32_t timeCalibrEnd, timeOUT;
+	volatile uint64_t t, timeNotSeenBall, timeUpdateQueue, timeCheckLeave, timeInLeaving;
+	volatile uint64_t timeCalibrEnd, timeOUT;
 	volatile int16_t x, y;
 	volatile int16_t angRaw, angRawOld;
 	volatile int16_t distRaw, distRaw2, distSoftOld;
 	volatile uint8_t myGoal, myRole;
 	volatile int16_t dBl, dYe;
 	volatile int16_t angBlue, angYellow;
-	volatile int16_t target;
+	volatile float targetRaw, target;
 	volatile double speedForward;
 	volatile int16_t angleBallGoal, angToGoal;
-	volatile bool doesntSeeGoals = false;
+	volatile bool doesntSeeGoals;
 	volatile int16_t ang0_360;
 	volatile uint8_t myMode;
 	volatile bool seeBall;
 	volatile bool robotMustLeave, robotInOutOld;
-	volatile bool inLeave, inReturn;
+	volatile bool inLeave, inReturn, goFromOUT, goFromOutTime;
 	volatile double kLen, kAng;
 	volatile int16_t currLeaveTime;
-	volatile uint8_t outStatus;
+	volatile uint8_t outStatus, outStatusNow;
 	
 	Pin locatorSCL('A', 8, i2c);
 	Pin locatorSDA('C', 9, i2c);
@@ -81,6 +81,7 @@ namespace Asterisk {
 		
 		t = time_service::millis();
 		imuCalibrated = false;
+		target = 0;
 		
 		angSoft = 0;
 		distSoft = 0;
@@ -89,10 +90,13 @@ namespace Asterisk {
 		seeBall = true;
 		outStatus = unknow;
 		
+		doesntSeeGoals = false;
 		inLeave = false;
 		inReturn = false;
 		currLeaveTime = TIME_FINISH_LEAVE;
 		robotInOutOld = false;
+		goFromOUT = false;
+		goFromOutTime = false;
 		
 		currentVector.set(0, 90);
 		timeNotSeenBall = time_service::millis();
@@ -183,8 +187,9 @@ namespace Asterisk {
 	}
 	
 	void goToBall() {	
-		target = processXY.getTargetForward();
-		gyro.setTarget(target);
+		//targetRaw = float(processXY.getTargetForward());
+		//gyro.setTarget(targetRaw);
+		//target = gyro.getTarget();
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 		
@@ -192,24 +197,42 @@ namespace Asterisk {
 			Vec2b goTo = getVec2bToBallFollow();
 			
 			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
-			goTo.set(0.25, 90);
+			//goTo.set(0.25, 90);
 			
 			currentVector.changeTo(goTo);
 			t = time_service::millis();
 		}
 		
-		if (time_service::millis() - timeOUT >= TIME_GO_FROM_OUT)
+		if (!doesntSeeGoals) {
 			outStatus = processXY.checkOUTs();
-		
-		if (processXY.robotInOUT() && !robotInOutOld) {
-			timeOUT = time_service::millis();
-		} else if (time_service::millis() - timeOUT < TIME_GO_FROM_OUT) {
-			currentVector = processXY.setOUTVector(outStatus, currentVector);
-		} else if (processXY.robotInOUT()) {
-			timeOUT = time_service::millis();
+				
+			if (!goFromOUT && !goFromOutTime && processXY.robotInOUT()) {
+				goFromOUT = true;
+				outStatusNow = outStatus;
+			} else if (goFromOUT || goFromOutTime) {
+				currentVector = processXY.setOUTVector(outStatusNow, currentVector);
+				
+				if (goFromOUT && !goFromOutTime && processXY.robotInFreeField()) {
+					goFromOUT = false;
+					goFromOutTime = true;
+					timeOUT = time_service::millis();
+				} else if (!goFromOUT && goFromOutTime && time_service::millis() - timeOUT >= TIME_GO_FROM_OUT) {
+					goFromOutTime = false;
+				}
+				
+				if (outStatus != unknow && outStatus != outStatusNow) {
+					goFromOUT = false;
+					goFromOutTime = false;
+					timeOUT = 0;
+				}
+			} 
+		} else {
+			goFromOUT = false;
+			goFromOutTime = false;
+			processXY.resetCounts();
+			timeOUT = 0;
 		}
 		
-		robotInOutOld = processXY.robotInOUT();
 		if (myMode == P_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 	}
 	

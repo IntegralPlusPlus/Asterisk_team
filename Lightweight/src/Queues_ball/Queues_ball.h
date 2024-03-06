@@ -41,14 +41,14 @@ struct Vec2bTime {
 	}
 	
 	Vec2b vector;
-	uint32_t time;
+	uint64_t time;
 	int16_t transition;
 };
 
 class BallVec2b {
 	public:
 		BallVec2b();
-		void push(Vec2b vec, uint32_t millis);
+		void push(Vec2b vec, uint64_t millis);
 		Vec2b getCurrentVec2b();
 		void changeValues(bool status); 
 		void calculate();

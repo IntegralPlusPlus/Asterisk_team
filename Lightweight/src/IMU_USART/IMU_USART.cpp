@@ -23,13 +23,11 @@ void gyro_imu::read() {
 }
 
 void gyro_imu::setRotationForTarget() {
-	int16_t err = -_target + _angleNow;
-	if (err > 180) err -= 360;
-	else if (err < -180) err += 360;
+	int16_t err = -int16_t(_target) + _angleNow;
+	err = adduct(err);
+	errOld = err;
 	
 	_rotation = float(err) * KOEFF_P + float(err - errOld) * KOEFF_D;
-		
-	errOld = err;
 }
 
 float gyro_imu::calculateSoft(float soft, float now) {
@@ -50,8 +48,8 @@ int16_t gyro_imu::getRotation() {
 	return _rotation; 
 }
 
-void gyro_imu::setTarget(int16_t target) {
-	_target = target;
+void gyro_imu::setTarget(float targetRaw) {
+	_target = (1 - TARGET_K_FOFT) * _target + TARGET_K_FOFT * targetRaw;	
 }
 
 void gyro_imu::setZeroAngle() {
@@ -65,7 +63,6 @@ int16_t gyro_imu::getCurrentAngle() {
 int16_t gyro_imu::getTarget() {
 	return _target;
 }
-
 
 int16_t gyro_imu::getMaxRotation() {
 	return MAXROTATION;
