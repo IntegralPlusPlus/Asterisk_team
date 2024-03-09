@@ -3,34 +3,13 @@ from pyb import UART
 
 EXPOSURE_TIME_SCALE = 0.8
 
-def setup():
-    sensor.reset()
-    sensor.set_pixformat(sensor.RGB565)
-    sensor.set_framesize(sensor.QVGA)
-    sensor.set_auto_gain(True)
-    sensor.set_auto_whitebal(True)
-    sensor.set_auto_exposure(True)
-    current_exposure_time_in_microseconds =  sensor.get_exposure_us()
-    sensor.set_auto_exposure(True, \
-        exposure_us = int(current_exposure_time_in_microseconds* EXPOSURE_TIME_SCALE))
-    clock = time.clock()
-    sensor.skip_frames(time = 2000)
-
-    #sensor.reset() #reset camera
-    sensor.set_pixformat(sensor.RGB565)
-    sensor.set_framesize(sensor.QVGA)
-    sensor.set_auto_gain(False)
-    sensor.set_auto_whitebal(False)
-    sensor.set_auto_exposure(False)
-    current_exposure_time_in_microseconds =  sensor.get_exposure_us()
-    sensor.set_auto_exposure(False, \
-        exposure_us = int(current_exposure_time_in_microseconds* EXPOSURE_TIME_SCALE))
-    #sensor.set_gainceiling(2)
-    clock = time.clock()
-    sensor.skip_frames(time = 2000) #delay
-
-def dist(x0, y0, x1, y1):
-    return math.sqrt((x0 - x1)**2 + (y0 - y1)**2)
+uart = UART(3, 460800, timeout = 100, timeout_char = 100)
+uart.init(460800, bits = 8, parity = False, stop = 1, timeout_char = 100)
+threshold_yellow = (32, 50, -19, 127, 16, 127)#(32, 50, -28, 127, 19, 127)#(39, 43, -17, 127, 13, 127)#(39, 100, -26, 127, 7, 127)#(38, 100, -27, 127, 14, 127)#(45, 100, -33, -13, 15, 127)#(35, 100, -26, -7, 12, 52)#(36, 62, -16, 127, 11, 127)#(25, 63, -31, 33, 25, 127)#(25, 63, -38, 25, 22, 127)#(14, 63, -32, -12, 15, 43)#(28, 42, -13, 25, 13, 127)#(23, 55, -13, 127, 11, 127)#(30, 48, -30, 127, 22, 127)#(31, 100, -14, 127, 14, 127)
+threshold_blue = (23, 47, -128, 0, -128, -15)#(0, 32, -15, 18, -128, -7)#(0, 34, -29, 127, -128, -12) #(12, 28, -13, -3, -50, -10)#(12, 23, -128, 127, -28, -5)#(12, 23, -128, 127, -28, -4)#(12, 23, -128, 127, -33, -3)#(30, 73, -128, 127, -128, -24)#(10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
+x0 = 173 #175#184 #162 #161
+y0 = 122 #115 #119 #117#117 #147
+r0 = 132#90 #140
 
 #       pix  sm
 arr = [[42, 14],
@@ -52,13 +31,34 @@ arr = [[42, 14],
        [122, 94],
        [124, 99]]
 
-uart = UART(3, 460800, timeout = 100, timeout_char = 100)
-uart.init(460800, bits = 8, parity = False, stop = 1, timeout_char = 100)
-threshold_yellow = (35, 100, -26, -7, 12, 52)#(36, 62, -16, 127, 11, 127)#(25, 63, -31, 33, 25, 127)#(25, 63, -38, 25, 22, 127)#(14, 63, -32, -12, 15, 43)#(28, 42, -13, 25, 13, 127)#(23, 55, -13, 127, 11, 127)#(30, 48, -30, 127, 22, 127)#(31, 100, -14, 127, 14, 127)
-threshold_blue = (23, 47, -128, 0, -128, -15)#(0, 32, -15, 18, -128, -7)#(0, 34, -29, 127, -128, -12) #(12, 28, -13, -3, -50, -10)#(12, 23, -128, 127, -28, -5)#(12, 23, -128, 127, -28, -4)#(12, 23, -128, 127, -33, -3)#(30, 73, -128, 127, -128, -24)#(10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
-x0 = 168 #175#184 #162 #161
-y0 = 121 #115 #119 #117#117 #147
-r0 = 132#90 #140
+def setup():
+   sensor.reset()
+   sensor.set_pixformat(sensor.RGB565)
+   sensor.set_framesize(sensor.QVGA)
+   sensor.set_auto_gain(True)
+   sensor.set_auto_whitebal(True)
+   sensor.set_auto_exposure(True)
+   current_exposure_time_in_microseconds =  sensor.get_exposure_us()
+   sensor.set_auto_exposure(True, \
+       exposure_us = int(current_exposure_time_in_microseconds* EXPOSURE_TIME_SCALE))
+   clock = time.clock()
+   sensor.skip_frames(time = 2000)
+
+   #sensor.reset() #reset camera
+   sensor.set_pixformat(sensor.RGB565)
+   sensor.set_framesize(sensor.QVGA)
+   sensor.set_auto_gain(False)
+   sensor.set_auto_whitebal(False)
+   sensor.set_auto_exposure(False)
+   current_exposure_time_in_microseconds =  sensor.get_exposure_us()
+   sensor.set_auto_exposure(False, \
+       exposure_us = int(current_exposure_time_in_microseconds* EXPOSURE_TIME_SCALE))
+   #sensor.set_gainceiling(2)
+   clock = time.clock()
+   sensor.skip_frames(time = 2000) #delay
+
+def dist(x0, y0, x1, y1):
+   return math.sqrt((x0 - x1)**2 + (y0 - y1)**2)
 
 def toSend(n):
     if n > 255: return 255
@@ -127,6 +127,9 @@ def adduction(value):
     while value > 360: value -= 360
     return value
 
+def getMiddlePoint(point1, point2):
+    return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
+
 setup()
 clock = time.clock()
 
@@ -134,8 +137,6 @@ while(True):
     #####################################################INIT
     clock.tick()
     img = sensor.snapshot().mask_circle(x0, y0, r0)
-    blobY = False
-    blobB = False
     yellow = (0, 0)
     blue = (0, 0)
     pixY = 0
@@ -144,48 +145,72 @@ while(True):
     distB = 0
     alphaB = 0
     alphaY = 0
+    pointsY = []
+    pointsB = []
 
     #####################################################FIND_BLOBS
-    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 10, pixel_threshold = 980):
-        if blobY != False:
-            if blobY.area() < yb.area():
-                blobY = yb
-        else:
-            blobY = yb
+    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 22, pixel_threshold = 980):
+        #img.draw_rectangle(int(yb.x()), int(yb.y()), int(yb.w()), int(yb.h()), thickness = 2)
+        pointsY.append([yb.x(), yb.y() + yb.h() / 2])
+        pointsY.append([yb.x() + yb.w(), yb.y() + yb.h() / 2])
 
-    if blobY != False:
-        img.draw_rectangle(blobY.x(), blobY.y(), blobY.w(), blobY.h(), thickness = 2)
-        yellow = (blobY.x()  + blobY.w() / 2, blobY.y() + blobY.h() / 2)
+    if len(pointsY):
+        minX = 10000
+        maxX = -10000
+        indMin = 0
+        indMax = 0
+
+        for i in range(len(pointsY)):
+            if pointsY[i][0] < minX:
+                minX = pointsY[i][0]
+                indMin = i
+            if pointsY[i][0] > maxX:
+                maxX = pointsY[i][0]
+                indMax = i
+
+        yellow = getMiddlePoint(pointsY[indMin], pointsY[indMax])
+        img.draw_circle(int(yellow[0]), int(yellow[1]), 4, fill = True)
         img.draw_line(int(x0), int(y0), int(yellow[0]), int(yellow[1]), thickness = 2)
         pixY = dist(x0, y0, yellow[0], yellow[1])
 
     for bb in img.find_blobs([threshold_blue], merge = True, margin = 40, pixel_threshold = 1560, area_threshold = 450):
-        if blobB != False:
-            if blobB.area() < bb.area():
-                blobB = bb
-        else:
-            blobB = bb
+        pointsB.append([bb.x(), bb.y() + bb.h() / 2])
+        pointsB.append([bb.x() + bb.w(), bb.y() + bb.h() / 2])
 
-    if blobB != False:
-        img.draw_rectangle(blobB.x(), blobB.y(), blobB.w(), blobB.h(), thickness = 2)
-        blue = (blobB.x()  + blobB.w() / 2, blobB.y() + blobB.h() / 2)
+    if len(pointsB):
+        minX = 10000
+        maxX = -10000
+        indMin = 0
+        indMax = 0
+
+        for i in range(len(pointsB)):
+            if pointsB[i][0] < minX:
+                minX = pointsB[i][0]
+                indMin = i
+            if pointsB[i][1] > maxX:
+                maxX = pointsB[i][1]
+                indMax = i
+
+        blue = getMiddlePoint(pointsB[indMin], pointsB[indMax])
+        img.draw_circle(int(blue[0]), int(blue[1]), 4, fill = True)
         img.draw_line(int(x0), int(y0), int(blue[0]), int(blue[1]), thickness = 2)
         pixB = dist(x0, y0, blue[0], blue[1])
     #####################################################END_FIND
 
-    if blobY:
+    if len(pointsY):
         distY = toDistance(pixY)
         alphaY = math.atan2(yellow[0] - x0, yellow[1] - y0) * 180/math.pi
     else: alphaY = 0
 
-    if blobB:
+    if len(pointsB):
         distB = toDistance(pixB)
         alphaB = math.atan2(blue[0] - x0, blue[1] - y0) * 180/math.pi
     else: alphaB = 0
 
     alphaY = adduction(alphaY)
     alphaB = adduction(alphaB)
-    print(distY, alphaY)
+    print(clock.fps())
+    #print(distY, alphaY)
     #dataN = (pixB, distB, alphaB / 2, pixY, distY, alphaY / 2)
     #print(alphaY, end = " ")
 
