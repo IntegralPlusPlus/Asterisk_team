@@ -80,6 +80,9 @@ Pin::Pin(char GPIOx, uint8_t pin, uint16_t fun) {
 	if (_modeGPIO == GPIO_Mode_AF) GPIO_PinAFConfig(_GPIOx, _pinSource, _typeAF);
 }
 
+Pin::Pin() {
+}
+
 void Pin::pwmInit(int16_t period, uint32_t prescaler, uint8_t channel) {
 	RCC_ClockCmd();
 	

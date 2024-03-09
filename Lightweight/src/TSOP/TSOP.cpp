@@ -10,6 +10,14 @@ _w1(w1), _w2(w2), _w3(w3), _w4(w4), _mux1input(mux1input), _mux2input(mux2input)
 	_angle = 0;
 }
 
+TSOP::TSOP() {
+	for (uint8_t i = 0; i < 32; ++i) {
+		tsopValues[i] = 0;
+	}
+	
+	_angle = 0;
+}
+
 bool TSOP::updateTSOPs() {
 	bool iSeeBall = false;
 	for (uint8_t i = 0; i < 16; ++i) {
@@ -45,4 +53,39 @@ void TSOP::calculateAngle() {
 
 int16_t TSOP::getAngle() {
 	return _angle;
+}
+
+double TSOP::convertDist(double dist) {
+	double maxDist = 25;
+  double v = (dist - maxDist) / maxDist + 1;
+  if (v > 1) v = 1;
+  if (v < 0) v = 0;
+	
+	return v;
+}
+
+bool TSOP::distBad(int16_t distLocator) {
+	return !distLocator || distLocator == 255;
+}
+
+double TSOP::angleOffset(double angle, double dist){
+  double angK = 0.027 * pow(double(Ec), double(0.3 * abs(angle))); //0.04 0.15
+  if (angK > 90)
+    angK = 90;
+  dist = convertDist(dist);
+  double distK = 0.033 * pow(double(Ec), double(4.45 * dist));//0.05 4
+  if (distK > 1)
+    distK = 1;
+  if (angle > 0) {
+    return angK * distK;
+  } else {
+    return -angK * distK;
+  }
+}
+
+int16_t TSOP::adduct(int16_t a) {
+	while (a > 180) a -= 360;
+	while (a < -180) a += 360;
+	
+	return a;
 }

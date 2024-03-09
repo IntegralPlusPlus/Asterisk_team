@@ -1,7 +1,7 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 21000
+#define IMU_CALIBRATE_TIME 20000
 //20000
 #define TIME_NOT_SEEN 550
 #define TIME_LEAVE 2850
@@ -47,7 +47,6 @@ namespace Asterisk {
 	Pin tx_openMV('B', 10, usart3);
 	Pin rx_openMV('B', 11, usart3);
 	OpenMV camera(tx_openMV, rx_openMV, 3);
-	ProcessingCoord processXY;
 	
 	Pin tx_imu('C', 6, usart6);
 	Pin rx_imu('C', 7, usart6);
@@ -71,6 +70,9 @@ namespace Asterisk {
 	
 	omniplatform omni(motor3, motor4, motor2, motor1);
 	BallVec2b ball;
+
+	Forward myForward;
+	Goalkeeper myGoalkeeper;
 
 	void init(uint8_t goal, uint8_t role, uint8_t mode) {
 		myGoal = goal;
@@ -105,9 +107,14 @@ namespace Asterisk {
 		timeCalibrEnd = 0;
 		timeOUT = 0;
 		
-		processXY.setGoal(myGoal);
-		processXY.setMaxLen(MAX_VEC2B_LEN);
-		processXY.setLeaveTime(TIME_FINISH_LEAVE);
+		if (myRole == GOALKEEPER_ROLE) {
+			myGoalkeeper.setGoal(myGoal);
+			myGoalkeeper.setMaxLen(MAX_VEC2B_LEN);
+			myGoalkeeper.setLeaveTime(TIME_FINISH_LEAVE);
+		} else {
+			myForward.setGoal(myGoal);
+			myForward.setMaxLen(MAX_VEC2B_LEN);
+		}
 	
 		if (myRole == GOALKEEPER_ROLE) gyro.setTarget(0);
 		myMode = mode;
@@ -154,7 +161,9 @@ namespace Asterisk {
 			x = camera.getX();
 			y = camera.getY();
 			doesntSeeGoals = false;
-			processXY.setParams(x, y, angleIMU, dBl, dYe);
+			
+			if (myRole == GOALKEEPER_ROLE) myGoalkeeper.setParams(x, y, angleIMU, dBl, dYe);
+			else myForward.setParams(x, y, angleIMU, dBl, dYe);
 		} else doesntSeeGoals = true;
 		
 		angYellow = camera.getAngleYellow();
@@ -204,15 +213,15 @@ namespace Asterisk {
 		}
 		
 		if (!doesntSeeGoals) {
-			outStatus = processXY.checkOUTs();
-				
-			if (!goFromOUT && !goFromOutTime && processXY.robotInOUT()) {
+			outStatus = myForward.checkOUTs();
+			
+			if (!goFromOUT && !goFromOutTime && myForward.robotInOUT()) {
 				goFromOUT = true;
 				outStatusNow = outStatus;
 			} else if (goFromOUT || goFromOutTime) {
-				currentVector = processXY.setOUTVector(outStatusNow, currentVector);
+				currentVector = myForward.setOUTVector(outStatusNow, currentVector);
 				
-				if (goFromOUT && !goFromOutTime && processXY.robotInFreeField()) {
+				if (goFromOUT && !goFromOutTime && myForward.robotInFreeField()) {
 					goFromOUT = false;
 					goFromOutTime = true;
 					timeOUT = time_service::millis();
@@ -229,7 +238,7 @@ namespace Asterisk {
 		} else {
 			goFromOUT = false;
 			goFromOutTime = false;
-			processXY.resetCounts();
+			myForward.resetCounts();
 			timeOUT = 0;
 		}
 		
@@ -257,19 +266,19 @@ namespace Asterisk {
 			while (ang0_360 > 360) ang0_360 -= 360;
 			while (ang0_360 < 0) ang0_360 += 360;
 			
-			if (!locator.distBad(distSoft) && seeBall) vecToBall = processXY.getVecToIntersection(ang0_360);
+			if (!locator.distBad(distSoft) && seeBall) vecToBall = myGoalkeeper.getVecToIntersection(ang0_360);
 			else if (!seeBall) {
-				vecToBall = processXY.getVecToPoint();
+				vecToBall = myGoalkeeper.getVecToPoint();
 			} else vecToBall = Vec2b(0, 0);
 			
-			vecToCenter = processXY.getVecToGoalCenter();
-			vecToCenter.length *= processXY.getCoeffToGoalCenter(vecToBall.length);
+			vecToCenter = myGoalkeeper.getVecToGoalCenter();
+			vecToCenter.length *= myGoalkeeper.getCoeffToGoalCenter(vecToBall.length);
 		
 			goTo = vecToCenter + vecToBall;
 		} else if (robotMustLeave && !inLeave && !inReturn) {
 			inLeave = true;
 			timeInLeaving = time_service::millis();
-			currLeaveTime = processXY.getCurrentLeaveTime();
+			currLeaveTime = myGoalkeeper.getCurrentLeaveTime();
 		} else if (inLeave) {
 			goTo = getVec2bToBallFollow();
 			if (time_service::millis() - timeInLeaving > currLeaveTime 
@@ -278,9 +287,9 @@ namespace Asterisk {
 				inReturn = true;
 			}
 		} else if (inReturn) {
-			if (!doesntSeeGoals) goTo = processXY.getVecToReturn();
+			if (!doesntSeeGoals) goTo = myGoalkeeper.getVecToReturn();
 				
-			if (processXY.changeFromReturn()) {
+			if (myGoalkeeper.changeFromReturn()) {
 				inReturn = false;
 				inLeave = false;
 				timeCheckLeave = time_service::millis();

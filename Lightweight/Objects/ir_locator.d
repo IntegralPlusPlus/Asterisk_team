@@ -38,6 +38,8 @@
 .\objects\ir_locator.o: .\src\spl4\inc\stm32f4xx_fsmc.h
 .\objects\ir_locator.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\ir_locator.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\ir_locator.o: .\src\TSOP\TSOP.h
+.\objects\ir_locator.o: .\src\main\project_config.h
 .\objects\ir_locator.o: .\src\Pin\Pin.h
 .\objects\ir_locator.o: .\src\I2C\I2C.h
 .\objects\ir_locator.o: .\src\main\project_config.h

@@ -1,5 +1,7 @@
 --cpu=Cortex-M4.fp.sp
 ".\objects\main.o"
+".\objects\goalkeeper.o"
+".\objects\forward.o"
 ".\objects\processing_coord.o"
 ".\objects\vec2b.o"
 ".\objects\queues_ball.o"

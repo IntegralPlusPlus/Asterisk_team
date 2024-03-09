@@ -88,5 +88,9 @@
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\Processing_coord\Processing_coord.h
 .\objects\main.o: .\src\main\project_config.h
+.\objects\main.o: .\src\Forward\Forward.h
+.\objects\main.o: .\src\main\project_config.h
+.\objects\main.o: .\src\Goalkeeper\Goalkeeper.h
+.\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\flash\flash.h
 .\objects\main.o: .\src\main\project_config.h

@@ -1,6 +1,6 @@
 #include "IR_Locator.h"
 
-IRLocator::IRLocator(I2C &irlI2C, uint32_t address): _irlI2C(irlI2C)
+IRLocator::IRLocator(I2C &irlI2C, uint32_t address): TSOP(), _irlI2C(irlI2C)
 {
 	_address = address;
 }
@@ -32,46 +32,10 @@ int16_t IRLocator::getAngle() {
 	else _angle = 5 * getValue(ANG_FAR);
 		
 	_angle = adduct(-(_angle - 180)); //-90
-	//_angle = adduct(_angle);
 	
 	return _angle;
 }
 
 int32_t IRLocator::getDist() {
 	return _dist;
-}
-
-double IRLocator::convertDist(double dist) {
-	double maxDist = 25;
-  double v = (dist - maxDist) / maxDist + 1;
-  if (v > 1) v = 1;
-  if (v < 0) v = 0;
-	
-	return v;
-}
-
-bool IRLocator::distBad(int16_t distLocator) {
-	return !distLocator || distLocator == 255;
-}
-
-double IRLocator::angleOffset(double angle, double dist){
-  double angK = 0.027 * pow(double(Ec), double(0.3 * abs(angle))); //0.04 0.15
-  if (angK > 90)
-    angK = 90;
-  dist = convertDist(dist);
-  double distK = 0.033 * pow(double(Ec), double(4.45 * dist));//0.05 4
-  if (distK > 1)
-    distK = 1;
-  if (angle > 0) {
-    return angK * distK;
-  } else {
-    return -angK * distK;
-  }
-}
-
-int16_t IRLocator::adduct(int16_t a) {
-	while (a > 180) a -= 360;
-	while (a < -180) a += 360;
-	
-	return a;
 }

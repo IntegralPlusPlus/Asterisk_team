@@ -21,17 +21,49 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.1.0.0
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-C:\PARK_HAYASTANIN\ASTERISK\Asterisk_team\Lightweight\Lightweight.uvprojx
-Project File Date:  01/20/2024
+C:\PARK_HAYASTANIN\Asterisk_team\Lightweight\Lightweight.uvprojx
+Project File Date:  03/08/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 Note: source file '.\src\Pin\Pin.cpp' - object file renamed from '.\Objects\Pin.o' to '.\Objects\pin_1.o'.
+compiling IR_Locator.cpp...
+.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Pin\Pin.h(70): warning:  #1-D: last line of file ends without a newline
+  #endif /* PIN_H_ */
+.\src\TSOP\TSOP.h(27): warning:  #1-D: last line of file ends without a newline
+  };
+.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\I2C\I2C.h(26): warning:  #1-D: last line of file ends without a newline
+  };
+src\IR_Locator\IR_Locator.h(25): warning:  #1-D: last line of file ends without a newline
+  };
+src\IR_Locator\IR_Locator.cpp: 7 warnings, 0 errors
+compiling TSOP.cpp...
+.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Pin\Pin.h(70): warning:  #1-D: last line of file ends without a newline
+  #endif /* PIN_H_ */
+src\TSOP\TSOP.h(27): warning:  #1-D: last line of file ends without a newline
+  };
+src\TSOP\TSOP.cpp(46): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		vecX += cos(angleTSOP * DEG2RAD);
+src\TSOP\TSOP.cpp(47): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		vecY += sin(angleTSOP * DEG2RAD);
+src\TSOP\TSOP.cpp(50): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	_angle = atan2(vecY, vecX) * RAD2DEG;
+src\TSOP\TSOP.cpp(91): warning:  #1-D: last line of file ends without a newline
+  }
+src\TSOP\TSOP.cpp: 7 warnings, 0 errors
 compiling main.cpp...
 .\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
-.\src\Pin\Pin.h(69): warning:  #1-D: last line of file ends without a newline
+.\src\Pin\Pin.h(70): warning:  #1-D: last line of file ends without a newline
   #endif /* PIN_H_ */
 .\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -109,7 +141,7 @@ compiling main.cpp...
   #define RAD2DEG	57.2957795130823208767
 .\src\TSOP\TSOP.h(6): warning:  #47-D: incompatible redefinition of macro "DEG2RAD"  (declared at line 10 of ".\src\OpenMV\OpenMV.h")
   #define DEG2RAD	0.01745329251994329576
-.\src\TSOP\TSOP.h(19): warning:  #1-D: last line of file ends without a newline
+.\src\TSOP\TSOP.h(27): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -117,7 +149,7 @@ compiling main.cpp...
   };
 .\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
-.\src\IR_Locator\IR_Locator.h(35): warning:  #1-D: last line of file ends without a newline
+.\src\IR_Locator\IR_Locator.h(25): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -131,7 +163,15 @@ compiling main.cpp...
   #define P_MODE 1
 .\src\Processing_coord\Processing_coord.h(18): warning:  #47-D: incompatible redefinition of macro "DIST_BETWEEN_GOALS"  (declared at line 11 of ".\src\OpenMV\OpenMV.h")
   #define DIST_BETWEEN_GOALS 221
-.\src\Processing_coord\Processing_coord.h(97): warning:  #1-D: last line of file ends without a newline
+.\src\Processing_coord\Processing_coord.h(49): warning:  #1-D: last line of file ends without a newline
+  };
+.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Forward\Forward.h(40): warning:  #1-D: last line of file ends without a newline
+  };
+.\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Goalkeeper\Goalkeeper.h(30): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(17): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -139,20 +179,20 @@ compiling main.cpp...
     FLASH_Lock();
 .\src\flash\flash.h(17): warning:  #1-D: last line of file ends without a newline
   }
-.\src\main\libraries.h(28): warning:  #1-D: last line of file ends without a newline
+.\src\main\libraries.h(30): warning:  #1-D: last line of file ends without a newline
   #include "usable.h"
-.\src\Robot\Robot.h(255): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+.\src\Robot\Robot.h(264): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   			angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
-.\src\Robot\Robot.h(305): warning:  #1-D: last line of file ends without a newline
+.\src\Robot\Robot.h(314): warning:  #1-D: last line of file ends without a newline
   }
-src\main\main.cpp(19): warning:  #111-D: statement is unreachable
+src\main\main.cpp(18): warning:  #111-D: statement is unreachable
   	return 0;
-src\main\main.cpp(20): warning:  #1-D: last line of file ends without a newline
+src\main\main.cpp(19): warning:  #1-D: last line of file ends without a newline
   }
-src\main\main.cpp: 60 warnings, 0 errors
+src\main\main.cpp: 64 warnings, 0 errors
 linking...
-Program Size: Code=40274 RO-data=1426 RW-data=328 ZI-data=14552  
-".\Objects\Lightweight.axf" - 0 Error(s), 60 Warning(s).
+Program Size: Code=40558 RO-data=1430 RW-data=328 ZI-data=15008  
+".\Objects\Lightweight.axf" - 0 Error(s), 78 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -178,10 +218,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
-      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
+      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 Build Time Elapsed:  00:00:03
 </pre>

@@ -1,5 +1,6 @@
 #pragma once
 #include <project_config.h>
+#include "TSOP.h"
 #include "Pin.h"
 #include "I2C.h"
 
@@ -10,23 +11,12 @@
 #define DIAMETER 0.90f
 //74
 
-/*#define K1 1
-#define POW1 1.0f
-#define K2 0.175
-#define POW2 2.0f*/
-#define Ec 2.718281828459
-
-class IRLocator {
+class IRLocator : public TSOP {
 	public:
 		IRLocator(I2C &irlI2C, uint32_t address);
 		int16_t getValue(uint8_t data);
 		int16_t getAngle();
-		int16_t detourAngle(int16_t angle);
-		int16_t adduct(int16_t a);
 		int32_t getDist();
-		double convertDist(double dist);
-		double angleOffset(double angle, double dist);
-		bool distBad(int16_t distLocator);
 	private:
 		I2C _irlI2C;
 		uint32_t _address;

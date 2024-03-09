@@ -34,6 +34,7 @@ enum Pin_type {
 class Pin {
 	public:
 		Pin(char GPIOx, uint8_t pin, uint16_t fun = write);
+		Pin();
 		void setPin(uint8_t pinNum);
 		void setGPIO(char gpio);
 		void setTimParams(uint16_t tim);

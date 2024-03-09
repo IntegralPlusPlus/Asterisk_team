@@ -23,6 +23,8 @@
 #include "IR_Locator.h"
 #include "Queues_ball.h"
 #include "Processing_coord.h"
+#include "Forward.h"
+#include "Goalkeeper.h"
 #include "Vec2b.h"
 #include "flash.h"
 #include "usable.h"
