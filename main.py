@@ -174,6 +174,7 @@ while(True):
         pixY = dist(x0, y0, yellow[0], yellow[1])
 
     for bb in img.find_blobs([threshold_blue], merge = True, margin = 40, pixel_threshold = 1560, area_threshold = 450):
+        img.draw_rectangle(int(bb.x()), int(bb.y()), int(bb.w()), int(bb.h()), thickness = 2)
         pointsB.append([bb.x(), bb.y() + bb.h() / 2])
         pointsB.append([bb.x() + bb.w(), bb.y() + bb.h() / 2])
 
@@ -187,8 +188,8 @@ while(True):
             if pointsB[i][0] < minX:
                 minX = pointsB[i][0]
                 indMin = i
-            if pointsB[i][1] > maxX:
-                maxX = pointsB[i][1]
+            if pointsB[i][0] > maxX:
+                maxX = pointsB[i][0]
                 indMax = i
 
         blue = getMiddlePoint(pointsB[indMin], pointsB[indMax])
