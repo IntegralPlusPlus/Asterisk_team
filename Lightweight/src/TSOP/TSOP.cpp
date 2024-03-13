@@ -47,12 +47,17 @@ void TSOP::calculateAngle() {
 		vecY += sin(angleTSOP * DEG2RAD);
 	}
 	
+	_dist = sqrt(vecY * vecY + vecX * vecX);
 	_angle = atan2(vecY, vecX) * RAD2DEG;
 	if (_angle < -180) _angle += 360;
 }
 
 int16_t TSOP::getAngle() {
 	return _angle;
+}
+
+int16_t TSOP::getDist() {
+	return _dist;
 }
 
 double TSOP::convertDist(double dist) {
@@ -74,13 +79,10 @@ double TSOP::angleOffset(double angle, double dist){
     angK = 90;
   dist = convertDist(dist);
   double distK = 0.033 * pow(double(Ec), double(4.45 * dist));//0.05 4
-  if (distK > 1)
-    distK = 1;
-  if (angle > 0) {
-    return angK * distK;
-  } else {
-    return -angK * distK;
-  }
+  if (distK > 1) distK = 1;
+	
+  if (angle > 0) return angK * distK;
+  else return -angK * distK;
 }
 
 int16_t TSOP::adduct(int16_t a) {

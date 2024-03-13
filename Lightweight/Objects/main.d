@@ -94,3 +94,5 @@
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\flash\flash.h
 .\objects\main.o: .\src\main\project_config.h
+.\objects\main.o: .\src\kicker\kicker.h
+.\objects\main.o: .\src\main\project_config.h

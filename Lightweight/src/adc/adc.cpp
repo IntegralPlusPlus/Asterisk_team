@@ -1,6 +1,6 @@
 #include "adc.h"
 
-Adc::Adc(ADC_TypeDef* ADCx, uint8_t numCh, uint8_t chNow, uint8_t cycles) {
+Adc::Adc(ADC_TypeDef* ADCx, uint8_t numCh, uint8_t chNow) {
 	_ADCx = ADCx;
 	_numCh = numCh;
 	_chNow = chNow;
@@ -11,8 +11,7 @@ Adc::Adc(ADC_TypeDef* ADCx, uint8_t numCh, uint8_t chNow, uint8_t cycles) {
 void Adc::adcInit(uint8_t cycles) {
 	RCC_APB2PeriphClockCmd(_RCC_APB2Periph_ADCx, ENABLE);
 	ADC_CommonInitTypeDef ADC_common;
-  //ADC_CommonStructInit(&ADC_common);
-	
+  
 	ADC_common.ADC_Mode = ADC_Mode_Independent;
   ADC_common.ADC_Prescaler = ADC_Prescaler_Div2;
 	ADC_common.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled;

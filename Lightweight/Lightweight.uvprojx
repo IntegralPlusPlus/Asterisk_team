@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F407xx,STM32F40_41xxx, USE_STDPERIPH_DRIVER,  HSE_VALUE = 8000000, USE_HSE</Define>
               <Undefine></Undefine>
-              <IncludePath>.\support_pacage;.\support_pacage\arm;.\support_pacage\gcc\linker;.\support_pacage\gcc;.\support_pacage\inc;.\src;.\src\time_service;.\src\usart2;.\src\usart3;.\src\usart1;.\src\adc;.\src\Motor;.\src\Pin;.\src\dma;.\src\IMU_SPI;.\src\main;.\src\external;.\src\SPI_DOT;.\src\SPI_1;.\src\usable;.\src\mpu9250;.\src\global_macros;.\src\omniplatform;.\src\IMU_USART;.\src\spl4;.\src\spl4\inc;.\src\spl4\src;.\src\cmsis;.\src\usart6;.\src\OpenMV;.\src\TSOP;.\src\I2C;.\src\IR_Locator;.\src\Vec2b;.\src\Robot;.\src\Queues_ball;.\src\Processing_coord;.\src\flash;.\src\Processing_coord;.\src\Goalkeeper;.\src\Forward</IncludePath>
+              <IncludePath>.\support_pacage;.\support_pacage\arm;.\support_pacage\gcc\linker;.\support_pacage\gcc;.\support_pacage\inc;.\src;.\src\time_service;.\src\usart2;.\src\usart3;.\src\usart1;.\src\adc;.\src\Motor;.\src\Pin;.\src\dma;.\src\IMU_SPI;.\src\main;.\src\external;.\src\SPI_DOT;.\src\SPI_1;.\src\usable;.\src\mpu9250;.\src\global_macros;.\src\omniplatform;.\src\IMU_USART;.\src\spl4;.\src\spl4\inc;.\src\spl4\src;.\src\cmsis;.\src\usart6;.\src\OpenMV;.\src\TSOP;.\src\I2C;.\src\IR_Locator;.\src\Vec2b;.\src\Robot;.\src\Queues_ball;.\src\Processing_coord;.\src\flash;.\src\Processing_coord;.\src\Goalkeeper;.\src\Forward;.\src\kicker</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -463,21 +463,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Vec2b</GroupName>
-          <Files>
-            <File>
-              <FileName>Vec2b.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Vec2b\Vec2b.h</FilePath>
-            </File>
-            <File>
-              <FileName>Vec2b.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Vec2b\Vec2b.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Queues_ball</GroupName>
           <Files>
             <File>
@@ -489,6 +474,36 @@
               <FileName>Queues_ball.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Queues_ball\Queues_ball.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>kicker</GroupName>
+          <Files>
+            <File>
+              <FileName>kicker.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\kicker\kicker.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>kicker.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\kicker\kicker.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>TSOP</GroupName>
+          <Files>
+            <File>
+              <FileName>TSOP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\TSOP\TSOP.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TSOP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\TSOP\TSOP.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -553,17 +568,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>TSOP</GroupName>
+          <GroupName>Vec2b</GroupName>
           <Files>
             <File>
-              <FileName>TSOP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\TSOP\TSOP.cpp</FilePath>
+              <FileName>Vec2b.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Vec2b\Vec2b.h</FilePath>
             </File>
             <File>
-              <FileName>TSOP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\TSOP\TSOP.h</FilePath>
+              <FileName>Vec2b.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Vec2b\Vec2b.cpp</FilePath>
             </File>
           </Files>
         </Group>

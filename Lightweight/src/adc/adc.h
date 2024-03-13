@@ -4,7 +4,7 @@
 
 class Adc {
 	public:
-		Adc(ADC_TypeDef* ADCx, uint8_t numCh, uint8_t chNow, uint8_t cycles);
+		Adc(ADC_TypeDef* ADCx, uint8_t numCh, uint8_t chNow);
 		uint32_t getRCCPeriph(ADC_TypeDef* ADCx);
 		void sendMeCh(uint8_t ch);
 		uint32_t getCycles(uint8_t cycles);

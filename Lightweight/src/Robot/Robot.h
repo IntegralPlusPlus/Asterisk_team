@@ -1,12 +1,12 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 20000
+#define IMU_CALIBRATE_TIME 7000
 //20000
 #define TIME_NOT_SEEN 550
 #define TIME_LEAVE 2850
 #define TIME_FINISH_LEAVE 2650
-#define TIME_GO_FROM_OUT 20
+#define TIME_GO_FROM_OUT 0
 
 #define USUAL_SPEED 0.7
 #define MAX_VEC2B_LEN 0.4
@@ -206,7 +206,7 @@ namespace Asterisk {
 			Vec2b goTo = getVec2bToBallFollow();
 			
 			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
-			//goTo.set(0.25, 90);
+			goTo.set(0.25, 270);
 			
 			currentVector.changeTo(goTo);
 			t = time_service::millis();

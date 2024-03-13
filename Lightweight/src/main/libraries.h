@@ -28,3 +28,4 @@
 #include "Vec2b.h"
 #include "flash.h"
 #include "usable.h"
+#include "kicker.h"
