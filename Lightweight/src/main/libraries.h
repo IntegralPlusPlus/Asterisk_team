@@ -29,3 +29,4 @@
 #include "flash.h"
 #include "usable.h"
 #include "kicker.h"
+#include "Voltage.h"

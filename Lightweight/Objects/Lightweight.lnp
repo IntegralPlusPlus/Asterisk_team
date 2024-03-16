@@ -11,6 +11,7 @@
 ".\objects\omniplatform.o"
 ".\objects\imu_usart.o"
 ".\objects\vec2b.o"
+".\objects\voltage.o"
 ".\objects\imu_spi.o"
 ".\objects\mpu9250_spi.o"
 ".\objects\time_service.o"

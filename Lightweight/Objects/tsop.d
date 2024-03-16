@@ -39,3 +39,5 @@
 .\objects\tsop.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\tsop.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\tsop.o: .\src\Pin\Pin.h
+.\objects\tsop.o: .\src\adc\Adc.h
+.\objects\tsop.o: .\src\main\project_config.h

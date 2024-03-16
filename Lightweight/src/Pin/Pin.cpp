@@ -141,6 +141,10 @@ void Pin::pwm(uint32_t pulse) {
 	}
 }
 
+bool Pin::readPin() {
+	return GPIO_ReadInputData(_GPIOx) & _pin;
+}
+
 void Pin::setBit() {
 	GPIO_SetBits(_GPIOx, _pin);
 }

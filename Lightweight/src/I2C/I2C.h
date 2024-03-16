@@ -4,7 +4,9 @@
 
 class I2C {
 	public:
+		I2C();
 		I2C(Pin& scl, Pin& sda);  
+		void setI2C(Pin &scl, Pin &sda);
     void sclHigh();
     void sdaHigh();
     void sclLow();

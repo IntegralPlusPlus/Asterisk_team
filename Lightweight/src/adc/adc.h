@@ -4,6 +4,7 @@
 
 class Adc {
 	public:
+		Adc();
 		Adc(ADC_TypeDef* ADCx, uint8_t numCh, uint8_t chNow);
 		uint32_t getRCCPeriph(ADC_TypeDef* ADCx);
 		void sendMeCh(uint8_t ch);
@@ -11,6 +12,7 @@ class Adc {
 		void adcInit(uint8_t cycles);
 		void adcDmaInit();
 		void startADC(); 
+		float read();
 		ADC_TypeDef* getADC();
 		void setChannel(); 
 	private:

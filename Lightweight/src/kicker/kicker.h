@@ -6,6 +6,7 @@
 
 #define KICK_VOLTAGE 990
 #define KICK_OPEN_TIME 1000
+#define KOEFF_CAPACITOR 15
 
 class Kicker {
 	public:

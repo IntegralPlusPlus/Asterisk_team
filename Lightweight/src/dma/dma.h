@@ -4,9 +4,12 @@
 
 class Dma {
 	public:
+		Dma();
+		Dma(uint32_t RCC_AHB1Periph_DMAx);
 		Dma(uint32_t RCC_AHB1Periph_DMAx, Adc& adcx);
 		void dmaInit(DMA_Stream_TypeDef* dmax_streamx, uint32_t dma_channelx, uint32_t bufferSize);
 		void adcInitInDma(uint8_t cycles); 
+		void setADC(Adc& adcx);
 		uint16_t dataReturn(uint8_t n);
 	private:
 		uint32_t _RCC_AHB1Periph_DMAx;

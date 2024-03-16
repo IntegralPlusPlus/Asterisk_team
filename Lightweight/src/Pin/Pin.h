@@ -45,6 +45,7 @@ class Pin {
 		void set(bool bit);
 		void setBit();
 		void resetBit(); 
+		bool readPin();
 		int16_t getPeriod();
 		uint32_t getPin();
 		GPIO_TypeDef* getGPIOx();

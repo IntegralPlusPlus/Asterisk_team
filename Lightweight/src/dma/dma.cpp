@@ -1,7 +1,19 @@
 #include "dma.h"
 
-Dma::Dma(uint32_t RCC_AHB1Periph_DMAx, Adc& adcx):_adcx(adcx) {
+Dma::Dma() {
+	_RCC_AHB1Periph_DMAx = 0;
+}
+
+Dma::Dma(uint32_t RCC_AHB1Periph_DMAx): _adcx() {
 	_RCC_AHB1Periph_DMAx = RCC_AHB1Periph_DMAx;
+}
+
+Dma::Dma(uint32_t RCC_AHB1Periph_DMAx, Adc& adcx): _adcx(adcx) {
+	_RCC_AHB1Periph_DMAx = RCC_AHB1Periph_DMAx;
+}
+
+void Dma::setADC(Adc& adcx) {
+	_adcx = adcx;
 }
 
 void Dma::adcInitInDma(uint8_t cycles) {

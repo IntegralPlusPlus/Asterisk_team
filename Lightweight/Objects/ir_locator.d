@@ -41,5 +41,7 @@
 .\objects\ir_locator.o: .\src\TSOP\TSOP.h
 .\objects\ir_locator.o: .\src\main\project_config.h
 .\objects\ir_locator.o: .\src\Pin\Pin.h
+.\objects\ir_locator.o: .\src\adc\Adc.h
+.\objects\ir_locator.o: .\src\main\project_config.h
 .\objects\ir_locator.o: .\src\I2C\I2C.h
 .\objects\ir_locator.o: .\src\main\project_config.h

@@ -39,49 +39,126 @@ namespace Asterisk {
 	volatile int16_t currLeaveTime;
 	volatile uint8_t outStatus, outStatusNow;
 	
-	Pin locatorSCL('A', 8, i2c);
-	Pin locatorSDA('C', 9, i2c);
-	I2C locatorI2C(locatorSCL, locatorSDA);
-	IRLocator locator(locatorI2C, 0x0E);
-	
-	Pin tx_openMV('B', 10, usart3);
-	Pin rx_openMV('B', 11, usart3);
-	OpenMV camera(tx_openMV, rx_openMV, 3);
-	
-	Pin tx_imu('C', 6, usart6);
-	Pin rx_imu('C', 7, usart6);
-	gyro_imu gyro(tx_imu, rx_imu, 6);
-	
-	Pin motor1in1('E', 5, tim9);
-	Pin motor1in2('E', 6, tim9);
-	Motor motor1(motor1in1, 1, motor1in2, 2);
-	
-	Pin motor2in1('B', 3, tim2);
-	Pin motor2in2('B', 5, tim3);
-	Motor motor2(motor2in1, 2, motor2in2, 2);
-	
-	Pin motor3in1('A', 0, tim5);
-	Pin motor3in2('A', 1, tim5);
-	Motor motor3(motor3in1, 1, motor3in2, 2);
-	
-	Pin motor4in1('E', 11, tim1);
-	Pin motor4in2('E', 13, tim1);
-	Motor motor4(motor4in1, 2, motor4in2, 3);
-	
+	Pin ballSensPin('A', 4, adc);
+	Adc ballSensADC(ADC1, 1, 4);
+	Dma ballSens(RCC_AHB1Periph_DMA2, ballSensADC);
+
+	Pin capacitorPin('C', 0, adc);
+	Adc capacitorPinADC(ADC1, 1, 10);
+	Dma capacitor(RCC_AHB1Periph_DMA2, capacitorPinADC);
+
+	Pin voltageDividerPin('A', 5, adc);
+	Adc voltageDividerPinADC(ADC2, 2, 5);
+	Dma voltageDividerDMA(RCC_AHB1Periph_DMA2);
+	VoltageDividor voltageDiv;
+
+	Pin tsop_in1('D', 11, write_pupd_down);
+	Pin tsop_in2('D', 10, write_pupd_down);
+	Pin tsop_in3('D', 9, write_pupd_down);
+	Pin tsop_in4('D', 8, write_pupd_down);
+
+	Pin tsopPin1('C', 2, read);
+	Pin tsopPin2('C', 1, read);
+
+	TSOP tsops(tsop_in1, tsop_in2, tsop_in3, tsop_in4, tsopPin1, tsopPin2);
+
+	Pin tx_openMV('C', 6, usart6);
+	Pin rx_openMV('C', 7, usart6);
+	OpenMV camera(tx_openMV, rx_openMV, 6);
+
+	Pin reset_imu('A', 0, write_pupd_down);
+	Pin tx_imu('B', 11, usart3);
+	Pin rx_imu('B', 10, usart3);
+	gyro_imu gyro(tx_imu, rx_imu, 3);
+
+	Pin kicker('A', 8, write_pupd_down);
+
+	Pin button1('D', 1, read_pupd_down);
+	Pin button2('D', 0, read_pupd_down);
+	Pin button3('A', 9, read_pupd_down);
+	Pin swMotorPower('D', 2, read_pupd_down);
+	Pin swGoalChoose('E', 4, read_pupd_down);
+	Pin swRoleChoose('E', 5, read_pupd_down);
+	Pin switcher('D', 3, read_pupd_down);
+
+	Pin gkLED('C', 13, write);
+	Pin forwLED('E', 3, write);
+	Pin blueGoalLED('E', 2, write);
+	Pin yellowGoalLED('E', 6, write);
+	Pin led1('A', 12, write);
+	Pin led2('A', 11, write);
+	Pin led3('A', 10, write);
+
+	Pin motor1in1('B', 9, tim9);
+	Pin motor1in2('B', 8, tim9);
+	Motor motor1(motor1in1, 2, motor1in2, 1);
+
+	Pin motor2in1('C', 8, tim3);
+	Pin motor2in2('C', 9, tim3);
+	Motor motor2(motor2in1, 2, motor2in2, 1);
+
+	Pin motor3in1('A', 7, tim12);
+	Pin motor3in2('A', 6, tim12);
+	Motor motor3(motor3in1, 2, motor3in2, 1);
+
+	Pin motor4in1('B', 1, tim4);
+	Pin motor4in2('B', 0, tim4);
+	Motor motor4(motor4in1, 4, motor4in2, 3);
+
 	omniplatform omni(motor3, motor4, motor2, motor1);
 	BallVec2b ball;
 
 	Forward myForward;
 	Goalkeeper myGoalkeeper;
+	
+	bool calibrated() {
+		return imuCalibrated;
+	}	
+	
+	uint8_t getRole() {
+		return myRole;
+	}
+
+	bool tssps_[32];
+	volatile float volt;
+	void update() {
+		tsops.updateTSOPs();
+		for (uint8_t i = 0; i < 32; ++i) tssps_[i] = tsops.tsopValues[i];
+
+		tsops.calculate();
+		angRaw = tsops.getAngle();
+		distRaw = tsops.getDist();
+		volt = voltageDiv.getVoltage();
+	}
+	
+	void initADCDMA() {
+		ballSensADC.sendMeCh(4);
+		ballSens.dmaInit(DMA2_Stream0, DMA_Channel_0, 1);
+		ballSens.adcInitInDma(5);
+		capacitorPinADC.sendMeCh(10);
+		capacitor.dmaInit(DMA2_Stream4, DMA_Channel_0, 1);
+		capacitor.adcInitInDma(5);
+		
+		//voltageDividerPinADC.sendMeCh(5);
+		voltageDividerPinADC.setChannel();
+		voltageDividerPinADC.adcInit(5);
+		voltageDividerPinADC.startADC();
+		//voltageDividerDMA.setADC(voltageDividerPinADC);
+		//voltageDividerDMA.dmaInit(DMA2_Stream2, DMA_Channel_1, 1);
+		//voltageDividerDMA.adcInitInDma(5);
+		voltageDiv.setADC(voltageDividerPinADC);
+	}
 
 	void init(uint8_t goal, uint8_t role, uint8_t mode) {
+		x = 0;
+		initADCDMA();/*
 		myGoal = goal;
-		myRole = role;
+		myRole = role;*/
 		time_service::init();
 		time_service::startTime();
 		time_service::delay(100);
 		
-		t = time_service::millis();
+		/*t = time_service::millis();
 		imuCalibrated = false;
 		target = 0;
 		
@@ -117,198 +194,6 @@ namespace Asterisk {
 		}
 	
 		if (myRole == GOALKEEPER_ROLE) gyro.setTarget(0);
-		myMode = mode;
-	}
-	
-	bool calibrated() {
-		return imuCalibrated;
-	}	
-	
-	uint8_t getRole() {
-		return myRole;
-	}
-
-	void update() {
-		camera.read();
-		angRaw = locator.getAngle();
-		distRaw = locator.getDist();
-		
-		if (distRaw && timeUpdateQueue != time_service::millis()) {
-			ball.push(Vec2b(distRaw, angRaw), time_service::millis());
-			timeUpdateQueue = time_service::millis();
-		}
-		
-		if (!locator.distBad(distRaw)) {
-			ang = ball.getCurrentVec2b().angle;
-			dist = ball.getCurrentVec2b().length;
-		}
-		
-		kAng = ball.getDerivativeAng();
-		kLen = ball.getDerivativeDist();
-		
-		if (abs(dist - distOld) < 3 || distOld == -1) distSoft = 0.02f * dist + 0.98f * distSoft;
-		distOld = dist;
-		distSoftOld = distSoft;
-		
-		gyro.read();
-		angleIMU = gyro.getCurrentAngle();
-		
-		camera.calculate(angleIMU, myGoal, myRole);
-		dBl = camera.getDistBlue();
-		dYe = camera.getDistYellow();
-		if ((myRole == FORWARD_ROLE && !(dBl == 0 && dYe == 0)) ||
-			 (myRole == GOALKEEPER_ROLE && ((myGoal == YELLOW_GOAL && dYe) || (myGoal == BLUE_GOAL && dBl)))) {
-			x = camera.getX();
-			y = camera.getY();
-			doesntSeeGoals = false;
-			
-			if (myRole == GOALKEEPER_ROLE) myGoalkeeper.setParams(x, y, angleIMU, dBl, dYe);
-			else myForward.setParams(x, y, angleIMU, dBl, dYe);
-		} else doesntSeeGoals = true;
-		
-		angYellow = camera.getAngleYellow();
-		angBlue = camera.getAngleBlue();
-	
-		if (!imuCalibrated && time_service::millis() - t > IMU_CALIBRATE_TIME) {
-			gyro.setZeroAngle();
-			imuCalibrated = true;
-			timeCalibrEnd = time_service::millis();
-		}
-		
-		if (!locator.distBad(distRaw)) timeNotSeenBall = time_service::millis();
-		seeBall = time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN;
-	}
-	
-	Vec2b getVec2bToBallFollow() {
-		speedForward = USUAL_SPEED;
-		if (seeBall) {
-			angRes = ang + locator.angleOffset(gyro.adduct(ang), distSoft) + 90;
-			
-			while (angRes > 360) angRes -= 360;
-			while (angRes < 0) angRes += 360;
-				
-			angSoft = gyro.calculateSoft(angSoft, angRes);	
-		} else {
-			speedForward = 0;
-		}
-		
-		return Vec2b(speedForward, angSoft);
-	}
-	
-	void goToBall() {	
-		//targetRaw = float(processXY.getTargetForward());
-		//gyro.setTarget(targetRaw);
-		//target = gyro.getTarget();
-		gyro.setRotationForTarget();
-		pow = gyro.getRotation();
-		
-		if (time_service::millis() != t) {
-			Vec2b goTo = getVec2bToBallFollow();
-			
-			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
-			goTo.set(0.25, 270);
-			
-			currentVector.changeTo(goTo);
-			t = time_service::millis();
-		}
-		
-		if (!doesntSeeGoals) {
-			outStatus = myForward.checkOUTs();
-			
-			if (!goFromOUT && !goFromOutTime && myForward.robotInOUT()) {
-				goFromOUT = true;
-				outStatusNow = outStatus;
-			} else if (goFromOUT || goFromOutTime) {
-				currentVector = myForward.setOUTVector(outStatusNow, currentVector);
-				
-				if (goFromOUT && !goFromOutTime && myForward.robotInFreeField()) {
-					goFromOUT = false;
-					goFromOutTime = true;
-					timeOUT = time_service::millis();
-				} else if (!goFromOUT && goFromOutTime && time_service::millis() - timeOUT >= TIME_GO_FROM_OUT) {
-					goFromOutTime = false;
-				}
-				
-				if (outStatus != unknow && outStatus != outStatusNow) {
-					goFromOUT = false;
-					goFromOutTime = false;
-					timeOUT = 0;
-				}
-			} 
-		} else {
-			goFromOUT = false;
-			goFromOutTime = false;
-			myForward.resetCounts();
-			timeOUT = 0;
-		}
-		
-		if (myMode == P_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
-	}
-	
-	bool mustLeave() {
-		//0.073 0.015
-		if (time_service::millis() - timeCalibrEnd < 3000 || !seeBall || 
-				(seeBall && !(abs(kAng) < 0.75 && abs(kLen) < 0.023))) timeCheckLeave = time_service::millis();
-		
-		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
-	}
-
-	void protectGoal() {
-		gyro.setRotationForTarget();
-		pow = gyro.getRotation();
-
-		//if (!doesntSeeGoals) {
-		robotMustLeave = mustLeave();
-		if (!robotMustLeave && !inLeave && !inReturn) {
-			Vec2b vecToBall, vecToCenter;
-			angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
-			ang0_360 = ang + 90;
-			while (ang0_360 > 360) ang0_360 -= 360;
-			while (ang0_360 < 0) ang0_360 += 360;
-			
-			if (!locator.distBad(distSoft) && seeBall) vecToBall = myGoalkeeper.getVecToIntersection(ang0_360);
-			else if (!seeBall) {
-				vecToBall = myGoalkeeper.getVecToPoint();
-			} else vecToBall = Vec2b(0, 0);
-			
-			vecToCenter = myGoalkeeper.getVecToGoalCenter();
-			vecToCenter.length *= myGoalkeeper.getCoeffToGoalCenter(vecToBall.length);
-		
-			goTo = vecToCenter + vecToBall;
-		} else if (robotMustLeave && !inLeave && !inReturn) {
-			inLeave = true;
-			timeInLeaving = time_service::millis();
-			currLeaveTime = myGoalkeeper.getCurrentLeaveTime();
-		} else if (inLeave) {
-			goTo = getVec2bToBallFollow();
-			if (time_service::millis() - timeInLeaving > currLeaveTime 
-				|| sqrt(float(x * x + y * y)) > 0.27 * DIST_BETWEEN_GOALS || doesntSeeGoals) {
-				inLeave = false;
-				inReturn = true;
-			}
-		} else if (inReturn) {
-			if (!doesntSeeGoals) goTo = myGoalkeeper.getVecToReturn();
-				
-			if (myGoalkeeper.changeFromReturn()) {
-				inReturn = false;
-				inLeave = false;
-				timeCheckLeave = time_service::millis();
-			}
-		}
-		
-		if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
-		
-		if (!doesntSeeGoals && time_service::millis() != t) {
-			currentVector.changeTo(goTo);
-			t = time_service::millis();
-		}
-		
-		if (doesntSeeGoals) {
-			if (!inReturn) currentVector = Vec2b(0.2, 90);
-			else if (y > 40) currentVector = Vec2b(0.5, 270);
-			//currentVector.set(goTo.length, adduct180_360(180 - goTo.angle));
-		}
-			
-		if (myMode == P_MODE) omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
+		myMode = mode;*/
 	}
 }

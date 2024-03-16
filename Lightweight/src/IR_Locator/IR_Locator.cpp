@@ -1,6 +1,6 @@
 #include "IR_Locator.h"
 
-IRLocator::IRLocator(I2C &irlI2C, uint32_t address): TSOP(), _irlI2C(irlI2C)
+IRLocator::IRLocator(I2C &irlI2C, uint32_t address): _irlI2C(irlI2C)
 {
 	_address = address;
 }

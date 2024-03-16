@@ -96,3 +96,5 @@
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\kicker\kicker.h
 .\objects\main.o: .\src\main\project_config.h
+.\objects\main.o: .\src\Voltage\Voltage.h
+.\objects\main.o: .\src\main\project_config.h

@@ -6,7 +6,7 @@ Kicker::Kicker(Pin& kickerPin, Dma& capacitorDma): _kicker(kickerPin), _capDma(c
 }
 
 void Kicker::setVoltage() {
-	_voltage = _capDma.dataReturn(0);
+	_voltage = KOEFF_CAPACITOR * _capDma.dataReturn(0);
 	if (!_kickerOpen && _voltage > KICK_VOLTAGE) {
 		_kickerOpen = true;
 		_kickerOpenTime = time_service::millis();

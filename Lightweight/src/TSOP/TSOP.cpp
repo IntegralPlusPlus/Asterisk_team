@@ -18,17 +18,19 @@ TSOP::TSOP() {
 	_angle = 0;
 }
 
-bool TSOP::updateTSOPs() {
+int16_t TSOP::updateTSOPs() {
 	bool iSeeBall = false;
+	int16_t value1mux, value2mux;
 	for (uint8_t i = 0; i < 16; ++i) {
-		bool addres[] = {i / 8 % 2, i / 4 % 2, i / 2 % 2, i % 2};
-		_w1.set(addres[0]);
-		_w2.set(addres[1]);
-		_w3.set(addres[2]);
-		_w4.set(addres[3]);
+		//bool address[] = { i % 2, i >> 1 % 2, i >> 3 & 2, i >> 4};
+		bool addres[] = {(i / 8) % 2, (i / 4) % 2, (i / 2) % 2, i % 2};
+		_w1.set(addres[3]);
+		_w2.set(addres[2]);
+		_w3.set(addres[1]);
+		_w4.set(addres[0]);
 	
-		int16_t value1mux = !(_mux1input.getGPIOx()->IDR & _mux1input.getPin());
-		int16_t value2mux = !(_mux2input.getGPIOx()->IDR & _mux2input.getPin());
+		value1mux = (_mux1input.getGPIOx()->IDR & _mux1input.getPin());
+		value2mux = (_mux2input.getGPIOx()->IDR & _mux2input.getPin());
 		tsopValues[i] = value1mux;
 		tsopValues[16 + i] = value2mux;
 	
@@ -38,17 +40,17 @@ bool TSOP::updateTSOPs() {
 	return iSeeBall;
 }
 
-void TSOP::calculateAngle() {
+void TSOP::calculate() {
 	float vecX = 0, vecY = 0;
 	
-	for (uint8_t i = 0; i < 32; ++i) {
-		float angleTSOP = 90 - i * TSOP1GRAD;
-		vecX += cos(angleTSOP * DEG2RAD);
-		vecY += sin(angleTSOP * DEG2RAD);
+	for (float i = 0; i < 32; ++i) {
+		float angleTSOP = float(i * TSOP1GRAD);
+		vecX += float(!tsopValues[uint8_t(i)]) * cos(angleTSOP * DEG2RAD);
+		vecY += float(!tsopValues[uint8_t(i)]) * sin(angleTSOP * DEG2RAD);
 	}
 	
-	_dist = sqrt(vecY * vecY + vecX * vecX);
-	_angle = atan2(vecY, vecX) * RAD2DEG;
+	_dist = float(sqrt(vecY * vecY + vecX * vecX));
+	_angle = float(atan2(vecY, vecX) * RAD2DEG);
 	if (_angle < -180) _angle += 360;
 }
 

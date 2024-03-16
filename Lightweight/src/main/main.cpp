@@ -6,13 +6,13 @@ int main() {
 	while (true) {
 		Asterisk::update();
 		
-		if (Asterisk::calibrated()) {
+		/*if (Asterisk::calibrated()) {
 			if (Asterisk::getRole() == FORWARD_ROLE) {
 				Asterisk::goToBall();
 			} else if (Asterisk::getRole() == GOALKEEPER_ROLE) {
 				Asterisk::protectGoal();
 			}
-		}
+		}*/
 	}
 	
 	return 0;

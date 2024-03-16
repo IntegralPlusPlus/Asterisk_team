@@ -1,12 +1,7 @@
 #include "I2C.h"
 
-I2C::I2C(Pin &scl,
-                 Pin &sda):
-                 _scl(scl),
-                 _sda(sda)
-{
-	sdaHigh();
-	sclHigh();
+I2C::I2C(Pin &scl, Pin &sda): _scl(scl), _sda(sda) {
+	
 }
 
 bool I2C::sclRead() {

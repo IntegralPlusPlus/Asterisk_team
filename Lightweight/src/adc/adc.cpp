@@ -8,6 +8,9 @@ Adc::Adc(ADC_TypeDef* ADCx, uint8_t numCh, uint8_t chNow) {
 	current = 1;
 }
 
+Adc::Adc() {
+}
+
 void Adc::adcInit(uint8_t cycles) {
 	RCC_APB2PeriphClockCmd(_RCC_APB2Periph_ADCx, ENABLE);
 	ADC_CommonInitTypeDef ADC_common;
@@ -31,6 +34,16 @@ void Adc::startADC() {
 		
 		ADC_Init(_ADCx, &ADC_InitStructure);
 		ADC_Cmd(_ADCx, ENABLE);
+}
+
+float Adc::read() {
+	ADC_RegularChannelConfig(_ADCx, _chNow, 1, ADC_SampleTime_3Cycles);
+  
+	//start working
+  ADC_SoftwareStartConv(_ADCx);
+  while(ADC_GetFlagStatus(_ADCx, ADC_FLAG_EOC) == RESET);
+	
+  return ADC_GetConversionValue(_ADCx);
 }
 
 void Adc::sendMeCh(uint8_t ch) {
