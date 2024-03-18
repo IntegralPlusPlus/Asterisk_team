@@ -4,17 +4,15 @@
 #include "Dma.h"
 
 #define MINIMUM_VOLTAGE 9.f
-#define KOEFF_VOLTAGE 0.0041f
-#define KSOFT_VOLTAGE 0.2f
+#define KOEFF_VOLTAGE 0.00364f
+#define KSOFT_VOLTAGE 0.05f
 
 class VoltageDividor {
 	public:
-		VoltageDividor();
-		//VoltageDividor(Dma& dividor);
-		void setADC(Adc& dividor);
+		VoltageDividor(Dma& dividor);
 		float getVoltage();
 		bool voltageLow(float voltage);
 	private:
-		Adc _volADC;
+		Dma& _volDMA;
 		float _voltage;
 };

@@ -1,22 +1,14 @@
 #include "Voltage.h"
 
-VoltageDividor::VoltageDividor() {
+VoltageDividor::VoltageDividor(Dma& dividor): _volDMA(dividor) {
 	_voltage = 12.6f;
-}
-
-/*VoltageDividor::VoltageDividor(Dma& dividor): _volDMA(dividor) {
-	_voltage = 12.6f;
-}*/
-
-void VoltageDividor::setADC(Adc& dividor) {
-	_volADC = dividor;
 }
 
 float VoltageDividor::getVoltage() {
-	float currVoltage = _volADC.read() * KOEFF_VOLTAGE;
-	_voltage = currVoltage;//_voltage;//KSOFT_VOLTAGE * _voltage + (1.f - KSOFT_VOLTAGE) * currVoltage;
+	float currVoltage = _volDMA.dataReturn(0) * KOEFF_VOLTAGE;
+	_voltage = KSOFT_VOLTAGE * currVoltage + (1 - KSOFT_VOLTAGE) * _voltage;
 	
-	return _voltage;
+	return currVoltage;
 }
 
 bool VoltageDividor::voltageLow(float voltage) {

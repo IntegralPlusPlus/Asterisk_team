@@ -14,6 +14,7 @@
 ".\objects\voltage.o"
 ".\objects\imu_spi.o"
 ".\objects\mpu9250_spi.o"
+".\objects\button.o"
 ".\objects\time_service.o"
 ".\objects\pin_1.o"
 ".\objects\motor.o"

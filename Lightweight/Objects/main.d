@@ -98,3 +98,5 @@
 .\objects\main.o: .\src\main\project_config.h
 .\objects\main.o: .\src\Voltage\Voltage.h
 .\objects\main.o: .\src\main\project_config.h
+.\objects\main.o: .\src\Button\Button.h
+.\objects\main.o: .\src\main\project_config.h

@@ -8,8 +8,11 @@ Dma::Dma(uint32_t RCC_AHB1Periph_DMAx): _adcx() {
 	_RCC_AHB1Periph_DMAx = RCC_AHB1Periph_DMAx;
 }
 
-Dma::Dma(uint32_t RCC_AHB1Periph_DMAx, Adc& adcx): _adcx(adcx) {
+Dma::Dma(uint32_t RCC_AHB1Periph_DMAx, Adc& adcx, DMA_Stream_TypeDef* dmax_streamx,
+					uint32_t dma_channelx, uint32_t bufferSize, uint8_t cycles): _adcx(adcx) {
 	_RCC_AHB1Periph_DMAx = RCC_AHB1Periph_DMAx;
+	dmaInit(dmax_streamx, dma_channelx, bufferSize);
+	adcInitInDma(cycles);
 }
 
 void Dma::setADC(Adc& adcx) {
@@ -47,6 +50,6 @@ void Dma::dmaInit(DMA_Stream_TypeDef* dmax_streamx, uint32_t dma_channelx, uint3
 	DMA_Cmd(dmax_streamx, ENABLE);
 }
 
-uint16_t Dma::dataReturn(uint8_t n) {
+float Dma::dataReturn(uint8_t n) {
 	return _adcData[n];
 }

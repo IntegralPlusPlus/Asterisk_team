@@ -6,6 +6,9 @@ Adc::Adc(ADC_TypeDef* ADCx, uint8_t numCh, uint8_t chNow) {
 	_chNow = chNow;
 	_RCC_APB2Periph_ADCx = getRCCPeriph(ADCx);
 	current = 1;
+	
+	channel[current] = chNow;
+  current++;
 }
 
 Adc::Adc() {

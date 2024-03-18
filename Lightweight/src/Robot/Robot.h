@@ -38,19 +38,20 @@ namespace Asterisk {
 	volatile double kLen, kAng;
 	volatile int16_t currLeaveTime;
 	volatile uint8_t outStatus, outStatusNow;
+	volatile bool but1, but2, but3;
 	
 	Pin ballSensPin('A', 4, adc);
 	Adc ballSensADC(ADC1, 1, 4);
-	Dma ballSens(RCC_AHB1Periph_DMA2, ballSensADC);
+	Dma ballSens(RCC_AHB1Periph_DMA2, ballSensADC, DMA2_Stream0, DMA_Channel_0);
 
 	Pin capacitorPin('C', 0, adc);
 	Adc capacitorPinADC(ADC1, 1, 10);
-	Dma capacitor(RCC_AHB1Periph_DMA2, capacitorPinADC);
+	Dma capacitor(RCC_AHB1Periph_DMA2, capacitorPinADC, DMA2_Stream4, DMA_Channel_0);
 
 	Pin voltageDividerPin('A', 5, adc);
-	Adc voltageDividerPinADC(ADC2, 2, 5);
-	Dma voltageDividerDMA(RCC_AHB1Periph_DMA2);
-	VoltageDividor voltageDiv;
+	Adc voltageDividerPinADC(ADC2, 1, 5);
+	Dma voltageDividerDMA(RCC_AHB1Periph_DMA2, voltageDividerPinADC, DMA2_Stream2, DMA_Channel_1);
+	VoltageDividor voltageDiv(voltageDividerDMA);
 
 	Pin tsop_in1('D', 11, write_pupd_down);
 	Pin tsop_in2('D', 10, write_pupd_down);
@@ -76,6 +77,9 @@ namespace Asterisk {
 	Pin button1('D', 1, read_pupd_down);
 	Pin button2('D', 0, read_pupd_down);
 	Pin button3('A', 9, read_pupd_down);
+	Button butt1(button1);
+	Button butt2(button2);
+	Button butt3(button3);
 	Pin swMotorPower('D', 2, read_pupd_down);
 	Pin swGoalChoose('E', 4, read_pupd_down);
 	Pin swRoleChoose('E', 5, read_pupd_down);
@@ -129,36 +133,39 @@ namespace Asterisk {
 		angRaw = tsops.getAngle();
 		distRaw = tsops.getDist();
 		volt = voltageDiv.getVoltage();
-	}
-	
-	void initADCDMA() {
-		ballSensADC.sendMeCh(4);
-		ballSens.dmaInit(DMA2_Stream0, DMA_Channel_0, 1);
-		ballSens.adcInitInDma(5);
-		capacitorPinADC.sendMeCh(10);
-		capacitor.dmaInit(DMA2_Stream4, DMA_Channel_0, 1);
-		capacitor.adcInitInDma(5);
+		but1 = button1.readPin();
+		but2 = button2.readPin();
+		but3 = button3.readPin();
 		
-		//voltageDividerPinADC.sendMeCh(5);
-		voltageDividerPinADC.setChannel();
-		voltageDividerPinADC.adcInit(5);
-		voltageDividerPinADC.startADC();
-		//voltageDividerDMA.setADC(voltageDividerPinADC);
-		//voltageDividerDMA.dmaInit(DMA2_Stream2, DMA_Channel_1, 1);
-		//voltageDividerDMA.adcInitInDma(5);
-		voltageDiv.setADC(voltageDividerPinADC);
+		if (butt1.pressed()) {
+			led1.setBit();
+		} else {
+			led1.resetBit();
+		}
+		
+		if (butt2.pressed()) {
+			led2.setBit();
+		} else {
+			led2.resetBit();
+		}
+		
+		if (butt3.pressed()) {
+			led3.setBit();
+		} else {
+			led3.resetBit();
+		}
 	}
 
 	void init(uint8_t goal, uint8_t role, uint8_t mode) {
 		x = 0;
-		initADCDMA();/*
+		
 		myGoal = goal;
-		myRole = role;*/
+		myRole = role;
 		time_service::init();
 		time_service::startTime();
 		time_service::delay(100);
 		
-		/*t = time_service::millis();
+		t = time_service::millis();
 		imuCalibrated = false;
 		target = 0;
 		
@@ -194,6 +201,6 @@ namespace Asterisk {
 		}
 	
 		if (myRole == GOALKEEPER_ROLE) gyro.setTarget(0);
-		myMode = mode;*/
+		myMode = mode;
 	}
 }
