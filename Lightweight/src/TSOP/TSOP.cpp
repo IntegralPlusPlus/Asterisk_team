@@ -34,7 +34,7 @@ int16_t TSOP::updateTSOPs() {
 		tsopValues[i] = value1mux;
 		tsopValues[16 + i] = value2mux;
 	
-		if (value1mux || value2mux) iSeeBall = true;
+		if (!value1mux || !value2mux) iSeeBall = true;
 	}
 	
 	return iSeeBall;
@@ -50,8 +50,8 @@ void TSOP::calculate() {
 	}
 	
 	_dist = float(sqrt(vecY * vecY + vecX * vecX));
-	_angle = float(atan2(vecY, vecX) * RAD2DEG);
-	if (_angle < -180) _angle += 360;
+	_angle = adduct(-float(atan2(vecY, vecX) * RAD2DEG));
+	//if (_angle < -180) _angle += 360;
 }
 
 int16_t TSOP::getAngle() {
@@ -76,11 +76,11 @@ bool TSOP::distBad(int16_t distLocator) {
 }
 
 double TSOP::angleOffset(double angle, double dist){
-  double angK = 0.027 * pow(double(Ec), double(0.3 * abs(angle))); //0.04 0.15
+  double angK = 0.027 * pow(double(Ec), double(0.47 * abs(angle))); //0.04 0.15
   if (angK > 90)
     angK = 90;
   dist = convertDist(dist);
-  double distK = 0.033 * pow(double(Ec), double(4.45 * dist));//0.05 4
+  double distK = 0.055 * pow(double(Ec), double(6.1 * dist));//0.05 4
   if (distK > 1) distK = 1;
 	
   if (angle > 0) return angK * distK;

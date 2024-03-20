@@ -4,8 +4,8 @@
 #include "Dma.h"
 
 #define MINIMUM_VOLTAGE 9.f
-#define KOEFF_VOLTAGE 0.00364f
-#define KSOFT_VOLTAGE 0.05f
+#define KOEFF_VOLTAGE 0.00374f
+#define KSOFT_VOLTAGE 0.02f
 
 class VoltageDividor {
 	public:

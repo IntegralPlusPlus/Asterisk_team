@@ -96,7 +96,7 @@ void Pin::pwmInit(int16_t period, uint32_t prescaler, uint8_t channel) {
 	TIM_TimeBaseInit(_TIMx, &_timer);
 	TIM_Cmd(_TIMx, ENABLE);
 	
-	if(_TIMx == TIM1) {
+	if(_TIMx == TIM1 || _TIMx == TIM8) {
 		TIM_BDTRInitTypeDef _tPWMTIM1;
 		_tPWMTIM1.TIM_OSSRState = TIM_OSSRState_Disable;
 		_tPWMTIM1.TIM_OSSIState = TIM_OSSIState_Disable;
@@ -115,10 +115,10 @@ void Pin::pwmInit(int16_t period, uint32_t prescaler, uint8_t channel) {
 	_tPWM.TIM_OCNPolarity = TIM_OCNPolarity_Low;
 	_tPWM.TIM_OutputNState = TIM_OutputNState_Disable;
 	
-	if (_TIMx != TIM1) _tPWM.TIM_OCIdleState = TIM_OCIdleState_Reset;
+	if (_TIMx != TIM1 && _TIMx != TIM8) _tPWM.TIM_OCIdleState = TIM_OCIdleState_Reset;
 	else _tPWM.TIM_OCIdleState = TIM_OCIdleState_Set;
 	
-	if (_TIMx != TIM1) _tPWM.TIM_OCNIdleState = TIM_OCNIdleState_Set;
+	if (_TIMx != TIM1 && _TIMx != TIM8) _tPWM.TIM_OCNIdleState = TIM_OCNIdleState_Set;
 	else _tPWM.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
 	
 	_channel = channel;
@@ -129,7 +129,7 @@ void Pin::pwmInit(int16_t period, uint32_t prescaler, uint8_t channel) {
 	else TIM_OC4Init(_TIMx, &_tPWM);
 	
 	TIM_Cmd(_TIMx, ENABLE);
-	if(_TIMx == TIM1) TIM_CtrlPWMOutputs(_TIMx, ENABLE);
+	if(_TIMx == TIM1 || _TIMx == TIM8) TIM_CtrlPWMOutputs(_TIMx, ENABLE);
 }
 
 void Pin::pwm(uint32_t pulse) {

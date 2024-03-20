@@ -1,15 +1,16 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 7000
+#define IMU_CALIBRATE_TIME 30000
 //20000
+#define NEED_TO_CALIBRATE 0
 #define TIME_NOT_SEEN 550
 #define TIME_LEAVE 2850
 #define TIME_FINISH_LEAVE 2650
 #define TIME_GO_FROM_OUT 0
 
-#define USUAL_SPEED 0.7
-#define MAX_VEC2B_LEN 0.4
+#define USUAL_SPEED 0.35
+#define MAX_VEC2B_LEN 0.87
 
 namespace Asterisk {
 	Vec2b currentVector, goTo;
@@ -32,13 +33,13 @@ namespace Asterisk {
 	volatile bool doesntSeeGoals;
 	volatile int16_t ang0_360;
 	volatile uint8_t myMode;
-	volatile bool seeBall;
+	volatile bool seeBall, motorsWork, neverTurnMotors;
 	volatile bool robotMustLeave, robotInOutOld;
 	volatile bool inLeave, inReturn, goFromOUT, goFromOutTime;
-	volatile double kLen, kAng;
+	volatile double kLen, kAng, volt;
 	volatile int16_t currLeaveTime;
 	volatile uint8_t outStatus, outStatusNow;
-	volatile bool but1, but2, but3;
+	volatile bool tssps_[32];
 	
 	Pin ballSensPin('A', 4, adc);
 	Adc ballSensADC(ADC1, 1, 4);
@@ -68,9 +69,9 @@ namespace Asterisk {
 	OpenMV camera(tx_openMV, rx_openMV, 6);
 
 	Pin reset_imu('A', 0, write_pupd_down);
-	Pin tx_imu('B', 11, usart3);
-	Pin rx_imu('B', 10, usart3);
-	gyro_imu gyro(tx_imu, rx_imu, 3);
+	Pin tx_imu('B', 6, usart1);
+	Pin rx_imu('B', 7, usart1);
+	gyro_imu gyro(tx_imu, rx_imu, 1);
 
 	Pin kicker('A', 8, write_pupd_down);
 
@@ -80,6 +81,7 @@ namespace Asterisk {
 	Button butt1(button1);
 	Button butt2(button2);
 	Button butt3(button3);
+	
 	Pin swMotorPower('D', 2, read_pupd_down);
 	Pin swGoalChoose('E', 4, read_pupd_down);
 	Pin swRoleChoose('E', 5, read_pupd_down);
@@ -93,23 +95,23 @@ namespace Asterisk {
 	Pin led2('A', 11, write);
 	Pin led3('A', 10, write);
 
-	Pin motor1in1('B', 9, tim9);
-	Pin motor1in2('B', 8, tim9);
-	Motor motor1(motor1in1, 2, motor1in2, 1);
+	Pin motor1in1('B', 9, tim4);
+	Pin motor1in2('B', 8, tim4);
+	Motor motor1(motor1in1, 4, motor1in2, 3);
 
-	Pin motor2in1('C', 8, tim3);
-	Pin motor2in2('C', 9, tim3);
-	Motor motor2(motor2in1, 2, motor2in2, 1);
+	Pin motor2in1('C', 8, tim8);
+	Pin motor2in2('C', 9, tim8);
+	Motor motor2(motor2in1, 3, motor2in2, 4);
 
-	Pin motor3in1('A', 7, tim12);
-	Pin motor3in2('A', 6, tim12);
-	Motor motor3(motor3in1, 2, motor3in2, 1);
+	Pin motor3in1('A', 7, tim14);
+	Pin motor3in2('A', 6, tim13);
+	Motor motor3(motor3in1, 1, motor3in2, 1);
 
-	Pin motor4in1('B', 1, tim4);
-	Pin motor4in2('B', 0, tim4);
+	Pin motor4in1('B', 1, tim3);
+	Pin motor4in2('B', 0, tim3);
 	Motor motor4(motor4in1, 4, motor4in2, 3);
 
-	omniplatform omni(motor3, motor4, motor2, motor1);
+	omniplatform omni(motor4, motor1, motor2, motor3);
 	BallVec2b ball;
 
 	Forward myForward;
@@ -123,42 +125,110 @@ namespace Asterisk {
 		return myRole;
 	}
 
-	bool tssps_[32];
-	volatile float volt;
 	void update() {
+		camera.read();
 		tsops.updateTSOPs();
-		for (uint8_t i = 0; i < 32; ++i) tssps_[i] = tsops.tsopValues[i];
+		//for (uint8_t i = 0; i < 32; ++i) tssps_[i] = tsops.tsopValues[i];
 
 		tsops.calculate();
 		angRaw = tsops.getAngle();
 		distRaw = tsops.getDist();
+		
+		if (distRaw && timeUpdateQueue != time_service::millis()) {
+			ball.push(Vec2b(distRaw, angRaw), time_service::millis());
+			timeUpdateQueue = time_service::millis();
+		}
+		
+		if (!tsops.distBad(distRaw)) {
+			ang = ball.getCurrentVec2b().angle;
+			dist = ball.getCurrentVec2b().length;
+		}
+		
+		kAng = ball.getDerivativeAng();
+		kLen = ball.getDerivativeDist();
+		
+		camera.calculate(angleIMU, myGoal, myRole);
+		dBl = camera.getDistBlue();
+		dYe = camera.getDistYellow();
 		volt = voltageDiv.getVoltage();
-		but1 = button1.readPin();
-		but2 = button2.readPin();
-		but3 = button3.readPin();
 		
-		if (butt1.pressed()) {
-			led1.setBit();
-		} else {
-			led1.resetBit();
+		if (!motorsWork && voltageDiv.voltageLow(volt)) neverTurnMotors = true;
+		
+		if (abs(dist - distOld) < 3 || distOld == -1) distSoft = 0.02f * dist + 0.98f * distSoft;
+		distOld = dist;
+		distSoftOld = distSoft;
+		
+		gyro.read();
+		angleIMU = gyro.getCurrentAngle();
+		
+		if (!imuCalibrated && (time_service::millis() - t > IMU_CALIBRATE_TIME 
+													|| !NEED_TO_CALIBRATE)) {
+			gyro.setZeroAngle();
+			imuCalibrated = true;
+			timeCalibrEnd = time_service::millis();
 		}
 		
-		if (butt2.pressed()) {
-			led2.setBit();
+		if (!tsops.distBad(distRaw)) timeNotSeenBall = time_service::millis();
+		seeBall = time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN;
+		
+		led1.set(imuCalibrated);
+		led2.set(butt2.pressed());
+		led3.set(butt3.pressed());
+		
+		gkLED.set(swRoleChoose.readPin());
+		forwLED.set(!swRoleChoose.readPin());
+		blueGoalLED.set(!swGoalChoose.readPin());
+		yellowGoalLED.set(swGoalChoose.readPin());
+		motorsWork = !swMotorPower.readPin();
+	}
+	
+	Vec2b getVec2bToBallFollow() {
+		speedForward = USUAL_SPEED;
+		if (seeBall) {
+			angRes = ang + tsops.angleOffset(gyro.adduct(ang), distSoft) + 90;
+			
+			while (angRes > 360) angRes -= 360;
+			while (angRes < 0) angRes += 360;
+				
+			angSoft = gyro.calculateSoft(angSoft, angRes);	
 		} else {
-			led2.resetBit();
+			speedForward = 0;
 		}
 		
-		if (butt3.pressed()) {
-			led3.setBit();
-		} else {
-			led3.resetBit();
+		return Vec2b(speedForward, angSoft);
+	}
+	
+	void forwardStrategy() {
+			//targetRaw = float(processXY.getTargetForward());
+		//gyro.setTarget(targetRaw);
+		//target = gyro.getTarget();
+		gyro.setRotationForTarget();
+		pow = gyro.getRotation();
+		
+		if (time_service::millis() != t) {
+			Vec2b goTo = getVec2bToBallFollow();
+			
+			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
+			//goTo.set(0.25, 270);
+			
+			currentVector.changeTo(goTo);
+			t = time_service::millis();
 		}
+		
+		if (myMode == P_MODE && motorsWork && !neverTurnMotors) 
+			omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
+		else omni.move(1, 0, 0, 0, gyro.getMaxRotation());
+	}
+	
+	bool mustLeave() {
+		//0.073 0.015
+		if (time_service::millis() - timeCalibrEnd < 3000 || !seeBall || 
+				(seeBall && !(abs(kAng) < 0.75 && abs(kLen) < 0.023))) timeCheckLeave = time_service::millis();
+		
+		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
 	}
 
 	void init(uint8_t goal, uint8_t role, uint8_t mode) {
-		x = 0;
-		
 		myGoal = goal;
 		myRole = role;
 		time_service::init();
@@ -183,6 +253,8 @@ namespace Asterisk {
 		robotInOutOld = false;
 		goFromOUT = false;
 		goFromOutTime = false;
+		motorsWork = false;
+		neverTurnMotors = false;
 		
 		currentVector.set(0, 90);
 		timeNotSeenBall = time_service::millis();

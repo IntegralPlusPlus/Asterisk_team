@@ -20,19 +20,19 @@ void omniplatform::move(float maxSpeed, float nowSpeed, float angle, float inc, 
 	
 	vecAng = (angle - 45) * DEG2RAD;
 	motorVal = nowSpeed * -sin(vecAng) * toMotorSpeed - inc;
-	_m1.go(motorVal);
+	_m1.go(-motorVal);
 	
 	vecAng = (angle - 135) * DEG2RAD;
 	motorVal = nowSpeed * -sin(vecAng) * toMotorSpeed - inc;
-	_m2.go(motorVal);
+	_m2.go(-motorVal);
 	
 	vecAng = (angle - 225) * DEG2RAD;
 	motorVal = nowSpeed * -sin(vecAng) * toMotorSpeed - inc;
-	_m3.go(motorVal);
+	_m3.go(-motorVal);
 	
 	vecAng = (angle - 315) * DEG2RAD;
 	motorVal = nowSpeed * -sin(vecAng) * toMotorSpeed - inc;
-	_m4.go(motorVal);
+	_m4.go(-motorVal);
 }
 
 void omniplatform::disable() {

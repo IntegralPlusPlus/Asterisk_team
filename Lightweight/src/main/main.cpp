@@ -1,19 +1,18 @@
 #include "Robot.h"
 
 int main() {
-	volatile float volt1, volt2;
 	Asterisk::init(BLUE_GOAL, FORWARD_ROLE, P_MODE);
 	
 	while (true) {
 		Asterisk::update();
-
-		/*if (Asterisk::calibrated()) {
+		//Asterisk::forwardStrategy();
+		if (Asterisk::calibrated()) {
 			if (Asterisk::getRole() == FORWARD_ROLE) {
-				Asterisk::goToBall();
+				Asterisk::forwardStrategy();
 			} else if (Asterisk::getRole() == GOALKEEPER_ROLE) {
-				Asterisk::protectGoal();
+				//Asterisk::protectGoal();
 			}
-		}*/
+		}
 	}
 	
 	return 0;
