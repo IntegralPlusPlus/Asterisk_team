@@ -180,6 +180,26 @@
           <WinNumber>1</WinNumber>
           <ItemText>currentVector</ItemText>
         </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>distRaw,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>tssps_[32]</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>tssps_[i]</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>distRaw</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
@@ -209,6 +229,11 @@
         </Ww>
         <Ww>
           <count>5</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>tssps_[i]</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
           <WinNumber>2</WinNumber>
           <ItemText>tssps_[i]</ItemText>
         </Ww>
@@ -1015,7 +1040,7 @@
 
   <Group>
     <GroupName>usart3</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1047,7 +1072,7 @@
 
   <Group>
     <GroupName>usart6</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

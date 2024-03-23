@@ -28,7 +28,23 @@ Project File Date:  03/19/2024
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 Note: source file '.\src\Pin\Pin.cpp' - object file renamed from '.\Objects\Pin.o' to '.\Objects\pin_1.o'.
-".\Objects\Lightweight.axf" - 0 Error(s), 0 Warning(s).
+compiling TSOP.cpp...
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Pin\Pin.h(71): warning:  #1-D: last line of file ends without a newline
+  #endif /* PIN_H_ */
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\adc\Adc.h(25): warning:  #1-D: last line of file ends without a newline
+  };
+src\TSOP\TSOP.h(29): warning:  #1-D: last line of file ends without a newline
+  };
+src\TSOP\TSOP.cpp(97): warning:  #1-D: last line of file ends without a newline
+  }
+src\TSOP\TSOP.cpp: 6 warnings, 0 errors
+linking...
+Program Size: Code=32990 RO-data=1110 RW-data=368 ZI-data=16912  
+".\Objects\Lightweight.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -59,7 +75,7 @@ Package Vendor: Keil
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

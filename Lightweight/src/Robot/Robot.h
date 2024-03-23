@@ -1,15 +1,15 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 30000
+#define IMU_CALIBRATE_TIME 60000
 //20000
 #define NEED_TO_CALIBRATE 0
-#define TIME_NOT_SEEN 550
+#define TIME_NOT_SEEN 450
 #define TIME_LEAVE 2850
 #define TIME_FINISH_LEAVE 2650
 #define TIME_GO_FROM_OUT 0
 
-#define USUAL_SPEED 0.35
+#define USUAL_SPEED 0.55
 #define MAX_VEC2B_LEN 0.87
 
 namespace Asterisk {
@@ -22,8 +22,8 @@ namespace Asterisk {
 	volatile uint64_t t, timeNotSeenBall, timeUpdateQueue, timeCheckLeave, timeInLeaving;
 	volatile uint64_t timeCalibrEnd, timeOUT;
 	volatile int16_t x, y;
-	volatile int16_t angRaw, angRawOld;
-	volatile int16_t distRaw, distRaw2, distSoftOld;
+	volatile float angRaw, angRawOld;
+	volatile float distRaw, distRaw2, distSoftOld;
 	volatile uint8_t myGoal, myRole;
 	volatile int16_t dBl, dYe;
 	volatile int16_t angBlue, angYellow;
@@ -126,7 +126,7 @@ namespace Asterisk {
 	}
 
 	void update() {
-		camera.read();
+		//camera.read();
 		tsops.updateTSOPs();
 		//for (uint8_t i = 0; i < 32; ++i) tssps_[i] = tsops.tsopValues[i];
 
@@ -147,9 +147,9 @@ namespace Asterisk {
 		kAng = ball.getDerivativeAng();
 		kLen = ball.getDerivativeDist();
 		
-		camera.calculate(angleIMU, myGoal, myRole);
-		dBl = camera.getDistBlue();
-		dYe = camera.getDistYellow();
+		//camera.calculate(angleIMU, myGoal, myRole);
+		//dBl = camera.getDistBlue();
+		//dYe = camera.getDistYellow();
 		volt = voltageDiv.getVoltage();
 		
 		if (!motorsWork && voltageDiv.voltageLow(volt)) neverTurnMotors = true;
@@ -205,12 +205,10 @@ namespace Asterisk {
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 		
+		Vec2b goTo = getVec2bToBallFollow();
+		if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
+		
 		if (time_service::millis() != t) {
-			Vec2b goTo = getVec2bToBallFollow();
-			
-			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
-			//goTo.set(0.25, 270);
-			
 			currentVector.changeTo(goTo);
 			t = time_service::millis();
 		}

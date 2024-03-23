@@ -14,8 +14,8 @@ class TSOP {
 		TSOP();
 		void calculate();
 		int16_t updateTSOPs();
-		int16_t getAngle();
-		int16_t getDist();
+		float getAngle();
+		float getDist();
 		int16_t detourAngle(int16_t angle);
 		int16_t adduct(int16_t a);
 		double convertDist(double dist);
@@ -25,5 +25,5 @@ class TSOP {
 		Pin _w1, _w2, _w3, _w4, _mux1input, _mux2input;
 		bool tsopValues[32];
 		float _angle;
-		int16_t _dist;
+		float _dist;
 };

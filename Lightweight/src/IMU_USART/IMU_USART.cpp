@@ -16,14 +16,15 @@ int16_t gyro_imu::adduct(int16_t ang) {
 }
 
 void gyro_imu::read() {
-	if (_usartNumber == 1 && uart1::available()) 
+	if (_usartNumber == 1 && uart1::available()) {
 		_angleNow = adduct(float(uart1::read()) * RECEIVED2REAL - _zeroAngle);
-	else if (_usartNumber == 2 && uart2::available()) 
+	} else if (_usartNumber == 2 && uart2::available()) {
 		_angleNow = adduct(float(uart2::read()) * RECEIVED2REAL - _zeroAngle);
-	else if (_usartNumber == 3 && uart3::available()) 
+	} else if (_usartNumber == 3 && uart3::available()) {
 		_angleNow = adduct(float(uart3::read()) * RECEIVED2REAL - _zeroAngle);
-	else if (_usartNumber == 6 && uart6::available()) 
+	} else if (_usartNumber == 6 && uart6::available()) {
 		_angleNow = adduct(float(uart6::read()) * RECEIVED2REAL - _zeroAngle);
+	}
 }
 
 void gyro_imu::setRotationForTarget() {
