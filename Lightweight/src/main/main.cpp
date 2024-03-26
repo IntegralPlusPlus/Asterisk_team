@@ -5,12 +5,12 @@ int main() {
 	
 	while (true) {
 		Asterisk::update();
-		//Asterisk::forwardStrategy();
+
 		if (Asterisk::calibrated()) {
 			if (Asterisk::getRole() == FORWARD_ROLE) {
 				Asterisk::forwardStrategy();
 			} else if (Asterisk::getRole() == GOALKEEPER_ROLE) {
-				//Asterisk::protectGoal();
+				Asterisk::goalkeeperStrategy();
 			}
 		}
 	}

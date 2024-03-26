@@ -18,11 +18,10 @@ TSOP::TSOP() {
 	_angle = 0;
 }
 
-int16_t TSOP::updateTSOPs() {
-	bool iSeeBall = false;
-	int16_t value1mux, value2mux;
-	for (uint8_t i = 0; i < 16; ++i) {
-		//bool address[] = { i % 2, i >> 1 % 2, i >> 3 & 2, i >> 4};
+void TSOP::updateTSOPs() {
+	//bool iSeeBall = false;
+	bool value1mux, value2mux;
+	for (uint16_t i = 0; i < 16; ++i) {
 		bool addres[] = {(i / 8) % 2, (i / 4) % 2, (i / 2) % 2, i % 2};
 		_w1.set(addres[3]);
 		_w2.set(addres[2]);
@@ -34,10 +33,10 @@ int16_t TSOP::updateTSOPs() {
 		tsopValues[i] = value1mux;
 		tsopValues[16 + i] = value2mux;
 	
-		if (!value1mux || !value2mux) iSeeBall = true;
+		//if (!value1mux || !value2mux) iSeeBall = true;
 	}
 	
-	return iSeeBall;
+	//return iSeeBall;
 }
 
 void TSOP::calculate() {
@@ -78,11 +77,11 @@ bool TSOP::distBad(int16_t distLocator) {
 }
 
 double TSOP::angleOffset(double angle, double dist){
-  double angK = 0.028 * pow(double(Ec), double(0.12 * abs(angle))); //0.045 0.15
+  double angK = 0.025 * pow(double(Ec), double(0.1 * abs(angle))); //0.045 0.15
   if (angK > 90)
     angK = 90;
   dist = convertDist(dist);
-  double distK = 0.037 * pow(double(Ec), double(5 * dist));//0.03 4.5
+  double distK = 0.035 * pow(double(Ec), double(5 * dist));//0.03 4.5
   if (distK > 1) distK = 1;
 	
   if (angle > 0) return angK * distK;

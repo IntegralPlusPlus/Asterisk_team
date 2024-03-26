@@ -185,7 +185,7 @@ namespace Asterisk {
 	Vec2b getVec2bToBallFollow() {
 		speedForward = USUAL_SPEED;
 		if (seeBall) {
-			angRes = ang + tsops.angleOffset(gyro.adduct(ang), distSoft) + 90;
+			angRes = ang + tsops.angleOffset(ang, distSoft) + 90;
 			
 			while (angRes > 360) angRes -= 360;
 			while (angRes < 0) angRes += 360;
@@ -193,6 +193,7 @@ namespace Asterisk {
 			angSoft = gyro.calculateSoft(angSoft, angRes);	
 		} else {
 			speedForward = 0;
+			angSoft = 0;
 		}
 		
 		return Vec2b(speedForward, angSoft);
@@ -207,6 +208,7 @@ namespace Asterisk {
 		
 		Vec2b goTo = getVec2bToBallFollow();
 		if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
+			
 		
 		if (time_service::millis() != t) {
 			currentVector.changeTo(goTo);
@@ -216,6 +218,9 @@ namespace Asterisk {
 		if (myMode == P_MODE && motorsWork && !neverTurnMotors) 
 			omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 		else omni.move(1, 0, 0, 0, gyro.getMaxRotation());
+	}
+	
+	void goalkeeperStrategy() {
 	}
 	
 	bool mustLeave() {

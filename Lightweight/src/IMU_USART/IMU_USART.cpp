@@ -15,6 +15,12 @@ int16_t gyro_imu::adduct(int16_t ang) {
   return ang;
 }
 
+float gyro_imu::adduct0_360(float angle) {
+	while (angle < 0) angle += 360;
+  while (angle > 360) angle -= 360;
+  return angle;
+}
+
 void gyro_imu::read() {
 	if (_usartNumber == 1 && uart1::available()) {
 		_angleNow = adduct(float(uart1::read()) * RECEIVED2REAL - _zeroAngle);
@@ -43,8 +49,7 @@ float gyro_imu::calculateSoft(float soft, float now) {
 		else soft = K_SOFT * now + (1 - K_SOFT) * (soft + 360);
 	}
 			
-	if (soft < 0) soft += 360;
-	else if (soft > 360) soft -= 360;
+	soft = adduct0_360(soft);
 	
 	return soft;
 }

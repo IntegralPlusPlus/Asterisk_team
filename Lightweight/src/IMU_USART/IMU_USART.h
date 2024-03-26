@@ -11,7 +11,7 @@
 #define KOEFF_P 19
 #define KOEFF_D 480
 #define MAXROTATION 2048
-#define K_SOFT 0.005f
+#define K_SOFT 0.01f
 #define TARGET_K_FOFT 0.01f
 
 class gyro_imu {
@@ -19,15 +19,16 @@ class gyro_imu {
 		gyro_imu(Pin &tx, Pin &rx, uint8_t usartNum);
 		void initUSART(uint8_t num);
 		void read(); 
-		int16_t adduct(int16_t ang);
 		void setRotationForTarget();
 		void setTarget(float targetRaw);
 		void setZeroAngle();
 		float calculateSoft(float soft, float now);
+		float adduct0_360(float angle);
 		int16_t getCurrentAngle();
 		int16_t getRotation();
 		int16_t getMaxRotation();
 		int16_t getTarget();
+		int16_t adduct(int16_t ang);
 	private:
 		uint8_t _usartNumber;
 		int16_t _angleNow, _zeroAngle, errOld; 
