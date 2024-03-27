@@ -1,36 +1,46 @@
 import sensor, utime, image, time, pyb, math
 from pyb import UART
 
-EXPOSURE_TIME_SCALE = 0.8
+EXPOSURE_TIME_SCALE = 0.9
 DELTA_ANGLE = 50
 
 uart = UART(3, 460800, timeout = 100, timeout_char = 100)
 uart.init(460800, bits = 8, parity = False, stop = 1, timeout_char = 100)
-threshold_yellow = (42, 71, -30, 127, 20, 127)#(32, 50, -19, 127, 16, 127)#(32, 50, -28, 127, 19, 127)#(39, 43, -17, 127, 13, 127)#(39, 100, -26, 127, 7, 127)#(38, 100, -27, 127, 14, 127)#(45, 100, -33, -13, 15, 127)#(35, 100, -26, -7, 12, 52)#(36, 62, -16, 127, 11, 127)#(25, 63, -31, 33, 25, 127)#(25, 63, -38, 25, 22, 127)#(14, 63, -32, -12, 15, 43)#(28, 42, -13, 25, 13, 127)#(23, 55, -13, 127, 11, 127)#(30, 48, -30, 127, 22, 127)#(31, 100, -14, 127, 14, 127)
-threshold_blue = (23, 47, -128, 0, -128, -15)#(0, 32, -15, 18, -128, -7)#(0, 34, -29, 127, -128, -12) #(12, 28, -13, -3, -50, -10)#(12, 23, -128, 127, -28, -5)#(12, 23, -128, 127, -28, -4)#(12, 23, -128, 127, -33, -3)#(30, 73, -128, 127, -128, -24)#(10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
-x0 = 177 #175#184 #162 #161
-y0 = 118 #115 #119 #117#117 #147
-r0 = 132#90 #140
+threshold_yellow = (30, 66, -40, -10, 38, 57)#(42, 71, -30, 127, 20, 127)#(32, 50, -19, 127, 16, 127)#(32, 50, -28, 127, 19, 127)#(39, 43, -17, 127, 13, 127)#(39, 100, -26, 127, 7, 127)#(38, 100, -27, 127, 14, 127)#(45, 100, -33, -13, 15, 127)#(35, 100, -26, -7, 12, 52)#(36, 62, -16, 127, 11, 127)#(25, 63, -31, 33, 25, 127)#(25, 63, -38, 25, 22, 127)#(14, 63, -32, -12, 15, 43)#(28, 42, -13, 25, 13, 127)#(23, 55, -13, 127, 11, 127)#(30, 48, -30, 127, 22, 127)#(31, 100, -14, 127, 14, 127)
+threshold_blue = (0, 53, -128, -8, -25, 1)#(0, 48, -128, -2, -45, -4)#(0, 36, -128, -6, -45, -4)#(23, 47, -128, 0, -128, -15)#(0, 32, -15, 18, -128, -7)#(0, 34, -29, 127, -128, -12) #(12, 28, -13, -3, -50, -10)#(12, 23, -128, 127, -28, -5)#(12, 23, -128, 127, -28, -4)#(12, 23, -128, 127, -33, -3)#(30, 73, -128, 127, -128, -24)#(10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
+x0 = 166 #175#184 #162 #161
+y0 = 139 #115 #119 #117#117 #147
+r0 = 155 #90 #140
 
 #       pix  sm
-arr = [[42, 14],
-       [57, 19],
-       [70, 24],
-       [78, 29],
-       [84, 34],
-       [87, 39],
-       [93, 44],
-       [97, 49],
-       [100, 54],
-       [105, 59],
-       [108, 64],
-       [112, 69],
-       [115, 74],
-       [117, 79],
-       [119, 84],
-       [121, 89],
-       [122, 94],
-       [124, 99]]
+arr = [[20, 11],
+       [32, 15],
+       [42, 20],
+       [53, 25],
+       [61, 30],
+       [68, 35],
+       [75, 40],
+       [81, 45],
+       [85, 50],
+       [89, 55],
+       [93, 60],
+       [97, 65],
+       [102, 70],
+       [106, 75],
+       [108, 80],
+       [111, 85],
+       [113, 90],
+       [117, 100],
+       [121, 110],
+       [123, 120],
+       [126, 130],
+       [127, 140],
+       [128, 150],
+       [130, 160],
+       [131, 180],
+       [133, 200],
+       [135, 210],
+       [137, 220]]
 
 def setup():
    sensor.reset()
@@ -132,10 +142,10 @@ def getMiddlePoint(point1, point2):
     return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
 
 def funcComparison(point, status = False):
-    if status: return point[1]
-    else: return point[0]
+    if status: return point[1] #Y
+    else: return point[0] #X
 
-def angInSides(point):
+def angInSides(point): #goal not in sides of the image
     ang = 180 / math.pi * math.atan2(point[1] - y0, point[0] - x0)
     return (ang > -DELTA_ANGLE and ang < DELTA_ANGLE) or \
             (ang > 180 - DELTA_ANGLE or ang < -180 + DELTA_ANGLE)
@@ -147,6 +157,7 @@ while(True):
     #####################################################INIT
     clock.tick()
     img = sensor.snapshot().mask_circle(x0, y0, r0)
+    #inits
     yellow = (0, 0)
     blue = (0, 0)
     pixY = 0
@@ -158,8 +169,10 @@ while(True):
     pointsY = []
     pointsB = []
 
+
     yellowSidesOfImg = True
     blueSidesOfImg = True
+
     #####################################################FIND_BLOBS
     for yb in img.find_blobs([threshold_yellow], merge = True, margin = 11, pixel_threshold = 980):
         img.draw_rectangle(int(yb.x()), int(yb.y()), int(yb.w()), int(yb.h()), thickness = 2)
@@ -174,8 +187,8 @@ while(True):
 
     #print("SIDE:", yellowSidesOfImg)
     if len(pointsY):
-        minValue = 10000
-        maxValue = -10000
+        minValue = 20000
+        maxValue = -20000
         indMin = 0
         indMax = 0
 
@@ -192,7 +205,7 @@ while(True):
         img.draw_line(int(x0), int(y0), int(yellow[0]), int(yellow[1]), thickness = 2, color = (0, 0, 0))
         pixY = dist(x0, y0, yellow[0], yellow[1])
 
-    for bb in img.find_blobs([threshold_blue], merge = True, margin = 5, pixel_threshold = 1560, area_threshold = 450):
+    for bb in img.find_blobs([threshold_blue], merge = True, margin = 5, pixel_threshold = 350, area_threshold = 250):
         img.draw_rectangle(int(bb.x()), int(bb.y()), int(bb.w()), int(bb.h()), thickness = 2)
         pointsB.append([bb.x(), bb.y() + bb.h() / 2])
         pointsB.append([bb.x() + bb.w(), bb.y() + bb.h() / 2])
@@ -201,8 +214,8 @@ while(True):
             blueSidesOfImg = False
 
     if len(pointsB):
-        minValue = 70000
-        maxValue = -70000
+        minValue = 20000
+        maxValue = -20000
         indMin = 0
         indMax = 0
 
@@ -214,8 +227,8 @@ while(True):
                 maxValue = funcComparison(pointsB[i], blueSidesOfImg)
                 indMax = i
 
-        img.draw_circle(int(pointsB[indMin][0]), int(pointsB[indMin][1]), 3, fill = True, color = (255, 0, 0))
-        img.draw_circle(int(pointsB[indMax][0]), int(pointsB[indMax][1]), 3, fill = True, color = (255, 0, 0))
+        #img.draw_circle(int(pointsB[indMin][0]), int(pointsB[indMin][1]), 3, fill = True, color = (255, 0, 0))
+        #img.draw_circle(int(pointsB[indMax][0]), int(pointsB[indMax][1]), 3, fill = True, color = (255, 0, 0))
         blue = getMiddlePoint(pointsB[indMin], pointsB[indMax])
         img.draw_circle(int(blue[0]), int(blue[1]), 4, fill = True)
         img.draw_line(int(x0), int(y0), int(blue[0]), int(blue[1]), thickness = 2)
@@ -224,16 +237,17 @@ while(True):
 
     if len(pointsY):
         distY = toDistance(pixY)
-        alphaY = math.atan2(yellow[0] - x0, yellow[1] - y0) * 180/math.pi
+        alphaY = math.atan2(yellow[0] - x0, yellow[1] - y0) * 180 / math.pi
     else: alphaY = 0
 
     if len(pointsB):
         distB = toDistance(pixB)
-        alphaB = math.atan2(blue[0] - x0, blue[1] - y0) * 180/math.pi
+        alphaB = math.atan2(blue[0] - x0, blue[1] - y0) * 180 / math.pi
     else: alphaB = 0
 
-    alphaY = adduction(alphaY)
-    alphaB = adduction(alphaB)
+    alphaY = adduction(alphaY + 90) # +90 because camera is rotated
+    alphaB = adduction(alphaB + 90) # +90 because camera is rotated
+    #print(pixB, distB, pixY, distY)
     #print(clock.fps())
     #print(distY, alphaY)
     #dataN = (pixB, distB, alphaB / 2, pixY, distY, alphaY / 2)
