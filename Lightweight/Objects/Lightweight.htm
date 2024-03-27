@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Lightweight.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Lightweight.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Mar 27 15:36:14 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Mar 27 18:47:44 2024
 <BR><P>
 <H3>Maximum Stack Usage =        496 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1205,7 +1205,7 @@ Global Symbols
 
 <P><STRONG><a name="[195]"></a>Pin::Pin__sub_object(char, unsigned char, unsigned short)</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, pin_1.o(i._ZN3PinC1Echt), UNUSED)
 
-<P><STRONG><a name="[cc]"></a>TSOP::angleOffset(double, double)</STRONG> (Thumb, 366 bytes, Stack size 72 bytes, tsop.o(i._ZN4TSOP11angleOffsetEdd))
+<P><STRONG><a name="[cc]"></a>TSOP::angleOffset(double, double)</STRONG> (Thumb, 418 bytes, Stack size 72 bytes, tsop.o(i._ZN4TSOP11angleOffsetEdd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = TSOP::angleOffset(double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::abs(double)
@@ -1256,7 +1256,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::update()
 </UL>
 
-<P><STRONG><a name="[d9]"></a>TSOP::calculate()</STRONG> (Thumb, 326 bytes, Stack size 40 bytes, tsop.o(i._ZN4TSOP9calculateEv))
+<P><STRONG><a name="[d9]"></a>TSOP::calculate()</STRONG> (Thumb, 274 bytes, Stack size 40 bytes, tsop.o(i._ZN4TSOP9calculateEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = TSOP::calculate() &rArr; __hardfp_atan2f &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TSOP::adduct(short)
@@ -1488,7 +1488,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f5]"></a>Asterisk::forwardStrategy()</STRONG> (Thumb, 298 bytes, Stack size 40 bytes, main.o(i._ZN8Asterisk15forwardStrategyEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 448<LI>Call Chain = Asterisk::forwardStrategy() &rArr; Asterisk::getVec2bToBallFollow() &rArr; TSOP::angleOffset(double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
+<BR><BR>[Stack]<UL><LI>Max Depth = 432<LI>Call Chain = Asterisk::forwardStrategy() &rArr; Asterisk::getVec2bToBallFollow() &rArr; TSOP::angleOffset(double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::setRotationForTarget()
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::getMaxRotation()
@@ -1507,15 +1507,15 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f8]"></a>Asterisk::getVec2bToBallFollow()</STRONG> (Thumb, 336 bytes, Stack size 72 bytes, main.o(i._ZN8Asterisk20getVec2bToBallFollowEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 408<LI>Call Chain = Asterisk::getVec2bToBallFollow() &rArr; TSOP::angleOffset(double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
+<P><STRONG><a name="[f8]"></a>Asterisk::getVec2bToBallFollow()</STRONG> (Thumb, 418 bytes, Stack size 56 bytes, main.o(i._ZN8Asterisk20getVec2bToBallFollowEv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 392<LI>Call Chain = Asterisk::getVec2bToBallFollow() &rArr; TSOP::angleOffset(double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::calculateSoft(float, float)
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::adduct0_360(float)
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::Vec2b(double, double)
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TSOP::angleOffset(double, double)
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::forwardStrategy()
@@ -1537,7 +1537,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[105]"></a>Asterisk::update()</STRONG> (Thumb, 688 bytes, Stack size 48 bytes, main.o(i._ZN8Asterisk6updateEv))
+<P><STRONG><a name="[105]"></a>Asterisk::update()</STRONG> (Thumb, 686 bytes, Stack size 48 bytes, main.o(i._ZN8Asterisk6updateEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 496<LI>Call Chain = Asterisk::update() &rArr; BallVec2b::push(Vec2b, long long) &rArr; BallVec2b::changeValues(bool) &rArr; std::pow(double, int) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, long long)
@@ -2202,7 +2202,6 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, long long)
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::getVec2bToBallFollow()
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TSOP::convertDist(double)
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::adduct(double)
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
@@ -2337,6 +2336,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TSOP::angleOffset(double, double)
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;omniplatform::move(float, float, float, float, float)
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::getVec2bToBallFollow()
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::changeValues(bool)
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin

@@ -1,7 +1,7 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 60000
+#define IMU_CALIBRATE_TIME 70000
 //20000
 #define NEED_TO_CALIBRATE 0
 #define TIME_NOT_SEEN 450
@@ -9,7 +9,7 @@
 #define TIME_FINISH_LEAVE 2650
 #define TIME_GO_FROM_OUT 0
 
-#define USUAL_SPEED 0.55
+#define USUAL_SPEED 0.65
 #define MAX_VEC2B_LEN 0.87
 
 namespace Asterisk {
@@ -189,7 +189,14 @@ namespace Asterisk {
 	Vec2b getVec2bToBallFollow() {
 		speedForward = USUAL_SPEED;
 		if (seeBall) {
-			angRes = ang + tsops.angleOffset(ang, distSoft) + 90;
+			float offset = tsops.angleOffset(ang, distSoft);
+			if (dist < 6) offset = 0;
+			else if (dist > 9 && abs(ang) > 30) {
+				speedForward *= 0.9;
+				//offset *= 0.8;
+			}
+			
+			angRes = ang + offset + 90;
 			
 			while (angRes > 360) angRes -= 360;
 			while (angRes < 0) angRes += 360;
