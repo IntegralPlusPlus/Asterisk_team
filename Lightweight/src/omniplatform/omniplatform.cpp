@@ -17,6 +17,7 @@ void omniplatform::move(float maxSpeed, float nowSpeed, float angle, float inc, 
 	
 	if (nowSpeed > maxSpeed) nowSpeed = maxSpeed;
 	else if (nowSpeed < -maxSpeed) nowSpeed = -maxSpeed;
+	angle = adduct0_360(angle);
 	
 	vecAng = (angle - 45) * DEG2RAD;
 	motorVal = nowSpeed * -sin(vecAng) * toMotorSpeed - inc;
@@ -40,4 +41,11 @@ void omniplatform::disable() {
 	_m2.disable();
 	_m3.disable();
 	_m4.disable();
+}
+
+float omniplatform::adduct0_360(float angle) {
+	while (angle < 0) angle += 360;
+  while (angle > 360) angle -= 360;
+  
+	return angle;
 }

@@ -139,9 +139,14 @@ namespace Asterisk {
 			timeUpdateQueue = time_service::millis();
 		}
 		
+		ang = angRaw;
+		dist = distRaw;
+		
+		
 		if (!tsops.distBad(distRaw)) {
-			ang = ball.getCurrentVec2b().angle;
-			dist = ball.getCurrentVec2b().length;
+			//ang = ball.getCurrentVec2b().angle;
+			//dist = ball.getCurrentVec2b().length;
+			timeNotSeenBall = time_service::millis();
 		}
 		
 		kAng = ball.getDerivativeAng();
@@ -154,7 +159,7 @@ namespace Asterisk {
 		
 		if (!motorsWork && voltageDiv.voltageLow(volt)) neverTurnMotors = true;
 		
-		if (abs(dist - distOld) < 3 || distOld == -1) distSoft = 0.02f * dist + 0.98f * distSoft;
+		if (abs(dist - distOld) < 1.5f || distOld == -1) distSoft = 0.02f * dist + 0.98f * distSoft;
 		distOld = dist;
 		distSoftOld = distSoft;
 		
@@ -168,7 +173,6 @@ namespace Asterisk {
 			timeCalibrEnd = time_service::millis();
 		}
 		
-		if (!tsops.distBad(distRaw)) timeNotSeenBall = time_service::millis();
 		seeBall = time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN;
 		
 		led1.set(imuCalibrated);
@@ -196,7 +200,7 @@ namespace Asterisk {
 			angSoft = 0;
 		}
 		
-		return Vec2b(speedForward, angSoft);
+		return Vec2b(speedForward, gyro.adduct0_360(angSoft));
 	}
 	
 	void forwardStrategy() {
@@ -209,7 +213,6 @@ namespace Asterisk {
 		Vec2b goTo = getVec2bToBallFollow();
 		if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
 			
-		
 		if (time_service::millis() != t) {
 			currentVector.changeTo(goTo);
 			t = time_service::millis();

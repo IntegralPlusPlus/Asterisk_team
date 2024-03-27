@@ -3,7 +3,7 @@
 #include "Vec2b.h"
 
 #define QUEUE_SIZE 127
-#define MS_DELTA 35
+#define MS_DELTA 20
 
 #define STATUS_POP_ELEMENT 0
 #define STATUS_PUSH_ELEMENT 1
@@ -41,14 +41,14 @@ struct Vec2bTime {
 	}
 	
 	Vec2b vector;
-	uint64_t time;
+	int64_t time;
 	int16_t transition;
 };
 
 class BallVec2b {
 	public:
 		BallVec2b();
-		void push(Vec2b vec, uint64_t millis);
+		void push(Vec2b vec, int64_t millis);
 		Vec2b getCurrentVec2b();
 		void changeValues(bool status); 
 		void calculate();

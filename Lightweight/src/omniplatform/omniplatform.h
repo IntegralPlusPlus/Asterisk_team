@@ -11,6 +11,7 @@ class omniplatform {
 		omniplatform(Motor &m1, Motor &m2, Motor &m3, Motor &m4);
 		void disable();
 		void move(float maxSpeed, float nowSpeed, float angle, float inc, float maxInc);
+		float adduct0_360(float angle);
 	private:
 		Motor _m1, _m2, _m3, _m4;
 };

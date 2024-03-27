@@ -2,7 +2,7 @@
 
 BallVec2b::BallVec2b() {
 	_last = 0;
-	for (uint8_t i = 0; i < QUEUE_SIZE; ++i) _queue[i].set(-1, -1, 0);
+	for (int16_t i = 0; i < QUEUE_SIZE; ++i) _queue[i].set(-1, -1, 0);
 	
 	_sLen = 0;
 	_s2Len = 0;
@@ -19,7 +19,7 @@ BallVec2b::BallVec2b() {
 	tgDiffAng = 0;
 }
 
-void BallVec2b::push(Vec2b vec, uint64_t millis) {
+void BallVec2b::push(Vec2b vec, int64_t millis) {
 	if (_queue[_last].correct()) {
 		tgDiffDist = double(_queue[_last].getLen() - vec.length) / double(millis - _queue[_last].getTime());
 		tgDiffAng = double(_queue[_last].getAngle() - vec.angle) / double(millis - _queue[_last].getTime());
@@ -47,8 +47,8 @@ void BallVec2b::calculate() {
 		aLen = _timeSumm / double(QUEUE_SIZE) - bLen * _sLen / double(QUEUE_SIZE);
 
 		if (bLen != 0) {
-			uint32_t futureTime = _queue[_last].getTime() + MS_DELTA;
-			_length = (futureTime - aLen) / bLen;
+			uint64_t futureTime = _queue[_last].getTime() + MS_DELTA;
+			_length = double(futureTime - aLen) / double(bLen);
 		}
 	}
 	
@@ -59,8 +59,8 @@ void BallVec2b::calculate() {
 		aAng = _timeSumm / double(QUEUE_SIZE) - bAng * _sAng / double(QUEUE_SIZE);
 		
 		if (bAng != 0) {
-			uint32_t futureTime = _queue[_last].getTime() + MS_DELTA;
-			_angle = (futureTime - aAng) / bAng;
+			uint64_t futureTime = _queue[_last].getTime() + MS_DELTA;
+			_angle = double(futureTime - aAng) / double(bAng);
 		}
 	}
 	
