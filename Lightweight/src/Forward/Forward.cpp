@@ -11,10 +11,10 @@ Forward::Forward(): ProcessingCoord() {
 uint8_t Forward::checkOUTs() {
 	uint8_t outStatus = unknow;
 	inOUT = true;
-	if (!checkXLeft(_x)) outStatus = right;
-	else if (!checkXRight(_x)) outStatus = left;
-	else if (!checkYUp(_y)) outStatus = down;
+	if (!checkYUp(_y)) outStatus = down;
 	else if (!checkYDown(_y)) outStatus = up;
+	else if (!checkXLeft(_x)) outStatus = right;
+	else if (!checkXRight(_x)) outStatus = left;
 	else {
 		if (myGoalLine(_x, _y)) outStatus = up;
 		else if (enemyGoalLine(_x, _y)) outStatus = down;
@@ -46,10 +46,10 @@ Vec2b Forward::setOUTVector(uint8_t status, Vec2b current) {
 			return Vec2b(_maxLen, adduct(270 + _angle));
 			break;
 		case left:
-			return Vec2b(_maxLen, adduct(_angle));
+			return Vec2b(_maxLen, adduct(180 + _angle));
 			break;
 		case right:
-			return Vec2b(_maxLen, adduct(180 + _angle));
+			return Vec2b(_maxLen, adduct(_angle));
 			break;
 		case enemyCircle:
 			return getVecForEnemyCircle(_x, _y);
@@ -76,7 +76,7 @@ void Forward::resetCounts() {
 }
 
 int16_t Forward::getTargetForward() {
-	_targetIMU = -(90 - RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(-_x)));
+	_targetIMU = -(90 - RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x)));
 	return _targetIMU;
 }
 
@@ -87,21 +87,22 @@ Vec2b Forward::getVecForMyCircle(int16_t x, int16_t y) {
 
 Vec2b Forward::getVecForEnemyCircle(int16_t x, int16_t y) {
 	float ang = atan2(float(DIST_BETWEEN_GOALS - y), float(x)) * RAD2DEG;
-	return Vec2b(_maxLen, adduct(180 + ang + _angle));
+	if (x > 0) return Vec2b(_maxLen, adduct(270 + ang + _angle));
+	else return Vec2b(_maxLen, adduct(90 + ang + _angle));
 }
 
 bool Forward::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
-	if (x > 0) return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.1 * RADIUS_GOAL_OUT_LEFT && angGoal < ANGLE_LOW_TO_CIRCLE; 
-	else return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.1 * RADIUS_GOAL_OUT_RIGHT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
+	if (x > 0) return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.15 * RADIUS_GOAL_OUT_LEFT && angGoal < ANGLE_LOW_TO_CIRCLE; 
+	else return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.15 * RADIUS_GOAL_OUT_RIGHT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
 }
 
 bool Forward::isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	
-	if (x > 0) return distance(x, y) < 1.1 * RADIUS_GOAL_OUT_RIGHT && angGoal < ANGLE_LOW_TO_CIRCLE; 
-	else return distance(x, y) < 1.1 * RADIUS_GOAL_OUT_LEFT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
+	if (x > 0) return distance(x, y) < float(1.15f * RADIUS_GOAL_OUT_RIGHT) && angGoal < ANGLE_LOW_TO_CIRCLE; 
+	else return distance(x, y) < float(1.15f * RADIUS_GOAL_OUT_LEFT) && angGoal > ANGLE_HIGH_TO_CIRCLE; 
 }
 
 bool Forward::myGoalLine(int16_t x, int16_t y) {
@@ -119,11 +120,11 @@ bool Forward::enemyGoalLine(int16_t x, int16_t y) {
 }
 
 bool Forward::checkXLeft(int16_t x) {
-	return x > -THRESHOLD_X + DELTA_DIST;
+	return x > THRESHOLD_X_LEFT + DELTA_DIST;
 }
 
 bool Forward::checkXRight(int16_t x) {
-	return x < THRESHOLD_X - DELTA_DIST;
+	return x < THRESHOLD_X_RIGHT - DELTA_DIST;
 }
 
 bool Forward::checkYUp(int16_t y) {

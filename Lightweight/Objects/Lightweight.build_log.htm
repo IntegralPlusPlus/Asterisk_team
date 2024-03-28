@@ -28,6 +28,94 @@ Project File Date:  03/19/2024
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 Note: source file '.\src\Pin\Pin.cpp' - object file renamed from '.\Objects\Pin.o' to '.\Objects\pin_1.o'.
+compiling Processing_coord.cpp...
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Vec2b\Vec2b.h(22): warning:  #1-D: last line of file ends without a newline
+  #endif /* VEC2B_H_ */
+src\Processing_coord\Processing_coord.h(50): warning:  #1-D: last line of file ends without a newline
+  };
+src\Processing_coord\Processing_coord.cpp(53): warning:  #1-D: last line of file ends without a newline
+  }
+src\Processing_coord\Processing_coord.cpp: 5 warnings, 0 errors
+compiling Goalkeeper.cpp...
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Vec2b\Vec2b.h(22): warning:  #1-D: last line of file ends without a newline
+  #endif /* VEC2B_H_ */
+.\src\Processing_coord\Processing_coord.h(50): warning:  #1-D: last line of file ends without a newline
+  };
+src\Goalkeeper\Goalkeeper.h(30): warning:  #1-D: last line of file ends without a newline
+  };
+src\Goalkeeper\Goalkeeper.cpp(12): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	_targetIMU = RAD2DEG * atan2(float(_y), float(_x)) - 180;
+src\Goalkeeper\Goalkeeper.cpp(29): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Goalkeeper\Goalkeeper.cpp(47): warning:  #177-D: variable "speed"  was declared but never referenced
+  		float err, speed;
+src\Goalkeeper\Goalkeeper.cpp(74): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Goalkeeper\Goalkeeper.cpp(101): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if (globalAngToBall > angGoal) res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
+src\Goalkeeper\Goalkeeper.cpp(102): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
+src\Goalkeeper\Goalkeeper.cpp(121): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
+src\Goalkeeper\Goalkeeper.cpp(122): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
+src\Goalkeeper\Goalkeeper.cpp(158): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
+src\Goalkeeper\Goalkeeper.cpp(164): warning:  #1-D: last line of file ends without a newline
+  }
+src\Goalkeeper\Goalkeeper.cpp: 16 warnings, 0 errors
+compiling Forward.cpp...
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Vec2b\Vec2b.h(22): warning:  #1-D: last line of file ends without a newline
+  #endif /* VEC2B_H_ */
+.\src\Processing_coord\Processing_coord.h(50): warning:  #1-D: last line of file ends without a newline
+  };
+src\Forward\Forward.h(40): warning:  #1-D: last line of file ends without a newline
+  };
+src\Forward\Forward.cpp(44): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(47): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(50): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(53): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(56): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(59): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(79): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	_targetIMU = -(90 - RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x)));
+src\Forward\Forward.cpp(84): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	float ang = atan2(float(y), float(x)) * RAD2DEG;
+src\Forward\Forward.cpp(89): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	float ang = atan2(float(DIST_BETWEEN_GOALS - y), float(x)) * RAD2DEG;
+src\Forward\Forward.cpp(95): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
+src\Forward\Forward.cpp(102): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Forward\Forward.cpp(109): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
+src\Forward\Forward.cpp(116): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
+src\Forward\Forward.cpp(136): warning:  #1-D: last line of file ends without a newline
+  }
+src\Forward\Forward.cpp: 20 warnings, 0 errors
 compiling main.cpp...
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -131,9 +219,7 @@ compiling main.cpp...
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
-.\src\Processing_coord\Processing_coord.h(18): warning:  #47-D: incompatible redefinition of macro "DIST_BETWEEN_GOALS"  (declared at line 11 of ".\src\OpenMV\OpenMV.h")
-  #define DIST_BETWEEN_GOALS 221
-.\src\Processing_coord\Processing_coord.h(49): warning:  #1-D: last line of file ends without a newline
+.\src\Processing_coord\Processing_coord.h(50): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -161,16 +247,16 @@ compiling main.cpp...
   #define P_MODE 1
 .\src\Button\Button.h(17): warning:  #1-D: last line of file ends without a newline
   };
-.\src\Robot\Robot.h(291): warning:  #1-D: last line of file ends without a newline
+.\src\Robot\Robot.h(344): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp(18): warning:  #111-D: statement is unreachable
   	return 0;
 src\main\main.cpp(19): warning:  #1-D: last line of file ends without a newline
   }
-src\main\main.cpp: 69 warnings, 0 errors
+src\main\main.cpp: 68 warnings, 0 errors
 linking...
-Program Size: Code=33382 RO-data=1110 RW-data=368 ZI-data=16912  
-".\Objects\Lightweight.axf" - 0 Error(s), 69 Warning(s).
+Program Size: Code=37818 RO-data=1426 RW-data=368 ZI-data=16912  
+".\Objects\Lightweight.axf" - 0 Error(s), 109 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -196,12 +282,12 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
-      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-Build Time Elapsed:  00:00:03
+      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
+      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

@@ -26,7 +26,7 @@ class OpenMV {
 		int16_t getDistBlue();
 		int16_t getAngleYellow();
 		int16_t getAngleBlue();
-	private:
+	//private:
 		float _x, _y;
 		int16_t _distBlue, _distYellow;
 		int16_t _angleBlue, _angleYellow;

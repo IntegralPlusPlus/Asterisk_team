@@ -54,10 +54,6 @@ void OpenMV::calculate(int16_t robotAngle, bool goal, bool role) {
 	float angBlueWithIMU, angYellowWithIMU; 
 	if (goal == BLUE_GOAL) robotAngle = adductionMV(robotAngle + 180);
 	
-	//ETO KOSTIL DLYA CRINGE-ROBOTA
-	if (((_angleYellow < 318 && _angleYellow > 270) || (_angleYellow > 32 && _angleYellow < 180)) && _distYellow > 50) 
-		_distYellow = int16_t(float(_distYellow) * 0.85f);
-	
 	angBlueWithIMU = adductionMV(_angleBlue + robotAngle);
 	angYellowWithIMU = adductionMV(_angleYellow + robotAngle);
 	
@@ -65,6 +61,7 @@ void OpenMV::calculate(int16_t robotAngle, bool goal, bool role) {
 	yYellow = float(_distYellow) * abs(cos(angYellowWithIMU * DEG2RAD));
 	xBlue = float(_distBlue) * sin((180 - angBlueWithIMU) * DEG2RAD); 
 	yBlue = DIST_BETWEEN_GOALS - float(_distBlue) * abs(cos((180 - angBlueWithIMU) * DEG2RAD));
+	//_distBlue = 0;
 	
 	if (role == GOALKEEPER_ROLE) {
 		if (goal == BLUE_GOAL) {

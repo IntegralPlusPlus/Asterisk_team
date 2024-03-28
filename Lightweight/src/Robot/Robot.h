@@ -10,7 +10,7 @@
 #define TIME_GO_FROM_OUT 0
 
 #define USUAL_SPEED 0.65
-#define MAX_VEC2B_LEN 0.87
+#define MAX_VEC2B_LEN 0.2
 
 namespace Asterisk {
 	Vec2b currentVector, goTo;
@@ -31,7 +31,7 @@ namespace Asterisk {
 	volatile double speedForward;
 	volatile int16_t angleBallGoal, angToGoal;
 	volatile bool doesntSeeGoals;
-	volatile int16_t ang0_360;
+	volatile int16_t ang0_360, angY;
 	volatile uint8_t myMode;
 	volatile bool seeBall, motorsWork, neverTurnMotors;
 	volatile bool robotMustLeave, robotInOutOld;
@@ -40,6 +40,7 @@ namespace Asterisk {
 	volatile int16_t currLeaveTime;
 	volatile uint8_t outStatus, outStatusNow;
 	volatile bool tssps_[32];
+	volatile bool robotInOUT;
 	
 	Pin ballSensPin('A', 4, adc);
 	Adc ballSensADC(ADC1, 1, 4);
@@ -64,9 +65,12 @@ namespace Asterisk {
 
 	TSOP tsops(tsop_in1, tsop_in2, tsop_in3, tsop_in4, tsopPin1, tsopPin2);
 
-	Pin tx_openMV('C', 6, usart6);
-	Pin rx_openMV('C', 7, usart6);
-	OpenMV camera(tx_openMV, rx_openMV, 6);
+	//Pin tx_openMV('C', 6, usart6);
+	//Pin rx_openMV('C', 7, usart6);
+	//OpenMV camera(tx_openMV, rx_openMV, 6);
+	Pin tx_openMV('B', 10, usart3);
+	Pin rx_openMV('B', 11, usart3);
+	OpenMV camera(tx_openMV, rx_openMV, 3);
 
 	Pin reset_imu('A', 0, write_pupd_down);
 	Pin tx_imu('B', 6, usart1);
@@ -126,7 +130,7 @@ namespace Asterisk {
 	}
 
 	void update() {
-		//camera.read();
+		camera.read();
 		tsops.updateTSOPs();
 		//for (uint8_t i = 0; i < 32; ++i) tssps_[i] = tsops.tsopValues[i];
 
@@ -152,10 +156,23 @@ namespace Asterisk {
 		kAng = ball.getDerivativeAng();
 		kLen = ball.getDerivativeDist();
 		
-		//camera.calculate(angleIMU, myGoal, myRole);
-		//dBl = camera.getDistBlue();
-		//dYe = camera.getDistYellow();
+		camera.calculate(angleIMU, myGoal, myRole);
+		dBl = camera.getDistBlue();
+		dYe = camera.getDistYellow();
+		angY = camera._angleYellow;
 		volt = voltageDiv.getVoltage();
+		if ((myRole == FORWARD_ROLE && !(dBl == 0 && dYe == 0)) ||
+			 (myRole == GOALKEEPER_ROLE && ((myGoal == YELLOW_GOAL && dYe) || (myGoal == BLUE_GOAL && dBl)))) {
+			x = camera.getX();
+			y = camera.getY();
+			doesntSeeGoals = false;
+			
+			if (myRole == GOALKEEPER_ROLE) myGoalkeeper.setParams(x, y, angleIMU, dBl, dYe);
+			else myForward.setParams(x, y, angleIMU, dBl, dYe);
+		} else doesntSeeGoals = true;
+		
+		angYellow = camera.getAngleYellow();
+		angBlue = camera.getAngleBlue();
 		
 		if (!motorsWork && voltageDiv.voltageLow(volt)) neverTurnMotors = true;
 		
@@ -211,17 +228,52 @@ namespace Asterisk {
 	}
 	
 	void forwardStrategy() {
-			//targetRaw = float(processXY.getTargetForward());
+		targetRaw = float(myForward.getTargetForward());
 		//gyro.setTarget(targetRaw);
 		//target = gyro.getTarget();
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 		
-		Vec2b goTo = getVec2bToBallFollow();
+		goTo = Vec2b(0.2, 90);//getVec2bToBallFollow();
 		if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
+		
+		if (!doesntSeeGoals) {
+			outStatus = myForward.checkOUTs();
+			robotInOUT = myForward.robotInOUT();
 			
+			if (!goFromOUT && myForward.robotInOUT()) {
+				goFromOUT = true;
+				outStatusNow = outStatus;
+			} else if (goFromOUT || goFromOutTime) {
+				goTo = myForward.setOUTVector(outStatusNow, currentVector);
+				
+				if (goFromOUT && myForward.robotInFreeField()) {
+					goFromOUT = false;
+					goFromOutTime = true;
+					timeOUT = time_service::millis();
+				}  //if (!goFromOUT && goFromOutTime && time_service::millis() - timeOUT >= TIME_GO_FROM_OUT) {
+					//goFromOutTime = false;
+				//}
+				
+				if (outStatus == unknow) {// && outStatus != outStatusNow) {
+					goFromOUT = false;
+					goFromOutTime = false;
+					timeOUT = 0;
+				}
+			} 
+		} //else {
+			//goFromOUT = false;
+			//goFromOutTime = false;
+			//myForward.resetCounts();
+			//timeOUT = 0;
+		//}
+		
 		if (time_service::millis() != t) {
-			currentVector.changeTo(goTo);
+			if (!(goFromOUT || goFromOutTime)) currentVector.changeTo(goTo);
+			else currentVector = goTo;
+			
+			if (doesntSeeGoals) currentVector.angle = gyro.adduct0_360(180 + currentVector.angle);
+				
 			t = time_service::millis();
 		}
 		
@@ -268,7 +320,8 @@ namespace Asterisk {
 		goFromOutTime = false;
 		motorsWork = false;
 		neverTurnMotors = false;
-		
+		robotInOUT = false;
+	
 		currentVector.set(0, 90);
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
