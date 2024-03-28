@@ -6,14 +6,15 @@ DELTA_ANGLE = 50
 
 uart = UART(3, 460800, timeout = 100, timeout_char = 100)
 uart.init(460800, bits = 8, parity = False, stop = 1, timeout_char = 100)
-threshold_yellow = (30, 66, -40, -10, 38, 57)#(42, 71, -30, 127, 20, 127)#(32, 50, -19, 127, 16, 127)#(32, 50, -28, 127, 19, 127)#(39, 43, -17, 127, 13, 127)#(39, 100, -26, 127, 7, 127)#(38, 100, -27, 127, 14, 127)#(45, 100, -33, -13, 15, 127)#(35, 100, -26, -7, 12, 52)#(36, 62, -16, 127, 11, 127)#(25, 63, -31, 33, 25, 127)#(25, 63, -38, 25, 22, 127)#(14, 63, -32, -12, 15, 43)#(28, 42, -13, 25, 13, 127)#(23, 55, -13, 127, 11, 127)#(30, 48, -30, 127, 22, 127)#(31, 100, -14, 127, 14, 127)
-threshold_blue = (0, 53, -128, -8, -25, 1)#(0, 48, -128, -2, -45, -4)#(0, 36, -128, -6, -45, -4)#(23, 47, -128, 0, -128, -15)#(0, 32, -15, 18, -128, -7)#(0, 34, -29, 127, -128, -12) #(12, 28, -13, -3, -50, -10)#(12, 23, -128, 127, -28, -5)#(12, 23, -128, 127, -28, -4)#(12, 23, -128, 127, -33, -3)#(30, 73, -128, 127, -128, -24)#(10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
+threshold_yellow = (47, 100, -32, 127, 29, 127)#(47, 100, -23, 127, 15, 127)#(39, 100, -26, 127, 21, 127)#(42, 100, -21, 127, 12, 127)#(0, 75, -23, 41, 20, 57)#(0, 62, -27, 1, 19, 58)#(30, 66, -40, -10, 38, 57)#(42, 71, -30, 127, 20, 127)#(32, 50, -19, 127, 16, 127)#(32, 50, -28, 127, 19, 127)#(39, 43, -17, 127, 13, 127)#(39, 100, -26, 127, 7, 127)#(38, 100, -27, 127, 14, 127)#(45, 100, -33, -13, 15, 127)#(35, 100, -26, -7, 12, 52)#(36, 62, -16, 127, 11, 127)#(25, 63, -31, 33, 25, 127)#(25, 63, -38, 25, 22, 127)#(14, 63, -32, -12, 15, 43)#(28, 42, -13, 25, 13, 127)#(23, 55, -13, 127, 11, 127)#(30, 48, -30, 127, 22, 127)#(31, 100, -14, 127, 14, 127)
+threshold_blue = (35, 41, -25, -10, -21, -6)#(36, 52, -73, -6, -23, -9)#(36, 44, -63, -6, -43, -6)#(0, 53, -128, -8, -25, 1)#(0, 48, -128, -2, -45, -4)#(0, 36, -128, -6, -45, -4)#(23, 47, -128, 0, -128, -15)#(0, 32, -15, 18, -128, -7)#(0, 34, -29, 127, -128, -12) #(12, 28, -13, -3, -50, -10)#(12, 23, -128, 127, -28, -5)#(12, 23, -128, 127, -28, -4)#(12, 23, -128, 127, -33, -3)#(30, 73, -128, 127, -128, -24)#(10, 45, -34, 18, -128, -12)#(10, 45, -34, 3, -128, -7)
 x0 = 166 #175#184 #162 #161
 y0 = 139 #115 #119 #117#117 #147
 r0 = 155 #90 #140
 
 #       pix  sm
-arr = [[20, 11],
+arr = [[0, 0],
+       [20, 11],
        [32, 15],
        [42, 20],
        [53, 25],
@@ -130,8 +131,10 @@ def toDistance(pix):
         ind = 1
 
     (k, b) = getLine(arr[ind - 1][0], arr[ind - 1][1], arr[ind][0], arr[ind][1])
+    myDist = k * pix + b
+    if myDist > 254: myDist = 254
 
-    return k * pix + b
+    return myDist
 
 def adduction(value):
     while value < 0: value += 360
@@ -174,7 +177,7 @@ while(True):
     blueSidesOfImg = True
 
     #####################################################FIND_BLOBS
-    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 11, pixel_threshold = 980):
+    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 15, pixel_threshold = 350, area_threshold = 220):
         img.draw_rectangle(int(yb.x()), int(yb.y()), int(yb.w()), int(yb.h()), thickness = 2)
         pointsY.append([yb.x(), yb.y() + yb.h() / 2])
         pointsY.append([yb.x() + yb.w(), yb.y() + yb.h() / 2])
@@ -187,8 +190,8 @@ while(True):
 
     #print("SIDE:", yellowSidesOfImg)
     if len(pointsY):
-        minValue = 20000
-        maxValue = -20000
+        minValue = 200000
+        maxValue = -200000
         indMin = 0
         indMax = 0
 
@@ -205,7 +208,7 @@ while(True):
         img.draw_line(int(x0), int(y0), int(yellow[0]), int(yellow[1]), thickness = 2, color = (0, 0, 0))
         pixY = dist(x0, y0, yellow[0], yellow[1])
 
-    for bb in img.find_blobs([threshold_blue], merge = True, margin = 5, pixel_threshold = 350, area_threshold = 250):
+    for bb in img.find_blobs([threshold_blue], merge = True, margin = 15, pixel_threshold = 350, area_threshold = 220):
         img.draw_rectangle(int(bb.x()), int(bb.y()), int(bb.w()), int(bb.h()), thickness = 2)
         pointsB.append([bb.x(), bb.y() + bb.h() / 2])
         pointsB.append([bb.x() + bb.w(), bb.y() + bb.h() / 2])
@@ -214,8 +217,8 @@ while(True):
             blueSidesOfImg = False
 
     if len(pointsB):
-        minValue = 20000
-        maxValue = -20000
+        minValue = 200000
+        maxValue = -200000
         indMin = 0
         indMax = 0
 
@@ -235,22 +238,22 @@ while(True):
         pixB = dist(x0, y0, blue[0], blue[1])
     #####################################################END_FIND
 
-    if len(pointsY):
+    if pixY:
         distY = toDistance(pixY)
         alphaY = math.atan2(yellow[0] - x0, yellow[1] - y0) * 180 / math.pi
     else: alphaY = 0
 
-    if len(pointsB):
+    if pixB:
         distB = toDistance(pixB)
         alphaB = math.atan2(blue[0] - x0, blue[1] - y0) * 180 / math.pi
     else: alphaB = 0
 
-    alphaY = adduction(alphaY + 90) # +90 because camera is rotated
-    alphaB = adduction(alphaB + 90) # +90 because camera is rotated
-    #print(pixB, distB, pixY, distY)
+    alphaY = adduction(alphaY - 90) # -90 because camera is rotated
+    alphaB = adduction(alphaB - 90) # -90 because camera is rotated
+    #print(alphaY)
     #print(clock.fps())
-    #print(distY, alphaY)
-    #dataN = (pixB, distB, alphaB / 2, pixY, distY, alphaY / 2)
+    print(distY)
+    #print(pixB, distB, alphaB / 2, pixY, distY, alphaY / 2)
     #print(alphaY, end = " ")
 
     send_uart(distB, alphaB / 2, distY, alphaY / 2)
