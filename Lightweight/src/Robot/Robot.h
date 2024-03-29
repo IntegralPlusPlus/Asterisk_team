@@ -1,17 +1,17 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 70000
+#define IMU_CALIBRATE_TIME 40000
 //20000
-#define NEED_TO_CALIBRATE 0
+#define NEED_TO_CALIBRATE 1
 #define TIME_NOT_SEEN 450
 #define TIME_LEAVE 2850
 #define TIME_FINISH_LEAVE 2650
 #define TIME_GO_FROM_OUT 0
 
-#define USUAL_SPEED 0.3
-//0.3
-#define MAX_VEC2B_LEN 0.4
+#define USUAL_SPEED 0.65
+//0.65
+#define MAX_VEC2B_LEN 0.87
 //0.4
 
 namespace Asterisk {
@@ -74,7 +74,7 @@ namespace Asterisk {
 	Pin rx_openMV('B', 11, usart3);
 	OpenMV camera(tx_openMV, rx_openMV, 3);
 
-	Pin reset_imu('A', 0, write_pupd_down);
+	Pin reset_imu_pin('A', 0, write_pupd_down);
 	Pin tx_imu('B', 6, usart1);
 	Pin rx_imu('B', 7, usart1);
 	gyro_imu gyro(tx_imu, rx_imu, 1);
@@ -87,6 +87,7 @@ namespace Asterisk {
 	Button butt1(button1);
 	Button butt2(button2);
 	Button butt3(button3);
+	Button resetIMU(reset_imu_pin);
 	
 	Pin swMotorPower('D', 2, read_pupd_down);
 	Pin swGoalChoose('E', 4, read_pupd_down);
@@ -203,6 +204,11 @@ namespace Asterisk {
 		blueGoalLED.set(!swGoalChoose.readPin());
 		yellowGoalLED.set(swGoalChoose.readPin());
 		motorsWork = !swMotorPower.readPin();
+		
+		if (reset_imu_pin.readPin()) {
+			omni.disable();
+			gyro.setZeroAngle();
+		}
 	}
 	
 	Vec2b getVec2bToBallFollow() {
@@ -258,7 +264,7 @@ namespace Asterisk {
 					//goFromOutTime = false;
 				//}
 				
-				if (outStatus == unknow) {// && outStatus != outStatusNow) {
+				if (outStatus == unknow || outStatus != outStatusNow) {// && outStatus != outStatusNow) {
 					goFromOUT = false;
 					goFromOutTime = false;
 					timeOUT = 0;
@@ -272,10 +278,10 @@ namespace Asterisk {
 		//}
 		
 		if (time_service::millis() != t) {
-			if (!(goFromOUT || goFromOutTime)) currentVector.changeTo(goTo);
-			else currentVector = goTo;
+			currentVector.changeTo(goTo);
+			//else currentVector = goTo;
 			
-			if (doesntSeeGoals) currentVector.angle = gyro.adduct0_360(180 + currentVector.angle);
+			if (doesntSeeGoals) currentVector = myForward.getVecToPoint(0, DIST_BETWEEN_GOALS / 2);//gyro.adduct0_360(180 + currentVector.angle);
 				
 			t = time_service::millis();
 		}

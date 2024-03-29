@@ -5,8 +5,8 @@
 #define ENEMY_X 0
 #define ENEMY_Y 231
 #define DELTA_DIST 8
-#define THRESHOLD_X_RIGHT 60
-#define THRESHOLD_X_LEFT -66
+#define THRESHOLD_X_RIGHT 58
+#define THRESHOLD_X_LEFT -68
 #define UP_Y 212.f
 #define DOWN_Y 11.f
 

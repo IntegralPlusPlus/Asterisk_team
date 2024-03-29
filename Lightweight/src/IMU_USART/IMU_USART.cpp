@@ -65,7 +65,11 @@ void gyro_imu::setTarget(float targetRaw) {
 }
 
 void gyro_imu::setZeroAngle() {
-	_zeroAngle = _angleNow;
+	while (!uart1::available());
+	_zeroAngle = adduct(float(uart1::read()) * RECEIVED2REAL);
+	
+	//_zeroAngle += _angleNow;//uart1::read();
+	//_zeroAngle = adduct(_zeroAngle);
 }
 
 int16_t gyro_imu::getCurrentAngle() {
