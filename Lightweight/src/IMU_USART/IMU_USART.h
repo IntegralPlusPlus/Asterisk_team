@@ -12,7 +12,7 @@
 #define KOEFF_D 480
 #define MAXROTATION 2048
 #define K_SOFT 0.013f
-#define TARGET_K_FOFT 0.01f
+#define TARGET_K_FOFT 0.0008f
 
 class gyro_imu {
 	public:

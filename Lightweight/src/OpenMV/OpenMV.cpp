@@ -59,9 +59,13 @@ void OpenMV::calculate(int16_t robotAngle, bool goal, bool role) {
 	
 	xYellow = float(_distYellow) * -sin(angYellowWithIMU * DEG2RAD); 
 	yYellow = float(_distYellow) * abs(cos(angYellowWithIMU * DEG2RAD));
-	xBlue = float(_distBlue) * sin((180 - angBlueWithIMU) * DEG2RAD); 
+	xBlue = -float(_distBlue) * sin((180 - angBlueWithIMU) * DEG2RAD); 
 	yBlue = DIST_BETWEEN_GOALS - float(_distBlue) * abs(cos((180 - angBlueWithIMU) * DEG2RAD));
 	//_distBlue = 0;
+	if (_distBlue && _distYellow && _distBlue + _distYellow < DIST_BETWEEN_GOALS - 40) {
+		if (_distBlue < _distYellow) _distYellow = 0;
+		else _distBlue = 0;
+	}
 	
 	if (role == GOALKEEPER_ROLE) {
 		if (goal == BLUE_GOAL) {

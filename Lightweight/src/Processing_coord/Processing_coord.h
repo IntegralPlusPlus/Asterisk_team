@@ -5,8 +5,8 @@
 #define ENEMY_X 0
 #define ENEMY_Y 231
 #define DELTA_DIST 8
-#define THRESHOLD_X_RIGHT 64
-#define THRESHOLD_X_LEFT -58
+#define THRESHOLD_X_RIGHT 60
+#define THRESHOLD_X_LEFT -66
 #define UP_Y 212.f
 #define DOWN_Y 11.f
 
@@ -36,6 +36,7 @@ class ProcessingCoord {
 		ProcessingCoord();
 		void setGoal(uint8_t currentGoal);
 		void setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow);
+		Vec2b getVecToPoint(int16_t pointX, int16_t pointY);
 		void setMaxLen(float len);
 		int16_t adduct(int16_t value);
 		int16_t adduct180(int16_t value);

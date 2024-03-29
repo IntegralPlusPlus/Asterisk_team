@@ -15,7 +15,6 @@ class Goalkeeper : public ProcessingCoord {
 		void setLeaveTime(int16_t leaveTime);
 		Vec2b getVecToGoalCenter();
 		Vec2b getVecToIntersection(int16_t angBall);
-		Vec2b getVecToPoint(int16_t pointX = 0, int16_t pointY = GOAL_OUT_Y_THRESHOLD);
 		Vec2b getVecToReturn();
 		int16_t getTargetGoalkeeper();
 		int16_t getCurrentLeaveTime();

@@ -31,10 +31,12 @@ void gyro_imu::read() {
 	} else if (_usartNumber == 6 && uart6::available()) {
 		_angleNow = adduct(float(uart6::read()) * RECEIVED2REAL - _zeroAngle);
 	}
+	
+	//_angleNow *= -1;
 }
 
 void gyro_imu::setRotationForTarget() {
-	int16_t err = -int16_t(_target) + _angleNow;
+	int16_t err = int16_t(_target) - _angleNow;
 	err = adduct(err);
 	errOld = err;
 	

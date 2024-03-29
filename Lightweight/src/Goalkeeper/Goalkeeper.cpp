@@ -151,13 +151,6 @@ bool Goalkeeper::changeFromReturn() {
 	return distance(_x, _y) < 1.5f * GOAL_OUT_Y_THRESHOLD;
 }
 
-Vec2b Goalkeeper::getVecToPoint(int16_t pointX, int16_t pointY) {
-	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
-	float u = dist * 0.027f;
-	
-	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
-}
-
 float Goalkeeper::getCoeffToGoalCenter(float intersec) {
 	if (intersec < MAX_LEN_TO_INCREASE_VEC) return 1;
 	else return map(intersec, MAX_LEN_TO_INCREASE_VEC, _maxLen, 1, MAX_COEFF_TO_GOAL_CENTER);

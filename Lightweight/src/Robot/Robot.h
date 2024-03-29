@@ -9,8 +9,10 @@
 #define TIME_FINISH_LEAVE 2650
 #define TIME_GO_FROM_OUT 0
 
-#define USUAL_SPEED 0.65
-#define MAX_VEC2B_LEN 0.2
+#define USUAL_SPEED 0.3
+//0.3
+#define MAX_VEC2B_LEN 0.4
+//0.4
 
 namespace Asterisk {
 	Vec2b currentVector, goTo;
@@ -156,6 +158,9 @@ namespace Asterisk {
 		kAng = ball.getDerivativeAng();
 		kLen = ball.getDerivativeDist();
 		
+		gyro.read();
+		angleIMU = -gyro.getCurrentAngle();
+		
 		camera.calculate(angleIMU, myGoal, myRole);
 		dBl = camera.getDistBlue();
 		dYe = camera.getDistYellow();
@@ -179,9 +184,6 @@ namespace Asterisk {
 		if (abs(dist - distOld) < 1.5f || distOld == -1) distSoft = 0.02f * dist + 0.98f * distSoft;
 		distOld = dist;
 		distSoftOld = distSoft;
-		
-		gyro.read();
-		angleIMU = gyro.getCurrentAngle();
 		
 		if (!imuCalibrated && (time_service::millis() - t > IMU_CALIBRATE_TIME 
 													|| !NEED_TO_CALIBRATE)) {
@@ -209,7 +211,7 @@ namespace Asterisk {
 			float offset = tsops.angleOffset(ang, distSoft);
 			if (dist < 6) offset = 0;
 			else if (dist > 9 && abs(ang) > 30) {
-				speedForward *= 0.9;
+				speedForward *= 0.85;
 				//offset *= 0.8;
 			}
 			
@@ -228,13 +230,14 @@ namespace Asterisk {
 	}
 	
 	void forwardStrategy() {
-		targetRaw = float(myForward.getTargetForward());
-		//gyro.setTarget(targetRaw);
+		if (!doesntSeeGoals) targetRaw = float(myForward.getTargetForward());
+		gyro.setTarget(targetRaw);
 		//target = gyro.getTarget();
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 		
-		goTo = Vec2b(0.2, 90);//getVec2bToBallFollow();
+		//goTo = Vec2b(0.2, 90);//getVec2bToBallFollow();
+		goTo = getVec2bToBallFollow();
 		if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
 		
 		if (!doesntSeeGoals) {

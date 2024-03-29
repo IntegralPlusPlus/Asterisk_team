@@ -76,7 +76,7 @@ void Forward::resetCounts() {
 }
 
 int16_t Forward::getTargetForward() {
-	_targetIMU = -(90 - RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x)));
+	_targetIMU = adduct180(RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(-_x)) - 90);
 	return _targetIMU;
 }
 
@@ -132,5 +132,5 @@ bool Forward::checkYUp(int16_t y) {
 }
 
 bool Forward::checkYDown(int16_t y) {
-	return y > DOWN_Y + DELTA_DIST;
+	return y > 0.8 * DOWN_Y + DELTA_DIST;
 }
