@@ -65,11 +65,24 @@ void gyro_imu::setTarget(float targetRaw) {
 }
 
 void gyro_imu::setZeroAngle() {
-	while (!uart1::available());
-	_zeroAngle = adduct(float(uart1::read()) * RECEIVED2REAL);
-	
-	//_zeroAngle += _angleNow;//uart1::read();
-	//_zeroAngle = adduct(_zeroAngle);
+	switch (_usartNumber) {
+		case 1:
+			while (!uart1::available());
+			_zeroAngle = adduct(float(uart1::read()) * RECEIVED2REAL);
+			break;
+		case 2:
+			while (!uart2::available());
+			_zeroAngle = adduct(float(uart2::read()) * RECEIVED2REAL);
+			break;
+		case 3:
+			while (!uart3::available());
+			_zeroAngle = adduct(float(uart3::read()) * RECEIVED2REAL);
+			break;
+		default:
+			while (!uart6::available());
+			_zeroAngle = adduct(float(uart6::read()) * RECEIVED2REAL);
+			break;
+	} 
 }
 
 int16_t gyro_imu::getCurrentAngle() {

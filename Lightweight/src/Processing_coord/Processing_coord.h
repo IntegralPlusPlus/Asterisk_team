@@ -5,7 +5,7 @@
 #define ENEMY_X 0
 #define ENEMY_Y 231
 #define DELTA_DIST 8
-#define THRESHOLD_X_RIGHT 58
+#define THRESHOLD_X_RIGHT 54
 #define THRESHOLD_X_LEFT -68
 #define UP_Y 212.f
 #define DOWN_Y 11.f
@@ -18,9 +18,12 @@
 #define GOAL_OUT_X_THRESHOLD_ALL 45
 #define DIST_BETWEEN_GOALS 231
 
+#define DOWN_Y_GOALKEEPER_RIGHT 15
+#define DOWN_Y_GOALKEEPER_LEFT 20
+
 #define ANGLE_LOW_TO_CIRCLE 60
 #define ANGLE_HIGH_TO_CIRCLE 125
-#define RADIUS_GOAL_OUT_RIGHT 35
+#define RADIUS_GOAL_OUT_RIGHT 38
 #define RADIUS_GOAL_OUT_LEFT 39
 
 #define MAX_COEFF_TO_GOAL_CENTER 1.075f
@@ -46,6 +49,5 @@ class ProcessingCoord {
 		float _maxLen;
 		int16_t _x, _y, _angle;
 		int16_t _dBlue, _dYellow;
-		int16_t DOWN_Y_GOALKEEPER_RIGHT, DOWN_Y_GOALKEEPER_LEFT;
 		uint8_t _goal;
 };

@@ -81,7 +81,7 @@ double TSOP::angleOffset(double angle, double dist){
   if (angK > 90)
     angK = 90;
   dist = convertDist(dist);
-  double distK = 0.058 * pow(double(Ec), double(4.4 * abs(dist)));//0.044 4.5
+  double distK = 0.058 * pow(double(Ec), double(4.25 * abs(dist)));//0.044 4.5
   if (distK > 1) distK = 1;
 	
 	double offset = angK * distK;

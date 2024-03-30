@@ -9,7 +9,7 @@
 #define RAD2DEG	57.2957795130823208767f
 #define DEG2RAD	0.017453292519943295769f
 #define DIST_BETWEEN_GOALS 231
-#define XY_KOEFF 0.05f
+#define XY_KOEFF 0.02f
 //231
 
 class OpenMV {
@@ -28,6 +28,7 @@ class OpenMV {
 		int16_t getAngleBlue();
 	//private:
 		float _x, _y;
+		float xYellow, yYellow, xBlue, yBlue;
 		int16_t _distBlue, _distYellow;
 		int16_t _angleBlue, _angleYellow;
 		uint8_t _usartNumber, crc;

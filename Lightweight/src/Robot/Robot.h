@@ -3,19 +3,19 @@
 
 #define IMU_CALIBRATE_TIME 40000
 //20000
-#define NEED_TO_CALIBRATE 1
+#define NEED_TO_CALIBRATE 0
 #define TIME_NOT_SEEN 450
 #define TIME_LEAVE 2850
 #define TIME_FINISH_LEAVE 2650
 #define TIME_GO_FROM_OUT 0
 
-#define USUAL_SPEED 0.65
+#define USUAL_FOLLOWING_SPEED 0.65
 //0.65
 #define MAX_VEC2B_LEN 0.87
-//0.4
+//0.87
 
 namespace Asterisk {
-	Vec2b currentVector, goTo;
+	Vec2b currentVector, goToBall, goOUT, goTo;
 	volatile float ang, angRes;
 	volatile bool imuCalibrated;
 	volatile int16_t pow;
@@ -43,6 +43,8 @@ namespace Asterisk {
 	volatile uint8_t outStatus, outStatusNow;
 	volatile bool tssps_[32];
 	volatile bool robotInOUT;
+	volatile float xYellow, yYellow, xBlue, yBlue; 
+	volatile bool nearOUT = false;
 	
 	Pin ballSensPin('A', 4, adc);
 	Adc ballSensADC(ADC1, 1, 4);
@@ -149,6 +151,16 @@ namespace Asterisk {
 		ang = angRaw;
 		dist = distRaw;
 		
+		gkLED.set(swRoleChoose.readPin());
+		forwLED.set(!swRoleChoose.readPin());
+		
+		//myGoal = !swGoalChoose.readPin();
+		blueGoalLED.set(myGoal);
+		yellowGoalLED.set(!myGoal);
+		//myGoalkeeper.setGoal(myGoal);
+		//myForward.setGoal(myGoal);
+		
+		motorsWork = !swMotorPower.readPin();
 		
 		if (!tsops.distBad(distRaw)) {
 			//ang = ball.getCurrentVec2b().angle;
@@ -163,6 +175,11 @@ namespace Asterisk {
 		angleIMU = -gyro.getCurrentAngle();
 		
 		camera.calculate(angleIMU, myGoal, myRole);
+		xYellow = camera.xYellow;
+		yYellow = camera.yYellow;
+		xBlue = camera.xBlue;
+		yBlue = camera.yBlue;
+		
 		dBl = camera.getDistBlue();
 		dYe = camera.getDistYellow();
 		angY = camera._angleYellow;
@@ -195,27 +212,20 @@ namespace Asterisk {
 		
 		seeBall = time_service::millis() - timeNotSeenBall < TIME_NOT_SEEN;
 		
-		led1.set(imuCalibrated);
-		led2.set(butt2.pressed());
-		led3.set(butt3.pressed());
-		
-		gkLED.set(swRoleChoose.readPin());
-		forwLED.set(!swRoleChoose.readPin());
-		blueGoalLED.set(!swGoalChoose.readPin());
-		yellowGoalLED.set(swGoalChoose.readPin());
-		motorsWork = !swMotorPower.readPin();
-		
 		if (reset_imu_pin.readPin()) {
 			omni.disable();
 			gyro.setZeroAngle();
 		}
+		
+		led1.set(imuCalibrated);
+		led2.set(abs(angleIMU) <= 5);
 	}
 	
-	Vec2b getVec2bToBallFollow() {
-		speedForward = USUAL_SPEED;
+	Vec2b getVec2bToBallFollow(bool onlyFollowBall = false) {
+		speedForward = USUAL_FOLLOWING_SPEED;
 		if (seeBall) {
 			float offset = tsops.angleOffset(ang, distSoft);
-			if (dist < 6) offset = 0;
+			if (dist < 6 || onlyFollowBall) offset = 0;
 			else if (dist > 9 && abs(ang) > 30) {
 				speedForward *= 0.85;
 				//offset *= 0.8;
@@ -232,19 +242,18 @@ namespace Asterisk {
 			angSoft = 0;
 		}
 		
-		return Vec2b(speedForward, gyro.adduct0_360(angSoft));
+		return Vec2b(speedForward, gyro.adduct0_360(angleIMU + angSoft));
 	}
 	
 	void forwardStrategy() {
 		if (!doesntSeeGoals) targetRaw = float(myForward.getTargetForward());
 		gyro.setTarget(targetRaw);
-		//target = gyro.getTarget();
+		
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
+		led3.set(abs(float(pow)) <= 300);
 		
-		//goTo = Vec2b(0.2, 90);//getVec2bToBallFollow();
-		goTo = getVec2bToBallFollow();
-		if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
+		goToBall = getVec2bToBallFollow();
 		
 		if (!doesntSeeGoals) {
 			outStatus = myForward.checkOUTs();
@@ -253,36 +262,45 @@ namespace Asterisk {
 			if (!goFromOUT && myForward.robotInOUT()) {
 				goFromOUT = true;
 				outStatusNow = outStatus;
-			} else if (goFromOUT || goFromOutTime) {
-				goTo = myForward.setOUTVector(outStatusNow, currentVector);
+			} else if (goFromOUT) {
+				goOUT = myForward.setOUTVector(outStatusNow, currentVector);
 				
 				if (goFromOUT && myForward.robotInFreeField()) {
 					goFromOUT = false;
-					goFromOutTime = true;
 					timeOUT = time_service::millis();
-				}  //if (!goFromOUT && goFromOutTime && time_service::millis() - timeOUT >= TIME_GO_FROM_OUT) {
-					//goFromOutTime = false;
-				//}
+				} 
 				
 				if (outStatus == unknow || outStatus != outStatusNow) {// && outStatus != outStatusNow) {
 					goFromOUT = false;
-					goFromOutTime = false;
 					timeOUT = 0;
 				}
 			} 
-		} //else {
-			//goFromOUT = false;
-			//goFromOutTime = false;
-			//myForward.resetCounts();
-			//timeOUT = 0;
-		//}
+		}
 		
 		if (time_service::millis() != t) {
-			currentVector.changeTo(goTo);
-			//else currentVector = goTo;
+			if (doesntSeeGoals) goTo = myForward.getVecToPoint(0, DIST_BETWEEN_GOALS / 2);
+			else if (!robotInOUT) {
+				float globalBall = myForward.adduct180(ang - angleIMU);
+				if (myForward.robotNearOUT()) {
+					nearOUT = true;
+					//goToBall = getVec2bToBallFollow(true);
+					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.86, ang + 90);
+				} else {
+					goTo = goToBall;
+					nearOUT = false;
+				}
+				//goTo = goToBall;
+			} else if (robotInOUT) {
+				nearOUT = false;
+				if (myForward.nearEnemyGoal() || myForward.nearMyGoal()) {
+					goTo = goToBall + goOUT;
+				} else goTo = goOUT;
+				//goTo = goOUT;
+			}
 			
-			if (doesntSeeGoals) currentVector = myForward.getVecToPoint(0, DIST_BETWEEN_GOALS / 2);//gyro.adduct0_360(180 + currentVector.angle);
-				
+			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
+			
+			currentVector.changeTo(goTo);
 			t = time_service::millis();
 		}
 		
@@ -338,14 +356,12 @@ namespace Asterisk {
 		timeCalibrEnd = 0;
 		timeOUT = 0;
 		
-		if (myRole == GOALKEEPER_ROLE) {
-			myGoalkeeper.setGoal(myGoal);
-			myGoalkeeper.setMaxLen(MAX_VEC2B_LEN);
-			myGoalkeeper.setLeaveTime(TIME_FINISH_LEAVE);
-		} else {
-			myForward.setGoal(myGoal);
-			myForward.setMaxLen(MAX_VEC2B_LEN);
-		}
+		myGoalkeeper.setGoal(myGoal);
+		myGoalkeeper.setMaxLen(MAX_VEC2B_LEN);
+		myGoalkeeper.setLeaveTime(TIME_FINISH_LEAVE);
+		
+		myForward.setGoal(myGoal);
+		myForward.setMaxLen(MAX_VEC2B_LEN);
 	
 		if (myRole == GOALKEEPER_ROLE) gyro.setTarget(0);
 		myMode = mode;

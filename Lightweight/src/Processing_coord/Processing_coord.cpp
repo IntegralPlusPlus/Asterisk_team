@@ -2,20 +2,10 @@
 
 ProcessingCoord::ProcessingCoord() {
 	_maxLen = 1;
-	
-	DOWN_Y_GOALKEEPER_RIGHT = 15;
-	DOWN_Y_GOALKEEPER_LEFT = 20;
 }
 
 void ProcessingCoord::setGoal(uint8_t currentGoal) {
 	_goal = currentGoal;
-	if (_goal == BLUE_GOAL) {
-		DOWN_Y_GOALKEEPER_RIGHT = 20;
-		DOWN_Y_GOALKEEPER_LEFT = 26;
-	} else {
-		DOWN_Y_GOALKEEPER_RIGHT = 15;
-		DOWN_Y_GOALKEEPER_LEFT = 20;
-	}
 }
 
 void ProcessingCoord::setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow) {

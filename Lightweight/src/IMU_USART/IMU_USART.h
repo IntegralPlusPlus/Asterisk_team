@@ -8,11 +8,11 @@
 #include "usart6.h"
 
 #define RECEIVED2REAL 1.4117647058823529411764705882353f
-#define KOEFF_P 19
-#define KOEFF_D 480
+#define KOEFF_P 17
+#define KOEFF_D 400
 #define MAXROTATION 2048
-#define K_SOFT 0.013f
-#define TARGET_K_FOFT 0.0022f
+#define K_SOFT 0.02f
+#define TARGET_K_FOFT 0.012f
 
 class gyro_imu {
 	public:

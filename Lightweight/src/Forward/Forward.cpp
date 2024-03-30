@@ -6,15 +6,20 @@ Forward::Forward(): ProcessingCoord() {
 	inOUT = false;
 	_countCyclesOUT = 0;
 	_countCyclesField = 0;
+	
+	upThreshold = UP_Y - DELTA_DIST;
+	downThreshold = 0.8 * DOWN_Y + DELTA_DIST;
+	leftThreshold = THRESHOLD_X_LEFT + DELTA_DIST;
+	rightThreshold = THRESHOLD_X_RIGHT - DELTA_DIST;
 }
 
 uint8_t Forward::checkOUTs() {
 	uint8_t outStatus = unknow;
 	inOUT = true;
-	if (!checkYUp(_y)) outStatus = down;
-	else if (!checkYDown(_y)) outStatus = up;
-	else if (!checkXLeft(_x)) outStatus = right;
+	if (!checkXLeft(_x)) outStatus = right;
 	else if (!checkXRight(_x)) outStatus = left;
+	else if (!checkYUp(_y)) outStatus = down;
+	else if (!checkYDown(_y)) outStatus = up;
 	else {
 		if (myGoalLine(_x, _y)) outStatus = up;
 		else if (enemyGoalLine(_x, _y)) outStatus = down;
@@ -119,18 +124,31 @@ bool Forward::enemyGoalLine(int16_t x, int16_t y) {
 				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
 }
 
+bool Forward::nearEnemyGoal() {
+	return enemyGoalLine(_x, _y) || isEnemyGoalCircle(_x, _y, _dBlue, _dYellow);
+}
+
+bool Forward::nearMyGoal() {
+	return myGoalLine(_x, _y) || isMyGoalCircle(_x, _y, _dBlue, _dYellow);
+}
+
+bool Forward::robotNearOUT() {
+	return _x - leftThreshold < NEAR_OUT_DIST || rightThreshold - _x < NEAR_OUT_DIST 
+					|| _y - downThreshold < NEAR_OUT_DIST || upThreshold - _y < NEAR_OUT_DIST;
+}
+
 bool Forward::checkXLeft(int16_t x) {
-	return x > THRESHOLD_X_LEFT + DELTA_DIST;
+	return x > leftThreshold;
 }
 
 bool Forward::checkXRight(int16_t x) {
-	return x < THRESHOLD_X_RIGHT - DELTA_DIST;
+	return x < rightThreshold;
 }
 
 bool Forward::checkYUp(int16_t y) {
-	return y < UP_Y - DELTA_DIST;
+	return y < upThreshold;
 }
 
 bool Forward::checkYDown(int16_t y) {
-	return y > 0.8 * DOWN_Y + DELTA_DIST;
+	return y > downThreshold;
 }

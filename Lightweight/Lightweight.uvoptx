@@ -285,27 +285,32 @@
         <Ww>
           <count>23</count>
           <WinNumber>1</WinNumber>
-          <ItemText>angY,0x0A</ItemText>
+          <ItemText>goFromOUT</ItemText>
         </Ww>
         <Ww>
           <count>24</count>
           <WinNumber>1</WinNumber>
-          <ItemText>goFromOUT</ItemText>
+          <ItemText>goFromOutTime</ItemText>
         </Ww>
         <Ww>
           <count>25</count>
           <WinNumber>1</WinNumber>
-          <ItemText>goFromOutTime</ItemText>
+          <ItemText>pow,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>26</count>
           <WinNumber>1</WinNumber>
-          <ItemText>pow,0x0A</ItemText>
+          <ItemText>targetRaw</ItemText>
         </Ww>
         <Ww>
           <count>27</count>
           <WinNumber>1</WinNumber>
-          <ItemText>targetRaw</ItemText>
+          <ItemText>myGoal</ItemText>
+        </Ww>
+        <Ww>
+          <count>28</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>nearOUT</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -343,6 +348,26 @@
           <count>6</count>
           <WinNumber>2</WinNumber>
           <ItemText>tssps_[i]</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>xYellow</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>yYellow</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>xBlue</ItemText>
+        </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>yBlue</ItemText>
         </Ww>
       </WatchWindow2>
       <Tracepoint>
@@ -399,7 +424,7 @@
 
   <Group>
     <GroupName>main</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
