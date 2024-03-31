@@ -9,7 +9,7 @@
 #define TIME_FINISH_LEAVE 2650
 #define TIME_GO_FROM_OUT 0
 
-#define USUAL_FOLLOWING_SPEED 0.65
+#define USUAL_FOLLOWING_SPEED 0.67
 //0.65
 #define MAX_VEC2B_LEN 0.87
 //0.87
@@ -86,7 +86,7 @@ namespace Asterisk {
 	Pin button1('D', 1, read_pupd_down);
 	Pin button2('D', 0, read_pupd_down);
 	Pin button3('A', 9, read_pupd_down);
-	Button butt1(button1);
+	Button butt1(button1, true);
 	Button butt2(button2);
 	Button butt3(button3);
 	Button resetIMU(reset_imu_pin);
@@ -160,7 +160,7 @@ namespace Asterisk {
 		//myGoalkeeper.setGoal(myGoal);
 		//myForward.setGoal(myGoal);
 		
-		motorsWork = !swMotorPower.readPin();
+		motorsWork = butt1.pressed();//swMotorPower.readPin();
 		
 		if (!tsops.distBad(distRaw)) {
 			//ang = ball.getCurrentVec2b().angle;
@@ -242,7 +242,12 @@ namespace Asterisk {
 			angSoft = 0;
 		}
 		
-		return Vec2b(speedForward, gyro.adduct0_360(angleIMU + angSoft));
+		if (abs(ang) <= 5 && dist > 9.5) {
+			angSoft = myForward.adduct(myForward.getTargetForward() + 90);
+			speedForward *= 1.25;
+		}
+		
+		return Vec2b(speedForward, gyro.adduct0_360(angSoft));
 	}
 	
 	void forwardStrategy() {
@@ -263,28 +268,34 @@ namespace Asterisk {
 				goFromOUT = true;
 				outStatusNow = outStatus;
 			} else if (goFromOUT) {
-				goOUT = myForward.setOUTVector(outStatusNow, currentVector);
+				goOUT = myForward.setOUTVector(outStatus, currentVector); //outStatusNow
 				
 				if (goFromOUT && myForward.robotInFreeField()) {
 					goFromOUT = false;
 					timeOUT = time_service::millis();
 				} 
 				
-				if (outStatus == unknow || outStatus != outStatusNow) {// && outStatus != outStatusNow) {
+				if (outStatus == unknow) {// && outStatus != outStatusNow) {
+					outStatusNow = outStatus;
 					goFromOUT = false;
 					timeOUT = 0;
-				}
+				} else if (outStatus != outStatusNow) outStatusNow = outStatus;
 			} 
-		}
+		} else myForward.resetCounts();
 		
 		if (time_service::millis() != t) {
 			if (doesntSeeGoals) goTo = myForward.getVecToPoint(0, DIST_BETWEEN_GOALS / 2);
 			else if (!robotInOUT) {
 				float globalBall = myForward.adduct180(ang - angleIMU);
-				if (myForward.robotNearOUT()) {
+				if ((myForward.robotNearOUTSides() || myForward.robotNearOUTUpDown())
+						&& globalBall >= -90 && globalBall <= 90) {
 					nearOUT = true;
 					//goToBall = getVec2bToBallFollow(true);
-					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.86, ang + 90);
+					float speed = USUAL_FOLLOWING_SPEED;
+					if (myForward.robotNearOUTSides()) speed *= 0.86;
+					else if (myForward.robotNearOUTUpDown()) speed *= 0.68;
+							
+					goTo = Vec2b(speed, ang + 90);
 				} else {
 					goTo = goToBall;
 					nearOUT = false;
@@ -292,8 +303,10 @@ namespace Asterisk {
 				//goTo = goToBall;
 			} else if (robotInOUT) {
 				nearOUT = false;
-				if (myForward.nearEnemyGoal() || myForward.nearMyGoal()) {
+				if (myForward.nearEnemyGoal()) {
 					goTo = goToBall + goOUT;
+				} else if (myForward.nearMyGoal()) {
+					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.7, 90 + ang) + goOUT;
 				} else goTo = goOUT;
 				//goTo = goOUT;
 			}

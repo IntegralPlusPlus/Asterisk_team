@@ -111,7 +111,8 @@ bool Forward::isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYello
 }
 
 bool Forward::myGoalLine(int16_t x, int16_t y) {
-	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
+	//DIST_BETWEEN_GOALS - 
+	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	
 	return y < GOAL_OUT_Y_THRESHOLD + DELTA_DIST &&
 				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
@@ -132,9 +133,12 @@ bool Forward::nearMyGoal() {
 	return myGoalLine(_x, _y) || isMyGoalCircle(_x, _y, _dBlue, _dYellow);
 }
 
-bool Forward::robotNearOUT() {
-	return _x - leftThreshold < NEAR_OUT_DIST || rightThreshold - _x < NEAR_OUT_DIST 
-					|| _y - downThreshold < NEAR_OUT_DIST || upThreshold - _y < NEAR_OUT_DIST;
+bool Forward::robotNearOUTUpDown() {
+	return _y - downThreshold < NEAR_OUT_DIST || upThreshold - _y < NEAR_OUT_DIST;
+}
+
+bool Forward::robotNearOUTSides() {
+	return _x - leftThreshold < NEAR_OUT_DIST || rightThreshold - _x < NEAR_OUT_DIST;
 }
 
 bool Forward::checkXLeft(int16_t x) {

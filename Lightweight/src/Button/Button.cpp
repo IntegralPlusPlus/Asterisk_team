@@ -1,14 +1,15 @@
 #include "Button.h"
 
-Button::Button(Pin myButton): _button(myButton) {
+Button::Button(Pin myButton, bool inverted): _button(myButton) {
 	buttonOld = false;
 	press = false;
 	startTime = false;
+	_inverted = inverted;
 }
 
 bool Button::pressed() {
 	bool readPin = _button.readPin();
-	if (!startTime && readPin && !buttonOld) {
+	if (!startTime && (!_inverted && readPin && !buttonOld || _inverted && !readPin && buttonOld)) {
 		time = time_service::millis();
 		startTime = true;
 		checkPin = readPin;

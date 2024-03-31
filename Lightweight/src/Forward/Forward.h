@@ -3,7 +3,7 @@
 #include "Processing_coord.h"
 #include "Vec2b.h"
 
-#define NEAR_OUT_DIST 20 
+#define NEAR_OUT_DIST 11
 
 enum processingOUT {
 	unknow,
@@ -26,7 +26,8 @@ class Forward : public ProcessingCoord {
 		uint8_t checkOUTs();
 		bool nearEnemyGoal();
 		bool nearMyGoal();	
-		bool robotNearOUT();
+		bool robotNearOUTUpDown();
+		bool robotNearOUTSides();
 		bool isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool checkXLeft(int16_t x);

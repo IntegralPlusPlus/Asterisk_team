@@ -7,10 +7,11 @@
 
 class Button {
 	public:
-		Button(Pin myButton);
+		Button(Pin myButton, bool inverted = false);
 		bool pressed();
 	private:
 		Pin _button;
+		bool _inverted;
 		bool buttonOld, press, checkPin;
 		bool startTime;
 		uint64_t time;
