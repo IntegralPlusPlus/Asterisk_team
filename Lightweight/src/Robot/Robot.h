@@ -9,13 +9,14 @@
 #define TIME_FINISH_LEAVE 2650
 #define TIME_GO_FROM_OUT 0
 
-#define USUAL_FOLLOWING_SPEED 0.67
-//0.65
+#define USUAL_FOLLOWING_SPEED 0.5
+//0.67
 #define MAX_VEC2B_LEN 0.87
 //0.87
 
 namespace Asterisk {
-	Vec2b currentVector, goToBall, goOUT, goTo;
+	Vec2b currentVector;
+	Vec2b goToBall, goOUT, goTo;
 	volatile float ang, angRes;
 	volatile bool imuCalibrated;
 	volatile int16_t pow;
@@ -148,23 +149,23 @@ namespace Asterisk {
 			timeUpdateQueue = time_service::millis();
 		}
 		
-		ang = angRaw;
-		dist = distRaw;
+		//ang = angRaw;
+		//dist = distRaw;
 		
 		gkLED.set(swRoleChoose.readPin());
 		forwLED.set(!swRoleChoose.readPin());
 		
 		//myGoal = !swGoalChoose.readPin();
-		blueGoalLED.set(myGoal);
-		yellowGoalLED.set(!myGoal);
+		blueGoalLED.set(!swGoalChoose.readPin());
+		yellowGoalLED.set(swGoalChoose.readPin());
 		//myGoalkeeper.setGoal(myGoal);
 		//myForward.setGoal(myGoal);
 		
 		motorsWork = butt1.pressed();//swMotorPower.readPin();
 		
 		if (!tsops.distBad(distRaw)) {
-			//ang = ball.getCurrentVec2b().angle;
-			//dist = ball.getCurrentVec2b().length;
+			ang = ball.getCurrentVec2b().angle;
+			dist = ball.getCurrentVec2b().length;
 			timeNotSeenBall = time_service::millis();
 		}
 		
@@ -184,7 +185,7 @@ namespace Asterisk {
 		dYe = camera.getDistYellow();
 		angY = camera._angleYellow;
 		volt = voltageDiv.getVoltage();
-		if ((myRole == FORWARD_ROLE && !(dBl == 0 && dYe == 0)) ||
+		if ((myRole == FORWARD_ROLE && !(!dBl && !dYe)) ||
 			 (myRole == GOALKEEPER_ROLE && ((myGoal == YELLOW_GOAL && dYe) || (myGoal == BLUE_GOAL && dBl)))) {
 			x = camera.getX();
 			y = camera.getY();
@@ -221,13 +222,13 @@ namespace Asterisk {
 		led2.set(abs(angleIMU) <= 5);
 	}
 	
-	Vec2b getVec2bToBallFollow(bool onlyFollowBall = false) {
+	Vec2b getVec2bToBallFollow() {
 		speedForward = USUAL_FOLLOWING_SPEED;
 		if (seeBall) {
 			float offset = tsops.angleOffset(ang, distSoft);
-			if (dist < 6 || onlyFollowBall) offset = 0;
-			else if (dist > 9 && abs(ang) > 30) {
-				speedForward *= 0.85;
+			if (dist < 6) offset = 0;
+			else if (dist > 9.17 && abs(ang) > 25) {
+				speedForward *= 0.9;
 				//offset *= 0.8;
 			}
 			
@@ -242,7 +243,7 @@ namespace Asterisk {
 			angSoft = 0;
 		}
 		
-		if (abs(ang) <= 5 && dist > 9.5) {
+		if (abs(ang) <= 10 && dist > 9.4) { 
 			angSoft = myForward.adduct(myForward.getTargetForward() + 90);
 			speedForward *= 1.25;
 		}
@@ -256,7 +257,7 @@ namespace Asterisk {
 		
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
-		led3.set(abs(float(pow)) <= 300);
+		led3.set(abs(float(pow)) <= 80);
 		
 		goToBall = getVec2bToBallFollow();
 		
@@ -305,10 +306,10 @@ namespace Asterisk {
 				nearOUT = false;
 				if (myForward.nearEnemyGoal()) {
 					goTo = goToBall + goOUT;
-				} else if (myForward.nearMyGoal()) {
-					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.7, 90 + ang) + goOUT;
+				} else if (myForward.nearMyGoal()) {// && !myForward.ballInBack(ang)) {
+					goOUT.length *= 0.5;
+					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.8, 90 + ang) + goOUT;
 				} else goTo = goOUT;
-				//goTo = goOUT;
 			}
 			
 			if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
@@ -323,6 +324,7 @@ namespace Asterisk {
 	}
 	
 	void goalkeeperStrategy() {
+	
 	}
 	
 	bool mustLeave() {

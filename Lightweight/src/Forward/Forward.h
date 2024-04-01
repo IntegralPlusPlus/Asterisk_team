@@ -4,6 +4,7 @@
 #include "Vec2b.h"
 
 #define NEAR_OUT_DIST 11
+#define BACK_SECTOR 120
 
 enum processingOUT {
 	unknow,
@@ -24,6 +25,7 @@ class Forward : public ProcessingCoord {
 		Vec2b setOUTVector(uint8_t status, Vec2b current);
 		int16_t getTargetForward();
 		uint8_t checkOUTs();
+		bool ballInBack(float angBall);
 		bool nearEnemyGoal();
 		bool nearMyGoal();	
 		bool robotNearOUTUpDown();

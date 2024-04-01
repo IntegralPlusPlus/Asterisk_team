@@ -3,7 +3,7 @@
 #include "time_service.h"
 #include "Pin.h"
 
-#define BUTTON_DELTA 70
+#define BUTTON_DELTA 60
 
 class Button {
 	public:

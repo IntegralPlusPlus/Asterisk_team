@@ -20,23 +20,25 @@ BallVec2b::BallVec2b() {
 }
 
 void BallVec2b::push(Vec2b vec, int64_t millis) {
-	if (_queue[_last].correct()) {
-		tgDiffDist = double(_queue[_last].getLen() - vec.length) / double(millis - _queue[_last].getTime());
-		tgDiffAng = double(_queue[_last].getAngle() - vec.angle) / double(millis - _queue[_last].getTime());
+	if (millis != _queue[_last].getTime()) {
+		if (_queue[_last].correct()) {
+			tgDiffDist = double(_queue[_last].getLen() - vec.length) / double(millis - _queue[_last].getTime());
+			tgDiffAng = double(_queue[_last].getAngle() - vec.angle) / double(millis - _queue[_last].getTime());
+			
+			changeValues(STATUS_POP_ELEMENT);
+			_timeSumm -= _queue[_last].getTime();
+		}	
 		
-		changeValues(STATUS_POP_ELEMENT);
-		_timeSumm -= _queue[_last].getTime();
-	}	
-	
-	_queue[_last].set(vec.length, vec.angle, millis);
-	setTransitionBy360();
-	_queue[_last].setTransition(_transition360);
-	changeValues(STATUS_PUSH_ELEMENT);
-	calculate();
-	_timeSumm += _queue[_last].getTime();
-	_last++;
-	
-	if (_last > QUEUE_SIZE - 1) _last = 0;
+		_queue[_last].set(vec.length, vec.angle, millis);
+		setTransitionBy360();
+		_queue[_last].setTransition(_transition360);
+		changeValues(STATUS_PUSH_ELEMENT);
+		calculate();
+		_timeSumm += _queue[_last].getTime();
+		_last++;
+		
+		if (_last > QUEUE_SIZE - 1) _last = 0;
+	}
 }
 
 void BallVec2b::calculate() {

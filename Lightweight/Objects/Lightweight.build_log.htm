@@ -135,7 +135,7 @@ compiling main.cpp...
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
-.\src\Forward\Forward.h(47): warning:  #1-D: last line of file ends without a newline
+.\src\Forward\Forward.h(49): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -159,22 +159,24 @@ compiling main.cpp...
   #define P_MODE 1
 .\src\Button\Button.h(18): warning:  #1-D: last line of file ends without a newline
   };
-.\src\Robot\Robot.h(245): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		if (abs(ang) <= 5 && dist > 9.5) {
-.\src\Robot\Robot.h(295): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  					if (myForward.robotNearOUTSides()) speed *= 0.86;
+.\src\Robot\Robot.h(230): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			else if (dist > 9.17 && abs(ang) > 25) {
+.\src\Robot\Robot.h(246): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if (abs(ang) <= 10 && dist > 9.4) { 
 .\src\Robot\Robot.h(296): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  					if (myForward.robotNearOUTSides()) speed *= 0.86;
+.\src\Robot\Robot.h(297): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   					else if (myForward.robotNearOUTUpDown()) speed *= 0.68;
-.\src\Robot\Robot.h(382): warning:  #1-D: last line of file ends without a newline
+.\src\Robot\Robot.h(384): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp(18): warning:  #111-D: statement is unreachable
   	return 0;
 src\main\main.cpp(19): warning:  #1-D: last line of file ends without a newline
   }
-src\main\main.cpp: 71 warnings, 0 errors
+src\main\main.cpp: 72 warnings, 0 errors
 linking...
-Program Size: Code=41438 RO-data=1430 RW-data=392 ZI-data=17040  
-".\Objects\Lightweight.axf" - 0 Error(s), 71 Warning(s).
+Program Size: Code=41606 RO-data=1430 RW-data=392 ZI-data=16176  
+".\Objects\Lightweight.axf" - 0 Error(s), 72 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -200,12 +202,12 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
-      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
       Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-Build Time Elapsed:  00:00:03
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

@@ -125,6 +125,10 @@ bool Forward::enemyGoalLine(int16_t x, int16_t y) {
 				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
 }
 
+bool Forward::ballInBack(float angBall) {
+	return angBall + _angle < -180 + 0.5 * BACK_SECTOR || angBall + _angle > 180 - 0.5 * BACK_SECTOR;
+}
+
 bool Forward::nearEnemyGoal() {
 	return enemyGoalLine(_x, _y) || isEnemyGoalCircle(_x, _y, _dBlue, _dYellow);
 }
