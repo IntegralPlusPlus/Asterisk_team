@@ -96,6 +96,33 @@ Vec2b Forward::getVecForEnemyCircle(int16_t x, int16_t y) {
 	else return Vec2b(_maxLen, adduct(90 + ang + _angle));
 }
 
+Vec2b Forward::vec2bOnGoal(float speed, float angBall) {
+	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+	
+	angBall -= _angle;
+	if (angGoal < ANGLE_LOW_TO_CIRCLE) {
+		float angleTanget;	
+		if (getBallSide(angBall) == up_left) angleTanget = adduct(adduct(270 + angGoal) - 180);
+		else angleTanget = adduct(270 + angGoal);
+		
+		return Vec2b(speed, angleTanget);
+	} else if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
+		float angleTanget = adduct(90 + angGoal);
+		if (getBallSide(angBall) == up_left) angleTanget = adduct(90 + angGoal);
+		else angleTanget = adduct(adduct(90 + angGoal) - 180);
+		
+		return Vec2b(speed, angleTanget);
+	} else {
+		if (angBall < 0) return Vec2b(speed, 0);
+		else return Vec2b(speed, 180);
+	}
+}
+
+uint8_t Forward::getBallSide(float angBall) {
+	if (angBall < -ANGLE2SIDES || angBall > 180 - ANGLE2SIDES) return down_right;
+	else return up_left;
+}
+
 bool Forward::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
@@ -106,16 +133,17 @@ bool Forward::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYe
 bool Forward::isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	
-	if (x > 0) return distance(x, y) < float(1.15f * RADIUS_GOAL_OUT_RIGHT) && angGoal < ANGLE_LOW_TO_CIRCLE; 
-	else return distance(x, y) < float(1.15f * RADIUS_GOAL_OUT_LEFT) && angGoal > ANGLE_HIGH_TO_CIRCLE; 
+	if (x > 0) return distance(x, y) < float(COEFF_CIRCLE * RADIUS_GOAL_OUT_RIGHT) && angGoal < ANGLE_LOW_TO_CIRCLE; 
+	else return distance(x, y) < float(COEFF_CIRCLE * RADIUS_GOAL_OUT_LEFT) && angGoal > ANGLE_HIGH_TO_CIRCLE; 
 }
 
 bool Forward::myGoalLine(int16_t x, int16_t y) {
 	//DIST_BETWEEN_GOALS - 
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	
-	return y < GOAL_OUT_Y_THRESHOLD + DELTA_DIST &&
+	return y < GOAL_OUT_Y_THRESHOLD + 0.5 * DELTA_DIST &&
 				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
+	
 }
 
 bool Forward::enemyGoalLine(int16_t x, int16_t y) {
@@ -129,12 +157,30 @@ bool Forward::ballInBack(float angBall) {
 	return angBall + _angle < -180 + 0.5 * BACK_SECTOR || angBall + _angle > 180 - 0.5 * BACK_SECTOR;
 }
 
-bool Forward::nearEnemyGoal() {
+bool Forward::inEnemyGoal() {
 	return enemyGoalLine(_x, _y) || isEnemyGoalCircle(_x, _y, _dBlue, _dYellow);
 }
 
-bool Forward::nearMyGoal() {
+bool Forward::inMyGoal() {
 	return myGoalLine(_x, _y) || isMyGoalCircle(_x, _y, _dBlue, _dYellow);
+}
+
+bool Forward::nearMyGoal() {
+	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+	
+	bool goalLine = _y < GOAL_OUT_Y_THRESHOLD + DELTA_DIST + NEAR_OUT_DIST &&
+									angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
+	bool goalCircle;
+	
+	if (_x > 0) {
+		goalCircle = distance(_x, _y) < NEAR_OUT_DIST * 0.3 + float(COEFF_CIRCLE * RADIUS_GOAL_OUT_RIGHT) 
+									&& angGoal < ANGLE_LOW_TO_CIRCLE; 
+	} else {
+		goalCircle = distance(_x, _y) < NEAR_OUT_DIST * 0.3 + float(COEFF_CIRCLE * RADIUS_GOAL_OUT_LEFT) 
+									&& angGoal > ANGLE_HIGH_TO_CIRCLE; 
+	}
+	
+	return goalLine || goalCircle;
 }
 
 bool Forward::robotNearOUTUpDown() {

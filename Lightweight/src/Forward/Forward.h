@@ -4,7 +4,9 @@
 #include "Vec2b.h"
 
 #define NEAR_OUT_DIST 11
-#define BACK_SECTOR 120
+#define BACK_SECTOR 140
+#define COEFF_CIRCLE 1.15f
+#define ANGLE2SIDES 30
 
 enum processingOUT {
 	unknow,
@@ -16,6 +18,11 @@ enum processingOUT {
 	myCircle
 };
 
+enum ballSides {
+	up_left,
+	down_right
+};
+
 class Forward : public ProcessingCoord {
 	public:
 		Forward();
@@ -23,10 +30,13 @@ class Forward : public ProcessingCoord {
 		Vec2b getVecForMyCircle(int16_t x, int16_t y);
 		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
 		Vec2b setOUTVector(uint8_t status, Vec2b current);
+		Vec2b vec2bOnGoal(float speed, float angBall);
 		int16_t getTargetForward();
 		uint8_t checkOUTs();
+		uint8_t getBallSide(float angBall);
 		bool ballInBack(float angBall);
-		bool nearEnemyGoal();
+		bool inEnemyGoal();
+		bool inMyGoal();
 		bool nearMyGoal();	
 		bool robotNearOUTUpDown();
 		bool robotNearOUTSides();

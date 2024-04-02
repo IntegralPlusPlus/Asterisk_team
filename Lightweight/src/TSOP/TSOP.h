@@ -19,7 +19,7 @@ class TSOP {
 		int16_t detourAngle(int16_t angle);
 		int16_t adduct(int16_t a);
 		double convertDist(double dist);
-		double angleOffset(double angle, double dist);
+		double angleOffset(double angle, double dist, double angleIMU = 0);
 		bool distBad(int16_t distLocator);
 	protected:
 		Pin _w1, _w2, _w3, _w4, _mux1input, _mux2input;

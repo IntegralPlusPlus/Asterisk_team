@@ -22,9 +22,9 @@
 #define DOWN_Y_GOALKEEPER_RIGHT 15
 #define DOWN_Y_GOALKEEPER_LEFT 20
 
-#define ANGLE_LOW_TO_CIRCLE 60
+#define ANGLE_LOW_TO_CIRCLE 50
 #define ANGLE_HIGH_TO_CIRCLE 125
-#define RADIUS_GOAL_OUT_RIGHT 42
+#define RADIUS_GOAL_OUT_RIGHT 39
 #define RADIUS_GOAL_OUT_LEFT 44
 
 #define MAX_COEFF_TO_GOAL_CENTER 1.075f
@@ -46,6 +46,7 @@ class ProcessingCoord {
 		int16_t adduct180(int16_t value);
 		float distance(float x, float y, float startX = 0, float startY = 0);
 		float map(float a, float from1, float to1, float from2, float to2);
+		float getAngleBetween(float ang1, float ang2);
 	protected:
 		float _maxLen;
 		int16_t _x, _y, _angle;

@@ -42,3 +42,7 @@ Vec2b Vec2b::operator+ (const Vec2b& a) {
 	
 	return Vec2b(sqrt(x * x + y * y), ang);
 }
+
+Vec2b Vec2b::operator*= (const float& coeff) {
+	this->length *= coeff;
+}

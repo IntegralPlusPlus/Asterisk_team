@@ -48,3 +48,9 @@ Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
 	
 	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
 }
+
+float ProcessingCoord::getAngleBetween(float ang1, float ang2) {
+	if (abs(ang1 - ang2) < 180) return abs(ang1 - ang2);
+	else if (ang2 < ang1) return abs(ang2 + 360 - ang1);
+	else return abs(ang2 - ang1 - 360);
+}
