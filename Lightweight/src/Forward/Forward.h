@@ -6,7 +6,8 @@
 #define NEAR_OUT_DIST 11
 #define BACK_SECTOR 140
 #define COEFF_CIRCLE 1.15f
-#define ANGLE2SIDES 30
+#define ANGLE2SIDES 20
+#define MINIMUM_SPEED_TO_BALL 0.41f  
 
 enum processingOUT {
 	unknow,
@@ -23,6 +24,12 @@ enum ballSides {
 	down_right
 };
 
+enum fieldZones {
+	leftZone,
+	middleZone,
+	rightZone
+};
+
 class Forward : public ProcessingCoord {
 	public:
 		Forward();
@@ -31,15 +38,16 @@ class Forward : public ProcessingCoord {
 		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
 		Vec2b setOUTVector(uint8_t status, Vec2b current);
 		Vec2b vec2bOnGoal(float speed, float angBall);
+		float setNearSpeed(uint8_t status, float maxSpeed);
 		int16_t getTargetForward();
 		uint8_t checkOUTs();
 		uint8_t getBallSide(float angBall);
+		uint8_t setFieldZone();
+		uint8_t robotNearOUT();
 		bool ballInBack(float angBall);
 		bool inEnemyGoal();
 		bool inMyGoal();
 		bool nearMyGoal();	
-		bool robotNearOUTUpDown();
-		bool robotNearOUTSides();
 		bool isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool checkXLeft(int16_t x);

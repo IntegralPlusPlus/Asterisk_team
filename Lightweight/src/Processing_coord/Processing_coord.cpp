@@ -25,7 +25,10 @@ float ProcessingCoord::distance(float x, float y, float startX, float startY) {
 }
 
 float ProcessingCoord::map(float a, float from1, float to1, float from2, float to2) {
-	return to1 + a * (to2 - to1) / (from2 - from1);
+	if (a > to1) a = to1;
+	if (a < from1) a = from1;
+	if (to1 > from1) return from2 + (to2 - from2) * (a - from1) / (to1 - from1);
+	else return from2;
 }
 
 int16_t ProcessingCoord::adduct(int16_t value) {

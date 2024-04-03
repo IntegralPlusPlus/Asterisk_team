@@ -50,9 +50,6 @@ void TSOP::calculate() {
 	
 	_angle = adduct(-float(atan2(vecY, vecX) * RAD2DEG));
 	_dist = float(sqrt(vecY * vecY + vecX * vecX));
-	
-	//KOSTIL
-	//if (_angle >= 10 && _angle <= 88) _dist *= 1.1f;
 }
 
 float TSOP::getAngle() {

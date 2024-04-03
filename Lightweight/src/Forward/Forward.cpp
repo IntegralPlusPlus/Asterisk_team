@@ -123,6 +123,15 @@ uint8_t Forward::getBallSide(float angBall) {
 	else return up_left;
 }
 
+uint8_t Forward::setFieldZone() {
+	float sidesSize = float(rightThreshold - leftThreshold) / 10;
+	
+	return middleZone;
+	if (_x <= leftThreshold + sidesSize) return leftZone;
+	else if (_x >= rightThreshold - sidesSize) return rightZone;
+	else return middleZone;
+}
+
 bool Forward::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
@@ -143,7 +152,6 @@ bool Forward::myGoalLine(int16_t x, int16_t y) {
 	
 	return y < GOAL_OUT_Y_THRESHOLD + 0.5 * DELTA_DIST &&
 				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
-	
 }
 
 bool Forward::enemyGoalLine(int16_t x, int16_t y) {
@@ -183,12 +191,25 @@ bool Forward::nearMyGoal() {
 	return goalLine || goalCircle;
 }
 
-bool Forward::robotNearOUTUpDown() {
-	return _y - downThreshold < NEAR_OUT_DIST || upThreshold - _y < NEAR_OUT_DIST;
+uint8_t Forward::robotNearOUT() {
+	if (_x - leftThreshold < NEAR_OUT_DIST) return left;
+	else if (rightThreshold - _x < NEAR_OUT_DIST) return right;
+	else if (_y - downThreshold < NEAR_OUT_DIST) return down;
+	else if (upThreshold - _y < NEAR_OUT_DIST) return up;
+	else return unknow;
 }
 
-bool Forward::robotNearOUTSides() {
-	return _x - leftThreshold < NEAR_OUT_DIST || rightThreshold - _x < NEAR_OUT_DIST;
+float Forward::setNearSpeed(uint8_t status, float maxSpeed) {
+	float minSpeed = MINIMUM_SPEED_TO_BALL;
+	if (status == down) {
+		return map(_y, downThreshold, downThreshold + NEAR_OUT_DIST, maxSpeed, minSpeed);
+	} else if (status == up) {
+		return map(_y, upThreshold - NEAR_OUT_DIST, upThreshold, maxSpeed, minSpeed);
+	} else if (status == left) {
+		return map(_x, leftThreshold, leftThreshold + NEAR_OUT_DIST, maxSpeed, minSpeed);
+	} else if (status == right) {
+		return map(_x, rightThreshold - NEAR_OUT_DIST, rightThreshold, maxSpeed, minSpeed);
+	} else return maxSpeed;
 }
 
 bool Forward::checkXLeft(int16_t x) {

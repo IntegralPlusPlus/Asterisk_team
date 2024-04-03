@@ -10,6 +10,7 @@
 #define TIME_GO_FROM_OUT 0
 
 #define USUAL_FOLLOWING_SPEED 0.5
+//0.5
 //0.67
 #define MAX_VEC2B_LEN 0.87
 //0.87
@@ -176,14 +177,14 @@ namespace Asterisk {
 		angleIMU = -gyro.getCurrentAngle();
 		
 		camera.calculate(angleIMU, myGoal, myRole);
-		xYellow = camera.xYellow;
-		yYellow = camera.yYellow;
-		xBlue = camera.xBlue;
-		yBlue = camera.yBlue;
+		//xYellow = camera.xYellow;
+		//yYellow = camera.yYellow;
+		//xBlue = camera.xBlue;
+		//yBlue = camera.yBlue;
 		
 		dBl = camera.getDistBlue();
 		dYe = camera.getDistYellow();
-		angY = camera._angleYellow;
+		//angY = camera._angleYellow;
 		volt = voltageDiv.getVoltage();
 		if ((myRole == FORWARD_ROLE && !(!dBl && !dYe)) ||
 			 (myRole == GOALKEEPER_ROLE && ((myGoal == YELLOW_GOAL && dYe) || (myGoal == BLUE_GOAL && dBl)))) {
@@ -222,15 +223,19 @@ namespace Asterisk {
 		led2.set(abs(angleIMU) <= 5);
 	}
 	
-	Vec2b getVec2bToBallFollow() {
+	Vec2b getVec2bToBallFollow(uint8_t zone = middleZone) {
 		speedForward = USUAL_FOLLOWING_SPEED;
 		if (seeBall) {
 			float offset = tsops.angleOffset(ang, distSoft, angleIMU);
+			float globalTSOP = myForward.adduct180(ang - angleIMU);
+			if ((globalTSOP < -90 || globalTSOP > 90)
+					&& ((zone == leftZone && offset < 0) 
+					|| (zone == rightZone && offset > 0))) {
+					offset *= -1;
+			}				
+			
 			if (dist < 6) offset = 0;
-			else if (dist > 9.17 && abs(ang) > 25) {
-				speedForward *= 0.9;
-				//offset *= 0.8;
-			}
+			else if (dist > 9.17 && abs(ang) > 25) speedForward *= 0.9;
 			
 			angRes = ang + offset + 90;
 			
@@ -245,7 +250,7 @@ namespace Asterisk {
 		
 		if (abs(ang) <= 10 && dist > 9.4) { 
 			angSoft = myForward.adduct(myForward.getTargetForward() + 90);
-			speedForward *= 1.25;
+			speedForward *= 1.15;
 		}
 		
 		return Vec2b(speedForward, gyro.adduct0_360(angSoft));
@@ -259,7 +264,7 @@ namespace Asterisk {
 		pow = gyro.getRotation();
 		led3.set(abs(float(pow)) <= 85);
 		
-		goToBall = getVec2bToBallFollow();
+		goToBall = getVec2bToBallFollow(myForward.setFieldZone());
 		
 		if (!doesntSeeGoals) {
 			outStatus = myForward.checkOUTs();
@@ -288,15 +293,14 @@ namespace Asterisk {
 			if (doesntSeeGoals) goTo = myForward.getVecToPoint(0, DIST_BETWEEN_GOALS / 2);
 			else if (!robotInOUT) {
 				float globalBall = myForward.adduct180(ang - angleIMU);
-				if ((myForward.robotNearOUTSides() || myForward.robotNearOUTUpDown())
-						&& globalBall >= -90 && globalBall <= 90) {
-					float speed = USUAL_FOLLOWING_SPEED;
-					if (myForward.robotNearOUTSides()) speed *= 0.86;
-					else if (myForward.robotNearOUTUpDown()) speed *= 0.68;
-							
-					goTo = Vec2b(speed, ang + 90);
+				uint8_t nearOutStatus = myForward.robotNearOUT();
+				
+				if ((nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {
+					goTo = Vec2b(myForward.setNearSpeed(nearOutStatus, USUAL_FOLLOWING_SPEED),
+											 ang + 90);
 				} else if (myForward.nearMyGoal()) { 
-					goTo = myForward.vec2bOnGoal(USUAL_FOLLOWING_SPEED, ang);
+					if (globalBall < -70 || globalBall > 70) goTo = myForward.vec2bOnGoal(USUAL_FOLLOWING_SPEED, ang);
+					else goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
 				} else {
 					goTo = goToBall;
 				}
@@ -324,6 +328,7 @@ namespace Asterisk {
 			omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 		else omni.move(1, 0, 0, 0, gyro.getMaxRotation());
 	}
+	
 	
 	void goalkeeperStrategy() {
 	
