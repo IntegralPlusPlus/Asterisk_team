@@ -8,7 +8,7 @@
 #define COEFF_CIRCLE 1.15f
 #define ANGLE2SIDES 20
 #define MINIMUM_SPEED_TO_BALL 0.41f  
-
+	
 enum processingOUT {
 	unknow,
 	up,

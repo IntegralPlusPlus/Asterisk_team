@@ -22,12 +22,30 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 C:\PARK_HAYASTANIN\Asterisk_team\Lightweight\Lightweight.uvprojx
-Project File Date:  03/19/2024
+Project File Date:  04/05/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 Note: source file '.\src\Pin\Pin.cpp' - object file renamed from '.\Objects\Pin.o' to '.\Objects\pin_1.o'.
+compiling BallSensor.cpp...
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Pin\Pin.h(71): warning:  #1-D: last line of file ends without a newline
+  #endif /* PIN_H_ */
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\adc\adc.h(25): warning:  #1-D: last line of file ends without a newline
+  };
+.\src\dma\Dma.h(19): warning:  #1-D: last line of file ends without a newline
+  };
+src\BallSensor\BallSensor.h(17): warning:  #1-D: last line of file ends without a newline
+  };
+src\BallSensor\BallSensor.cpp(18): warning:  #1-D: last line of file ends without a newline
+  }
+src\BallSensor\BallSensor.cpp: 8 warnings, 0 errors
 compiling main.cpp...
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -153,76 +171,30 @@ compiling main.cpp...
   #define P_MODE 1
 .\src\Voltage\Voltage.h(18): warning:  #1-D: last line of file ends without a newline
   };
-.\src\main\libraries.h(33): warning:  #1-D: last line of file ends without a newline
-  #include "Button.h"
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
 .\src\Button\Button.h(18): warning:  #1-D: last line of file ends without a newline
   };
-.\src\Robot\Robot.h(238): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+.\src\main\libraries.h(34): warning:  #1-D: last line of file ends without a newline
+  #include "BallSensor.h"
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\BallSensor\BallSensor.h(17): warning:  #1-D: last line of file ends without a newline
+  };
+.\src\Robot\Robot.h(240): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   			else if (dist > 9.17 && abs(ang) > 25) speedForward *= 0.9;
-.\src\Robot\Robot.h(251): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+.\src\Robot\Robot.h(253): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		if (abs(ang) <= 10 && dist > 9.4) { 
-.\src\Robot\Robot.h(391): warning:  #1-D: last line of file ends without a newline
+.\src\Robot\Robot.h(394): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp(18): warning:  #111-D: statement is unreachable
   	return 0;
 src\main\main.cpp(19): warning:  #1-D: last line of file ends without a newline
   }
-src\main\main.cpp: 70 warnings, 0 errors
-compiling Forward.cpp...
-.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\Vec2b\Vec2b.h(23): warning:  #1-D: last line of file ends without a newline
-  #endif /* VEC2B_H_ */
-.\src\Processing_coord\Processing_coord.h(55): warning:  #1-D: last line of file ends without a newline
-  };
-src\Forward\Forward.h(67): warning:  #1-D: last line of file ends without a newline
-  };
-src\Forward\Forward.cpp(11): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	downThreshold = 0.8 * DOWN_Y + DELTA_DIST;
-src\Forward\Forward.cpp(49): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(52): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(55): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(58): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(61): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(64): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(84): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	_targetIMU = adduct180(RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(-_x)) - 90);
-src\Forward\Forward.cpp(89): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	float ang = atan2(float(y), float(x)) * RAD2DEG;
-src\Forward\Forward.cpp(94): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	float ang = atan2(float(DIST_BETWEEN_GOALS - y), float(x)) * RAD2DEG;
-src\Forward\Forward.cpp(100): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
-src\Forward\Forward.cpp(130): warning:  #111-D: statement is unreachable
-  	if (_x <= leftThreshold + sidesSize) return leftZone;
-src\Forward\Forward.cpp(136): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
-src\Forward\Forward.cpp(143): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
-src\Forward\Forward.cpp(151): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
-src\Forward\Forward.cpp(158): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
-src\Forward\Forward.cpp(177): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
-src\Forward\Forward.cpp(229): warning:  #1-D: last line of file ends without a newline
-  }
-src\Forward\Forward.cpp: 24 warnings, 0 errors
+src\main\main.cpp: 72 warnings, 0 errors
 linking...
-Program Size: Code=43342 RO-data=1430 RW-data=392 ZI-data=16176  
-".\Objects\Lightweight.axf" - 0 Error(s), 94 Warning(s).
+Program Size: Code=43418 RO-data=1426 RW-data=400 ZI-data=16176  
+".\Objects\Lightweight.axf" - 0 Error(s), 80 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -249,8 +221,8 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:2.6.3
       Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
-      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
+      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 Build Time Elapsed:  00:00:02

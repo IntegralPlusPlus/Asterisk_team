@@ -31,3 +31,4 @@
 #include "kicker.h"
 #include "Voltage.h"
 #include "Button.h"
+#include "BallSensor.h"

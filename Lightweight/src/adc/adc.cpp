@@ -27,7 +27,7 @@ void Adc::adcInit(uint8_t cycles) {
 
 void Adc::startADC() {
 		ADC_InitTypeDef ADC_InitStructure;
-		ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b; 
+		ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b; //12b
 		ADC_InitStructure.ADC_ScanConvMode = ENABLE;
 		ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;
 		ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;

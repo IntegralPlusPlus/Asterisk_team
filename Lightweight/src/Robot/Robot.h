@@ -47,19 +47,22 @@ namespace Asterisk {
 	volatile bool robotInOUT;
 	volatile float xYellow, yYellow, xBlue, yBlue; 
 	volatile bool nearOUT = false;
-	
-	Pin ballSensPin('A', 4, adc);
-	Adc ballSensADC(ADC1, 1, 4);
-	Dma ballSens(RCC_AHB1Periph_DMA2, ballSensADC, DMA2_Stream0, DMA_Channel_0);
-
-	Pin capacitorPin('C', 0, adc);
-	Adc capacitorPinADC(ADC1, 1, 10);
-	Dma capacitor(RCC_AHB1Periph_DMA2, capacitorPinADC, DMA2_Stream4, DMA_Channel_0);
+	volatile bool ballGrip;
+	volatile int16_t ballVal;
 
 	Pin voltageDividerPin('A', 5, adc);
 	Adc voltageDividerPinADC(ADC2, 1, 5);
 	Dma voltageDividerDMA(RCC_AHB1Periph_DMA2, voltageDividerPinADC, DMA2_Stream2, DMA_Channel_1);
 	VoltageDividor voltageDiv(voltageDividerDMA);
+	
+	Pin capacitorPin('C', 0, adc);
+	Adc capacitorPinADC(ADC3, 3, 10);
+	Dma capacitor(RCC_AHB1Periph_DMA2, capacitorPinADC, DMA2_Stream0, DMA_Channel_2);
+
+	Pin ballSensPin('A', 4, adc);
+	Adc ballSensADC(ADC1, 1, 4);
+	Dma ballSensDMA(RCC_AHB1Periph_DMA2, ballSensADC, DMA2_Stream4, DMA_Channel_0);
+	BallSensor ballSens(ballSensDMA);
 
 	Pin tsop_in1('D', 11, write_pupd_down);
 	Pin tsop_in2('D', 10, write_pupd_down);
@@ -71,9 +74,6 @@ namespace Asterisk {
 
 	TSOP tsops(tsop_in1, tsop_in2, tsop_in3, tsop_in4, tsopPin1, tsopPin2);
 
-	//Pin tx_openMV('C', 6, usart6);
-	//Pin rx_openMV('C', 7, usart6);
-	//OpenMV camera(tx_openMV, rx_openMV, 6);
 	Pin tx_openMV('B', 10, usart3);
 	Pin rx_openMV('B', 11, usart3);
 	OpenMV camera(tx_openMV, rx_openMV, 3);
@@ -137,6 +137,8 @@ namespace Asterisk {
 	}
 
 	void update() {
+		ballVal = ballSens.getValue();
+		ballGrip = ballSens.ballInGrip();
 		camera.read();
 		tsops.updateTSOPs();
 		//for (uint8_t i = 0; i < 32; ++i) tssps_[i] = tsops.tsopValues[i];
@@ -228,11 +230,11 @@ namespace Asterisk {
 		if (seeBall) {
 			float offset = tsops.angleOffset(ang, distSoft, angleIMU);
 			float globalTSOP = myForward.adduct180(ang - angleIMU);
-			if ((globalTSOP < -90 || globalTSOP > 90)
+			/*if ((globalTSOP < -90 || globalTSOP > 90)
 					&& ((zone == leftZone && offset < 0) 
 					|| (zone == rightZone && offset > 0))) {
 					offset *= -1;
-			}				
+			}*/			
 			
 			if (dist < 6) offset = 0;
 			else if (dist > 9.17 && abs(ang) > 25) speedForward *= 0.9;
@@ -370,6 +372,7 @@ namespace Asterisk {
 		motorsWork = false;
 		neverTurnMotors = false;
 		robotInOUT = false;
+		ballGrip = false;
 	
 		currentVector.set(0, 90);
 		timeNotSeenBall = time_service::millis();
