@@ -13,7 +13,7 @@
 
 #define GOAL_OUT_X_THRESHOLD_RIGHT 27
 #define GOAL_OUT_X_THRESHOLD_LEFT -23
-#define GOAL_OUT_Y_THRESHOLD 37
+#define GOAL_OUT_Y_THRESHOLD 34
 #define GOAL_CIRCLE_Y_THRESHOLD_RIGHT 35.f
 #define GOAL_CIRCLE_Y_THRESHOLD_LEFT 34.f
 #define GOAL_OUT_X_THRESHOLD_ALL 45
@@ -24,8 +24,10 @@
 
 #define ANGLE_LOW_TO_CIRCLE 50
 #define ANGLE_HIGH_TO_CIRCLE 125
-#define RADIUS_GOAL_OUT_RIGHT 39
+#define RADIUS_GOAL_OUT_RIGHT 43
+//43
 #define RADIUS_GOAL_OUT_LEFT 44
+//44
 
 #define MAX_COEFF_TO_GOAL_CENTER 1.075f
 #define MAX_LEN_TO_INCREASE_VEC 0.88f
@@ -40,13 +42,13 @@ class ProcessingCoord {
 		ProcessingCoord();
 		void setGoal(uint8_t currentGoal);
 		void setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow);
-		Vec2b getVecToPoint(int16_t pointX, int16_t pointY);
 		void setMaxLen(float len);
-		int16_t adduct(int16_t value);
-		int16_t adduct180(int16_t value);
+		Vec2b getVecToPoint(int16_t pointX = 0, int16_t pointY = GOAL_OUT_Y_THRESHOLD);
 		float distance(float x, float y, float startX = 0, float startY = 0);
 		float map(float a, float from1, float to1, float from2, float to2);
 		float getAngleBetween(float ang1, float ang2);
+		int16_t adduct(int16_t value);
+		int16_t adduct180(int16_t value);
 	protected:
 		float _maxLen;
 		int16_t _x, _y, _angle;

@@ -70,14 +70,6 @@ void OpenMV::calculate(int16_t robotAngle, bool goal, bool role) {
 		else _distBlue = 0;
 	}
 	
-	if (role == GOALKEEPER_ROLE) {
-		if (goal == BLUE_GOAL) {
-			_distYellow = 0;
-		} else if (goal == YELLOW_GOAL) {
-			_distBlue = 0;
-		}
-	}
-	
 	if (_distYellow * _distBlue != 0) {
 		xRaw = (xYellow / float(_distYellow) + xBlue / float(_distBlue)) / (1 / float(_distYellow) + 1 / float(_distBlue));
 		yRaw = (yYellow / float(_distYellow) + yBlue / float(_distBlue)) / (1 / float(_distYellow) + 1 / float(_distBlue));

@@ -17,6 +17,7 @@ class Goalkeeper : public ProcessingCoord {
 		Vec2b getVecToIntersection(int16_t angBall);
 		Vec2b getVecToReturn();
 		int16_t getTargetGoalkeeper();
+		int16_t getTargetRadiuses();
 		int16_t getCurrentLeaveTime();
 		uint8_t getGoalkeeperPos();
 		bool changeFromReturn();

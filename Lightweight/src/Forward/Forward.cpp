@@ -124,9 +124,9 @@ uint8_t Forward::getBallSide(float angBall) {
 }
 
 uint8_t Forward::setFieldZone() {
-	float sidesSize = float(rightThreshold - leftThreshold) / 10;
+	float sidesSize = float(rightThreshold - leftThreshold) / 6;
 	
-	return middleZone;
+	//return middleZone;
 	if (_x <= leftThreshold + sidesSize) return leftZone;
 	else if (_x >= rightThreshold - sidesSize) return rightZone;
 	else return middleZone;

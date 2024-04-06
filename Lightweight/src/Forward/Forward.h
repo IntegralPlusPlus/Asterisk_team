@@ -5,7 +5,8 @@
 
 #define NEAR_OUT_DIST 11
 #define BACK_SECTOR 140
-#define COEFF_CIRCLE 1.15f
+#define BACK_SECTOR_DETOUR 30
+#define COEFF_CIRCLE 1.25f
 #define ANGLE2SIDES 20
 #define MINIMUM_SPEED_TO_BALL 0.41f  
 	
@@ -30,6 +31,12 @@ enum fieldZones {
 	rightZone
 };
 
+enum detour {
+	defaultDetour,
+	leftDetour,
+	rightDetour	
+};
+
 class Forward : public ProcessingCoord {
 	public:
 		Forward();
@@ -44,6 +51,7 @@ class Forward : public ProcessingCoord {
 		uint8_t getBallSide(float angBall);
 		uint8_t setFieldZone();
 		uint8_t robotNearOUT();
+		//uint8_t detourDirection();
 		bool ballInBack(float angBall);
 		bool inEnemyGoal();
 		bool inMyGoal();
@@ -59,9 +67,9 @@ class Forward : public ProcessingCoord {
 		bool robotInOUT();
 		bool robotInFreeField();
 	private:
-		int16_t upThreshold, downThreshold, leftThreshold, rightThreshold;
 		float distToGoalCenter;
-		int16_t _targetIMU;
+		int16_t upThreshold, downThreshold, leftThreshold, rightThreshold;
 		int16_t _countCyclesOUT, _countCyclesField;
+		int16_t _targetIMU;
 		bool inOUT;
 };
