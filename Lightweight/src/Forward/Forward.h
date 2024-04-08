@@ -3,13 +3,15 @@
 #include "Processing_coord.h"
 #include "Vec2b.h"
 
+#define DELTA_DIST 8
 #define NEAR_OUT_DIST 11
 #define BACK_SECTOR 140
 #define BACK_SECTOR_DETOUR 30
 #define COEFF_CIRCLE 1.25f
 #define ANGLE2SIDES 20
 #define MINIMUM_SPEED_TO_BALL 0.41f  
-	
+#define LIMIT_OUT_CYCLES 20
+
 enum processingOUT {
 	unknow,
 	up,

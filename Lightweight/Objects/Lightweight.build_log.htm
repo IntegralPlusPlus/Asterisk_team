@@ -131,15 +131,15 @@ compiling main.cpp...
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
-.\src\Processing_coord\Processing_coord.h(57): warning:  #1-D: last line of file ends without a newline
+.\src\Processing_coord\Processing_coord.h(42): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
-.\src\Forward\Forward.h(75): warning:  #1-D: last line of file ends without a newline
+.\src\Forward\Forward.h(77): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
-.\src\Goalkeeper\Goalkeeper.h(30): warning:  #1-D: last line of file ends without a newline
+.\src\Goalkeeper\Goalkeeper.h(40): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -167,18 +167,20 @@ compiling main.cpp...
   			if (dist < 5.1) offset = 0;
 .\src\Robot\Robot.h(262): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   			else if (dist > 9.17 && abs(ang) > 25) speedForward *= 0.9;
-.\src\Robot\Robot.h(370): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
-.\src\Robot\Robot.h(470): warning:  #1-D: last line of file ends without a newline
+.\src\Robot\Robot.h(373): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
+.\src\Robot\Robot.h(420): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if (!inReturn) currentVector = Vec2b(angleIMU + 0.3, 90);
+.\src\Robot\Robot.h(476): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp(18): warning:  #111-D: statement is unreachable
   	return 0;
 src\main\main.cpp(19): warning:  #1-D: last line of file ends without a newline
   }
-src\main\main.cpp: 73 warnings, 0 errors
+src\main\main.cpp: 74 warnings, 0 errors
 linking...
-Program Size: Code=46962 RO-data=1426 RW-data=408 ZI-data=16176  
-".\Objects\Lightweight.axf" - 0 Error(s), 73 Warning(s).
+Program Size: Code=47418 RO-data=1426 RW-data=408 ZI-data=16184  
+".\Objects\Lightweight.axf" - 0 Error(s), 74 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -204,10 +206,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
-      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
+      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 Build Time Elapsed:  00:00:02
 </pre>

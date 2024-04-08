@@ -3,6 +3,16 @@
 #include "Processing_coord.h"
 #include "Vec2b.h"
 
+#define GOAL_OUT_X_THRESHOLD_RIGHT 57
+#define GOAL_OUT_X_THRESHOLD_LEFT -57
+#define DOWN_Y_GOALKEEPER_RIGHT 30
+#define DOWN_Y_GOALKEEPER_LEFT 23
+
+#define MAX_COEFF_TO_GOAL_CENTER 1.1f
+#define MAX_LEN_TO_INCREASE_VEC 0.88f
+#define GK_X_THRESHOLD_LEFT -38
+#define GK_X_THRESHOLD_RIGHT 36
+
 enum GoalkeeperPos {
 	centralLine,
 	leftPart,
@@ -22,9 +32,9 @@ class Goalkeeper : public ProcessingCoord {
 		uint8_t getGoalkeeperPos();
 		bool changeFromReturn();
 		float getCoeffToGoalCenter(float intersec);
-	private:
+	//private:
 		float distToGoalCenter;
 		float errOldGkLeft, errOldGkLine, errOldGkRight; 
-		int16_t _targetIMU;
+		int16_t _targetIMU, globalAngToBall;
 		int16_t _leaveTime;
 };
