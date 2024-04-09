@@ -6,11 +6,6 @@ Forward::Forward(): ProcessingCoord() {
 	inOUT = false;
 	_countCyclesOUT = 0;
 	_countCyclesField = 0;
-	
-	upThreshold = UP_Y - DELTA_DIST;
-	downThreshold = 0.8 * DOWN_Y + DELTA_DIST;
-	leftThreshold = THRESHOLD_X_LEFT + DELTA_DIST;
-	rightThreshold = THRESHOLD_X_RIGHT - DELTA_DIST;
 }
 
 uint8_t Forward::checkOUTs() {
@@ -210,20 +205,4 @@ float Forward::setNearSpeed(uint8_t status, float maxSpeed) {
 	} else if (status == right) {
 		return map(_x, rightThreshold - NEAR_OUT_DIST, rightThreshold, maxSpeed, minSpeed);
 	} else return maxSpeed;
-}
-
-bool Forward::checkXLeft(int16_t x) {
-	return x > leftThreshold;
-}
-
-bool Forward::checkXRight(int16_t x) {
-	return x < rightThreshold;
-}
-
-bool Forward::checkYUp(int16_t y) {
-	return y < upThreshold;
-}
-
-bool Forward::checkYDown(int16_t y) {
-	return y > downThreshold;
 }

@@ -21,6 +21,7 @@
 //44
 
 #define BACK_ANGLE 60
+#define DELTA_DIST 8
 
 class ProcessingCoord {
 	public:
@@ -34,8 +35,13 @@ class ProcessingCoord {
 		float getAngleBetween(float ang1, float ang2);
 		int16_t adduct(int16_t value);
 		int16_t adduct180(int16_t value);
+		bool checkXLeft(int16_t x);
+		bool checkXRight(int16_t x);
+		bool checkYUp(int16_t y);
+		bool checkYDown(int16_t y);
 	protected:
 		float _maxLen;
+		int16_t upThreshold, downThreshold, leftThreshold, rightThreshold;
 		int16_t _x, _y, _angle;
 		int16_t _dBlue, _dYellow;
 		uint8_t _goal;

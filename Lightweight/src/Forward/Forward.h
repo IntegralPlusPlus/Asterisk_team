@@ -53,24 +53,18 @@ class Forward : public ProcessingCoord {
 		uint8_t getBallSide(float angBall);
 		uint8_t setFieldZone();
 		uint8_t robotNearOUT();
-		//uint8_t detourDirection();
 		bool ballInBack(float angBall);
 		bool inEnemyGoal();
 		bool inMyGoal();
 		bool nearMyGoal();	
 		bool isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
-		bool checkXLeft(int16_t x);
-		bool checkXRight(int16_t x);
-		bool checkYUp(int16_t y);
-		bool checkYDown(int16_t y);
 		bool myGoalLine(int16_t x, int16_t y);
 		bool enemyGoalLine(int16_t x, int16_t y);
 		bool robotInOUT();
 		bool robotInFreeField();
 	private:
 		float distToGoalCenter;
-		int16_t upThreshold, downThreshold, leftThreshold, rightThreshold;
 		int16_t _countCyclesOUT, _countCyclesField;
 		int16_t _targetIMU;
 		bool inOUT;

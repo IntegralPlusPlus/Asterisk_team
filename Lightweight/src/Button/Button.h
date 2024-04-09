@@ -5,9 +5,14 @@
 
 #define BUTTON_DELTA 60
 
+enum buttonConfig {
+	defaultConfig,
+	invertedConfig
+};
+
 class Button {
 	public:
-		Button(Pin myButton, bool inverted = false);
+		Button(Pin myButton, bool inverted = defaultConfig);
 		bool pressed();
 	private:
 		Pin _button;

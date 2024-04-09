@@ -25,9 +25,12 @@ void Goalkeeper::setLeaveTime(int16_t leaveTime) {
 }
 
 int16_t Goalkeeper::getCurrentLeaveTime() {
+	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	uint8_t gkPos = getGoalkeeperPos();
 	
-	if (gkPos == leftPart || gkPos == rightPart) return _leaveTime / 8;
+	if (angGoal < ANGLE_LOW_DOESNT_LEAVE || angGoal > ANGLE_HIGH_DOESNT_LEAVE 
+			|| globalAngToBall > 90 || globalAngToBall < -90) return 0;
+	else if (gkPos == leftPart || gkPos == rightPart) return _leaveTime / 8;
 	else return _leaveTime;
 }
 
@@ -54,13 +57,13 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (gkPos == leftPart) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			p = err * 0.042f; //0.042
+			p = err * 0.04f; //0.042
 			d = (err - errOld) * 0.1f;
 			u = p + d;
 			errOld = err;
 		} else if (gkPos == rightPart) {
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
-			p = err * 0.042f;
+			p = err * 0.04f;
 			d = (err - errOld) * 0.1f;
 			u = p + d;
 			errOld = err;
@@ -153,7 +156,7 @@ Vec2b Goalkeeper::getVecToReturn() {
 }
 
 bool Goalkeeper::changeFromReturn() {
-	return distance(_x, _y) < 1.5f * GOAL_OUT_Y_THRESHOLD;
+	return distance(_x, _y) < 1.35f * GOAL_OUT_Y_THRESHOLD;
 }
 
 float Goalkeeper::getCoeffToGoalCenter(float intersec) {

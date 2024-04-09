@@ -2,6 +2,11 @@
 
 ProcessingCoord::ProcessingCoord() {
 	_maxLen = 1;
+	
+	upThreshold = UP_Y - DELTA_DIST;
+	downThreshold = 0.8 * DOWN_Y + DELTA_DIST;
+	leftThreshold = THRESHOLD_X_LEFT + DELTA_DIST;
+	rightThreshold = THRESHOLD_X_RIGHT - DELTA_DIST;
 }
 
 void ProcessingCoord::setGoal(uint8_t currentGoal) {
@@ -56,4 +61,20 @@ float ProcessingCoord::getAngleBetween(float ang1, float ang2) {
 	if (abs(ang1 - ang2) < 180) return abs(ang1 - ang2);
 	else if (ang2 < ang1) return abs(ang2 + 360 - ang1);
 	else return abs(ang2 - ang1 - 360);
+}
+
+bool ProcessingCoord::checkXLeft(int16_t x) {
+	return x > leftThreshold;
+}
+
+bool ProcessingCoord::checkXRight(int16_t x) {
+	return x < rightThreshold;
+}
+
+bool ProcessingCoord::checkYUp(int16_t y) {
+	return y < upThreshold;
+}
+
+bool ProcessingCoord::checkYDown(int16_t y) {
+	return y > downThreshold;
 }
