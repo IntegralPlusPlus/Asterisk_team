@@ -12,7 +12,7 @@
 #define MINIMUM_SPEED_TO_BALL 0.41f  
 #define LIMIT_OUT_CYCLES 20
 
-enum processingOUT {
+enum processingOUTs {
 	unknow,
 	up,
 	down,

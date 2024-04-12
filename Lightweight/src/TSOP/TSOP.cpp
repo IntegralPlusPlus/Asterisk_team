@@ -84,10 +84,10 @@ double TSOP::angleOffset(double angle, double dist, double angleIMU){
   if (distK > 1) distK = 1;
 	
 	double offset = angK * distK;
-	if (angle - angleIMU >= 0 && angle - angleIMU <= 98) offset *= 6.5;
+	if (adduct(angle - angleIMU) >= 0 && adduct(angle - angleIMU) <= 98) offset *= 6.5;
 	if (offset > 90) offset = 90;
 	
-  if (angle - angleIMU >= 0) return offset;
+  if (adduct(angle - angleIMU) >= 0) return offset;
   else return -offset;
 }
 

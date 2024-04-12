@@ -8,8 +8,8 @@
 #define DOWN_Y_GOALKEEPER_RIGHT 30
 #define DOWN_Y_GOALKEEPER_LEFT 23
 
-#define MAX_COEFF_TO_GOAL_CENTER 1.12f
-#define MAX_LEN_TO_INCREASE_VEC 0.88f
+#define MAX_COEFF_TO_GOAL_CENTER 3.f
+#define MAX_LEN_TO_INCREASE_VEC 0.4f
 #define GK_X_THRESHOLD_LEFT -38
 #define GK_X_THRESHOLD_RIGHT 36
 
@@ -31,11 +31,11 @@ class Goalkeeper : public ProcessingCoord {
 		Vec2b getVecToReturn();
 		int16_t getTargetGoalkeeper();
 		int16_t getTargetRadiuses();
-		int16_t getCurrentLeaveTime();
+		int16_t getCurrentLeaveTime(int16_t angBall);
 		uint8_t getGoalkeeperPos();
 		bool changeFromReturn();
 		float getCoeffToGoalCenter(float intersec);
-	//private:
+	private:
 		float distToGoalCenter;
 		float errOldGkLeft, errOldGkLine, errOldGkRight; 
 		int16_t _targetIMU, globalAngToBall;

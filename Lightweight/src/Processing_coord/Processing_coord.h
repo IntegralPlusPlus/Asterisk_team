@@ -14,13 +14,13 @@
 #define DIST_BETWEEN_GOALS 231
 
 #define ANGLE_LOW_TO_CIRCLE 50
-#define ANGLE_HIGH_TO_CIRCLE 125
+#define ANGLE_HIGH_TO_CIRCLE 130
 #define RADIUS_GOAL_OUT_RIGHT 43
 //43
-#define RADIUS_GOAL_OUT_LEFT 44
+#define RADIUS_GOAL_OUT_LEFT 41
 //44
 
-#define BACK_ANGLE 60
+#define BACK_ANGLE 100
 #define DELTA_DIST 8
 
 class ProcessingCoord {

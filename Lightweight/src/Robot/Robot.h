@@ -5,13 +5,13 @@
 //20000
 #define NEED_TO_CALIBRATE 0
 #define TIME_NOT_SEEN 450
-#define TIME_LEAVE 2000
-#define TIME_FINISH_LEAVE 2500
+#define TIME_LEAVE 3100
+#define TIME_FINISH_LEAVE 2000
 #define TIME_GO_FROM_OUT 0
 
 #define USUAL_FOLLOWING_SPEED 0.5
 //0.67
-#define MAX_VEC2B_LEN 0.6
+#define MAX_VEC2B_LEN 0.85
 //0.87
 
 namespace Asterisk {
@@ -24,7 +24,7 @@ namespace Asterisk {
 	volatile float dist, distOld, angOld;
 	volatile uint64_t t, timeNotSeenBall, timeUpdateQueue, timeCheckLeave, timeInLeaving;
 	volatile uint64_t timeCalibrEnd, timeOUT;
-	volatile int16_t x, y, xGk, yGk;
+	volatile int16_t x, y, xGkReturn, yGkReturn;
 	volatile float angRaw, angRawOld;
 	volatile float distRaw, distRaw2, distSoftOld;
 	volatile uint8_t myGoal, myRole;
@@ -92,7 +92,7 @@ namespace Asterisk {
 	Pin button1('D', 1, read_pupd_down);
 	Pin button2('D', 0, read_pupd_down);
 	Pin button3('A', 9, read_pupd_down);
-	Button butt1(button1, invertedConfig);
+	Button motorsButton(button1, invertedConfig);
 	Button butt2(button2);
 	Button butt3(button3);
 	Button resetIMU(reset_imu_pin);
@@ -139,13 +139,6 @@ namespace Asterisk {
 	uint8_t getRole() {
 		return myRole;
 	}
-
-	bool mustLeave() {
-		if (time_service::millis() - timeCalibrEnd < 3000 || !seeBall || 
-				(seeBall && !(abs(kAng) < 0.6 && abs(kLen) < 0.014))) timeCheckLeave = time_service::millis(); //0.6 0.018
-		
-		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
-	}
 	
 	void update() {
 		ballVal = ballSens.getValue();
@@ -163,19 +156,18 @@ namespace Asterisk {
 			timeUpdateQueue = time_service::millis();
 		}
 		
-		//ang = angRaw;
-		//dist = distRaw;
-		
-		gkLED.set(swRoleChoose.readPin());
-		forwLED.set(!swRoleChoose.readPin());
+		//myRole = swRoleChoose.readPin();
+		gkLED.set(myRole);
+		forwLED.set(!myRole);
 		
 		//myGoal = !swGoalChoose.readPin();
-		blueGoalLED.set(!swGoalChoose.readPin());
-		yellowGoalLED.set(swGoalChoose.readPin());
+		blueGoalLED.set(myGoal);
+		yellowGoalLED.set(!myGoal);
+		
 		//myGoalkeeper.setGoal(myGoal);
 		//myForward.setGoal(myGoal);
 		
-		motorsWork = butt1.pressed();
+		motorsWork = motorsButton.pressed();
 		
 		if (!tsops.distBad(distRaw)) {
 			ang = ball.getCurrentVec2b().angle;
@@ -269,7 +261,7 @@ namespace Asterisk {
 			speedForward *= 1.5;
 		}
 		
-		return Vec2b(speedForward, gyro.adduct0_360(angSoft));
+		return Vec2b(speedForward, myForward.adduct(angSoft));
 	}
 	
 	void forwardStrategy() {
@@ -348,6 +340,13 @@ namespace Asterisk {
 		else omni.move(1, 0, 0, 0, gyro.getMaxRotation());
 	}
 	
+	bool mustLeave() {
+		if (time_service::millis() - timeCalibrEnd < 3000 || !seeBall || 
+				(seeBall && !(abs(kAng) < 0.07 && abs(kLen) < 0.009))) timeCheckLeave = time_service::millis(); //0.6 0.018
+		
+		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
+	}
+	
 	void goalkeeperStrategy() {
 		if (!doesntSeeGoals) targetRaw = float(myGoalkeeper.getTargetGoalkeeper());
 		gyro.setTarget(targetRaw);
@@ -368,12 +367,10 @@ namespace Asterisk {
 				while (ang0_360 < 0) ang0_360 += 360;
 				
 				if (!tsops.distBad(distSoft) && seeBall) vecToBall = myGoalkeeper.getVecToIntersection(ang0_360);
-				else if (!seeBall) {
-					vecToBall = myGoalkeeper.getVecToPoint();
-				} else vecToBall = Vec2b(0, 0);
+				else if (!seeBall) vecToBall = myGoalkeeper.getVecToPoint();
+				else vecToBall = Vec2b(0, 0);
 				
-				globalAng2Ball = myGoalkeeper.globalAngToBall;
-				//vecToBall = Vec2b(0, 0);
+				//globalAng2Ball = myGoalkeeper.globalAngToBall;
 				vecToCenter = myGoalkeeper.getVecToGoalCenter();
 				vecToCenter *= myGoalkeeper.getCoeffToGoalCenter(vecToBall.length);
 			
@@ -381,19 +378,20 @@ namespace Asterisk {
 			} else if (robotMustLeave && !inLeave && !inReturn) {
 				inLeave = true;
 				timeInLeaving = time_service::millis();
-				currLeaveTime = myGoalkeeper.getCurrentLeaveTime();
-				xGk = x;
-				yGk = y;
+				currLeaveTime = myGoalkeeper.getCurrentLeaveTime(ang);
+				//xGkReturn = x;
+				//yGkReturn = y;
 			} else if (inLeave) {
-				goTo = Vec2b(MAX_VEC2B_LEN, 90 + ang);//getVec2bToBallFollow();
+				goTo = Vec2b(0.91, 90 + ang);//getVec2bToBallFollow();
 				if (time_service::millis() - timeInLeaving > currLeaveTime || 
-						sqrt(float(x * x + y * y)) > 0.58 * DIST_BETWEEN_GOALS ||
+						sqrt(float(x * x + y * y)) > 0.57 * DIST_BETWEEN_GOALS ||
 						!myGoalkeeper.checkXLeft(x) || !myGoalkeeper.checkXRight(x)) {
 					inLeave = false;
 					inReturn = true;
 				}
 			} else if (inReturn) {
-				if (!doesntSeeGoals) goTo = myGoalkeeper.getVecToPoint(xGk, yGk); //getVecToReturn();
+				if (!doesntSeeGoals) goTo = myGoalkeeper.getVecToReturn();
+				//getVecToPoint(xGkReturn, yGkReturn);
 				
 				if (myGoalkeeper.changeFromReturn()) {
 					inReturn = false;
@@ -403,7 +401,7 @@ namespace Asterisk {
 			}
 		}
 		
-		if (goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
+		if (!inLeave && goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
 		
 		if (!doesntSeeGoals && time_service::millis() != t) {
 			currentVector.changeTo(goTo);
