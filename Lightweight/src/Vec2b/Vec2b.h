@@ -4,7 +4,7 @@
 
 #include "project_config.h"
 
-#define DELTA_SPEED 0.015
+#define DELTA_SPEED 0.018
 #define RAD2DEG	57.2957795130823208767
 #define DEG2RAD	0.01745329251994329576
 

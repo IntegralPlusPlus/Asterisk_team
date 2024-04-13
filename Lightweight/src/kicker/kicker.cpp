@@ -1,7 +1,7 @@
 #include "kicker.h"
 
 Kicker::Kicker(Pin& kickerPin, Dma& capacitorDma): _kicker(kickerPin), _capDma(capacitorDma) {
-	_kickADC = 33000;//45.f * 4096.f / (3.3 * 15.f);
+	_kickADC = 2600;//45.f * 4096.f / (3.3 * 15.f);
 	_canKick = false;
 	_kickerOpenTime = 0;
 	signalDMASoft = 0;

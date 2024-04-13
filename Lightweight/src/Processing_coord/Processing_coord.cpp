@@ -50,6 +50,10 @@ int16_t ProcessingCoord::adduct180(int16_t value) {
 	return value;
 }
 
+int16_t ProcessingCoord::getTarget2Enemy() {
+	return adduct180(RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(-_x)) - 90);
+}
+
 Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
 	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
 	float u = dist * 0.027f;

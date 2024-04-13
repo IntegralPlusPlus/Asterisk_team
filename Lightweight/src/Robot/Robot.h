@@ -11,7 +11,7 @@
 
 #define USUAL_FOLLOWING_SPEED 0.5
 //0.67
-#define MAX_VEC2B_LEN 0.85
+#define MAX_VEC2B_LEN 0.88
 //0.87
 
 namespace Asterisk {
@@ -182,17 +182,11 @@ namespace Asterisk {
 		angleIMU = -gyro.getCurrentAngle();
 		
 		camera.calculate(angleIMU, myGoal, myRole);
-		//xYellow = camera.xYellow;
-		//yYellow = camera.yYellow;
-		//xBlue = camera.xBlue;
-		//yBlue = camera.yBlue;
 		
 		dBl = camera.getDistBlue();
 		dYe = camera.getDistYellow();
-		//angY = camera._angleYellow;
+
 		volt = voltageDiv.getVoltage();
-		//if ((myRole == FORWARD_ROLE && !(!dBl && !dYe)) ||
-		//	 (myRole == GOALKEEPER_ROLE && ((myGoal == YELLOW_GOAL && dYe) || (myGoal == BLUE_GOAL && dBl)))) {
 		if (dBl || dYe) {
 			x = camera.getX();
 			y = camera.getY();
@@ -230,10 +224,10 @@ namespace Asterisk {
 		capacitorADC = kicker.getDMASignal();
 		//kicker.setKickerStatus(button2.readPin());
 		
-		//kicker.canKick();
-		//thisButton = button2.readPin();
-		//kickerPin.setBit();
-		//if (thisButton && kicker.canKick()) kicker.open();
+		//if (kicker.canKick()) kicker.open();
+		//else kicker.close();
+		
+		//if (button2.readPin()) kicker.open();
 		//else kicker.close();
 	}
 	
@@ -257,7 +251,7 @@ namespace Asterisk {
 		}
 		
 		if (ballGrip) { 
-			angSoft = myForward.adduct(myForward.getTargetForward() + 90);
+			angSoft = myForward.adduct(myForward.getTarget2Enemy() + 90);
 			speedForward *= 1.5;
 		}
 		
@@ -265,7 +259,7 @@ namespace Asterisk {
 	}
 	
 	void forwardStrategy() {
-		if (!doesntSeeGoals) targetRaw = float(myForward.getTargetForward());
+		if (!doesntSeeGoals) targetRaw = float(myForward.getTarget2Enemy());
 		gyro.setTarget(targetRaw);
 		
 		gyro.setRotationForTarget();
@@ -348,7 +342,11 @@ namespace Asterisk {
 	}
 	
 	void goalkeeperStrategy() {
-		if (!doesntSeeGoals) targetRaw = float(myGoalkeeper.getTargetGoalkeeper());
+		if (!doesntSeeGoals) {
+			if (inLeave) targetRaw = float(myGoalkeeper.getTarget2Enemy());
+			else targetRaw = float(myGoalkeeper.getTargetGoalkeeper());
+		}
+		
 		gyro.setTarget(targetRaw);
 		
 		gyro.setRotationForTarget();
@@ -370,7 +368,7 @@ namespace Asterisk {
 				else if (!seeBall) vecToBall = myGoalkeeper.getVecToPoint();
 				else vecToBall = Vec2b(0, 0);
 				
-				//globalAng2Ball = myGoalkeeper.globalAngToBall;
+				globalAng2Ball = myGoalkeeper.globalAngToBall;
 				vecToCenter = myGoalkeeper.getVecToGoalCenter();
 				vecToCenter *= myGoalkeeper.getCoeffToGoalCenter(vecToBall.length);
 			
@@ -379,10 +377,9 @@ namespace Asterisk {
 				inLeave = true;
 				timeInLeaving = time_service::millis();
 				currLeaveTime = myGoalkeeper.getCurrentLeaveTime(ang);
-				//xGkReturn = x;
-				//yGkReturn = y;
 			} else if (inLeave) {
 				goTo = Vec2b(0.91, 90 + ang);//getVec2bToBallFollow();
+				
 				if (time_service::millis() - timeInLeaving > currLeaveTime || 
 						sqrt(float(x * x + y * y)) > 0.57 * DIST_BETWEEN_GOALS ||
 						!myGoalkeeper.checkXLeft(x) || !myGoalkeeper.checkXRight(x)) {
@@ -401,7 +398,8 @@ namespace Asterisk {
 			}
 		}
 		
-		if (!inLeave && goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
+		if (!inLeave && !inReturn && goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
+		else if (inReturn && goTo.length > MAX_VEC2B_LEN - 0.1) goTo.length = MAX_VEC2B_LEN - 0.1;
 		
 		if (!doesntSeeGoals && time_service::millis() != t) {
 			currentVector.changeTo(goTo);
@@ -409,7 +407,6 @@ namespace Asterisk {
 		}
 		
 		if (doesntSeeGoals) {
-			//currentVector = Vec2b(0.1, 90);
 			if (!inReturn && !inLeave) currentVector = Vec2b(0.4, angleIMU + 90);
 			else currentVector = Vec2b(0.4, myGoalkeeper.adduct(270 + angleIMU));
 		}

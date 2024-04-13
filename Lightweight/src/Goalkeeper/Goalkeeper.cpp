@@ -50,7 +50,7 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 	
 	if (gkPos == centralLine) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		float speed = err * 0.053f; 
+		float speed = err * 0.06f; 
 		vec = Vec2b(speed, 270 + _angle); 
 		//errOld = 0;
 	} else {
@@ -58,22 +58,22 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (gkPos == leftPart) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			p = err * 0.055f; //0.042
+			p = err * 0.058f; //0.042
 			d = (err - errOld) * 1.f;
 			u = p + d;
 			errOld = err;
 		} else if (gkPos == rightPart) {
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
 			p = err * 0.04f;
-			d = (err - errOld) * 0.1f;
+			d = (err - errOld) * 1.f;
 			u = p + d;
 			errOld = err;
-			//speed = err * 0.054f; //0.042
 		}
 		
-		//speed = u;
 		vec = Vec2b(u, getTargetRadiuses()); 
 	}
+	
+	if (vec.length > _maxLen) vec.length = _maxLen;
 	
 	return vec;
 }
@@ -98,8 +98,8 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 
 		float err, p, d, u;
 		err = pow(abs(float(globalAngToBall - angGoal)), 2.f); //1.3f
-		p = 0.0011f * err; //0.0015 0.0041f
-		d = (err - errOldGkLine) * 0.1f;
+		p = 0.00075f * err; //0.0015 0.0041f
+		d = (err - errOldGkLine) * 0.08f;
 		u = p + d;
 		errOldGkLine = err;
 		
@@ -111,7 +111,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			if (globalAngToBall > angGoal) res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
 			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
 				
-			err = pow(abs(float(globalAngToBall - angGoal)), 1.3f); //1.1
+			err = pow(abs(float(globalAngToBall - angGoal)), 1.4f); //1.1
 			p = 0.005f * err; //0.004
 			d = (err - errOldGkRight) * 0.07f; //0.05
 			u = p + d;
@@ -119,34 +119,37 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			
 			res.length = u;
 			if (//(_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 || res.angle < 90)) 
-					(_y <= DOWN_Y_GOALKEEPER_RIGHT && (globalAngToBall < 15 || globalAngToBall > 210))) {
+					(_y <= DOWN_Y_GOALKEEPER_RIGHT && (angBall < 15 || angBall > 210))) {
 				res.angle = 0;
 				res.length = 0;
-			} else if ((_x > GK_X_THRESHOLD_RIGHT && (res.angle - _angle > 270 || res.angle - _angle < 90))) {
+			} else if ((_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 + _angle || res.angle < 90 + _angle))) {
 				res.angle = 180 + _angle;
-				res.length = 0.4;
+				res.length = 0.5;
 			}
 		} else if (gkPos == leftPart) {
 			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			
 			err = pow(abs(float(globalAngToBall - angGoal)), 1.4f);
-			p = 0.005f * err; //0.0045
+			p = 0.004f * err; //0.0045
 			d = (err - errOldGkLeft) * 0.07f; //0.05
 			u = p + d;
 			errOldGkLeft = err;
 			res.length = u;			
-			
+
+			//110 300
 			if ((_y <= DOWN_Y_GOALKEEPER_LEFT && 
-					(globalAngToBall > 100 && globalAngToBall < 300))) {
+					(globalAngToBall > 130 && globalAngToBall < 300))) {
 				res.angle = 0;
 				res.length = 0;
 			} else if ((_x < GK_X_THRESHOLD_LEFT && res.angle > 90 && res.angle < 270)) {
-				res.angle = 0;
-				res.length = 0.4;
+				res.angle = 0 + _angle;
+				res.length = 0.5;
 			}
 		}
 	}
+	
+	if (res.length > _maxLen) res.length = _maxLen;
 	
 	return res;
 }

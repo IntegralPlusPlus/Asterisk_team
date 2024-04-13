@@ -5,11 +5,11 @@
 
 #define GOAL_OUT_X_THRESHOLD_RIGHT 57
 #define GOAL_OUT_X_THRESHOLD_LEFT -57
-#define DOWN_Y_GOALKEEPER_RIGHT 30
-#define DOWN_Y_GOALKEEPER_LEFT 23
+#define DOWN_Y_GOALKEEPER_RIGHT 32
+#define DOWN_Y_GOALKEEPER_LEFT 28
 
-#define MAX_COEFF_TO_GOAL_CENTER 3.f
-#define MAX_LEN_TO_INCREASE_VEC 0.4f
+#define MAX_COEFF_TO_GOAL_CENTER 1.6f
+#define MAX_LEN_TO_INCREASE_VEC 0.45f
 #define GK_X_THRESHOLD_LEFT -38
 #define GK_X_THRESHOLD_RIGHT 36
 
@@ -35,7 +35,7 @@ class Goalkeeper : public ProcessingCoord {
 		uint8_t getGoalkeeperPos();
 		bool changeFromReturn();
 		float getCoeffToGoalCenter(float intersec);
-	private:
+	//private:
 		float distToGoalCenter;
 		float errOldGkLeft, errOldGkLine, errOldGkRight; 
 		int16_t _targetIMU, globalAngToBall;

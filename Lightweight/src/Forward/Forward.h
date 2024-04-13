@@ -48,7 +48,6 @@ class Forward : public ProcessingCoord {
 		Vec2b setOUTVector(uint8_t status, Vec2b current);
 		Vec2b vec2bOnGoal(float speed, float angBall);
 		float setNearSpeed(uint8_t status, float maxSpeed);
-		int16_t getTargetForward();
 		uint8_t checkOUTs();
 		uint8_t getBallSide(float angBall);
 		uint8_t setFieldZone();

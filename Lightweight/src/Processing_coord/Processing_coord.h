@@ -14,10 +14,10 @@
 #define DIST_BETWEEN_GOALS 231
 
 #define ANGLE_LOW_TO_CIRCLE 50
-#define ANGLE_HIGH_TO_CIRCLE 130
+#define ANGLE_HIGH_TO_CIRCLE 125
 #define RADIUS_GOAL_OUT_RIGHT 43
 //43
-#define RADIUS_GOAL_OUT_LEFT 41
+#define RADIUS_GOAL_OUT_LEFT 45
 //44
 
 #define BACK_ANGLE 100
@@ -35,6 +35,7 @@ class ProcessingCoord {
 		float getAngleBetween(float ang1, float ang2);
 		int16_t adduct(int16_t value);
 		int16_t adduct180(int16_t value);
+		int16_t getTarget2Enemy();
 		bool checkXLeft(int16_t x);
 		bool checkXRight(int16_t x);
 		bool checkYUp(int16_t y);

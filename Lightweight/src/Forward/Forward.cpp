@@ -75,11 +75,6 @@ void Forward::resetCounts() {
 	_countCyclesField = 0;
 }
 
-int16_t Forward::getTargetForward() {
-	_targetIMU = adduct180(RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(-_x)) - 90);
-	return _targetIMU;
-}
-
 Vec2b Forward::getVecForMyCircle(int16_t x, int16_t y) {
 	float ang = atan2(float(y), float(x)) * RAD2DEG;
 	return Vec2b(_maxLen, adduct(ang + _angle));
@@ -142,7 +137,6 @@ bool Forward::isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYello
 }
 
 bool Forward::myGoalLine(int16_t x, int16_t y) {
-	//DIST_BETWEEN_GOALS - 
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	
 	return y < GOAL_OUT_Y_THRESHOLD + 0.5 * DELTA_DIST &&
