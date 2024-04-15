@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Lightweight.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Lightweight.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Apr 13 20:37:32 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Apr 15 18:49:15 2024
 <BR><P>
 <H3>Maximum Stack Usage =        496 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1026,7 +1026,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::goalkeeperStrategy()
 </UL>
 
-<P><STRONG><a name="[a4]"></a>Goalkeeper::getVecToIntersection(short)</STRONG> (Thumb, 1396 bytes, Stack size 120 bytes, goalkeeper.o(i._ZN10Goalkeeper20getVecToIntersectionEs))
+<P><STRONG><a name="[a4]"></a>Goalkeeper::getVecToIntersection(short)</STRONG> (Thumb, 1442 bytes, Stack size 120 bytes, goalkeeper.o(i._ZN10Goalkeeper20getVecToIntersectionEs))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = Goalkeeper::getVecToIntersection(short) &rArr; Goalkeeper::getGoalkeeperPos() &rArr; std::atan2(float, float) &rArr; __hardfp_atan2f &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::atan2(float, float)
@@ -1047,7 +1047,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::goalkeeperStrategy()
 </UL>
 
-<P><STRONG><a name="[a8]"></a>Goalkeeper::Goalkeeper()</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, goalkeeper.o(i._ZN10GoalkeeperC1Ev))
+<P><STRONG><a name="[a8]"></a>Goalkeeper::Goalkeeper()</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, goalkeeper.o(i._ZN10GoalkeeperC1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Goalkeeper::Goalkeeper()
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::ProcessingCoord()
@@ -1506,7 +1506,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::update()
 </UL>
 
-<P><STRONG><a name="[f6]"></a>TSOP::calculate()</STRONG> (Thumb, 274 bytes, Stack size 40 bytes, tsop.o(i._ZN4TSOP9calculateEv))
+<P><STRONG><a name="[f6]"></a>TSOP::calculate()</STRONG> (Thumb, 282 bytes, Stack size 40 bytes, tsop.o(i._ZN4TSOP9calculateEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = TSOP::calculate() &rArr; __hardfp_atan2f &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TSOP::adduct(short)
@@ -1772,7 +1772,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::update()
 </UL>
 
-<P><STRONG><a name="[18d]"></a>Kicker::Kicker(Pin&, Dma&)</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, kicker.o(i._ZN6KickerC1ER3PinR3Dma))
+<P><STRONG><a name="[18d]"></a>Kicker::Kicker(Pin&, Dma&)</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, kicker.o(i._ZN6KickerC1ER3PinR3Dma))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Kicker::Kicker(Pin&, Dma&)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_ab1d1ed5
@@ -2110,12 +2110,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[13e]"></a>Asterisk::goalkeeperStrategy()</STRONG> (Thumb, 1564 bytes, Stack size 88 bytes, main.o(i._ZN8Asterisk18goalkeeperStrategyEv))
+<P><STRONG><a name="[13e]"></a>Asterisk::goalkeeperStrategy()</STRONG> (Thumb, 1628 bytes, Stack size 88 bytes, main.o(i._ZN8Asterisk18goalkeeperStrategyEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 424<LI>Call Chain = Asterisk::goalkeeperStrategy() &rArr; Vec2b::changeTo(Vec2b) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_d2iz
 </UL>
 <BR>[Calls]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::setTarget(float)
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::setRotationForTarget()
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::getMaxRotation()
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::calculateSoft(float, float)
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::getRotation()
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::operator +(const Vec2b&)
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::operator *=(const float&)
@@ -2186,7 +2187,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[149]"></a>Asterisk::update()</STRONG> (Thumb, 1250 bytes, Stack size 48 bytes, main.o(i._ZN8Asterisk6updateEv))
+<P><STRONG><a name="[149]"></a>Asterisk::update()</STRONG> (Thumb, 1246 bytes, Stack size 48 bytes, main.o(i._ZN8Asterisk6updateEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 496<LI>Call Chain = Asterisk::update() &rArr; BallVec2b::push(Vec2b, long long) &rArr; BallVec2b::changeValues(bool) &rArr; std::pow(double, int) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, long long)
@@ -2273,6 +2274,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::adduct0_360(float)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::getVec2bToBallFollow(unsigned char)
+<LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::goalkeeperStrategy()
 </UL>
 
 <P><STRONG><a name="[13d]"></a>gyro_imu::getMaxRotation()</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, imu_usart.o(i._ZN8gyro_imu14getMaxRotationEv))

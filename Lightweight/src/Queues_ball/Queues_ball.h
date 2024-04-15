@@ -2,7 +2,7 @@
 #include "project_config.h"
 #include "Vec2b.h"
 
-#define QUEUE_SIZE 100
+#define QUEUE_SIZE 90
 #define MS_DELTA 20
 
 #define STATUS_POP_ELEMENT 0

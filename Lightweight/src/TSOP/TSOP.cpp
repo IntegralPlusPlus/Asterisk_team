@@ -48,7 +48,7 @@ void TSOP::calculate() {
 		vecY += float(!tsopValues[int16_t(i)]) * sin(angleTSOP * DEG2RAD);
 	}
 	
-	_angle = adduct(-float(atan2(vecY, vecX) * RAD2DEG));
+	_angle = adduct(-float(atan2(vecY, vecX) * RAD2DEG) + 5);
 	_dist = float(sqrt(vecY * vecY + vecX * vecX));
 }
 

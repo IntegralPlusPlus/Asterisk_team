@@ -5,7 +5,7 @@
 
 #define MINIMUM_VOLTAGE 9.f
 #define KOEFF_VOLTAGE 0.00374f
-#define KSOFT_VOLTAGE 0.02f
+#define KSOFT_VOLTAGE 0.01f
 
 class VoltageDividor {
 	public:

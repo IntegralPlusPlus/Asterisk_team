@@ -3,7 +3,7 @@
 #include "Pin.h"
 #include "Dma.h"
 
-#define SEE_BALL 2001
+#define SEE_BALL 1200
 #define COUNT_THRESHOLD 10
 
 class BallSensor {

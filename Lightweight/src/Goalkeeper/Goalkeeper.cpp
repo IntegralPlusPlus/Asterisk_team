@@ -6,6 +6,14 @@ Goalkeeper::Goalkeeper(): ProcessingCoord() {
 	errOldGkLeft = 0;
 	errOldGkRight = 0;
 	errOldGkLine = 0;
+	
+	if (_goal == BLUE_GOAL) {
+		_downYRight = 32;
+		_downYLeft = 28;
+	} else {
+		_downYRight = 33;
+		_downYLeft = 34;
+	}
 }
 
 int16_t Goalkeeper::getTargetGoalkeeper() {
@@ -64,7 +72,7 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 			errOld = err;
 		} else if (gkPos == rightPart) {
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
-			p = err * 0.04f;
+			p = err * 0.048f;
 			d = (err - errOld) * 1.f;
 			u = p + d;
 			errOld = err;
@@ -97,8 +105,8 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 		else res.angle = _angle;
 
 		float err, p, d, u;
-		err = pow(abs(float(globalAngToBall - angGoal)), 2.f); //1.3f
-		p = 0.00075f * err; //0.0015 0.0041f
+		err = pow(abs(float(globalAngToBall - angGoal)), 2.2f); //1.3f
+		p = 0.00115f * err; //0.00087 0.0015 0.0041f
 		d = (err - errOldGkLine) * 0.08f;
 		u = p + d;
 		errOldGkLine = err;
@@ -112,19 +120,20 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
 				
 			err = pow(abs(float(globalAngToBall - angGoal)), 1.4f); //1.1
-			p = 0.005f * err; //0.004
+			p = 0.0054f * err; //0.004
 			d = (err - errOldGkRight) * 0.07f; //0.05
 			u = p + d;
 			errOldGkRight = err;
 			
 			res.length = u;
 			if (//(_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 || res.angle < 90)) 
-					(_y <= DOWN_Y_GOALKEEPER_RIGHT && (angBall < 15 || angBall > 210))) {
+					(_y <= _downYRight && (angBall < 15 || angBall > 210))) {
 				res.angle = 0;
-				res.length = 0;
+				if (_y <= CRITICAL_DOWN_Y) res.length = 0.6;
+				else res.length = 0;
 			} else if ((_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 + _angle || res.angle < 90 + _angle))) {
 				res.angle = 180 + _angle;
-				res.length = 0.5;
+				res.length = 0.6;
 			}
 		} else if (gkPos == leftPart) {
 			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
@@ -138,13 +147,14 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			res.length = u;			
 
 			//110 300
-			if ((_y <= DOWN_Y_GOALKEEPER_LEFT && 
+			if ((_y <= _downYLeft && 
 					(globalAngToBall > 130 && globalAngToBall < 300))) {
 				res.angle = 0;
-				res.length = 0;
+				if (_y <= CRITICAL_DOWN_Y) res.length = 0.6;
+				else res.length = 0;
 			} else if ((_x < GK_X_THRESHOLD_LEFT && res.angle > 90 && res.angle < 270)) {
 				res.angle = 0 + _angle;
-				res.length = 0.5;
+				res.length = 0.6;
 			}
 		}
 	}
