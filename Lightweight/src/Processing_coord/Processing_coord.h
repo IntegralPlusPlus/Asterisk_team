@@ -1,5 +1,6 @@
 #pragma once
 #include "project_config.h"
+#include "time_service.h"
 #include "Vec2b.h"
 
 #define ENEMY_X 0
@@ -14,7 +15,7 @@
 #define DIST_BETWEEN_GOALS 231
 
 #define ANGLE_LOW_TO_CIRCLE 50
-#define ANGLE_HIGH_TO_CIRCLE 130
+#define ANGLE_HIGH_TO_CIRCLE 138
 #define RADIUS_GOAL_OUT_RIGHT 43
 //43
 #define RADIUS_GOAL_OUT_LEFT 45

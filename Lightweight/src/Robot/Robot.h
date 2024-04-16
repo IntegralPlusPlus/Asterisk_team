@@ -4,12 +4,13 @@
 #define IMU_CALIBRATE_TIME 42000
 //20000
 #define NEED_TO_CALIBRATE 0
+
 #define TIME_NOT_SEEN 450
 #define TIME_LEAVE 3100
 #define TIME_FINISH_LEAVE 2000
 #define TIME_GO_FROM_OUT 0
 
-#define USUAL_FOLLOWING_SPEED 0.5
+#define USUAL_FOLLOWING_SPEED 0.67
 //0.67
 #define MAX_VEC2B_LEN 0.88
 //0.87
@@ -336,15 +337,16 @@ namespace Asterisk {
 	}
 	
 	bool mustLeave() {
-		if (time_service::millis() - timeCalibrEnd < 3000 || !seeBall || 
-				(seeBall && !(abs(kAng) < 0.081 && abs(kLen) < 0.009))) timeCheckLeave = time_service::millis(); //0.6 0.018
+		if (time_service::millis() - timeCalibrEnd < 2000 || dist < 3.7 || !seeBall || 
+				(seeBall && !(abs(kAng) < 0.12 && abs(kLen) < 0.013))) timeCheckLeave = time_service::millis(); //0.6 0.018
 		
 		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
 	}
 	
 	void goalkeeperStrategy() {
 		if (!doesntSeeGoals) {
-			if (inLeave) targetRaw = float(myGoalkeeper.getTarget2Enemy());
+			if (inLeave && 
+					myGoalkeeper.setAngleLeaveStatus() == byEnemyGoal) targetRaw = float(myGoalkeeper.getTarget2Enemy());
 			else targetRaw = float(myGoalkeeper.getTargetGoalkeeper());
 		}
 		
@@ -354,7 +356,7 @@ namespace Asterisk {
 		pow = gyro.getRotation();
 		
 		led2.set(!doesntSeeGoals);
-		led3.set(abs(float(pow)) <= 85);
+		led3.set(abs(-targetRaw - angleIMU) <= 4);
 		
 		if (!doesntSeeGoals) {
 			robotMustLeave = mustLeave();
@@ -374,28 +376,42 @@ namespace Asterisk {
 				vecToCenter *= myGoalkeeper.getCoeffToGoalCenter(vecToBall.length);
 			
 				goTo = vecToCenter + vecToBall;
+				
+				if (myGoalkeeper.dist2GoalLong()) {
+					inLeave = false;
+					inReturn = true;
+				}
+				
 			} else if (robotMustLeave && !inLeave && !inReturn) {
 				inLeave = true;
 				timeInLeaving = time_service::millis();
 				currLeaveTime = myGoalkeeper.getCurrentLeaveTime(ang);
 			} else if (inLeave) {
+				float speed2Ball = 0.72;
+				if (abs(-targetRaw - angleIMU) <= 5) speed2Ball = 0.93;
+				
 				if (!ballGrip) {
 					angSoft = gyro.calculateSoft(angSoft, 90 + ang);	
-					goTo = Vec2b(0.91, angSoft);
+					goTo = Vec2b(speed2Ball, angSoft);
 				} else {
-					goTo = Vec2b(0.91, myGoalkeeper.adduct(myGoalkeeper.getTarget2Enemy() + 90));
+					goTo = Vec2b(speed2Ball, myGoalkeeper.adduct(myGoalkeeper.getTarget2Enemy() + 90));
 				}
 				
 				if (time_service::millis() - timeInLeaving > currLeaveTime || 
-						sqrt(float(x * x + y * y)) > 0.57 * DIST_BETWEEN_GOALS ||
+						myGoalkeeper.distance(x, y, 0, 0) > 0.57 * DIST_BETWEEN_GOALS ||
 						!myGoalkeeper.checkXLeft(x) || !myGoalkeeper.checkXRight(x)) {
 					inLeave = false;
 					inReturn = true;
 				}
+						
+				if (myGoalkeeper.angleStopLeaving(ang)) {
+					inLeave = false;
+					inReturn = true;
+				}
 			} else if (inReturn) {
-				if (!doesntSeeGoals) goTo = myGoalkeeper.getVecToReturn();
-				//getVecToPoint(xGkReturn, yGkReturn);
-				
+				if (ang - angleIMU >= 90 || ang - angleIMU <= -90) goTo = getVec2bToBallFollow();
+				else goTo = myGoalkeeper.getVecToReturn();
+					
 				if (myGoalkeeper.changeFromReturn()) {
 					inReturn = false;
 					inLeave = false;

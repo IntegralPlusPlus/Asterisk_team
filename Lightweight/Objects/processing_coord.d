@@ -38,5 +38,7 @@
 .\objects\processing_coord.o: .\src\spl4\inc\stm32f4xx_fsmc.h
 .\objects\processing_coord.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\processing_coord.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\processing_coord.o: .\src\time_service\time_service.h
+.\objects\processing_coord.o: .\src\main\project_config.h
 .\objects\processing_coord.o: .\src\Vec2b\Vec2b.h
 .\objects\processing_coord.o: .\src\main\project_config.h

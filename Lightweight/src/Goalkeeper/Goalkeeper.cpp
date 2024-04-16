@@ -6,6 +6,8 @@ Goalkeeper::Goalkeeper(): ProcessingCoord() {
 	errOldGkLeft = 0;
 	errOldGkRight = 0;
 	errOldGkLine = 0;
+	timerLeave = 0;
+	countBall = 0;
 	
 	if (_goal == BLUE_GOAL) {
 		_downYRight = 32;
@@ -66,7 +68,7 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (gkPos == leftPart) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			p = err * 0.058f; //0.042
+			p = err * 0.06f; //0.058
 			d = (err - errOld) * 1.f;
 			u = p + d;
 			errOld = err;
@@ -105,9 +107,9 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 		else res.angle = _angle;
 
 		float err, p, d, u;
-		err = pow(abs(float(globalAngToBall - angGoal)), 2.2f); //1.3f
-		p = 0.00115f * err; //0.00087 0.0015 0.0041f
-		d = (err - errOldGkLine) * 0.08f;
+		err = pow(abs(float(globalAngToBall - angGoal)), 2.1f); //1.3f
+		p = 0.0005f * err; //0.00087 0.0015 0.0041f
+		d = (err - errOldGkLine) * 0.01f; //0.08f
 		u = p + d;
 		errOldGkLine = err;
 		
@@ -127,8 +129,8 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			
 			res.length = u;
 			if (//(_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 || res.angle < 90)) 
-					(_y <= _downYRight && (angBall < 15 || angBall > 210))) {
-				res.angle = 0;
+					(_y <= _downYRight && (globalAngToBall < 15 || globalAngToBall > 210))) {
+				res.angle = 90 + _angle;
 				if (_y <= CRITICAL_DOWN_Y) res.length = 0.6;
 				else res.length = 0;
 			} else if ((_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 + _angle || res.angle < 90 + _angle))) {
@@ -149,7 +151,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			//110 300
 			if ((_y <= _downYLeft && 
 					(globalAngToBall > 130 && globalAngToBall < 300))) {
-				res.angle = 0;
+				res.angle = 90 + _angle;
 				if (_y <= CRITICAL_DOWN_Y) res.length = 0.6;
 				else res.length = 0;
 			} else if ((_x < GK_X_THRESHOLD_LEFT && res.angle > 90 && res.angle < 270)) {
@@ -176,4 +178,29 @@ bool Goalkeeper::changeFromReturn() {
 float Goalkeeper::getCoeffToGoalCenter(float intersec) {
 	if (intersec < MAX_LEN_TO_INCREASE_VEC) return 1;
 	else return map(intersec, MAX_LEN_TO_INCREASE_VEC, _maxLen, 1.f, MAX_COEFF_TO_GOAL_CENTER);
+}
+
+bool Goalkeeper::angleStopLeaving(float ang) {
+	if (time_service::millis() != timerLeave && 
+			abs(ang - _angle) >= ANGLE_TO_LEAVE / 2) {
+		countBall++;
+		timerLeave = time_service::millis();
+	}
+			
+	if (countBall >= MS_BALL_NOT_FORWARD) {
+		countBall = 0;
+		return true;
+	} else return false;
+}
+
+bool Goalkeeper::dist2GoalLong() {
+	return distance(_x, _y) >= LONG_DISTANCE_TO_GOAL;
+}
+
+uint8_t Goalkeeper::setAngleLeaveStatus() {
+	if (_x >= THRESHOLD_ANGLEIMU_LOW && _x <= THRESHOLD_ANGLEIMU_HIGH) {
+		return byEnemyGoal;
+	} else {
+		return byMyGoal;
+	}
 }
