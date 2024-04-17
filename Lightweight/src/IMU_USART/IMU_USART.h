@@ -14,6 +14,11 @@
 #define K_SOFT 0.03f
 #define TARGET_K_FOFT 0.05f
 
+enum softCategoty {
+	baseSoft,
+	leavingSoft
+};
+
 class gyro_imu {
 	public:
 		gyro_imu(Pin &tx, Pin &rx, uint8_t usartNum);
@@ -22,7 +27,7 @@ class gyro_imu {
 		void setRotationForTarget();
 		void setTarget(float targetRaw);
 		void setZeroAngle();
-		float calculateSoft(float soft, float now);
+		float calculateSoft(float soft, float now, uint8_t softParam = baseSoft);
 		float adduct0_360(float angle);
 		int16_t getCurrentAngle();
 		int16_t getRotation();

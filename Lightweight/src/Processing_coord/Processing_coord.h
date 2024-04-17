@@ -14,15 +14,21 @@
 #define GOAL_OUT_Y_THRESHOLD 34
 #define DIST_BETWEEN_GOALS 231
 
-#define ANGLE_LOW_TO_CIRCLE 50
+#define ANGLE_LOW_TO_CIRCLE 55
 #define ANGLE_HIGH_TO_CIRCLE 138
 #define RADIUS_GOAL_OUT_RIGHT 43
 //43
-#define RADIUS_GOAL_OUT_LEFT 45
+#define RADIUS_GOAL_OUT_LEFT 43
 //44
 
-#define BACK_ANGLE 80
+#define BACK_ANGLE 60
 #define DELTA_DIST 8
+#define SAVE_DELTA_GK 55
+
+enum ballAng {
+	global,
+	local
+};
 
 class ProcessingCoord {
 	public:
@@ -37,10 +43,11 @@ class ProcessingCoord {
 		int16_t adduct(int16_t value);
 		int16_t adduct180(int16_t value);
 		int16_t getTarget2Enemy();
-		bool checkXLeft(int16_t x);
-		bool checkXRight(int16_t x);
+		bool checkXLeft(int16_t x, uint8_t role = FORWARD_ROLE);
+		bool checkXRight(int16_t x, uint8_t role = FORWARD_ROLE);
 		bool checkYUp(int16_t y);
 		bool checkYDown(int16_t y);
+		bool ballInBack(float angBall, uint8_t varible);
 	protected:
 		float _maxLen;
 		int16_t upThreshold, downThreshold, leftThreshold, rightThreshold;

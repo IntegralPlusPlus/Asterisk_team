@@ -52,7 +52,7 @@ namespace Asterisk {
 	volatile int16_t ballVal;
 	volatile float globalAng2Ball;
 	volatile uint8_t detourDir;
-	volatile bool thisButton;
+	volatile uint8_t byEnemyGoalGK;
 
 	Pin voltageDividerPin('A', 5, adc);
 	Adc voltageDividerPinADC(ADC2, 1, 5);
@@ -224,13 +224,8 @@ namespace Asterisk {
 		led1.set(imuCalibrated);
 		
 		capacitorADC = kicker.getDMASignal();
-		//kicker.setKickerStatus(button2.readPin());
-		
-		//if (kicker.canKick()) kicker.open();
-		//else kicker.close();
-		
-		//if (button2.readPin()) kicker.open();
-		//else kicker.close();
+		/*if (kicker.canKick()) kicker.open();
+		else kicker.close();*/
 	}
 	
 	Vec2b getVec2bToBallFollow(uint8_t zone = middleZone) {
@@ -337,26 +332,34 @@ namespace Asterisk {
 	}
 	
 	bool mustLeave() {
-		if (time_service::millis() - timeCalibrEnd < 2000 || dist < 3.7 || !seeBall || 
-				(seeBall && !(abs(kAng) < 0.12 && abs(kLen) < 0.013))) timeCheckLeave = time_service::millis(); //0.6 0.018
+		if (time_service::millis() - timeCalibrEnd < 2000 || myGoalkeeper.ballInBack(ang, local) ||
+				dist < 4.1 || !seeBall ||  (seeBall && !(abs(kAng) < 0.12 && abs(kLen) < 0.013))) timeCheckLeave = time_service::millis(); //0.6 0.018
 		
 		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
 	}
 	
 	void goalkeeperStrategy() {
 		if (!doesntSeeGoals) {
-			if (inLeave && 
-					myGoalkeeper.setAngleLeaveStatus() == byEnemyGoal) targetRaw = float(myGoalkeeper.getTarget2Enemy());
-			else targetRaw = float(myGoalkeeper.getTargetGoalkeeper());
+			if (inLeave && byEnemyGoalGK == byEnemyGoal) {
+				targetRaw = float(myGoalkeeper.getTarget2Enemy());
+			} else targetRaw = float(myGoalkeeper.getTargetGoalkeeper());			
 		}
 		
-		gyro.setTarget(targetRaw);
+		kicker.setKickerStatus(ballGrip && inLeave && abs(gyro.getTarget() - angleIMU) <= 15
+													 && myGoalkeeper.distance(x, y, 0, DIST_BETWEEN_GOALS) < DIST_BETWEEN_GOALS * 0.56);
 		
+		if (!kicker.canKick()) kicker.close();
+		else kicker.open();
+		//if (kicker.canKick() && inLeave && abs(gyro.getTarget() - angleIMU) <= 6)
+		//kicker.open();
+		
+		gyro.setTarget(targetRaw);
+
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 		
 		led2.set(!doesntSeeGoals);
-		led3.set(abs(-targetRaw - angleIMU) <= 4);
+		led3.set(abs(-gyro.getTarget() - angleIMU) <= 4);
 		
 		if (!doesntSeeGoals) {
 			robotMustLeave = mustLeave();
@@ -386,20 +389,29 @@ namespace Asterisk {
 				inLeave = true;
 				timeInLeaving = time_service::millis();
 				currLeaveTime = myGoalkeeper.getCurrentLeaveTime(ang);
+				byEnemyGoalGK = myGoalkeeper.setAngleLeaveStatus();
 			} else if (inLeave) {
-				float speed2Ball = 0.72;
-				if (abs(-targetRaw - angleIMU) <= 5) speed2Ball = 0.93;
+				float speed2Ball;
+				if (currLeaveTime == TIME_FINISH_LEAVE) { //ball not in sides 
+					if (abs(-targetRaw - angleIMU) <= 11) speed2Ball = 0.97;
+					else speed2Ball = 0.7;
+				} else speed2Ball = 0.4;
 				
 				if (!ballGrip) {
-					angSoft = gyro.calculateSoft(angSoft, 90 + ang);	
+					angSoft = gyro.calculateSoft(angSoft, 90 + ang, leavingSoft);	
 					goTo = Vec2b(speed2Ball, angSoft);
 				} else {
+					/*if (kicker.canKick() && (-targetRaw - angleIMU) <= 6 
+							&& myGoalkeeper.distance(x, y, 0, DIST_BETWEEN_GOALS) <= 0.4 * DIST_BETWEEN_GOALS) {
+						kicker.open();
+					}*/
+					
 					goTo = Vec2b(speed2Ball, myGoalkeeper.adduct(myGoalkeeper.getTarget2Enemy() + 90));
 				}
 				
 				if (time_service::millis() - timeInLeaving > currLeaveTime || 
-						myGoalkeeper.distance(x, y, 0, 0) > 0.57 * DIST_BETWEEN_GOALS ||
-						!myGoalkeeper.checkXLeft(x) || !myGoalkeeper.checkXRight(x)) {
+						myGoalkeeper.distance(x, y) > 0.61 * DIST_BETWEEN_GOALS ||
+						!myGoalkeeper.checkXLeft(x, myRole) || !myGoalkeeper.checkXRight(x, myRole)) {
 					inLeave = false;
 					inReturn = true;
 				}
@@ -426,7 +438,7 @@ namespace Asterisk {
 		//goTo = Vec2b(0.6, angSoft);
 		
 		if (!doesntSeeGoals && time_service::millis() != t) {
-		//if (time_service::millis() != t) {
+			//if (time_service::millis() != t) {
 			currentVector.changeTo(goTo);
 			t = time_service::millis();
 		}

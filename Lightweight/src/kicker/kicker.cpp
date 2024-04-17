@@ -6,12 +6,12 @@ Kicker::Kicker(Pin& kickerPin, Dma& capacitorDma): _kicker(kickerPin), _capDma(c
 	_signalDMASoft = 0;
 }
 
-void Kicker::setKickerStatus(bool buttonPressed) {
+void Kicker::setKickerStatus(bool condition) {
 	_signalDMA = _capDma.dataReturn(0);
 	_signalDMASoft = KICKER_KSOFT_DMA * float(_signalDMA) + (1 - KICKER_KSOFT_DMA) * _signalDMASoft;
 	
 	if (!_canKick && _signalDMASoft > KICK_DMA && 
-			buttonPressed && time_service::millis() - _kickerOpenTime > KICK_CLOSE_TIME) {
+			condition && time_service::millis() - _kickerOpenTime > KICK_CLOSE_TIME) {
 		_canKick = true;
 		_kickerOpenTime = time_service::millis();
 	} else if (_canKick && time_service::millis() - _kickerOpenTime > KICK_OPEN_TIME) {

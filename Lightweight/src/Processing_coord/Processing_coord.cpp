@@ -56,7 +56,7 @@ int16_t ProcessingCoord::getTarget2Enemy() {
 
 Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
 	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
-	float u = dist * 0.025f;
+	float u = dist * 0.027f;
 	
 	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
 }
@@ -67,12 +67,20 @@ float ProcessingCoord::getAngleBetween(float ang1, float ang2) {
 	else return abs(ang2 - ang1 - 360);
 }
 
-bool ProcessingCoord::checkXLeft(int16_t x) {
-	return x > leftThreshold;
+bool ProcessingCoord::ballInBack(float angBall, uint8_t varible) {
+	if (varible == local) angBall = adduct(angBall - _angle);
+	
+	return angBall > 270 - BACK_ANGLE / 2 && angBall < 270 + BACK_ANGLE / 2;
 }
 
-bool ProcessingCoord::checkXRight(int16_t x) {
-	return x < rightThreshold;
+bool ProcessingCoord::checkXLeft(int16_t x, uint8_t role) {
+	if (role == GOALKEEPER_ROLE) return x > leftThreshold - SAVE_DELTA_GK;
+	else return x > leftThreshold;
+}
+
+bool ProcessingCoord::checkXRight(int16_t x, uint8_t role) {
+	if (role == GOALKEEPER_ROLE) return x < rightThreshold + SAVE_DELTA_GK;
+	else return x < rightThreshold;
 }
 
 bool ProcessingCoord::checkYUp(int16_t y) {

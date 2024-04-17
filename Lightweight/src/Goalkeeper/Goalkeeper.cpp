@@ -74,7 +74,7 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 			errOld = err;
 		} else if (gkPos == rightPart) {
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
-			p = err * 0.048f;
+			p = err * 0.042f;
 			d = (err - errOld) * 1.f;
 			u = p + d;
 			errOld = err;
@@ -96,19 +96,17 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 	int16_t angleBallGoal = adduct(angGoal + globalAngToBall);
 	uint8_t gkPos = getGoalkeeperPos();
 	
-	if (globalAngToBall > 270 - BACK_ANGLE / 2 
-			&& globalAngToBall < 270 + BACK_ANGLE / 2) return Vec2b(0, 0);
-	else if (globalAngToBall > 270) {
-		globalAngToBall -= 360;
-	}
+	if (_y <= CRITICAL_DOWN_Y) return Vec2b(0.7, 90 + _angle);
+	else if (ballInBack(globalAngToBall, global)) return Vec2b(0, 0);
+	else if (globalAngToBall > 270) globalAngToBall -= 360;
 	
 	if (gkPos == centralLine) {
 		if (globalAngToBall > angGoal) res.angle = 180 + _angle;
 		else res.angle = _angle;
 
 		float err, p, d, u;
-		err = pow(abs(float(globalAngToBall - angGoal)), 2.1f); //1.3f
-		p = 0.0005f * err; //0.00087 0.0015 0.0041f
+		err = pow(abs(float(globalAngToBall - angGoal)), 2.2f); //1.3f
+		p = 0.0004f * err; //0.00087 0.0015 0.0041f
 		d = (err - errOldGkLine) * 0.01f; //0.08f
 		u = p + d;
 		errOldGkLine = err;
@@ -131,8 +129,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			if (//(_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 || res.angle < 90)) 
 					(_y <= _downYRight && (globalAngToBall < 15 || globalAngToBall > 210))) {
 				res.angle = 90 + _angle;
-				if (_y <= CRITICAL_DOWN_Y) res.length = 0.6;
-				else res.length = 0;
+				res.length = 0;
 			} else if ((_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 + _angle || res.angle < 90 + _angle))) {
 				res.angle = 180 + _angle;
 				res.length = 0.6;
@@ -152,8 +149,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			if ((_y <= _downYLeft && 
 					(globalAngToBall > 130 && globalAngToBall < 300))) {
 				res.angle = 90 + _angle;
-				if (_y <= CRITICAL_DOWN_Y) res.length = 0.6;
-				else res.length = 0;
+				res.length = 0;
 			} else if ((_x < GK_X_THRESHOLD_LEFT && res.angle > 90 && res.angle < 270)) {
 				res.angle = 0 + _angle;
 				res.length = 0.6;
@@ -198,9 +194,6 @@ bool Goalkeeper::dist2GoalLong() {
 }
 
 uint8_t Goalkeeper::setAngleLeaveStatus() {
-	if (_x >= THRESHOLD_ANGLEIMU_LOW && _x <= THRESHOLD_ANGLEIMU_HIGH) {
-		return byEnemyGoal;
-	} else {
-		return byMyGoal;
-	}
+	if (_x >= THRESHOLD_ANGLEIMU_LOW && _x <= THRESHOLD_ANGLEIMU_HIGH) return byEnemyGoal;
+	else return byMyGoal;
 }

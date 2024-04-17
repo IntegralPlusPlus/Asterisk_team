@@ -12,7 +12,7 @@
 class Kicker {
 	public:
 		Kicker(Pin& kickerPin, Dma& capacitorDma);
-		void setKickerStatus(bool buttonPressed = true);
+		void setKickerStatus(bool condition = true);
 		void open();
 		void close();
 		int16_t getDMASignal();
