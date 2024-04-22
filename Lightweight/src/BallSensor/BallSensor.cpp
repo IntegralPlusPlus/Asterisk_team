@@ -8,7 +8,7 @@ bool BallSensor::ballInGrip() {
 	int16_t val = getValue();
 	
 	if (val < SEE_BALL && count2See < COUNT_THRESHOLD) count2See++;
-	else if (val >= SEE_BALL) count2See = 0;
+	else count2See = 0;
 	
 	return count2See >= COUNT_THRESHOLD;
 }

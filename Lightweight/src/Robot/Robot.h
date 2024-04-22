@@ -1,14 +1,13 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 42000
-//20000
+#define IMU_CALIBRATE_TIME 43000
 #define NEED_TO_CALIBRATE 0
 
 #define TIME_NOT_SEEN 450
 #define TIME_LEAVE 3100
 #define TIME_FINISH_LEAVE 2000
-#define TIME_GO_FROM_OUT 0
+#define TIME_CANT_CHANGE_DIRECTION 700 
 
 #define USUAL_FOLLOWING_SPEED 0.67
 //0.67
@@ -41,27 +40,23 @@ namespace Asterisk {
 	volatile bool robotMustLeave, robotInOutOld;
 	volatile bool inLeave, inReturn, goFromOUT, goFromOutTime;
 	volatile double kLen, kAng, volt;
-	volatile int16_t currLeaveTime;
+	volatile int16_t currLeaveTime, usart6Available;
 	volatile uint8_t outStatus, outStatusNow;
 	volatile bool tssps_[32];
 	volatile bool robotInOUT;
 	volatile float xYellow, yYellow, xBlue, yBlue; 
 	volatile float capacitorADC;
 	volatile bool nearOUT = false;
-	volatile bool ballGrip;
+	volatile bool ballGrip, readed;
 	volatile int16_t ballVal;
 	volatile float globalAng2Ball;
 	volatile uint8_t detourDir;
-	volatile uint8_t byEnemyGoalGK;
+	volatile uint8_t byEnemyGoalGK, timeDetour;
 
 	Pin voltageDividerPin('A', 5, adc);
 	Adc voltageDividerPinADC(ADC2, 1, 5);
 	Dma voltageDividerDMA(RCC_AHB1Periph_DMA2, voltageDividerPinADC, DMA2_Stream2, DMA_Channel_1);
 	VoltageDividor voltageDiv(voltageDividerDMA);
-	
-	Pin capacitorPin('C', 0, adc);
-	Adc capacitorPinADC(ADC3, 3, 10);
-	Dma capacitor(RCC_AHB1Periph_DMA2, capacitorPinADC, DMA2_Stream0, DMA_Channel_2, 5, 20);
 
 	Pin ballSensPin('A', 4, adc);
 	Adc ballSensADC(ADC1, 1, 4);
@@ -78,15 +73,18 @@ namespace Asterisk {
 
 	TSOP tsops(tsop_in1, tsop_in2, tsop_in3, tsop_in4, tsopPin1, tsopPin2);
 
-	Pin tx_openMV('B', 10, usart3);
-	Pin rx_openMV('B', 11, usart3);
-	OpenMV camera(tx_openMV, rx_openMV, 3);
+	Pin tx_openMV('B', 10, usart3); //b10
+	Pin rx_openMV('B', 11, usart3); //b11
+	OpenMV camera(tx_openMV, rx_openMV, 3); //3
 
 	Pin reset_imu_pin('A', 0, write_pupd_down);
 	Pin tx_imu('B', 6, usart1);
 	Pin rx_imu('B', 7, usart1);
 	gyro_imu gyro(tx_imu, rx_imu, 1);
 
+	Pin capacitorPin('C', 0, adc);
+	Adc capacitorPinADC(ADC3, 3, 10);
+	Dma capacitor(RCC_AHB1Periph_DMA2, capacitorPinADC, DMA2_Stream0, DMA_Channel_2, 5, 20);
 	Pin kickerPin('A', 8, write);
 	Kicker kicker(kickerPin, capacitor);
 
@@ -144,6 +142,7 @@ namespace Asterisk {
 	void update() {	
 		ballVal = ballSens.getValue();
 		ballGrip = ballSens.ballInGrip();
+		//usart6Available = uart6::available();
 		camera.read();
 		tsops.updateTSOPs();
 		//for (uint8_t i = 0; i < 32; ++i) tssps_[i] = tsops.tsopValues[i];
@@ -226,15 +225,44 @@ namespace Asterisk {
 		capacitorADC = kicker.getDMASignal();
 		/*if (kicker.canKick()) kicker.open();
 		else kicker.close();*/
+		//omni.move(1, 0, 0, 200, gyro.getMaxRotation());
 	}
 	
-	Vec2b getVec2bToBallFollow(uint8_t zone = middleZone) {
+	Vec2b getVec2bToBallFollow(uint8_t zone = middleZone) {	
 		speedForward = USUAL_FOLLOWING_SPEED;
+		
 		if (seeBall) {
 			float offset = tsops.angleOffset(ang, distSoft, angleIMU);
 			
 			if (dist < 5.1) offset = 0;
 			else if (dist > 9.17 && abs(ang) > 25) speedForward *= 0.9;
+			
+			float globalTSOP = myForward.adduct180(ang - angleIMU);
+			if (zone == leftZone && offset < 0 && globalTSOP < -90) { 
+					//|| (zone == rightZone && offset > 0 && globalTSOP > 90)) {
+				detourDir = rightDetour;	
+				//offset *= -1;
+			} else if (zone == rightZone && offset > 0 && globalTSOP > 90) {
+				detourDir = leftDetour;
+			}
+			
+			if ((detourDir == rightDetour && offset < 0)
+					|| (detourDir == leftDetour && offset > 0)) {
+				offset *= -1;
+				timeDetour = time_service::millis(); 
+			} else {
+				if (zone == middleZone) {
+					if (time_service::millis() - timeDetour < TIME_CANT_CHANGE_DIRECTION) {
+						if (detourDir == leftDetour && offset > 0) offset *= -1;
+						else if (detourDir == rightDetour && offset < 0) offset *= -1;
+					} else detourDir = defaultDetour;
+				} 
+			}
+			
+			/*if ((detourDir == rightDetour && globalTSOP > 0 && globalTSOP < 175)
+					|| (detourDir == leftDetour && globalTSOP < 0 && globalTSOP > -175)) {
+				detourDir = defaultDetour;
+			}*/
 			
 			angRes = ang + offset + 90;
 			
@@ -255,6 +283,7 @@ namespace Asterisk {
 		return Vec2b(speedForward, myForward.adduct(angSoft));
 	}
 	
+
 	void forwardStrategy() {
 		if (!doesntSeeGoals) targetRaw = float(myForward.getTarget2Enemy());
 		gyro.setTarget(targetRaw);
@@ -265,7 +294,7 @@ namespace Asterisk {
 		led2.set(abs(angleIMU) <= 4);
 		led3.set(abs(float(pow)) <= 85);
 		
-		goToBall = getVec2bToBallFollow(myForward.setFieldZone());
+		goToBall = getVec2bToBallFollow();
 		
 		if (!doesntSeeGoals) {
 			outStatus = myForward.checkOUTs();
@@ -332,8 +361,8 @@ namespace Asterisk {
 	}
 	
 	bool mustLeave() {
-		if (time_service::millis() - timeCalibrEnd < 2000 || myGoalkeeper.ballInBack(ang, local) ||
-				dist < 4.1 || !seeBall ||  (seeBall && !(abs(kAng) < 0.12 && abs(kLen) < 0.013))) timeCheckLeave = time_service::millis(); //0.6 0.018
+		if (time_service::millis() - timeCalibrEnd < 2000 || myGoalkeeper.ballInBack(ang, local) || dist < 4.1
+				|| !seeBall ||  (seeBall && !(abs(kAng) < 0.12 && abs(kLen) < 0.013))) timeCheckLeave = time_service::millis(); //0.6 0.018
 		
 		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
 	}
@@ -345,8 +374,7 @@ namespace Asterisk {
 			} else targetRaw = float(myGoalkeeper.getTargetGoalkeeper());			
 		}
 		
-		kicker.setKickerStatus(ballGrip && inLeave && abs(gyro.getTarget() - angleIMU) <= 15
-													 && myGoalkeeper.distance(x, y, 0, DIST_BETWEEN_GOALS) < DIST_BETWEEN_GOALS * 0.56);
+		kicker.setKickerStatus(button3.readPin() || ballGrip && inLeave && myGoalkeeper.suitableParams2Kick());
 		
 		if (!kicker.canKick()) kicker.close();
 		else kicker.open();
@@ -363,6 +391,10 @@ namespace Asterisk {
 		
 		if (!doesntSeeGoals) {
 			robotMustLeave = mustLeave();
+			//seeBall && !(abs(kAng) < 0.17 && abs(kLen) < 0.016);
+			//leaver = (time_service::millis() - timeCalibrEnd < 2000 || myGoalkeeper.ballInBack(ang, local) ||
+			//					dist < 4.1 || !seeBall ||  (seeBall && !(abs(kAng) < 0.17 && abs(kLen) < 0.016)));
+		
 			if (!robotMustLeave && !inLeave && !inReturn) {
 				Vec2b vecToBall, vecToCenter;
 				angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
@@ -391,23 +423,18 @@ namespace Asterisk {
 				currLeaveTime = myGoalkeeper.getCurrentLeaveTime(ang);
 				byEnemyGoalGK = myGoalkeeper.setAngleLeaveStatus();
 			} else if (inLeave) {
-				float speed2Ball;
 				if (currLeaveTime == TIME_FINISH_LEAVE) { //ball not in sides 
-					if (abs(-targetRaw - angleIMU) <= 11) speed2Ball = 0.97;
-					else speed2Ball = 0.7;
-				} else speed2Ball = 0.4;
-				
-				if (!ballGrip) {
-					angSoft = gyro.calculateSoft(angSoft, 90 + ang, leavingSoft);	
-					goTo = Vec2b(speed2Ball, angSoft);
-				} else {
-					/*if (kicker.canKick() && (-targetRaw - angleIMU) <= 6 
-							&& myGoalkeeper.distance(x, y, 0, DIST_BETWEEN_GOALS) <= 0.4 * DIST_BETWEEN_GOALS) {
-						kicker.open();
-					}*/
+					float speed2Ball;
+					if (abs(-targetRaw - angleIMU) <= 8) speed2Ball = 0.91;
+					else speed2Ball = 0.72;
 					
-					goTo = Vec2b(speed2Ball, myGoalkeeper.adduct(myGoalkeeper.getTarget2Enemy() + 90));
-				}
+					if (!ballGrip) {
+						angSoft = gyro.calculateSoft(angSoft, 90 + ang, leavingSoft);	
+						goTo = Vec2b(speed2Ball, angSoft);
+					} else {
+						goTo = Vec2b(speed2Ball, myGoalkeeper.adduct(myGoalkeeper.getTarget2Enemy() + 90));
+					}
+				} else goTo = Vec2b(0.5, 90 + ang);//speed2Ball = 0.4;
 				
 				if (time_service::millis() - timeInLeaving > currLeaveTime || 
 						myGoalkeeper.distance(x, y) > 0.61 * DIST_BETWEEN_GOALS ||
@@ -462,6 +489,7 @@ namespace Asterisk {
 		time_service::delay(100);
 		
 		t = time_service::millis();
+		timeDetour = time_service::millis();
 	
 		currLeaveTime = TIME_FINISH_LEAVE;
 		target = 0;

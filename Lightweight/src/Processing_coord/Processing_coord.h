@@ -21,9 +21,12 @@
 #define RADIUS_GOAL_OUT_LEFT 43
 //44
 
-#define BACK_ANGLE 60
+#define BACK_ANGLE 20
 #define DELTA_DIST 8
-#define SAVE_DELTA_GK 55
+#define SAVE_DELTA_GK 6
+
+#define LEFT_GOAL_THRESHOLD -30 
+#define RIGHT_GOAL_THRESHOLD 25
 
 enum ballAng {
 	global,
@@ -48,6 +51,7 @@ class ProcessingCoord {
 		bool checkYUp(int16_t y);
 		bool checkYDown(int16_t y);
 		bool ballInBack(float angBall, uint8_t varible);
+		bool suitableParams2Kick();
 	protected:
 		float _maxLen;
 		int16_t upThreshold, downThreshold, leftThreshold, rightThreshold;

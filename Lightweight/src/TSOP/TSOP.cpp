@@ -22,11 +22,11 @@ void TSOP::updateTSOPs() {
 	//bool iSeeBall = false;
 	bool value1mux, value2mux;
 	for (uint16_t i = 0; i < 16; ++i) {
-		bool addres[] = {(i / 8) % 2, (i / 4) % 2, (i / 2) % 2, i % 2};
-		_w1.set(addres[3]);
-		_w2.set(addres[2]);
-		_w3.set(addres[1]);
-		_w4.set(addres[0]);
+		bool address[] = {(i / 8) % 2, (i / 4) % 2, (i / 2) % 2, i % 2};
+		_w1.set(address[3]);
+		_w2.set(address[2]);
+		_w3.set(address[1]);
+		_w4.set(address[0]);
 	
 		value1mux = (_mux1input.getGPIOx()->IDR & _mux1input.getPin());
 		value2mux = (_mux2input.getGPIOx()->IDR & _mux2input.getPin());

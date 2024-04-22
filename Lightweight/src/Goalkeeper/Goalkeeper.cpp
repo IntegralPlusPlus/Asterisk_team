@@ -13,8 +13,8 @@ Goalkeeper::Goalkeeper(): ProcessingCoord() {
 		_downYRight = 32;
 		_downYLeft = 28;
 	} else {
-		_downYRight = 33;
-		_downYLeft = 34;
+		_downYRight = 29;
+		_downYLeft = 28;
 	}
 }
 
@@ -106,8 +106,8 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 
 		float err, p, d, u;
 		err = pow(abs(float(globalAngToBall - angGoal)), 2.2f); //1.3f
-		p = 0.0004f * err; //0.00087 0.0015 0.0041f
-		d = (err - errOldGkLine) * 0.01f; //0.08f
+		p = 0.0005f * err; //0.00087 0.0015 0.0041f
+		d = (err - errOldGkLine) * 0.012f; //0.08f
 		u = p + d;
 		errOldGkLine = err;
 		
@@ -132,7 +132,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 				res.length = 0;
 			} else if ((_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 + _angle || res.angle < 90 + _angle))) {
 				res.angle = 180 + _angle;
-				res.length = 0.6;
+				res.length = _maxLen;
 			}
 		} else if (gkPos == leftPart) {
 			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
@@ -152,12 +152,12 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 				res.length = 0;
 			} else if ((_x < GK_X_THRESHOLD_LEFT && res.angle > 90 && res.angle < 270)) {
 				res.angle = 0 + _angle;
-				res.length = 0.6;
+				res.length = _maxLen;
 			}
 		}
 	}
 	
-	if (res.length > _maxLen) res.length = _maxLen;
+	if (res.length > 1.22f * _maxLen) res.length = 1.22f * _maxLen;
 	
 	return res;
 }

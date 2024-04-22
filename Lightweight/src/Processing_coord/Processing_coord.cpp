@@ -56,7 +56,7 @@ int16_t ProcessingCoord::getTarget2Enemy() {
 
 Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
 	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
-	float u = dist * 0.027f;
+	float u = dist * 0.036f; //0.027
 	
 	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
 }
@@ -73,13 +73,21 @@ bool ProcessingCoord::ballInBack(float angBall, uint8_t varible) {
 	return angBall > 270 - BACK_ANGLE / 2 && angBall < 270 + BACK_ANGLE / 2;
 }
 
+bool ProcessingCoord::suitableParams2Kick() {
+	float angLeft = atan2(float(LEFT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
+	float angRight = atan2(float(RIGHT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
+
+	return _angle >= angLeft && _angle <= angRight 
+				 && distance(_x, _y, 0, DIST_BETWEEN_GOALS) < DIST_BETWEEN_GOALS * 0.56;
+}
+
 bool ProcessingCoord::checkXLeft(int16_t x, uint8_t role) {
-	if (role == GOALKEEPER_ROLE) return x > leftThreshold - SAVE_DELTA_GK;
+	if (role == GOALKEEPER_ROLE) return x > leftThreshold + SAVE_DELTA_GK;
 	else return x > leftThreshold;
 }
 
 bool ProcessingCoord::checkXRight(int16_t x, uint8_t role) {
-	if (role == GOALKEEPER_ROLE) return x < rightThreshold + SAVE_DELTA_GK;
+	if (role == GOALKEEPER_ROLE) return x < rightThreshold - SAVE_DELTA_GK;
 	else return x < rightThreshold;
 }
 
