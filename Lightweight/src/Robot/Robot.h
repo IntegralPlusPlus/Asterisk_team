@@ -361,7 +361,7 @@ namespace Asterisk {
 	}
 	
 	bool mustLeave() {
-		if (time_service::millis() - timeCalibrEnd < 2000 || myGoalkeeper.ballInBack(ang, local) || dist < 4.1
+		if (time_service::millis() - timeCalibrEnd < 2000 || myGoalkeeper.ballInBack(ang, tsopRaw) || dist < 4.1
 				|| !seeBall ||  (seeBall && !(abs(kAng) < 0.12 && abs(kLen) < 0.013))) timeCheckLeave = time_service::millis(); //0.6 0.018
 		
 		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
@@ -387,20 +387,16 @@ namespace Asterisk {
 		pow = gyro.getRotation();
 		
 		led2.set(!doesntSeeGoals);
-		led3.set(abs(-gyro.getTarget() - angleIMU) <= 4);
+		led3.set(myGoalkeeper.ballInBack(ang, tsopRaw));
+		//led3.set(abs(-gyro.getTarget() - angleIMU) <= 4);
 		
 		if (!doesntSeeGoals) {
 			robotMustLeave = mustLeave();
-			//seeBall && !(abs(kAng) < 0.17 && abs(kLen) < 0.016);
-			//leaver = (time_service::millis() - timeCalibrEnd < 2000 || myGoalkeeper.ballInBack(ang, local) ||
-			//					dist < 4.1 || !seeBall ||  (seeBall && !(abs(kAng) < 0.17 && abs(kLen) < 0.016)));
 		
 			if (!robotMustLeave && !inLeave && !inReturn) {
 				Vec2b vecToBall, vecToCenter;
 				angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
-				ang0_360 = ang + 90;
-				while (ang0_360 > 360) ang0_360 -= 360;
-				while (ang0_360 < 0) ang0_360 += 360;
+				ang0_360 = myGoalkeeper.adduct(ang + 90);
 				
 				if (!tsops.distBad(distSoft) && seeBall) vecToBall = myGoalkeeper.getVecToIntersection(ang0_360);
 				else if (!seeBall) vecToBall = myGoalkeeper.getVecToPoint();

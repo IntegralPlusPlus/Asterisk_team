@@ -29,8 +29,8 @@
 #define RIGHT_GOAL_THRESHOLD 25
 
 enum ballAng {
-	global,
-	local
+	tsopRaw,
+	byVec
 };
 
 class ProcessingCoord {

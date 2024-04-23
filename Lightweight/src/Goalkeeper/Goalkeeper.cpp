@@ -96,8 +96,8 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 	int16_t angleBallGoal = adduct(angGoal + globalAngToBall);
 	uint8_t gkPos = getGoalkeeperPos();
 	
-	if (_y <= CRITICAL_DOWN_Y) return Vec2b(0.7, 90 + _angle);
-	else if (ballInBack(globalAngToBall, global)) return Vec2b(0, 0);
+	if (_y <= CRITICAL_DOWN_Y) return Vec2b(_maxLen, 90 + _angle);
+	else if (ballInBack(angBall, byVec)) return Vec2b(0, 0);
 	else if (globalAngToBall > 270) globalAngToBall -= 360;
 	
 	if (gkPos == centralLine) {

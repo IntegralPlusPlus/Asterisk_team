@@ -68,9 +68,11 @@ float ProcessingCoord::getAngleBetween(float ang1, float ang2) {
 }
 
 bool ProcessingCoord::ballInBack(float angBall, uint8_t varible) {
-	if (varible == local) angBall = adduct(angBall - _angle);
+	float angLeft = 180 + adduct180(RAD2DEG * atan2(float(_y), float(_x - LEFT_GOAL_THRESHOLD)));
+	float angRight = 180 + adduct180(RAD2DEG * atan2(float(_y), float(_x - RIGHT_GOAL_THRESHOLD)));
 	
-	return angBall > 270 - BACK_ANGLE / 2 && angBall < 270 + BACK_ANGLE / 2;
+	if (varible == tsopRaw) return adduct(90 + angBall) >= angLeft && adduct(90 + angBall) <= angRight;
+	else return angBall >= angLeft && angBall <= angRight;
 }
 
 bool ProcessingCoord::suitableParams2Kick() {
