@@ -2,7 +2,7 @@
 #include "libraries.h"
 
 #define IMU_CALIBRATE_TIME 43000
-#define NEED_TO_CALIBRATE 0
+#define NEED_TO_CALIBRATE 1
 
 #define TIME_NOT_SEEN 450
 #define TIME_LEAVE 3100
@@ -52,6 +52,8 @@ namespace Asterisk {
 	volatile float globalAng2Ball;
 	volatile uint8_t detourDir;
 	volatile uint8_t byEnemyGoalGK, timeDetour;
+	volatile float xReturn, yReturn;
+	volatile float globalAng;
 
 	Pin voltageDividerPin('A', 5, adc);
 	Adc voltageDividerPinADC(ADC2, 1, 5);
@@ -234,35 +236,32 @@ namespace Asterisk {
 		if (seeBall) {
 			float offset = tsops.angleOffset(ang, distSoft, angleIMU);
 			
-			if (dist < 5.1) offset = 0;
+			if (tsops.ballFar(dist)) offset = 0;
 			else if (dist > 9.17 && abs(ang) > 25) speedForward *= 0.9;
 			
-			float globalTSOP = myForward.adduct180(ang - angleIMU);
-			if (zone == leftZone && offset < 0 && globalTSOP < -90) { 
-					//|| (zone == rightZone && offset > 0 && globalTSOP > 90)) {
-				detourDir = rightDetour;	
-				//offset *= -1;
-			} else if (zone == rightZone && offset > 0 && globalTSOP > 90) {
-				detourDir = leftDetour;
+			if (myRole == FORWARD_ROLE) {
+				float globalTSOP = myForward.adduct180(ang - angleIMU);
+				if (zone == leftZone && offset < 0 && globalTSOP < -90) { 
+						//|| (zone == rightZone && offset > 0 && globalTSOP > 90)) {
+					detourDir = rightDetour;	
+					//offset *= -1;
+				} else if (zone == rightZone && offset > 0 && globalTSOP > 90) {
+					detourDir = leftDetour;
+				}
+				
+				if ((detourDir == rightDetour && offset < 0)
+						|| (detourDir == leftDetour && offset > 0)) {
+					offset *= -1;
+					timeDetour = time_service::millis(); 
+				} else {
+					if (zone == middleZone) {
+						if (time_service::millis() - timeDetour < TIME_CANT_CHANGE_DIRECTION) {
+							if (detourDir == leftDetour && offset > 0) offset *= -1;
+							else if (detourDir == rightDetour && offset < 0) offset *= -1;
+						} else detourDir = defaultDetour;
+					} 
+				}
 			}
-			
-			if ((detourDir == rightDetour && offset < 0)
-					|| (detourDir == leftDetour && offset > 0)) {
-				offset *= -1;
-				timeDetour = time_service::millis(); 
-			} else {
-				if (zone == middleZone) {
-					if (time_service::millis() - timeDetour < TIME_CANT_CHANGE_DIRECTION) {
-						if (detourDir == leftDetour && offset > 0) offset *= -1;
-						else if (detourDir == rightDetour && offset < 0) offset *= -1;
-					} else detourDir = defaultDetour;
-				} 
-			}
-			
-			/*if ((detourDir == rightDetour && globalTSOP > 0 && globalTSOP < 175)
-					|| (detourDir == leftDetour && globalTSOP < 0 && globalTSOP > -175)) {
-				detourDir = defaultDetour;
-			}*/
 			
 			angRes = ang + offset + 90;
 			
@@ -283,7 +282,6 @@ namespace Asterisk {
 		return Vec2b(speedForward, myForward.adduct(angSoft));
 	}
 	
-
 	void forwardStrategy() {
 		if (!doesntSeeGoals) targetRaw = float(myForward.getTarget2Enemy());
 		gyro.setTarget(targetRaw);
@@ -392,16 +390,16 @@ namespace Asterisk {
 		
 		if (!doesntSeeGoals) {
 			robotMustLeave = mustLeave();
-		
+											
 			if (!robotMustLeave && !inLeave && !inReturn) {
 				Vec2b vecToBall, vecToCenter;
 				angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
 				ang0_360 = myGoalkeeper.adduct(ang + 90);
-				
+											
 				if (!tsops.distBad(distSoft) && seeBall) vecToBall = myGoalkeeper.getVecToIntersection(ang0_360);
 				else if (!seeBall) vecToBall = myGoalkeeper.getVecToPoint();
 				else vecToBall = Vec2b(0, 0);
-				
+											
 				//globalAng2Ball = myGoalkeeper.globalAngToBall;
 				vecToCenter = myGoalkeeper.getVecToGoalCenter();
 				vecToCenter *= myGoalkeeper.getCoeffToGoalCenter(vecToBall.length);
@@ -412,12 +410,13 @@ namespace Asterisk {
 					inLeave = false;
 					inReturn = true;
 				}
-				
 			} else if (robotMustLeave && !inLeave && !inReturn) {
 				inLeave = true;
 				timeInLeaving = time_service::millis();
 				currLeaveTime = myGoalkeeper.getCurrentLeaveTime(ang);
 				byEnemyGoalGK = myGoalkeeper.setAngleLeaveStatus();
+				xReturn = x;
+				yReturn = y;
 			} else if (inLeave) {
 				if (currLeaveTime == TIME_FINISH_LEAVE) { //ball not in sides 
 					float speed2Ball;
@@ -444,19 +443,40 @@ namespace Asterisk {
 					inReturn = true;
 				}
 			} else if (inReturn) {
-				if (ang - angleIMU >= 90 || ang - angleIMU <= -90) goTo = getVec2bToBallFollow();
-				else goTo = myGoalkeeper.getVecToReturn();
+				globalAng = myGoalkeeper.adduct180(ang - angleIMU);
+				
+				if (globalAng >= 90 || globalAng <= -90) {
+					Vec2b vecDetour, toPoint;
+					if (tsops.ballFar(dist)) vecDetour = Vec2b(0, 0);
+					else vecDetour = getVec2bToBallFollow();
+					toPoint = myGoalkeeper.getVecToPoint(xReturn, yReturn);
 					
+					if (!myGoalkeeper.checkXLeft(x, myRole)) {
+						goTo = vecDetour + myGoalkeeper.getVecToPoint(xReturn, yReturn) + Vec2b(MAX_VEC2B_LEN, 0 + angleIMU);
+						//goTo = goTo + Vec2b(MAX_VEC2B_LEN, 0 + angleIMU);
+					} else if (!myGoalkeeper.checkXRight(x, myRole)) {
+						goTo = vecDetour + myGoalkeeper.getVecToPoint(xReturn, yReturn) + Vec2b(MAX_VEC2B_LEN, 180 + angleIMU);
+					} else {
+						toPoint *= 0.25;
+						goTo = vecDetour + toPoint;
+					}
+				} else {
+					goTo = myGoalkeeper.getVecToPoint(xReturn, yReturn);
+				}
+				
 				if (myGoalkeeper.changeFromReturn()) {
 					inReturn = false;
 					inLeave = false;
 					timeCheckLeave = time_service::millis();
+					
+					xReturn = 0;
+					yReturn = GOAL_OUT_Y_THRESHOLD;
 				}
 			}
 		}
 		
 		if (!inLeave && !inReturn && goTo.length > MAX_VEC2B_LEN) goTo.length = MAX_VEC2B_LEN;
-		else if (inReturn && goTo.length > MAX_VEC2B_LEN - 0.1) goTo.length = MAX_VEC2B_LEN - 0.1;
+		else if (inReturn && goTo.length > MAX_VEC2B_LEN - 0.05) goTo.length = MAX_VEC2B_LEN - 0.05;
 		
 		//goTo = Vec2b(0.6, angSoft);
 		
@@ -494,6 +514,8 @@ namespace Asterisk {
 		distOld = -1;
 		angOld = -1;
 		outStatus = unknow;
+		xReturn = 0;
+		yReturn = GOAL_OUT_Y_THRESHOLD;
 		
 		imuCalibrated = false;
 		seeBall = true;

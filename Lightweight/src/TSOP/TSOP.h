@@ -21,6 +21,7 @@ class TSOP {
 		double convertDist(double dist);
 		double angleOffset(double angle, double dist, double angleIMU = 0);
 		bool distBad(int16_t distLocator);
+		bool ballFar(float dist);
 	protected:
 		Pin _w1, _w2, _w3, _w4, _mux1input, _mux2input;
 		bool tsopValues[32];

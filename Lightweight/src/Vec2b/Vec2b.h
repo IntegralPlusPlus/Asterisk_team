@@ -15,6 +15,7 @@ struct Vec2b {
 	void changeTo(Vec2b to);
 	Vec2b operator+ (const Vec2b& a);
 	Vec2b operator*= (const float& coeff);
+	Vec2b operator* (const float& coeff);
 	
 	double length;
 	double angle;

@@ -97,3 +97,7 @@ int16_t TSOP::adduct(int16_t a) {
 	 
 	return a;
 }
+
+bool TSOP::ballFar(float dist) {
+	return dist < 5.1;
+}

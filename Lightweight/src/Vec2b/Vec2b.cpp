@@ -46,3 +46,7 @@ Vec2b Vec2b::operator+ (const Vec2b& a) {
 Vec2b Vec2b::operator*= (const float& coeff) {
 	this->length *= coeff;
 }
+
+Vec2b Vec2b::operator* (const float& coeff) {
+	this->length *= coeff;
+}

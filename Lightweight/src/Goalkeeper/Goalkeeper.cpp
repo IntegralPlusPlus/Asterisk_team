@@ -13,8 +13,8 @@ Goalkeeper::Goalkeeper(): ProcessingCoord() {
 		_downYRight = 32;
 		_downYLeft = 28;
 	} else {
-		_downYRight = 29;
-		_downYLeft = 28;
+		_downYRight = 27;
+		_downYLeft = 26;
 	}
 }
 
@@ -68,7 +68,7 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (gkPos == leftPart) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			p = err * 0.06f; //0.058
+			p = err * 0.045f; //0.058
 			d = (err - errOld) * 1.f;
 			u = p + d;
 			errOld = err;
@@ -106,7 +106,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 
 		float err, p, d, u;
 		err = pow(abs(float(globalAngToBall - angGoal)), 2.2f); //1.3f
-		p = 0.0005f * err; //0.00087 0.0015 0.0041f
+		p = 0.00043f * err; //0.00087 0.0015 0.0041f
 		d = (err - errOldGkLine) * 0.012f; //0.08f
 		u = p + d;
 		errOldGkLine = err;
@@ -168,7 +168,7 @@ Vec2b Goalkeeper::getVecToReturn() {
 }
 
 bool Goalkeeper::changeFromReturn() {
-	return distance(_x, _y) < 1.35f * GOAL_OUT_Y_THRESHOLD;
+	return distance(_x, _y) < 1.15f * GOAL_OUT_Y_THRESHOLD; //1.35f
 }
 
 float Goalkeeper::getCoeffToGoalCenter(float intersec) {
