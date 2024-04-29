@@ -2,7 +2,7 @@
 #include "libraries.h"
 
 #define IMU_CALIBRATE_TIME 43000
-#define NEED_TO_CALIBRATE 1
+#define NEED_TO_CALIBRATE 0
 
 #define TIME_NOT_SEEN 450
 #define TIME_LEAVE 3100
@@ -11,8 +11,8 @@
 
 #define USUAL_FOLLOWING_SPEED 0.67
 //0.67
-#define MAX_VEC2B_LEN 0.88
-//0.87
+#define MAX_VEC2B_LEN 0.89
+//0.89
 
 namespace Asterisk {
 	Vec2b currentVector;
@@ -39,7 +39,7 @@ namespace Asterisk {
 	volatile bool seeBall, motorsWork, neverTurnMotors;
 	volatile bool robotMustLeave, robotInOutOld;
 	volatile bool inLeave, inReturn, goFromOUT, goFromOutTime;
-	volatile double kLen, kAng, volt;
+	volatile double kLen, kAng, volt = 0.0;
 	volatile int16_t currLeaveTime, usart6Available;
 	volatile uint8_t outStatus, outStatusNow;
 	volatile bool tssps_[32];
@@ -177,6 +177,9 @@ namespace Asterisk {
 			timeNotSeenBall = time_service::millis();
 		}
 		
+		//double m_ang = ang, m_dist = dist;
+		//currentVector = Vec2b(0.18, 90 + ang);
+		//omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 		//ang = angRaw;
 		//dist = distRaw;
 		kAng = ball.getDerivativeAng();
@@ -239,7 +242,7 @@ namespace Asterisk {
 			if (tsops.ballFar(dist)) offset = 0;
 			else if (dist > 9.17 && abs(ang) > 25) speedForward *= 0.9;
 			
-			if (myRole == FORWARD_ROLE) {
+			/*if (myRole == FORWARD_ROLE) {
 				float globalTSOP = myForward.adduct180(ang - angleIMU);
 				if (zone == leftZone && offset < 0 && globalTSOP < -90) { 
 						//|| (zone == rightZone && offset > 0 && globalTSOP > 90)) {
@@ -261,7 +264,7 @@ namespace Asterisk {
 						} else detourDir = defaultDetour;
 					} 
 				}
-			}
+			}*/
 			
 			angRes = ang + offset + 90;
 			
@@ -289,8 +292,13 @@ namespace Asterisk {
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 		
+		kicker.setKickerStatus(button3.readPin() || ballGrip && myForward.suitableParams2Kick());
+		
+		if (!kicker.canKick()) kicker.close();
+		else kicker.open();
+		
 		led2.set(abs(angleIMU) <= 4);
-		led3.set(abs(float(pow)) <= 85);
+		led3.set(abs(-angleIMU - gyro.getTarget()) <= 3);
 		
 		goToBall = getVec2bToBallFollow();
 		
@@ -335,7 +343,11 @@ namespace Asterisk {
 				}
 			} else if (robotInOUT) {
 				if (myForward.inEnemyGoal()) {
-					goTo = goToBall + goOUT;
+					if (myForward.adduct180(ang - angleIMU) < 40 && myForward.adduct180(ang - angleIMU) > -40) {
+						goTo = goOUT;
+					} else {
+						goTo = goToBall + goOUT;
+					}
 				} else if (myForward.inMyGoal()) {
 					if (myForward.ballInBack(ang)) {
 						goOUT *= 0.7;
@@ -516,6 +528,7 @@ namespace Asterisk {
 		outStatus = unknow;
 		xReturn = 0;
 		yReturn = GOAL_OUT_Y_THRESHOLD;
+		volt = 0;
 		
 		imuCalibrated = false;
 		seeBall = true;

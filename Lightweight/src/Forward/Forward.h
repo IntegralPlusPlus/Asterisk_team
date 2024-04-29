@@ -4,7 +4,7 @@
 #include "Vec2b.h"
 
 #define DELTA_DIST 8
-#define NEAR_OUT_DIST 11
+#define NEAR_OUT_DIST 18
 #define BACK_SECTOR 140
 #define BACK_SECTOR_DETOUR 30
 #define COEFF_CIRCLE 1.25f
@@ -47,6 +47,7 @@ class Forward : public ProcessingCoord {
 		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
 		Vec2b setOUTVector(uint8_t status, Vec2b current);
 		Vec2b vec2bOnGoal(float speed, float angBall);
+		Vec2b projectionOnY(Vec2b vec);
 		float setNearSpeed(uint8_t status, float maxSpeed);
 		uint8_t checkOUTs();
 		uint8_t getBallSide(float angBall);

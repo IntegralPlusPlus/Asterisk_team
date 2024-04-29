@@ -1,9 +1,11 @@
 #include "Robot.h"
 
 int main() {
-	Asterisk::init(YELLOW_GOAL, GOALKEEPER_ROLE);
+	Asterisk::init(YELLOW_GOAL, FORWARD_ROLE);
+	volatile uint64_t kek = 0;
 	
 	while (true) {
+		kek++;
 		Asterisk::update();
 
 		if (!Asterisk::calibrated()) continue;

@@ -46,10 +46,10 @@ Vec2b Forward::setOUTVector(uint8_t status, Vec2b current) {
 			return Vec2b(_maxLen, adduct(270 + _angle));
 			break;
 		case left:
-			return Vec2b(_maxLen, adduct(180 + _angle));
+			return Vec2b(_maxLen, adduct(180 + _angle)) + projectionOnY(current);
 			break;
 		case right:
-			return Vec2b(_maxLen, adduct(_angle));
+			return Vec2b(_maxLen, adduct(_angle)) + projectionOnY(current);
 			break;
 		case enemyCircle:
 			return getVecForEnemyCircle(_x, _y);
@@ -60,6 +60,16 @@ Vec2b Forward::setOUTVector(uint8_t status, Vec2b current) {
 		default:
 			return current;
 	}
+}
+
+Vec2b Forward::projectionOnY(Vec2b vec) {
+	float len = vec.length * sin(vec.angle * RAD2DEG), angTo = 90 + _angle;
+	if (len < 0) {
+		len *= -1;
+		angTo = 270 + _angle;
+	}
+	
+	return Vec2b(len, angTo);
 }
 
 bool Forward::robotInOUT() {
@@ -146,7 +156,7 @@ bool Forward::myGoalLine(int16_t x, int16_t y) {
 bool Forward::enemyGoalLine(int16_t x, int16_t y) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
-	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + DELTA_DIST) &&
+	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 1.5 * DELTA_DIST) &&
 				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
 }
 

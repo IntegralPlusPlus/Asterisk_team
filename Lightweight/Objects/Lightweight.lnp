@@ -14,7 +14,7 @@
 ".\objects\ballsensor.o"
 ".\objects\voltage.o"
 ".\objects\button.o"
-".\objects\pin_1.o"
+".\objects\pin.o"
 ".\objects\time_service.o"
 ".\objects\mpu9250_spi.o"
 ".\objects\imu_spi.o"

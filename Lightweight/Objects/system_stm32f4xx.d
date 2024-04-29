@@ -1,4 +1,4 @@
-.\objects\system_stm32f4xx.o: RTE/Device/STM32F407VGTx/system_stm32f4xx.c
+.\objects\system_stm32f4xx.o: RTE\Device\STM32F407VGTx\system_stm32f4xx.c
 .\objects\system_stm32f4xx.o: .\support_pacage\inc\stm32f4xx.h
 .\objects\system_stm32f4xx.o: .\src\cmsis\core_cm4.h
 .\objects\system_stm32f4xx.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
