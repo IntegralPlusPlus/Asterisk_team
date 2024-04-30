@@ -5,6 +5,7 @@
 
 #define DELTA_DIST 8
 #define NEAR_OUT_DIST 18
+//18
 #define BACK_SECTOR 140
 #define BACK_SECTOR_DETOUR 30
 #define COEFF_CIRCLE 1.25f
@@ -53,7 +54,6 @@ class Forward : public ProcessingCoord {
 		uint8_t getBallSide(float angBall);
 		uint8_t setFieldZone();
 		uint8_t robotNearOUT();
-		bool ballInBack(float angBall);
 		bool inEnemyGoal();
 		bool inMyGoal();
 		bool nearMyGoal();	

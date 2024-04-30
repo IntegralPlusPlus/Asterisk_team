@@ -4,7 +4,7 @@ ProcessingCoord::ProcessingCoord() {
 	_maxLen = 1;
 	
 	upThreshold = UP_Y - DELTA_DIST;
-	downThreshold = 0.8 * DOWN_Y + DELTA_DIST;
+	downThreshold = DOWN_Y + DELTA_DIST;
 	leftThreshold = THRESHOLD_X_LEFT + DELTA_DIST;
 	rightThreshold = THRESHOLD_X_RIGHT - DELTA_DIST;
 }

@@ -297,7 +297,7 @@ namespace Asterisk {
 		if (!kicker.canKick()) kicker.close();
 		else kicker.open();
 		
-		led2.set(abs(angleIMU) <= 4);
+		led2.set(!doesntSeeGoals);
 		led3.set(abs(-angleIMU - gyro.getTarget()) <= 3);
 		
 		goToBall = getVec2bToBallFollow();
@@ -326,15 +326,14 @@ namespace Asterisk {
 		} else myForward.resetCounts();
 		
 		if (time_service::millis() != t) {
-			if (doesntSeeGoals) 
+			if (doesntSeeGoals) {
 				goTo = myForward.getVecToPoint(0, DIST_BETWEEN_GOALS / 2);
-			else if (!robotInOUT) {
+			} else if (!robotInOUT) {
 				float globalBall = myForward.adduct180(ang - angleIMU);
 				uint8_t nearOutStatus = myForward.robotNearOUT();
 				
 				if ((nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {
-					goTo = Vec2b(myForward.setNearSpeed(nearOutStatus, USUAL_FOLLOWING_SPEED),
-											 ang + 90);
+					goTo = Vec2b(myForward.setNearSpeed(nearOutStatus, USUAL_FOLLOWING_SPEED), ang + 90);
 				} else if (myForward.nearMyGoal()) { 
 					if (globalBall < -70 || globalBall > 70) goTo = myForward.vec2bOnGoal(USUAL_FOLLOWING_SPEED, ang);
 					else goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
@@ -346,12 +345,13 @@ namespace Asterisk {
 					if (myForward.adduct180(ang - angleIMU) < 40 && myForward.adduct180(ang - angleIMU) > -40) {
 						goTo = goOUT;
 					} else {
+						goToBall *= 0.7;
 						goTo = goToBall + goOUT;
 					}
 				} else if (myForward.inMyGoal()) {
-					if (myForward.ballInBack(ang)) {
-						goOUT *= 0.7;
-						goTo = goOUT;
+					if (myForward.ballInBack(ang, tsopRaw)) {
+						goOUT *= 0.2;
+						goTo = goOUT + myForward.vec2bOnGoal(USUAL_FOLLOWING_SPEED, ang);
 					} else {
 						goOUT *= 0.14;
 						goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang) + goOUT;
@@ -364,6 +364,8 @@ namespace Asterisk {
 			currentVector.changeTo(goTo);
 			t = time_service::millis();
 		}
+		
+		//if (doesntSeeGoals) currentVector = Vec2b(0.1, 90);
 		
 		if (myMode == P_MODE && motorsWork && !neverTurnMotors) 
 			omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
@@ -543,7 +545,7 @@ namespace Asterisk {
 		robotInOUT = false;
 		ballGrip = false;
 	
-		currentVector.set(0.1, 90);
+		currentVector = Vec2b(0.1, 90);
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
 		timeCheckLeave = time_service::millis();

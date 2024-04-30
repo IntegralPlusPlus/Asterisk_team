@@ -11,10 +11,10 @@ Forward::Forward(): ProcessingCoord() {
 uint8_t Forward::checkOUTs() {
 	uint8_t outStatus = unknow;
 	inOUT = true;
-	if (!checkXLeft(_x)) outStatus = right;
-	else if (!checkXRight(_x)) outStatus = left;
-	else if (!checkYUp(_y)) outStatus = down;
+	if (!checkYUp(_y)) outStatus = down;
 	else if (!checkYDown(_y)) outStatus = up;
+	else if (!checkXLeft(_x)) outStatus = right;
+	else if (!checkXRight(_x)) outStatus = left;
 	else {
 		if (myGoalLine(_x, _y)) outStatus = up;
 		else if (enemyGoalLine(_x, _y)) outStatus = down;
@@ -63,7 +63,7 @@ Vec2b Forward::setOUTVector(uint8_t status, Vec2b current) {
 }
 
 Vec2b Forward::projectionOnY(Vec2b vec) {
-	float len = vec.length * sin(vec.angle * RAD2DEG), angTo = 90 + _angle;
+	float len = vec.length * sin(vec.angle * DEG2RAD), angTo = 90 + _angle;
 	if (len < 0) {
 		len *= -1;
 		angTo = 270 + _angle;
@@ -101,9 +101,9 @@ Vec2b Forward::vec2bOnGoal(float speed, float angBall) {
 	
 	angBall -= _angle;
 	if (angGoal < ANGLE_LOW_TO_CIRCLE) {
-		float angleTanget;	
-		if (getBallSide(angBall) == up_left) angleTanget = adduct(adduct(270 + angGoal) - 180);
-		else angleTanget = adduct(270 + angGoal);
+		volatile float angleTanget;	
+		if (getBallSide(angBall) == up_left) angleTanget = adduct(adduct(90 + angGoal) - 180);
+		else angleTanget = adduct(90 + angGoal);
 		
 		return Vec2b(speed, angleTanget);
 	} else if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
@@ -160,10 +160,6 @@ bool Forward::enemyGoalLine(int16_t x, int16_t y) {
 				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
 }
 
-bool Forward::ballInBack(float angBall) {
-	return angBall + _angle < -180 + 0.5 * BACK_SECTOR || angBall + _angle > 180 - 0.5 * BACK_SECTOR;
-}
-
 bool Forward::inEnemyGoal() {
 	return enemyGoalLine(_x, _y) || isEnemyGoalCircle(_x, _y, _dBlue, _dYellow);
 }
@@ -180,10 +176,10 @@ bool Forward::nearMyGoal() {
 	bool goalCircle;
 	
 	if (_x > 0) {
-		goalCircle = distance(_x, _y) < NEAR_OUT_DIST * 0.3 + float(COEFF_CIRCLE * RADIUS_GOAL_OUT_RIGHT) 
+		goalCircle = distance(_x, _y) < NEAR_OUT_DIST + float(COEFF_CIRCLE * RADIUS_GOAL_OUT_RIGHT) 
 									&& angGoal < ANGLE_LOW_TO_CIRCLE; 
 	} else {
-		goalCircle = distance(_x, _y) < NEAR_OUT_DIST * 0.3 + float(COEFF_CIRCLE * RADIUS_GOAL_OUT_LEFT) 
+		goalCircle = distance(_x, _y) < NEAR_OUT_DIST + float(COEFF_CIRCLE * RADIUS_GOAL_OUT_LEFT) 
 									&& angGoal > ANGLE_HIGH_TO_CIRCLE; 
 	}
 	
