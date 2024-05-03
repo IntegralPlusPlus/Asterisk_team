@@ -5,11 +5,11 @@
 
 #define ENEMY_X 0
 #define ENEMY_Y 231
-#define THRESHOLD_X_RIGHT 56
+#define THRESHOLD_X_RIGHT 50
 //54
 #define THRESHOLD_X_LEFT -70
-#define UP_Y 190.f
-#define DOWN_Y 35.f
+#define UP_Y 195.f
+#define DOWN_Y 30.f
 
 #define GOAL_OUT_Y_THRESHOLD 30
 //34

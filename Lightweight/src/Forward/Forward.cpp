@@ -11,10 +11,11 @@ Forward::Forward(): ProcessingCoord() {
 uint8_t Forward::checkOUTs() {
 	uint8_t outStatus = unknow;
 	inOUT = true;
-	if (!checkYUp(_y)) outStatus = down;
-	else if (!checkYDown(_y)) outStatus = up;
-	else if (!checkXLeft(_x)) outStatus = right;
+	
+	if (!checkXLeft(_x)) outStatus = right;
 	else if (!checkXRight(_x)) outStatus = left;
+	else if (!checkYUp(_y)) outStatus = down;
+	else if (!checkYDown(_y)) outStatus = up;
 	else {
 		if (myGoalLine(_x, _y)) outStatus = up;
 		else if (enemyGoalLine(_x, _y)) outStatus = down;
@@ -99,11 +100,11 @@ Vec2b Forward::getVecForEnemyCircle(int16_t x, int16_t y) {
 Vec2b Forward::vec2bOnGoal(float speed, float angBall) {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	
-	angBall -= _angle;
+	angBall = adduct180(angBall - _angle);
 	if (angGoal < ANGLE_LOW_TO_CIRCLE) {
 		volatile float angleTanget;	
-		if (getBallSide(angBall) == up_left) angleTanget = adduct(adduct(90 + angGoal) - 180);
-		else angleTanget = adduct(90 + angGoal);
+		if (getBallSide(angBall) == up_left) angleTanget = adduct(adduct(90 + angGoal));
+		else angleTanget = adduct(adduct(90 + angGoal) - 180);
 		
 		return Vec2b(speed, angleTanget);
 	} else if (angGoal > ANGLE_HIGH_TO_CIRCLE) {
@@ -135,8 +136,8 @@ uint8_t Forward::setFieldZone() {
 bool Forward::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
-	if (x > 0) return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.15 * RADIUS_GOAL_OUT_LEFT && angGoal < ANGLE_LOW_TO_CIRCLE; 
-	else return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.15 * RADIUS_GOAL_OUT_RIGHT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
+	if (x > 0) return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.22 * RADIUS_GOAL_OUT_LEFT && angGoal < ANGLE_LOW_TO_CIRCLE; 
+	else return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.22 * RADIUS_GOAL_OUT_RIGHT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
 }
 
 bool Forward::isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
@@ -156,7 +157,7 @@ bool Forward::myGoalLine(int16_t x, int16_t y) {
 bool Forward::enemyGoalLine(int16_t x, int16_t y) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
-	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 1.5 * DELTA_DIST) &&
+	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 0.5 * DELTA_DIST) &&
 				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
 }
 
@@ -176,10 +177,10 @@ bool Forward::nearMyGoal() {
 	bool goalCircle;
 	
 	if (_x > 0) {
-		goalCircle = distance(_x, _y) < NEAR_OUT_DIST + float(COEFF_CIRCLE * RADIUS_GOAL_OUT_RIGHT) 
+		goalCircle = distance(_x, _y, 0, 0) < NEAR_OUT_DIST + float(COEFF_CIRCLE * RADIUS_GOAL_OUT_RIGHT) 
 									&& angGoal < ANGLE_LOW_TO_CIRCLE; 
 	} else {
-		goalCircle = distance(_x, _y) < NEAR_OUT_DIST + float(COEFF_CIRCLE * RADIUS_GOAL_OUT_LEFT) 
+		goalCircle = distance(_x, _y, 0, 0) < NEAR_OUT_DIST + float(COEFF_CIRCLE * RADIUS_GOAL_OUT_LEFT) 
 									&& angGoal > ANGLE_HIGH_TO_CIRCLE; 
 	}
 	
@@ -189,20 +190,20 @@ bool Forward::nearMyGoal() {
 uint8_t Forward::robotNearOUT() {
 	if (_x - leftThreshold < NEAR_OUT_DIST) return left;
 	else if (rightThreshold - _x < NEAR_OUT_DIST) return right;
-	else if (_y - downThreshold < NEAR_OUT_DIST) return down;
-	else if (upThreshold - _y < NEAR_OUT_DIST) return up;
+	//else if (_y - downThreshold < NEAR_OUT_DIST) return down;
+	//else if (upThreshold - _y < NEAR_OUT_DIST) return up;
 	else return unknow;
 }
 
 float Forward::setNearSpeed(uint8_t status, float maxSpeed) {
 	float minSpeed = MINIMUM_SPEED_TO_BALL;
 	if (status == down) {
-		return map(_y, downThreshold, downThreshold + NEAR_OUT_DIST, maxSpeed, minSpeed);
+		return map(_y, downThreshold, downThreshold + NEAR_OUT_DIST, minSpeed, maxSpeed);
 	} else if (status == up) {
-		return map(_y, upThreshold - NEAR_OUT_DIST, upThreshold, maxSpeed, minSpeed);
+		return map(_y, upThreshold - NEAR_OUT_DIST, upThreshold, minSpeed, maxSpeed);
 	} else if (status == left) {
-		return map(_x, leftThreshold, leftThreshold + NEAR_OUT_DIST, maxSpeed, minSpeed);
+		return map(_x, leftThreshold, leftThreshold + NEAR_OUT_DIST, minSpeed, maxSpeed);
 	} else if (status == right) {
-		return map(_x, rightThreshold - NEAR_OUT_DIST, rightThreshold, maxSpeed, minSpeed);
+		return map(_x, rightThreshold - NEAR_OUT_DIST, rightThreshold, minSpeed, maxSpeed);
 	} else return maxSpeed;
 }
