@@ -11,13 +11,13 @@ bool BallSensor::ballInGrip() {
 	if (val < SEE_BALL && count2See < COUNT_THRESHOLD) count2See++;
 	else count2See = 0;
 	
-	if (!(count2See >= COUNT_THRESHOLD)) timeInGrip = time_service::millis();
+	if (val >= SEE_BALL) timeInGrip = time_service::millis();
 	
 	return count2See >= COUNT_THRESHOLD;
 }
 
 bool BallSensor::ballLongTimeInGrip() {
-	return time_service::millis() - timeInGrip;
+	return time_service::millis() - timeInGrip > TIME_IN_GRIP;
 }
 
 int16_t BallSensor::getValue() {

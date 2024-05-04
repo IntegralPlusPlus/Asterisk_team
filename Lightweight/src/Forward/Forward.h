@@ -10,7 +10,7 @@
 #define BACK_SECTOR_DETOUR 30
 #define COEFF_CIRCLE 1.25f
 #define ANGLE2SIDES 20
-#define MINIMUM_SPEED_TO_BALL 0.41f  
+#define MINIMUM_SPEED_TO_BALL 0.55f  
 #define LIMIT_OUT_CYCLES 20
 
 enum processingOUTs {

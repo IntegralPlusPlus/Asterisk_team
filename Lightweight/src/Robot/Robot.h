@@ -8,6 +8,7 @@
 #define TIME_LEAVE 3100
 #define TIME_FINISH_LEAVE 2000
 #define TIME_CANT_CHANGE_DIRECTION 700 
+#define TIME_BALL_IN_FRONT 100
 
 #define USUAL_FOLLOWING_SPEED 0.67
 //0.67
@@ -23,11 +24,11 @@ namespace Asterisk {
 	volatile float angleIMU, angSoft, distSoft;
 	volatile float dist, distOld, angOld;
 	volatile uint64_t t, timeNotSeenBall, timeUpdateQueue, timeCheckLeave, timeInLeaving;
-	volatile uint64_t timeCalibrEnd, timeOUT;
+	volatile uint64_t timeCalibrEnd, timeOUT, timeBallFront;
 	volatile int16_t x, y, xGkReturn, yGkReturn;
 	volatile float angRaw, angRawOld;
 	volatile float distRaw, distRaw2, distSoftOld;
-	volatile uint8_t myGoal, myRole;
+	volatile uint8_t myGoal, myRole, myGoalOld, myRoleOld;
 	volatile int16_t dBl, dYe;
 	volatile int16_t angBlue, angYellow;
 	volatile float targetRaw, target;
@@ -39,7 +40,7 @@ namespace Asterisk {
 	volatile bool seeBall, motorsWork, neverTurnMotors;
 	volatile bool robotMustLeave, robotInOutOld;
 	volatile bool inLeave, inReturn, goFromOUT, goFromOutTime;
-	volatile double kLen, kAng, volt = 0.0;
+	volatile double kLen, kAng, volt;
 	volatile int16_t currLeaveTime, usart6Available;
 	volatile uint8_t outStatus, outStatusNow;
 	volatile bool tssps_[32];
@@ -158,16 +159,25 @@ namespace Asterisk {
 			timeUpdateQueue = time_service::millis();
 		}
 		
-		//myRole = swRoleChoose.readPin();
+		myRole = swRoleChoose.readPin();
 		gkLED.set(myRole);
 		forwLED.set(!myRole);
 		
-		//myGoal = !swGoalChoose.readPin();
+		if (myRole != myRoleOld && myRole == GOALKEEPER_ROLE) {
+			xReturn = 0;
+			yReturn = 0;
+		}
+		
+		myGoal = !swGoalChoose.readPin();
 		blueGoalLED.set(myGoal);
 		yellowGoalLED.set(!myGoal);
 		
-		//myGoalkeeper.setGoal(myGoal);
-		//myForward.setGoal(myGoal);
+		if (myGoal != myGoalOld) {
+			gyro.setZeroAngle();
+		}
+		
+		myGoalkeeper.setGoal(myGoal);
+		myForward.setGoal(myGoal);
 		
 		motorsWork = motorsButton.pressed();
 		
@@ -196,9 +206,9 @@ namespace Asterisk {
 			x = camera.getX();
 			y = camera.getY();
 			doesntSeeGoals = false;
-			
-			if (myRole == GOALKEEPER_ROLE) myGoalkeeper.setParams(x, y, angleIMU, dBl, dYe);
-			else myForward.setParams(x, y, angleIMU, dBl, dYe);
+			//if (myRole == GOALKEEPER_ROLE) 
+			myGoalkeeper.setParams(x, y, angleIMU, dBl, dYe);
+			myForward.setParams(x, y, angleIMU, dBl, dYe);
 		} else doesntSeeGoals = true;
 		
 		angYellow = camera.getAngleYellow();
@@ -228,6 +238,8 @@ namespace Asterisk {
 		led1.set(imuCalibrated);
 		
 		capacitorADC = kicker.getDMASignal();
+		myGoalOld = myGoal;
+		myRoleOld = myRole;
 		/*if (kicker.canKick()) kicker.open();
 		else kicker.close();*/
 		//omni.move(1, 0, 0, 200, gyro.getMaxRotation());
@@ -261,6 +273,14 @@ namespace Asterisk {
 		return Vec2b(speedForward, myForward.adduct(angSoft));
 	}
 	
+	bool mayKick2Ball() {
+		if (!(ballGrip || dist > 7.9 && abs(ang) <= 25)) {
+			timeBallFront = time_service::millis();
+		}
+		
+		return time_service::millis() - timeBallFront > TIME_BALL_IN_FRONT;
+	}
+	
 	void forwardStrategy() {
 		if (!doesntSeeGoals) targetRaw = float(myForward.getTarget2Enemy());
 		gyro.setTarget(targetRaw);
@@ -268,7 +288,8 @@ namespace Asterisk {
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 		
-		kicker.setKickerStatus(button3.readPin() || ballGrip && ballSens.ballLongTimeInGrip() && myForward.suitableParams2Kick());
+		kicker.setKickerStatus(button3.readPin() || 
+													 ballGrip && mayKick2Ball() && myForward.suitableParams2Kick() && myForward.distance(x, y, 0, DIST_BETWEEN_GOALS) < DIST_BETWEEN_GOALS * 0.48);
 		
 		if (!kicker.canKick()) kicker.close();
 		else kicker.open();
@@ -327,7 +348,7 @@ namespace Asterisk {
 					}
 				} else if (myForward.inMyGoal()) {
 					if (myForward.ballInBack(ang, tsopRaw)) {
-						//goOUT *= 0.5;
+						goOUT *= 1.1f;
 						goTo = goOUT + myForward.vec2bOnGoal(USUAL_FOLLOWING_SPEED, ang);
 					} else if (myForward.myGoalLine(x, y)) {
 						goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
@@ -350,7 +371,7 @@ namespace Asterisk {
 	}
 	
 	bool mustLeave() {
-		if (time_service::millis() - timeCalibrEnd < 2000 || myGoalkeeper.ballInBack(ang, tsopRaw) || dist < 4.1
+		if (myGoalkeeper.dist2GoalLong() ||  time_service::millis() - timeCalibrEnd < 2000 || myGoalkeeper.ballInBack(ang, tsopRaw) || dist < 4.1
 				|| !seeBall ||  (seeBall && !(abs(kAng) < 0.12 && abs(kLen) < 0.013))) timeCheckLeave = time_service::millis(); //0.6 0.018
 		
 		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
@@ -497,6 +518,7 @@ namespace Asterisk {
 		
 		t = time_service::millis();
 		timeDetour = time_service::millis();
+		timeBallFront = time_service::millis();
 	
 		currLeaveTime = TIME_FINISH_LEAVE;
 		target = 0;
@@ -536,5 +558,7 @@ namespace Asterisk {
 		
 		myForward.setGoal(myGoal);
 		myForward.setMaxLen(MAX_VEC2B_LEN);
+		myGoalOld = myGoal;
+		myRoleOld = myRole;
 	}
 }

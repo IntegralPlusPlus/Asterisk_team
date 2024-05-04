@@ -7,8 +7,8 @@
 #define ENEMY_Y 231
 #define THRESHOLD_X_RIGHT 50
 //54
-#define THRESHOLD_X_LEFT -70
-#define UP_Y 195.f
+#define THRESHOLD_X_LEFT -75
+#define UP_Y 202.f
 #define DOWN_Y 30.f
 
 #define GOAL_OUT_Y_THRESHOLD 30
@@ -26,7 +26,7 @@
 #define DELTA_DIST 8
 #define SAVE_DELTA_GK 4
 
-#define LEFT_GOAL_THRESHOLD -25 
+#define LEFT_GOAL_THRESHOLD -20 
 #define RIGHT_GOAL_THRESHOLD 15
 
 enum ballAng {

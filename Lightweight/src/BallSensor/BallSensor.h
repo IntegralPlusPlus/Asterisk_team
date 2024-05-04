@@ -5,7 +5,7 @@
 
 #define SEE_BALL 1500
 #define COUNT_THRESHOLD 2
-#define TIME_IN_GRIP 500
+#define TIME_IN_GRIP 180
 
 class BallSensor {
 	public:

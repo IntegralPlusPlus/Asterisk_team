@@ -12,9 +12,9 @@ uint8_t Forward::checkOUTs() {
 	uint8_t outStatus = unknow;
 	inOUT = true;
 	
-	if (!checkXLeft(_x)) outStatus = right;
+	if (!checkYUp(_y)) outStatus = down;
+	else if (!checkXLeft(_x)) outStatus = right;
 	else if (!checkXRight(_x)) outStatus = left;
-	else if (!checkYUp(_y)) outStatus = down;
 	else if (!checkYDown(_y)) outStatus = up;
 	else {
 		if (myGoalLine(_x, _y)) outStatus = up;
@@ -157,7 +157,7 @@ bool Forward::myGoalLine(int16_t x, int16_t y) {
 bool Forward::enemyGoalLine(int16_t x, int16_t y) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
-	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 0.5 * DELTA_DIST) &&
+	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 1.5 * DELTA_DIST) &&
 				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
 }
 

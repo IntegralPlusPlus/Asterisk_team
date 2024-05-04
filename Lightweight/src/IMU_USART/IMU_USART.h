@@ -8,8 +8,8 @@
 #include "usart6.h"
 
 #define RECEIVED2REAL 1.4117647058823529411764705882353f
-#define KOEFF_P 9.85f
-#define KOEFF_D 250
+#define KOEFF_P 9.f
+#define KOEFF_D 160
 #define MAXROTATION 2048
 #define K_SOFT 0.03f
 #define TARGET_K_FOFT 0.05f

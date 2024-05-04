@@ -80,8 +80,7 @@ bool ProcessingCoord::suitableParams2Kick() {
 	float angLeft = atan2(float(LEFT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
 	float angRight = atan2(float(RIGHT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
 
-	return _angle >= angLeft && _angle <= angRight 
-				 && distance(_x, _y, 0, DIST_BETWEEN_GOALS) < DIST_BETWEEN_GOALS * 0.48;
+	return _angle >= angLeft && _angle <= angRight;
 }
 
 bool ProcessingCoord::checkXLeft(int16_t x, uint8_t role) {
