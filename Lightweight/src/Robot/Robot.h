@@ -165,7 +165,7 @@ namespace Asterisk {
 		
 		if (myRole != myRoleOld && myRole == GOALKEEPER_ROLE) {
 			xReturn = 0;
-			yReturn = 0;
+			yReturn = GOAL_OUT_Y_THRESHOLD;
 		}
 		
 		myGoal = !swGoalChoose.readPin();
@@ -173,7 +173,9 @@ namespace Asterisk {
 		yellowGoalLED.set(!myGoal);
 		
 		if (myGoal != myGoalOld) {
+			omni.disable();
 			gyro.setZeroAngle();
+			camera.initCoords();
 		}
 		
 		myGoalkeeper.setGoal(myGoal);

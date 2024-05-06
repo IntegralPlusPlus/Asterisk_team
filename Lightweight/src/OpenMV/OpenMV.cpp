@@ -137,3 +137,8 @@ void OpenMV::initUSART(uint8_t num) {
 	else if (num == 3) uart3::usart3Init(460800, 1, 8);
 	else if (num == 6) uart6::usart6Init(460800, 1, 8);
 }
+
+void OpenMV::initCoords() {
+	_x = 0;
+	_y = 0;
+}

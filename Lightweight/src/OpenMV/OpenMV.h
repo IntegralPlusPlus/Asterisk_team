@@ -18,6 +18,7 @@ class OpenMV {
 		void read();
 		void calculate(int16_t currentAngle, bool goal, bool role);
 		void initUSART(uint8_t num);
+		void initCoords();
 		int16_t adductionMV(int16_t angleIMU);
 		uint8_t crc8(volatile uint8_t* data, uint8_t len);
 		int16_t getX();
