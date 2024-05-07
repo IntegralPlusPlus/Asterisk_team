@@ -1,11 +1,11 @@
 #include "Robot.h"
 
 int main() {
-	Asterisk::init(YELLOW_GOAL, FORWARD_ROLE);
+	Asterisk::init(BLUE_GOAL, FORWARD_ROLE);
 	Vec2b curr;
-	volatile float x, y, dist;
-	volatile float angleTSSP, target;
-	volatile uint64_t timeBallFront;
+	volatile float x, y, dist, kAng, kLen;
+	volatile float angleTSSP, target, angleIMU;
+	volatile uint64_t timeCheckLeave;
 	volatile bool mayKickBall;
 	
 	while (true) {
@@ -16,8 +16,11 @@ int main() {
 		dist = Asterisk::dist;
 		target = abs(-Asterisk::angleIMU - Asterisk::gyro.getTarget());
 		angleTSSP = Asterisk::ang;//Asterisk::myForward.adduct180(Asterisk::ang - Asterisk::angleIMU);	
-		timeBallFront = Asterisk::timeBallFront;
+		timeCheckLeave = Asterisk::timeCheckLeave;
 		mayKickBall = Asterisk::mayKick2Ball();
+		angleIMU = Asterisk::angleIMU;
+		kAng = Asterisk::kAng;
+		kLen = Asterisk::kLen;
 		//timeLong = Asterisk::ballSens.timeInGrip;
 		
 		if (!Asterisk::calibrated()) continue;

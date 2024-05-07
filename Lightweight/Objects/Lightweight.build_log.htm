@@ -27,7 +27,23 @@ Project File Date:  04/27/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-".\Objects\Lightweight.axf" - 0 Error(s), 0 Warning(s).
+compiling Button.cpp...
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\time_service\time_service.h(13): warning:  #1-D: last line of file ends without a newline
+  }
+.\src\Pin\Pin.h(71): warning:  #1-D: last line of file ends without a newline
+  #endif /* PIN_H_ */
+src\Button\Button.h(24): warning:  #1-D: last line of file ends without a newline
+  };
+src\Button\Button.cpp(30): warning:  #1-D: last line of file ends without a newline
+  }
+src\Button\Button.cpp: 6 warnings, 0 errors
+linking...
+Program Size: Code=51662 RO-data=1430 RW-data=432 ZI-data=16088  
+".\Objects\Lightweight.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -58,7 +74,7 @@ Package Vendor: Keil
       Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
       Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

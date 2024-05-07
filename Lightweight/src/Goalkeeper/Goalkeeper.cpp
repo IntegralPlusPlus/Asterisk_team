@@ -41,7 +41,7 @@ int16_t Goalkeeper::getCurrentLeaveTime(int16_t angBall) {
 	
 	if (angGoal < ANGLE_LOW_DOESNT_LEAVE || angGoal > ANGLE_HIGH_DOESNT_LEAVE 
 			|| globalAng2Ball > 90 || globalAng2Ball < -90) return 0;
-	else if (gkPos == leftPart || gkPos == rightPart) return _leaveTime / 5;
+	else if (gkPos == leftPart || gkPos == rightPart) return _leaveTime / 2;
 	else return _leaveTime;
 }
 
@@ -60,7 +60,7 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 	
 	if (gkPos == centralLine) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		float speed = err * 0.06f; 
+		float speed = err * 0.055f; 
 		vec = Vec2b(speed, 270 + _angle); 
 		//errOld = 0;
 	} else {
@@ -105,8 +105,8 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 		else res.angle = _angle;
 
 		float err, p, d, u;
-		err = pow(abs(float(globalAngToBall - angGoal)), 2.2f); //1.3f
-		p = 0.00043f * err; //0.00087 0.0015 0.0041f
+		err = pow(abs(float(globalAngToBall - angGoal)), 2.f); //1.3f
+		p = 0.0004f * err; //0.00087 0.0015 0.0041f
 		d = (err - errOldGkLine) * 0.012f; //0.08f
 		u = p + d;
 		errOldGkLine = err;

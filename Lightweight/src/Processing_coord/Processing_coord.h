@@ -9,7 +9,7 @@
 //54
 #define THRESHOLD_X_LEFT -75
 #define UP_Y 202.f
-#define DOWN_Y 30.f
+#define DOWN_Y 34.f
 
 #define GOAL_OUT_Y_THRESHOLD 30
 //34

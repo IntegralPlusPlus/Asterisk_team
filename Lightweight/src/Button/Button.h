@@ -7,7 +7,8 @@
 
 enum buttonConfig {
 	defaultConfig,
-	invertedConfig
+	invertedConfig,
+	switcherConfig
 };
 
 class Button {
@@ -16,8 +17,8 @@ class Button {
 		bool pressed();
 	private:
 		Pin _button;
-		bool _inverted;
+		uint64_t time;
+		uint8_t _config;
 		bool buttonOld, press, checkPin;
 		bool startTime;
-		uint64_t time;
 };

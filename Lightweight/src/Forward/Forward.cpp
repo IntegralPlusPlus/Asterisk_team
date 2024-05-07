@@ -157,7 +157,7 @@ bool Forward::myGoalLine(int16_t x, int16_t y) {
 bool Forward::enemyGoalLine(int16_t x, int16_t y) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
-	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 1.5 * DELTA_DIST) &&
+	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 2.5 * DELTA_DIST) &&
 				 angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
 }
 
@@ -190,8 +190,8 @@ bool Forward::nearMyGoal() {
 uint8_t Forward::robotNearOUT() {
 	if (_x - leftThreshold < NEAR_OUT_DIST) return left;
 	else if (rightThreshold - _x < NEAR_OUT_DIST) return right;
-	//else if (_y - downThreshold < NEAR_OUT_DIST) return down;
-	//else if (upThreshold - _y < NEAR_OUT_DIST) return up;
+	else if (_y - downThreshold < NEAR_OUT_DIST) return down;
+	else if (upThreshold - _y < NEAR_OUT_DIST) return up;
 	else return unknow;
 }
 
