@@ -14,7 +14,7 @@ int main() {
 		x = Asterisk::x;
 		y = Asterisk::y;
 		dist = Asterisk::dist;
-		target = abs(-Asterisk::angleIMU - Asterisk::gyro.getTarget());
+		target = Asterisk::myForward.adduct180(Asterisk::ang - Asterisk::angleIMU);//abs(-Asterisk::angleIMU - Asterisk::gyro.getTarget());
 		angleTSSP = Asterisk::ang;//Asterisk::myForward.adduct180(Asterisk::ang - Asterisk::angleIMU);	
 		timeCheckLeave = Asterisk::timeCheckLeave;
 		mayKickBall = Asterisk::mayKick2Ball();

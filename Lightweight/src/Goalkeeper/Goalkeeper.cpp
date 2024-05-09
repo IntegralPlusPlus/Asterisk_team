@@ -36,6 +36,7 @@ void Goalkeeper::setLeaveTime(int16_t leaveTime) {
 
 int16_t Goalkeeper::getCurrentLeaveTime(int16_t angBall) {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+	
 	uint8_t gkPos = getGoalkeeperPos();
 	int16_t globalAng2Ball = adduct180(angBall - _angle);
 	

@@ -5,8 +5,8 @@ ProcessingCoord::ProcessingCoord() {
 	
 	upThreshold = UP_Y - DELTA_DIST;
 	downThreshold = DOWN_Y + 1.5 * DELTA_DIST;
-	leftThreshold = THRESHOLD_X_LEFT + DELTA_DIST;
-	rightThreshold = THRESHOLD_X_RIGHT - DELTA_DIST;
+	leftThreshold = THRESHOLD_X_LEFT + DELTA_DIST + 3.5 * DELTA_DIST;
+	rightThreshold = THRESHOLD_X_RIGHT - DELTA_DIST - 2 * DELTA_DIST;
 }
 
 void ProcessingCoord::setGoal(uint8_t currentGoal) {
@@ -84,13 +84,13 @@ bool ProcessingCoord::suitableParams2Kick() {
 }
 
 bool ProcessingCoord::checkXLeft(int16_t x, uint8_t role) {
-	if (role == GOALKEEPER_ROLE) return x > leftThreshold + SAVE_DELTA_GK;
-	else return x > leftThreshold + 4 * DELTA_DIST;
+	if (role == GOALKEEPER_ROLE) return x > leftThreshold - 3.5 * DELTA_DIST + SAVE_DELTA_GK;
+	else return x > leftThreshold;
 }
 
 bool ProcessingCoord::checkXRight(int16_t x, uint8_t role) {
-	if (role == GOALKEEPER_ROLE) return x < rightThreshold - SAVE_DELTA_GK;
-	else return x < rightThreshold - 2 * DELTA_DIST;
+	if (role == GOALKEEPER_ROLE) return x < rightThreshold + 2 * DELTA_DIST - SAVE_DELTA_GK;
+	else return x < rightThreshold;
 }
 
 bool ProcessingCoord::checkYUp(int16_t y) {

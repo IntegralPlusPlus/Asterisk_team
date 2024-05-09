@@ -12,15 +12,20 @@ bool Button::pressed() {
 	
 	if (!startTime && (_config == defaultConfig && readPin && !buttonOld 
 										 || _config == invertedConfig && !readPin && buttonOld
-										 || _config == switcherConfig && readPin != buttonOld)) {
+										 || _config == switcherConfig && (readPin && !buttonOld || !readPin && buttonOld))) {
 		time = time_service::millis();
 		startTime = true;
 		checkPin = readPin;
 	} else if (startTime) {
-		if (_config != switcherConfig && time_service::millis() - time < BUTTON_DELTA && readPin != checkPin) startTime = false;
-		else if (time_service::millis() - time >= BUTTON_DELTA) {
+		if (_config == switcherConfig) {
 			press = !press;
 			startTime = false;
+		} else {		
+			if (time_service::millis() - time < BUTTON_DELTA && readPin != checkPin) startTime = false;
+			else if (time_service::millis() - time >= BUTTON_DELTA) {
+				press = !press;
+				startTime = false;
+			}
 		}
 	}
 		
