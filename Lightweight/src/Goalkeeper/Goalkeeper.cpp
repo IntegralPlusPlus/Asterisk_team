@@ -14,7 +14,7 @@ Goalkeeper::Goalkeeper(): ProcessingCoord() {
 		_downYLeft = 28;
 	} else {
 		_downYRight = 27;
-		_downYLeft = 26;
+		_downYLeft = 21;
 	}
 }
 
@@ -69,7 +69,7 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (gkPos == leftPart) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			p = err * 0.045f; //0.058
+			p = err * 0.085f; //0.058
 			d = (err - errOld) * 1.f;
 			u = p + d;
 			errOld = err;
@@ -148,7 +148,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 
 			//110 300
 			if ((_y <= _downYLeft && 
-					(globalAngToBall > 130 && globalAngToBall < 300))) {
+					(globalAngToBall > 110 && globalAngToBall < 300))) {
 				res.angle = 90 + _angle;
 				res.length = 0;
 			} else if ((_x < GK_X_THRESHOLD_LEFT && res.angle > 90 && res.angle < 270)) {
@@ -158,7 +158,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 		}
 	}
 	
-	if (res.length > 1.22f * _maxLen) res.length = 1.22f * _maxLen;
+	if (res.length > 1.15f * _maxLen) res.length = 1.15f * _maxLen;
 	
 	return res;
 }
@@ -169,7 +169,7 @@ Vec2b Goalkeeper::getVecToReturn() {
 }
 
 bool Goalkeeper::changeFromReturn() {
-	return distance(_x, _y) < 1.15f * GOAL_OUT_Y_THRESHOLD; //1.35f
+	return distance(_x, _y) < 1.09f * GOAL_OUT_Y_THRESHOLD; //1.35f
 }
 
 float Goalkeeper::getCoeffToGoalCenter(float intersec) {

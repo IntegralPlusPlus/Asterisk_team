@@ -5,8 +5,9 @@ int main() {
 	Vec2b curr;
 	volatile float x, y, dist, kAng, kLen;
 	volatile float angleTSSP, target, angleIMU;
-	volatile uint64_t timeCheckLeave;
-	volatile bool mayKickBall;
+	volatile uint64_t timeCheckLeave, buttonForwTime;
+	volatile bool mayKickBall, mustLeave;
+	volatile bool inLeave, inReturn;
 	
 	while (true) {
 		Asterisk::update();
@@ -21,6 +22,10 @@ int main() {
 		angleIMU = Asterisk::angleIMU;
 		kAng = Asterisk::kAng;
 		kLen = Asterisk::kLen;
+		buttonForwTime = Asterisk::timeMotorsWork;
+		mustLeave = Asterisk::robotMustLeave;
+		inLeave = Asterisk::inLeave;
+		inReturn = Asterisk::inReturn;
 		//timeLong = Asterisk::ballSens.timeInGrip;
 		
 		if (!Asterisk::calibrated()) continue;

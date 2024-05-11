@@ -24,7 +24,7 @@ namespace Asterisk {
 	volatile float angleIMU, angSoft, distSoft;
 	volatile float dist, distOld, angOld;
 	volatile uint64_t t, timeNotSeenBall, timeUpdateQueue, timeCheckLeave, timeInLeaving;
-	volatile uint64_t timeCalibrEnd, timeOUT, timeBallFront;
+	volatile uint64_t timeCalibrEnd, timeOUT, timeBallFront, timeMotorsWork;
 	volatile int16_t x, y, xGkReturn, yGkReturn;
 	volatile float angRaw, angRawOld;
 	volatile float distRaw, distRaw2, distSoftOld;
@@ -184,6 +184,8 @@ namespace Asterisk {
 		myForward.setGoal(myGoal);
 		
 		motorsWork = motorsButton.pressed();
+		if (!motorsWork) 
+			timeMotorsWork = time_service::millis();
 		
 		if (!tsops.distBad(distRaw)) {
 			ang = ball.getCurrentVec2b().angle;
@@ -383,8 +385,12 @@ namespace Asterisk {
 	}
 	
 	bool mustLeave() {
+		int16_t angGoal = RAD2DEG * atan2(float(y), float(x));
+	
 		//myGoalkeeper.dist2GoalLong()
-		if (time_service::millis() - timeCalibrEnd < 2000 || myGoalkeeper.ballInBack(ang, tsopRaw) || dist < 4.1f || dist > 9.f
+		if (time_service::millis() - timeMotorsWork < 2000 || time_service::millis() - timeCalibrEnd < 2000 
+				|| myGoalkeeper.ballInBack(ang, tsopRaw) || dist < 4.1f// || dist > 9.f
+				|| angGoal < ANGLE_LOW_DOESNT_LEAVE || angGoal > ANGLE_HIGH_DOESNT_LEAVE
 				|| !seeBall ||  (seeBall && !(abs(kAng) < 0.12 && abs(kLen) < 0.013))) timeCheckLeave = time_service::millis(); //0.6 0.018
 		
 		return time_service::millis() - timeCheckLeave > TIME_LEAVE;
@@ -427,11 +433,11 @@ namespace Asterisk {
 											
 				//globalAng2Ball = myGoalkeeper.globalAngToBall;
 				vecToCenter = myGoalkeeper.getVecToGoalCenter();
-				vecToCenter *= myGoalkeeper.getCoeffToGoalCenter(vecToBall.length);
+				//vecToCenter *= myGoalkeeper.getCoeffToGoalCenter(vecToBall.length);
 			
 				goTo = vecToCenter + vecToBall;
 				
-				if (myGoalkeeper.dist2GoalLong()) {
+				if (myGoalkeeper.dist2GoalLong() && angToGoal < 160 && angToGoal > 20) {
 					inLeave = false;
 					inReturn = true;
 				}
@@ -440,8 +446,8 @@ namespace Asterisk {
 				timeInLeaving = time_service::millis();
 				currLeaveTime = myGoalkeeper.getCurrentLeaveTime(ang);
 				byEnemyGoalGK = myGoalkeeper.setAngleLeaveStatus();
-				xReturn = x;
-				yReturn = y;
+				xReturn = 0;//x;
+				yReturn = 0;//y;
 			} else if (inLeave) {
 				if (currLeaveTime == TIME_FINISH_LEAVE) { //ball not in sides 
 					float speed2Ball;
@@ -480,12 +486,12 @@ namespace Asterisk {
 					toPoint = myGoalkeeper.getVecToPoint(xReturn, yReturn);
 					
 					if (!myGoalkeeper.checkXLeft(x, myRole)) {
-						goTo = vecDetour + myGoalkeeper.getVecToPoint(xReturn, yReturn) + Vec2b(MAX_VEC2B_LEN, 0 + angleIMU);
+						goTo = vecDetour + myGoalkeeper.getVecToPoint(xReturn, yReturn) + Vec2b(MAX_VEC2B_LEN, angleIMU);
 						//goTo = goTo + Vec2b(MAX_VEC2B_LEN, 0 + angleIMU);
 					} else if (!myGoalkeeper.checkXRight(x, myRole)) {
 						goTo = vecDetour + myGoalkeeper.getVecToPoint(xReturn, yReturn) + Vec2b(MAX_VEC2B_LEN, 180 + angleIMU);
 					} else {
-						toPoint *= 0.25;
+						toPoint *= 0.2;
 						goTo = vecDetour + toPoint;
 					}
 				} else {
@@ -566,6 +572,7 @@ namespace Asterisk {
 		timeNotSeenBall = time_service::millis();
 		timeUpdateQueue = time_service::millis();
 		timeCheckLeave = time_service::millis();
+		timeMotorsWork = time_service::millis();
 		timeCalibrEnd = 0;
 		timeOUT = 0;
 		detourDir = defaultDetour;

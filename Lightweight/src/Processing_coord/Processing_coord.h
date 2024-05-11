@@ -26,8 +26,8 @@
 #define DELTA_DIST 8
 #define SAVE_DELTA_GK 4
 
-#define LEFT_GOAL_THRESHOLD -20 
-#define RIGHT_GOAL_THRESHOLD 15
+#define LEFT_GOAL_THRESHOLD -23 
+#define RIGHT_GOAL_THRESHOLD 20
 
 enum ballAng {
 	tsopRaw,
