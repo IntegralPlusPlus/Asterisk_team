@@ -9,7 +9,7 @@
 //54
 #define THRESHOLD_X_LEFT -75
 #define UP_Y 202.f
-#define DOWN_Y 34.f
+#define DOWN_Y 25.f
 
 #define GOAL_OUT_Y_THRESHOLD 30
 //34
@@ -24,7 +24,7 @@
 
 #define BACK_ANGLE 20
 #define DELTA_DIST 8
-#define SAVE_DELTA_GK 4
+#define SAVE_DELTA_GK 8
 
 #define LEFT_GOAL_THRESHOLD -23 
 #define RIGHT_GOAL_THRESHOLD 20

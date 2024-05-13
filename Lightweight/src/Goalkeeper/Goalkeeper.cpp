@@ -169,7 +169,7 @@ Vec2b Goalkeeper::getVecToReturn() {
 }
 
 bool Goalkeeper::changeFromReturn() {
-	return distance(_x, _y) < 1.09f * GOAL_OUT_Y_THRESHOLD; //1.35f
+	return distance(_x, _y) < 1.01f * GOAL_OUT_Y_THRESHOLD; //1.35f
 }
 
 float Goalkeeper::getCoeffToGoalCenter(float intersec) {

@@ -134,7 +134,7 @@ compiling main.cpp...
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
-.\src\Forward\Forward.h(71): warning:  #1-D: last line of file ends without a newline
+.\src\Forward\Forward.h(95): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -165,14 +165,14 @@ compiling main.cpp...
 .\src\Robot\Robot.h(263): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   			} else if (dist > 9.17 && abs(ang) > 25) speedForward *= 0.9;
 .\src\Robot\Robot.h(276): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		if (ballGrip || (abs(ang) <= 15 && dist > 9.5)) { 
+  		if (ballGrip || (abs(ang) <= 15 && dist > 9.4)) { 
 .\src\Robot\Robot.h(285): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		if (!(ballGrip || dist > 7.9 && abs(ang) <= 25)) {
 .\src\Robot\Robot.h(388): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		int16_t angGoal = RAD2DEG * atan2(float(y), float(x));
 .\src\Robot\Robot.h(427): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   				angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
-.\src\Robot\Robot.h(589): warning:  #1-D: last line of file ends without a newline
+.\src\Robot\Robot.h(586): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp(36): warning:  #111-D: statement is unreachable
   	return 0;
@@ -180,7 +180,7 @@ src\main\main.cpp(37): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp: 75 warnings, 0 errors
 linking...
-Program Size: Code=51770 RO-data=1426 RW-data=440 ZI-data=16088  
+Program Size: Code=52014 RO-data=1430 RW-data=440 ZI-data=16088  
 ".\Objects\Lightweight.axf" - 0 Error(s), 75 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -207,9 +207,9 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
+      Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
       Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
       Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
-      Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
 Build Time Elapsed:  00:00:02

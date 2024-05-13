@@ -10,7 +10,7 @@
 #define TIME_CANT_CHANGE_DIRECTION 700 
 #define TIME_BALL_IN_FRONT 100
 
-#define USUAL_FOLLOWING_SPEED 0.67
+#define USUAL_FOLLOWING_SPEED 0.69
 //0.67
 #define MAX_VEC2B_LEN 0.89
 //0.89
@@ -18,6 +18,7 @@
 namespace Asterisk {
 	Vec2b currentVector;
 	Vec2b goToBall, goOUT, goTo;
+	OutPair outStatus, outStatusNow;
 	volatile float ang, angRes;
 	volatile bool imuCalibrated;
 	volatile int16_t pow;
@@ -42,7 +43,6 @@ namespace Asterisk {
 	volatile bool inLeave, inReturn, goFromOUT, goFromOutTime;
 	volatile double kLen, kAng, volt;
 	volatile int16_t currLeaveTime, usart6Available;
-	volatile uint8_t outStatus, outStatusNow;
 	volatile bool tssps_[32];
 	volatile bool robotInOUT;
 	volatile float xYellow, yYellow, xBlue, yBlue; 
@@ -251,7 +251,7 @@ namespace Asterisk {
 		//omni.move(1, 0, 0, 200, gyro.getMaxRotation());
 	}
 	
-	Vec2b getVec2bToBallFollow(uint8_t zone = middleZone) {	
+	Vec2b getVec2bToBallFollow() {	
 		speedForward = USUAL_FOLLOWING_SPEED;
 		
 		if (seeBall) {
@@ -273,9 +273,9 @@ namespace Asterisk {
 			angSoft = 0;
 		}
 		
-		if (ballGrip || (abs(ang) <= 15 && dist > 9.5)) { 
+		if (ballGrip || (abs(ang) <= 15 && dist > 9.4)) { 
 			angSoft = myForward.adduct(myForward.getTarget2Enemy() + 90);
-			speedForward *= 1.5;
+			speedForward *= 1.8;
 		}
 		
 		return Vec2b(speedForward, myForward.adduct(angSoft));
@@ -321,14 +321,14 @@ namespace Asterisk {
 				} else {
 					goOUT = myForward.setOUTVector(outStatus, currentVector);
 				}*/
-				goOUT = myForward.setOUTVector(outStatus, currentVector);
+				goOUT = myForward.setResOUTVector(outStatus, currentVector);
 				
 				if (goFromOUT && myForward.robotInFreeField()) {
 					goFromOUT = false;
 					timeOUT = time_service::millis();
 				} 
 				
-				if (outStatus == unknow) {// && outStatus != outStatusNow) {
+				if (outStatus.isDefault()) {// && outStatus != outStatusNow) {
 					outStatusNow = outStatus;
 					goFromOUT = false;
 					timeOUT = 0;
@@ -368,7 +368,7 @@ namespace Asterisk {
 						goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
 					} else {
 						//goOUT *= 0.5;
-						goTo = Vec2b(0.85 * USUAL_FOLLOWING_SPEED, 90 + ang) + goOUT;
+						goTo = Vec2b(0.9 * USUAL_FOLLOWING_SPEED, 90 + ang) + goOUT;
 					}
 				} else goTo = goOUT;
 			}
@@ -483,19 +483,18 @@ namespace Asterisk {
 					Vec2b vecDetour, toPoint;
 					if (tsops.ballFar(dist)) vecDetour = Vec2b(0, 0);
 					else vecDetour = getVec2bToBallFollow();
-					toPoint = myGoalkeeper.getVecToPoint(xReturn, yReturn);
+					toPoint = myGoalkeeper.getVecToPoint(0, 0);
 					
 					if (!myGoalkeeper.checkXLeft(x, myRole)) {
-						goTo = vecDetour + myGoalkeeper.getVecToPoint(xReturn, yReturn) + Vec2b(MAX_VEC2B_LEN, angleIMU);
-						//goTo = goTo + Vec2b(MAX_VEC2B_LEN, 0 + angleIMU);
+						goTo = vecDetour + myGoalkeeper.getVecToPoint(0, 0) + Vec2b(MAX_VEC2B_LEN, angleIMU);
 					} else if (!myGoalkeeper.checkXRight(x, myRole)) {
-						goTo = vecDetour + myGoalkeeper.getVecToPoint(xReturn, yReturn) + Vec2b(MAX_VEC2B_LEN, 180 + angleIMU);
+						goTo = vecDetour + myGoalkeeper.getVecToPoint(0, 0) + Vec2b(MAX_VEC2B_LEN, 180 + angleIMU);
 					} else {
-						toPoint *= 0.2;
+						//toPoint *= 0.5;
 						goTo = vecDetour + toPoint;
 					}
 				} else {
-					goTo = myGoalkeeper.getVecToPoint(xReturn, yReturn);
+					goTo = myGoalkeeper.getVecToPoint(0, 0);
 				}
 				
 				if (myGoalkeeper.changeFromReturn()) {
@@ -504,7 +503,7 @@ namespace Asterisk {
 					timeCheckLeave = time_service::millis();
 					
 					xReturn = 0;
-					yReturn = GOAL_OUT_Y_THRESHOLD;
+					yReturn = 0;//GOAL_OUT_Y_THRESHOLD;
 				}
 			}
 		}
@@ -550,7 +549,6 @@ namespace Asterisk {
 		distSoft = 0;
 		distOld = -1;
 		angOld = -1;
-		outStatus = unknow;
 		xReturn = 0;
 		yReturn = GOAL_OUT_Y_THRESHOLD;
 		volt = 0;
@@ -575,7 +573,6 @@ namespace Asterisk {
 		timeMotorsWork = time_service::millis();
 		timeCalibrEnd = 0;
 		timeOUT = 0;
-		detourDir = defaultDetour;
 		
 		myGoalkeeper.setGoal(myGoal);
 		myGoalkeeper.setMaxLen(MAX_VEC2B_LEN);

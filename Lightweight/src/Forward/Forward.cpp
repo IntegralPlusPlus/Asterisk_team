@@ -8,25 +8,23 @@ Forward::Forward(): ProcessingCoord() {
 	_countCyclesField = 0;
 }
 
-uint8_t Forward::checkOUTs() {
-	uint8_t outStatus = unknow;
+OutPair Forward::checkOUTs() {
+	//uint8_t outStatus = unknow;
+	OutPair outStatus;
 	inOUT = true;
 	
-	if (!checkYUp(_y)) outStatus = down;
-	else if (!checkXLeft(_x)) outStatus = right;
-	else if (!checkXRight(_x)) outStatus = left;
-	else if (!checkYDown(_y)) outStatus = up;
-	else {
-		if (myGoalLine(_x, _y)) outStatus = up;
-		else if (enemyGoalLine(_x, _y)) outStatus = down;
-		else {
-			if (isMyGoalCircle(_x, _y, _dBlue, _dYellow)) outStatus = myCircle;
-			else if (isEnemyGoalCircle(_x, _y, _dBlue, _dYellow)) outStatus = enemyCircle;
-			else inOUT = false;
-		}			
-	}
+	if (!checkYUp(_y)) outStatus.setOut(down);
+	if (!checkXLeft(_x)) outStatus.setOut(right);
+	if (!checkXRight(_x)) outStatus.setOut(left);
+	if (!checkYDown(_y)) outStatus.setOut(up);
+	
+	if (myGoalLine(_x, _y)) outStatus.setOut(up);
+	if (enemyGoalLine(_x, _y)) outStatus.setOut(down);
+	if (isMyGoalCircle(_x, _y, _dBlue, _dYellow)) outStatus.setOut(myCircle);
+	if (isEnemyGoalCircle(_x, _y, _dBlue, _dYellow)) outStatus.setOut(enemyCircle);
+		
 
-	if (outStatus != unknow) {
+	if (!outStatus.isDefault()) {
 		_countCyclesOUT++;
 		_countCyclesField = 0;
 	} else {
@@ -38,7 +36,7 @@ uint8_t Forward::checkOUTs() {
 	return outStatus;
 }
 
-Vec2b Forward::setOUTVector(uint8_t status, Vec2b current) {
+Vec2b Forward::setVec2Out(uint8_t status, Vec2b current) {
 	switch (status) {
 		case up:
 			return Vec2b(_maxLen, adduct(90 + _angle));
@@ -59,8 +57,19 @@ Vec2b Forward::setOUTVector(uint8_t status, Vec2b current) {
 			return getVecForMyCircle(_x, _y);
 			break;
 		default:
-			return current;
+			return Vec2b(0, 0);
+			break;
 	}
+}
+
+Vec2b Forward::setResOUTVector(OutPair status, Vec2b current) {
+	Vec2b v1 = setVec2Out(status.out1, current);
+	if (v1.angle == 0 && v1.length == 0) return current;
+	
+	Vec2b v2 = setVec2Out(status.out2, current);
+	Vec2b res = v1 + v2;
+	
+	return res;
 }
 
 Vec2b Forward::projectionOnY(Vec2b vec) {
@@ -124,20 +133,11 @@ uint8_t Forward::getBallSide(float angBall) {
 	else return up_left;
 }
 
-uint8_t Forward::setFieldZone() {
-	float sidesSize = float(rightThreshold - leftThreshold) / 6;
-	
-	//return middleZone;
-	if (_x <= leftThreshold + sidesSize) return leftZone;
-	else if (_x >= rightThreshold - sidesSize) return rightZone;
-	else return middleZone;
-}
-
 bool Forward::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
-	if (x > 0) return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.22 * RADIUS_GOAL_OUT_LEFT && angGoal < ANGLE_LOW_TO_CIRCLE; 
-	else return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.22 * RADIUS_GOAL_OUT_RIGHT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
+	if (x > 0) return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.35 * RADIUS_GOAL_OUT_LEFT && angGoal < ANGLE_LOW_TO_CIRCLE; 
+	else return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.35 * RADIUS_GOAL_OUT_RIGHT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
 }
 
 bool Forward::isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {

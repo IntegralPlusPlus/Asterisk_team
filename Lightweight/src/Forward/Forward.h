@@ -28,16 +28,40 @@ enum ballSides {
 	down_right
 };
 
-enum fieldZones {
-	leftZone,
-	middleZone,
-	rightZone
-};
+struct OutPair {
+	OutPair() {
+		out1 = unknow;
+		out2 = unknow;
+	}
+	
+	OutPair(uint8_t out1, uint8_t out2) {
+		this->out1 = out1;
+		this->out2 = out2;
+	}
+	
+	void setOut(uint8_t out) {
+		if (out1 == unknow) out1 = out;
+		else if (out2 == unknow) out2 = out;
+	}
 
-enum detour {
-	defaultDetour,
-	leftDetour,
-	rightDetour	
+	bool isDefault() {
+		return out1 == unknow && out2 == unknow;
+	}
+	
+	void operator= (const OutPair& oPair) {
+		out1 = oPair.out1;
+		out2 = oPair.out2;
+	}
+	
+	bool operator!= (const OutPair& oPair) {
+		return !(out1 == oPair.out1 && out2 == oPair.out2);
+	}
+	
+	bool operator!= (const uint8_t& state) {
+		return !(out1 == state || out2 == state);
+	}
+	
+	uint8_t out1, out2;
 };
 
 class Forward : public ProcessingCoord {
@@ -46,13 +70,13 @@ class Forward : public ProcessingCoord {
 		void resetCounts();
 		Vec2b getVecForMyCircle(int16_t x, int16_t y);
 		Vec2b getVecForEnemyCircle(int16_t x, int16_t y);
-		Vec2b setOUTVector(uint8_t status, Vec2b current);
+		Vec2b setResOUTVector(OutPair status, Vec2b current);
+		Vec2b setVec2Out(uint8_t status, Vec2b current);
 		Vec2b vec2bOnGoal(float speed, float angBall);
 		Vec2b projectionOnY(Vec2b vec);
 		float setNearSpeed(uint8_t status, float maxSpeed);
-		uint8_t checkOUTs();
+		OutPair checkOUTs();
 		uint8_t getBallSide(float angBall);
-		uint8_t setFieldZone();
 		uint8_t robotNearOUT();
 		bool inEnemyGoal();
 		bool inMyGoal();

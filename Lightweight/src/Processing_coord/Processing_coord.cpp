@@ -4,9 +4,14 @@ ProcessingCoord::ProcessingCoord() {
 	_maxLen = 1;
 	
 	upThreshold = UP_Y - DELTA_DIST;
-	downThreshold = DOWN_Y + 1.5 * DELTA_DIST;
-	leftThreshold = THRESHOLD_X_LEFT + DELTA_DIST + 3.5 * DELTA_DIST;
-	rightThreshold = THRESHOLD_X_RIGHT - DELTA_DIST - 2 * DELTA_DIST;
+	downThreshold = DOWN_Y + 2.5 * DELTA_DIST;
+	if (_goal == YELLOW_GOAL) {
+		leftThreshold = -78 + DELTA_DIST;//THRESHOLD_X_LEFT + 3.5 * DELTA_DIST;
+		rightThreshold = 56 - DELTA_DIST;//THRESHOLD_X_RIGHT - 1 * DELTA_DIST;
+	} else {
+		leftThreshold = THRESHOLD_X_LEFT + 4.5 * DELTA_DIST;
+		rightThreshold = THRESHOLD_X_RIGHT - 3 * DELTA_DIST;
+	}
 }
 
 void ProcessingCoord::setGoal(uint8_t currentGoal) {
@@ -58,6 +63,7 @@ Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
 	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
 	float u = dist * 0.057f; //0.027
 	if (u < 0.2f) u = 0.2f;
+	else if (u > 0.7f) u = 0.7f;
 	
 	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
 }

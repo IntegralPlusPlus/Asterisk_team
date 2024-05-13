@@ -7,7 +7,7 @@
 #define DEG2RAD	0.01745329251994329576f
 #define TSOP1GRAD 11.25f
 #define Ec 2.718281828459f
-#define BALL_FAR 7.1f
+#define BALL_FAR 7.4f
 
 class TSOP {
 	public:
