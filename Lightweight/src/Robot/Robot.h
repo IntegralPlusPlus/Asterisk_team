@@ -437,7 +437,7 @@ namespace Asterisk {
 			
 				goTo = vecToCenter + vecToBall;
 				
-				if (myGoalkeeper.dist2GoalLong() && angToGoal < 160 && angToGoal > 20) {
+				if (myGoalkeeper.dist2GoalLong() && angToGoal < 120 && angToGoal > 60) {
 					inLeave = false;
 					inReturn = true;
 				}

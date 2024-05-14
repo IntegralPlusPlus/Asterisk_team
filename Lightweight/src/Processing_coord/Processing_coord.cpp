@@ -63,7 +63,7 @@ Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
 	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
 	float u = dist * 0.057f; //0.027
 	if (u < 0.2f) u = 0.2f;
-	else if (u > 0.7f) u = 0.7f;
+	else if (u > 0.65f) u = 0.65f;
 	
 	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
 }
