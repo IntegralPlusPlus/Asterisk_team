@@ -146,7 +146,7 @@ namespace Asterisk {
 	
 	void update() {	
 		ballVal = ballSens.getValue();
-		ballGrip = false;//ballSens.ballInGrip();
+		ballGrip = ballSens.ballInGrip();
 		//usart6Available = uart6::available();
 		camera.read();
 		tsops.updateTSOPs();
@@ -273,7 +273,7 @@ namespace Asterisk {
 			angSoft = 0;
 		}
 		
-		if (ballGrip || (abs(ang) <= 15 && dist > 9.4)) { 
+		if (ballGrip || (abs(ang) <= 15 && dist > 9.25)) { 
 			angSoft = myForward.adduct(myForward.getTarget2Enemy() + 90);
 			speedForward *= 1.8;
 		}
@@ -316,11 +316,6 @@ namespace Asterisk {
 				goFromOUT = true;
 				outStatusNow = outStatus;
 			} else if (goFromOUT) {
-				/*if ((outStatus == left || outStatus == right) && globalBall >= -90 && globalBall <= 90) {
-					goOUT = myForward.setOUTVector(outStatus, myForward.projectionOnY(Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang))); //outStatusNow
-				} else {
-					goOUT = myForward.setOUTVector(outStatus, currentVector);
-				}*/
 				goOUT = myForward.setResOUTVector(outStatus, currentVector);
 				
 				if (goFromOUT && myForward.robotInFreeField()) {
@@ -341,8 +336,13 @@ namespace Asterisk {
 				goTo = myForward.getVecToPoint(0, DIST_BETWEEN_GOALS / 2);
 			} else if (!robotInOUT) {
 				uint8_t nearOutStatus = myForward.robotNearOUT();
+				uint8_t nearOutStatusHigh = myForward.robotNearOUT(highNear);
 				
-				if ((nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {
+				/*if (globalBall >= 30 && globalBall <= 50 && nearOutStatusHigh == up) {
+					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
+				} else if (globalBall >= -50 && globalBall <= -30 && nearOutStatusHigh == up) {
+					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
+				} else */if ((nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {			
 					goTo = Vec2b(myForward.setNearSpeed(nearOutStatus, USUAL_FOLLOWING_SPEED), ang + 90);
 					//if (nearOutStatus == left || nearOutStatus == right) goTo = myForward.projectionOnY(goTo);
 				} else if (myForward.nearMyGoal()) { 
@@ -368,7 +368,8 @@ namespace Asterisk {
 						goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
 					} else {
 						//goOUT *= 0.5;
-						goTo = Vec2b(0.9 * USUAL_FOLLOWING_SPEED, 90 + ang) + goOUT;
+						if (!myForward.ballInOUT(globalBall)) goTo = Vec2b(0.9 * USUAL_FOLLOWING_SPEED, 90 + ang) + goOUT;
+						else goTo = goOUT;
 					}
 				} else goTo = goOUT;
 			}
@@ -403,7 +404,7 @@ namespace Asterisk {
 			} else targetRaw = float(myGoalkeeper.getTargetGoalkeeper());			
 		}
 		
-		kicker.setKickerStatus(button3.readPin() || ballGrip && inLeave && myGoalkeeper.suitableParams2Kick());
+		kicker.setKickerStatus(button3.readPin() || ballSens.ballLongTimeInGrip() && inLeave && myGoalkeeper.suitableParams2Kick());
 		
 		if (!kicker.canKick()) kicker.close();
 		else kicker.open();

@@ -3,7 +3,7 @@
 int main() {
 	Asterisk::init(BLUE_GOAL, FORWARD_ROLE);
 	Vec2b curr;
-	volatile float x, y, dist, kAng, kLen;
+	volatile float x, y, dist, kAng, kLen, ballADC;
 	volatile float angleTSSP, target, angleIMU;
 	volatile uint64_t timeCheckLeave, buttonForwTime;
 	volatile bool mayKickBall, mustLeave;
@@ -26,6 +26,7 @@ int main() {
 		mustLeave = Asterisk::robotMustLeave;
 		inLeave = Asterisk::inLeave;
 		inReturn = Asterisk::inReturn;
+		ballADC = Asterisk::ballSens.getValue();
 		//timeLong = Asterisk::ballSens.timeInGrip;
 		
 		if (!Asterisk::calibrated()) continue;

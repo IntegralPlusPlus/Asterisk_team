@@ -27,7 +27,9 @@ Project File Date:  04/27/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling Processing_coord.cpp...
+compiling Forward.cpp...
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
@@ -38,26 +40,46 @@ compiling Processing_coord.cpp...
   #define P_MODE 1
 .\src\Vec2b\Vec2b.h(24): warning:  #1-D: last line of file ends without a newline
   #endif /* VEC2B_H_ */
-src\Processing_coord\Processing_coord.h(62): warning:  #1-D: last line of file ends without a newline
+.\src\Processing_coord\Processing_coord.h(62): warning:  #1-D: last line of file ends without a newline
   };
-src\Processing_coord\Processing_coord.cpp(59): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	return adduct180(RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(-_x)) - 90);
-src\Processing_coord\Processing_coord.cpp(68): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
-src\Processing_coord\Processing_coord.cpp(78): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	float angLeft = 180 + adduct180(RAD2DEG * atan2(float(_y), float(_x - LEFT_GOAL_THRESHOLD)));
-src\Processing_coord\Processing_coord.cpp(79): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	float angRight = 180 + adduct180(RAD2DEG * atan2(float(_y), float(_x - RIGHT_GOAL_THRESHOLD)));
-src\Processing_coord\Processing_coord.cpp(87): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	float angLeft = atan2(float(LEFT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
-src\Processing_coord\Processing_coord.cpp(88): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	float angRight = atan2(float(RIGHT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
-src\Processing_coord\Processing_coord.cpp(109): warning:  #1-D: last line of file ends without a newline
+src\Forward\Forward.h(101): warning:  #1-D: last line of file ends without a newline
+  };
+src\Forward\Forward.cpp(52): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(55): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(58): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(61): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(64): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(67): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(70): warning:  #111-D: statement is unreachable
+  			break;
+src\Forward\Forward.cpp(108): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	float ang = atan2(float(y), float(x)) * RAD2DEG;
+src\Forward\Forward.cpp(113): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	float ang = atan2(float(DIST_BETWEEN_GOALS - y), float(x)) * RAD2DEG;
+src\Forward\Forward.cpp(119): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Forward\Forward.cpp(146): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
+src\Forward\Forward.cpp(153): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Forward\Forward.cpp(160): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Forward\Forward.cpp(167): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
+src\Forward\Forward.cpp(182): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Forward\Forward.cpp(232): warning:  #1-D: last line of file ends without a newline
   }
-src\Processing_coord\Processing_coord.cpp: 13 warnings, 0 errors
+src\Forward\Forward.cpp: 24 warnings, 0 errors
 linking...
-Program Size: Code=51926 RO-data=1430 RW-data=440 ZI-data=16088  
-".\Objects\Lightweight.axf" - 0 Error(s), 13 Warning(s).
+Program Size: Code=52410 RO-data=1426 RW-data=440 ZI-data=16088  
+".\Objects\Lightweight.axf" - 0 Error(s), 24 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -83,10 +105,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
+      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s
       Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
       Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
-      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s
+      Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
 Build Time Elapsed:  00:00:02
 </pre>

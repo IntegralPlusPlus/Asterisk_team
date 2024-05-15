@@ -8,7 +8,7 @@ BallSensor::BallSensor(Dma& sens): _sensor(sens) {
 bool BallSensor::ballInGrip() {
 	int16_t val = getValue();
 	
-	if (val < SEE_BALL && count2See < COUNT_THRESHOLD) count2See++;
+	if (val > MINIMUM_ADC_SIGNAL && val < SEE_BALL && count2See < COUNT_THRESHOLD) count2See++;
 	else count2See = 0;
 	
 	if (val >= SEE_BALL) timeInGrip = time_service::millis();

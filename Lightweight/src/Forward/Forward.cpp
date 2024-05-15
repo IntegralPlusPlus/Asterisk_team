@@ -13,17 +13,26 @@ OutPair Forward::checkOUTs() {
 	OutPair outStatus;
 	inOUT = true;
 	
-	if (!checkYUp(_y)) outStatus.setOut(down);
-	if (!checkXLeft(_x)) outStatus.setOut(right);
-	if (!checkXRight(_x)) outStatus.setOut(left);
-	if (!checkYDown(_y)) outStatus.setOut(up);
-	
-	if (myGoalLine(_x, _y)) outStatus.setOut(up);
-	if (enemyGoalLine(_x, _y)) outStatus.setOut(down);
-	if (isMyGoalCircle(_x, _y, _dBlue, _dYellow)) outStatus.setOut(myCircle);
-	if (isEnemyGoalCircle(_x, _y, _dBlue, _dYellow)) outStatus.setOut(enemyCircle);
-		
+	if (!checkYUp(_y)) 
+		outStatus.setOut(down);
+	if (!checkXLeft(_x)) 
+		outStatus.setOut(right);
+	if (!checkXRight(_x)) 
+		outStatus.setOut(left);
+	if (!checkYDown(_y)) 
+		outStatus.setOut(up);
 
+	if (outStatus.out1 == unknow || outStatus.out1 == left || outStatus.out1 == right) {
+		if (myGoalLine(_x, _y)) 
+			outStatus.setOut(up);
+		if (enemyGoalLine(_x, _y)) 
+			outStatus.setOut(down);
+		if (isMyGoalCircle(_x, _y, _dBlue, _dYellow)) 
+			outStatus.setOut(myCircle);
+		if (isEnemyGoalCircle(_x, _y, _dBlue, _dYellow)) 
+			outStatus.setOut(enemyCircle);
+	}
+		
 	if (!outStatus.isDefault()) {
 		_countCyclesOUT++;
 		_countCyclesField = 0;
@@ -136,8 +145,8 @@ uint8_t Forward::getBallSide(float angBall) {
 bool Forward::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
-	if (x > 0) return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.35 * RADIUS_GOAL_OUT_LEFT && angGoal < ANGLE_LOW_TO_CIRCLE; 
-	else return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.35 * RADIUS_GOAL_OUT_RIGHT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
+	if (x > 0) return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.52 * RADIUS_GOAL_OUT_LEFT && angGoal < ANGLE_LOW_TO_CIRCLE; 
+	else return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.45 * RADIUS_GOAL_OUT_RIGHT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
 }
 
 bool Forward::isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
@@ -187,11 +196,15 @@ bool Forward::nearMyGoal() {
 	return goalLine || goalCircle;
 }
 
-uint8_t Forward::robotNearOUT() {
-	if (_x - leftThreshold < NEAR_OUT_DIST) return left;
-	else if (rightThreshold - _x < NEAR_OUT_DIST) return right;
-	else if (_y - downThreshold < NEAR_OUT_DIST) return down;
-	else if (upThreshold - _y < NEAR_OUT_DIST) return up;
+uint8_t Forward::robotNearOUT(uint8_t nearStatus) {
+	int16_t near;
+	if (nearStatus == standartNear) near = NEAR_OUT_DIST;
+	else if (nearStatus == highNear) near = 3 * NEAR_OUT_DIST / 2;
+	
+	if (_y - downThreshold < near) return down;
+	else if (upThreshold - _y < near) return up;
+	else if (_x - leftThreshold < near) return left;
+	else if (rightThreshold - _x < near) return right;
 	else return unknow;
 }
 
@@ -206,4 +219,14 @@ float Forward::setNearSpeed(uint8_t status, float maxSpeed) {
 	} else if (status == right) {
 		return map(_x, rightThreshold - NEAR_OUT_DIST, rightThreshold, minSpeed, maxSpeed);
 	} else return maxSpeed;
+}
+
+bool Forward::ballInOUT(float globalAng) {
+	if (isEnemyGoalCircle(_x, _y, _dBlue, _dYellow)) {
+		if (_x > 0) return globalAng <= -20 && globalAng >= -90;
+		else return globalAng >= 20 && globalAng <= 90;
+	} else if (isMyGoalCircle(_x, _y, _dBlue, _dYellow)) {
+		if (_x > 0) return globalAng <= -90 && globalAng >= -160;
+		else return globalAng >= 90 && globalAng <= 160;
+	} else return false;
 }

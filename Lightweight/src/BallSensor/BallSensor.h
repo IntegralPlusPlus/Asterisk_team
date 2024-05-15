@@ -4,8 +4,9 @@
 #include "Dma.h"
 
 #define SEE_BALL 1500
+#define MINIMUM_ADC_SIGNAL 50
 #define COUNT_THRESHOLD 2
-#define TIME_IN_GRIP 180
+#define TIME_IN_GRIP 50
 
 class BallSensor {
 	public:

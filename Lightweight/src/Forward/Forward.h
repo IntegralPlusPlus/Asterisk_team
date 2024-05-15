@@ -28,6 +28,11 @@ enum ballSides {
 	down_right
 };
 
+enum nearOUT {
+	standartNear,
+	highNear
+};
+
 struct OutPair {
 	OutPair() {
 		out1 = unknow;
@@ -77,7 +82,8 @@ class Forward : public ProcessingCoord {
 		float setNearSpeed(uint8_t status, float maxSpeed);
 		OutPair checkOUTs();
 		uint8_t getBallSide(float angBall);
-		uint8_t robotNearOUT();
+		uint8_t robotNearOUT(uint8_t nearStatus = standartNear);
+		bool ballInOUT(float globalAng);
 		bool inEnemyGoal();
 		bool inMyGoal();
 		bool nearMyGoal();	
