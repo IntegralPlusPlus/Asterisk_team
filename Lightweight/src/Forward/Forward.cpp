@@ -78,6 +78,8 @@ Vec2b Forward::setResOUTVector(OutPair status, Vec2b current) {
 	Vec2b v2 = setVec2Out(status.out2, current);
 	Vec2b res = v1 + v2;
 	
+	if (status.out1 != unknow && status.out2 != unknow) res *= 0.5; 
+	
 	return res;
 }
 
@@ -145,7 +147,7 @@ uint8_t Forward::getBallSide(float angBall) {
 bool Forward::isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
-	if (x > 0) return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.52 * RADIUS_GOAL_OUT_LEFT && angGoal < ANGLE_LOW_TO_CIRCLE; 
+	if (x > 0) return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.7 * RADIUS_GOAL_OUT_LEFT && angGoal < ANGLE_LOW_TO_CIRCLE; 
 	else return distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.45 * RADIUS_GOAL_OUT_RIGHT && angGoal > ANGLE_HIGH_TO_CIRCLE; 
 }
 
@@ -199,7 +201,7 @@ bool Forward::nearMyGoal() {
 uint8_t Forward::robotNearOUT(uint8_t nearStatus) {
 	int16_t near;
 	if (nearStatus == standartNear) near = NEAR_OUT_DIST;
-	else if (nearStatus == highNear) near = 3 * NEAR_OUT_DIST / 2;
+	else if (nearStatus == highNear) near = 2.f * NEAR_OUT_DIST;
 	
 	if (_y - downThreshold < near) return down;
 	else if (upThreshold - _y < near) return up;
@@ -226,7 +228,7 @@ bool Forward::ballInOUT(float globalAng) {
 		if (_x > 0) return globalAng <= -20 && globalAng >= -90;
 		else return globalAng >= 20 && globalAng <= 90;
 	} else if (isMyGoalCircle(_x, _y, _dBlue, _dYellow)) {
-		if (_x > 0) return globalAng <= -90 && globalAng >= -160;
-		else return globalAng >= 90 && globalAng <= 160;
+		if (_x > 0) return globalAng <= -130 && globalAng >= -160;
+		else return globalAng >= 130 && globalAng <= 160;
 	} else return false;
 }

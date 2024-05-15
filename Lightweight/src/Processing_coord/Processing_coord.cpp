@@ -9,8 +9,8 @@ ProcessingCoord::ProcessingCoord() {
 		leftThreshold = -78 + DELTA_DIST;//THRESHOLD_X_LEFT + 3.5 * DELTA_DIST;
 		rightThreshold = 56 - DELTA_DIST;//THRESHOLD_X_RIGHT - 1 * DELTA_DIST;
 	} else {
-		leftThreshold = THRESHOLD_X_LEFT + 4.5 * DELTA_DIST;
-		rightThreshold = THRESHOLD_X_RIGHT - 3 * DELTA_DIST;
+		leftThreshold = THRESHOLD_X_LEFT + 4 * DELTA_DIST;
+		rightThreshold = THRESHOLD_X_RIGHT - 2.2 * DELTA_DIST;
 	}
 }
 

@@ -273,7 +273,7 @@ namespace Asterisk {
 			angSoft = 0;
 		}
 		
-		if (ballGrip || (abs(ang) <= 15 && dist > 9.25)) { 
+		if (ballGrip || (abs(ang) <= 15 && dist > 9.2)) { 
 			angSoft = myForward.adduct(myForward.getTarget2Enemy() + 90);
 			speedForward *= 1.8;
 		}
@@ -337,12 +337,13 @@ namespace Asterisk {
 			} else if (!robotInOUT) {
 				uint8_t nearOutStatus = myForward.robotNearOUT();
 				uint8_t nearOutStatusHigh = myForward.robotNearOUT(highNear);
+				float angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - y), float(x));
 				
-				/*if (globalBall >= 30 && globalBall <= 50 && nearOutStatusHigh == up) {
+				if (globalBall >= 50 && globalBall <= 90 && nearOutStatusHigh == up) {
 					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
 				} else if (globalBall >= -50 && globalBall <= -30 && nearOutStatusHigh == up) {
 					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
-				} else */if ((nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {			
+				} else if ((nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {			
 					goTo = Vec2b(myForward.setNearSpeed(nearOutStatus, USUAL_FOLLOWING_SPEED), ang + 90);
 					//if (nearOutStatus == left || nearOutStatus == right) goTo = myForward.projectionOnY(goTo);
 				} else if (myForward.nearMyGoal()) { 
@@ -368,8 +369,9 @@ namespace Asterisk {
 						goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
 					} else {
 						//goOUT *= 0.5;
-						if (!myForward.ballInOUT(globalBall)) goTo = Vec2b(0.9 * USUAL_FOLLOWING_SPEED, 90 + ang) + goOUT;
+						if (!myForward.ballInOUT(globalBall)) goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang) + goOUT;
 						else goTo = goOUT;
+						//goTo = Vec2b(0.9 * USUAL_FOLLOWING_SPEED, 90 + ang) + goOUT;
 					}
 				} else goTo = goOUT;
 			}
