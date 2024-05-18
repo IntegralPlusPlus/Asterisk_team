@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Objects\Lightweight.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Lightweight.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed May 15 20:32:19 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat May 18 20:28:29 2024
 <BR><P>
-<H3>Maximum Stack Usage =        784 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        792 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; Asterisk::forwardStrategy() &rArr; Forward::setResOUTVector(OutPair, Vec2b) &rArr; Forward::setVec2Out(unsigned char, Vec2b) &rArr; Vec2b::operator +(const Vec2b&) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 <P>
@@ -251,7 +251,7 @@ Global Symbols
 <P><STRONG><a name="[1d9]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[77]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 784 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 792 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; Asterisk::forwardStrategy() &rArr; Forward::setResOUTVector(OutPair, Vec2b) &rArr; Forward::setVec2Out(unsigned char, Vec2b) &rArr; Vec2b::operator +(const Vec2b&) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1271,10 +1271,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(float, int)
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::sqrt(float)
 </UL>
-<BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::nearMyGoal()
+<BR>[Called By]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::nearMyGoal()
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::goalkeeperStrategy()
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::forwardStrategy()
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isMyGoalCircle(short, short, short, short)
 </UL>
 
@@ -2156,6 +2156,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::checkOUTs()
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::ballInOUT(float)
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::inEnemyGoal()
+<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[12a]"></a>Forward::getVecForEnemyCircle(short, short)</STRONG> (Thumb, 290 bytes, Stack size 64 bytes, forward.o(i._ZN7Forward20getVecForEnemyCircleEss))
@@ -2193,13 +2194,13 @@ Global Symbols
 <P><STRONG><a name="[137]"></a>Forward::checkOUTs()</STRONG> (Thumb, 314 bytes, Stack size 16 bytes, forward.o(i._ZN7Forward9checkOUTsEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = Forward::checkOUTs() &rArr; Forward::isEnemyGoalCircle(short, short, short, short) &rArr; ProcessingCoord::distance(float, float, float, float) &rArr; std::pow(float, int) &rArr; __hardfp_powf &rArr; __set_errno
 </UL>
-<BR>[Calls]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::myGoalLine(short, short)
+<BR>[Calls]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
+<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::myGoalLine(short, short)
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::checkXRight(short, unsigned char)
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::checkXLeft(short, unsigned char)
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::checkYUp(short)
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::checkYDown(short)
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OutPair::setOut(unsigned char)
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isMyGoalCircle(short, short, short, short)
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::enemyGoalLine(short, short)
 </UL>
@@ -2246,7 +2247,7 @@ Global Symbols
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::forwardStrategy()
 </UL>
 
-<P><STRONG><a name="[13f]"></a>Asterisk::forwardStrategy()</STRONG> (Thumb, 1948 bytes, Stack size 80 bytes, main.o(i._ZN8Asterisk15forwardStrategyEv))
+<P><STRONG><a name="[13f]"></a>Asterisk::forwardStrategy()</STRONG> (Thumb, 2124 bytes, Stack size 80 bytes, main.o(i._ZN8Asterisk15forwardStrategyEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 696<LI>Call Chain = Asterisk::forwardStrategy() &rArr; Forward::setResOUTVector(OutPair, Vec2b) &rArr; Forward::setVec2Out(unsigned char, Vec2b) &rArr; Vec2b::operator +(const Vec2b&) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::setTarget(float)
@@ -2782,6 +2783,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getTargetRadiuses()
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getGoalkeeperPos()
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::vec2bOnGoal(float, float)
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::nearMyGoal()
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::myGoalLine(short, short)
@@ -2796,7 +2798,6 @@ Global Symbols
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::goalkeeperStrategy()
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::forwardStrategy()
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::getVecForEnemyCircle(short, short)
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::getVecForMyCircle(short, short)
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isMyGoalCircle(short, short, short, short)
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::enemyGoalLine(short, short)
@@ -3166,10 +3167,11 @@ Global Symbols
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 </UL>
 
-<P><STRONG><a name="[78]"></a>main</STRONG> (Thumb, 276 bytes, Stack size 88 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 784<LI>Call Chain = main &rArr; Asterisk::forwardStrategy() &rArr; Forward::setResOUTVector(OutPair, Vec2b) &rArr; Forward::setVec2Out(unsigned char, Vec2b) &rArr; Vec2b::operator +(const Vec2b&) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
+<P><STRONG><a name="[78]"></a>main</STRONG> (Thumb, 310 bytes, Stack size 96 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 792<LI>Call Chain = main &rArr; Asterisk::forwardStrategy() &rArr; Forward::setResOUTVector(OutPair, Vec2b) &rArr; Forward::setVec2Out(unsigned char, Vec2b) &rArr; Vec2b::operator +(const Vec2b&) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::Vec2b()
+<BR>[Calls]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::Vec2b()
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::adduct180(short)
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallSensor::getValue()
 <LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::getRole()
@@ -3313,6 +3315,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getTargetRadiuses()
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getGoalkeeperPos()
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, long long)
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::vec2bOnGoal(float, float)
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::nearMyGoal()
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::myGoalLine(short, short)
@@ -3326,7 +3329,6 @@ Global Symbols
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getCurrentLeaveTime(short)
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::mustLeave()
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::goalkeeperStrategy()
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isMyGoalCircle(short, short, short, short)
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::enemyGoalLine(short, short)
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
@@ -3384,7 +3386,8 @@ Global Symbols
 <P><STRONG><a name="[93]"></a>__aeabi_cdcmple</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_cdcmple
 </UL>
-<BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::myGoalLine(short, short)
+<BR>[Called By]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
+<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::myGoalLine(short, short)
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getVecToIntersection(short)
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getVecToGoalCenter()
@@ -3395,7 +3398,6 @@ Global Symbols
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TSOP::convertDist(double)
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::adduct(double)
 <LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 </UL>
 
 <P><STRONG><a name="[1ad]"></a>_dcmple</STRONG> (Thumb, 120 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf), UNUSED)
@@ -3412,6 +3414,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getTargetRadiuses()
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getGoalkeeperPos()
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::vec2bOnGoal(float, float)
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::nearMyGoal()
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::myGoalLine(short, short)
@@ -3434,7 +3437,6 @@ Global Symbols
 <LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::calculate()
 <LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::changeValues(bool)
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::getVecForEnemyCircle(short, short)
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::getVecForMyCircle(short, short)
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isMyGoalCircle(short, short, short, short)
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::projectionOnY(Vec2b)
@@ -3554,6 +3556,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getTargetRadiuses()
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getGoalkeeperPos()
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::vec2bOnGoal(float, float)
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::nearMyGoal()
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::myGoalLine(short, short)
@@ -3578,7 +3581,6 @@ Global Symbols
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2::usart2Init(unsigned, float, unsigned char)
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1::usart1Init(unsigned, float, unsigned char)
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::getVecForEnemyCircle(short, short)
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::getVecForMyCircle(short, short)
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isMyGoalCircle(short, short, short, short)
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::projectionOnY(Vec2b)

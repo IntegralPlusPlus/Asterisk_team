@@ -27,56 +27,6 @@ Project File Date:  04/27/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling Forward.cpp...
-.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\time_service\time_service.h(13): warning:  #1-D: last line of file ends without a newline
-  }
-.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
-  #define P_MODE 1
-.\src\Vec2b\Vec2b.h(24): warning:  #1-D: last line of file ends without a newline
-  #endif /* VEC2B_H_ */
-.\src\Processing_coord\Processing_coord.h(60): warning:  #1-D: last line of file ends without a newline
-  };
-src\Forward\Forward.h(101): warning:  #1-D: last line of file ends without a newline
-  };
-src\Forward\Forward.cpp(52): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(55): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(58): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(61): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(64): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(67): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(70): warning:  #111-D: statement is unreachable
-  			break;
-src\Forward\Forward.cpp(110): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	float ang = atan2(float(y), float(x)) * RAD2DEG;
-src\Forward\Forward.cpp(115): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	float ang = atan2(float(DIST_BETWEEN_GOALS - y), float(x)) * RAD2DEG;
-src\Forward\Forward.cpp(121): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
-src\Forward\Forward.cpp(148): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
-src\Forward\Forward.cpp(155): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
-src\Forward\Forward.cpp(162): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
-src\Forward\Forward.cpp(169): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
-src\Forward\Forward.cpp(184): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
-src\Forward\Forward.cpp(234): warning:  #1-D: last line of file ends without a newline
-  }
-src\Forward\Forward.cpp: 24 warnings, 0 errors
 compiling main.cpp...
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -184,7 +134,7 @@ compiling main.cpp...
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
-.\src\Forward\Forward.h(101): warning:  #1-D: last line of file ends without a newline
+.\src\Forward\Forward.h(103): warning:  #1-D: last line of file ends without a newline
   };
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -220,20 +170,20 @@ compiling main.cpp...
   		if (!(ballGrip || dist > 7.9 && abs(ang) <= 25)) {
 .\src\Robot\Robot.h(340): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   				float angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - y), float(x));
-.\src\Robot\Robot.h(391): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+.\src\Robot\Robot.h(395): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		int16_t angGoal = RAD2DEG * atan2(float(y), float(x));
-.\src\Robot\Robot.h(430): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+.\src\Robot\Robot.h(434): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   				angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
-.\src\Robot\Robot.h(589): warning:  #1-D: last line of file ends without a newline
+.\src\Robot\Robot.h(593): warning:  #1-D: last line of file ends without a newline
   }
-src\main\main.cpp(37): warning:  #111-D: statement is unreachable
+src\main\main.cpp(39): warning:  #111-D: statement is unreachable
   	return 0;
-src\main\main.cpp(38): warning:  #1-D: last line of file ends without a newline
+src\main\main.cpp(40): warning:  #1-D: last line of file ends without a newline
   }
 src\main\main.cpp: 76 warnings, 0 errors
 linking...
-Program Size: Code=52754 RO-data=1426 RW-data=440 ZI-data=16088  
-".\Objects\Lightweight.axf" - 0 Error(s), 100 Warning(s).
+Program Size: Code=52998 RO-data=1430 RW-data=440 ZI-data=16088  
+".\Objects\Lightweight.axf" - 0 Error(s), 76 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -261,10 +211,10 @@ Package Vendor: Keil
    * Component: Keil::Device:Startup:2.6.3
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s
       Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
-      Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
       Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
+      Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

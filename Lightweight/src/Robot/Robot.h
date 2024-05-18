@@ -343,6 +343,10 @@ namespace Asterisk {
 					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
 				} else if (globalBall >= -50 && globalBall <= -30 && nearOutStatusHigh == up) {
 					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
+				} else if (globalBall >= -140 && globalBall <= -120 && nearOutStatusHigh == down) {
+					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
+				} else if (globalBall >= 120 && globalBall <= 140 && nearOutStatusHigh == down) {
+					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
 				} else if ((nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {			
 					goTo = Vec2b(myForward.setNearSpeed(nearOutStatus, USUAL_FOLLOWING_SPEED), ang + 90);
 					//if (nearOutStatus == left || nearOutStatus == right) goTo = myForward.projectionOnY(goTo);

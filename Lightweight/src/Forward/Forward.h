@@ -4,14 +4,16 @@
 #include "Vec2b.h"
 
 #define DELTA_DIST 8
-#define NEAR_OUT_DIST 15
+#define NEAR_OUT_DIST 10
 //18
 #define BACK_SECTOR 140
 #define BACK_SECTOR_DETOUR 30
 #define COEFF_CIRCLE 1.5f
 #define ANGLE2SIDES 20
-#define MINIMUM_SPEED_TO_BALL 0.5f  
+#define MINIMUM_SPEED_TO_BALL 0.35f  
 #define LIMIT_OUT_CYCLES 20
+#define ANGLE_LOW_TO_CIRCLE_ENEMY 65
+#define ANGLE_HIGH_TO_CIRCLE_ENEMY 128
 
 enum processingOUTs {
 	unknow,

@@ -8,6 +8,7 @@ int main() {
 	volatile uint64_t timeCheckLeave, buttonForwTime;
 	volatile bool mayKickBall, mustLeave;
 	volatile bool inLeave, inReturn;
+	volatile bool enemyGoal;
 	
 	while (true) {
 		Asterisk::update();
@@ -27,6 +28,7 @@ int main() {
 		inLeave = Asterisk::inLeave;
 		inReturn = Asterisk::inReturn;
 		ballADC = Asterisk::ballSens.getValue();
+		enemyGoal = Asterisk::myForward.isEnemyGoalCircle(Asterisk::x, Asterisk::y, Asterisk::dBl, Asterisk::dYe);
 		//timeLong = Asterisk::ballSens.timeInGrip;
 		
 		if (!Asterisk::calibrated()) continue;
