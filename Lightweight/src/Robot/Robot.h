@@ -146,7 +146,7 @@ namespace Asterisk {
 	
 	void update() {	
 		ballVal = ballSens.getValue();
-		ballGrip = ballSens.ballInGrip();
+		ballGrip = false;//ballSens.ballInGrip();
 		//usart6Available = uart6::available();
 		camera.read();
 		tsops.updateTSOPs();
@@ -472,7 +472,7 @@ namespace Asterisk {
 				if (!(time_service::millis() - timeInLeaving > currLeaveTime && myGoalkeeper.distance(x, y) < 0.35 * DIST_BETWEEN_GOALS 
 						&& (myGoalkeeper.checkXLeft(x, myRole) || myGoalkeeper.checkXRight(x, myRole)))) {				
 					if (time_service::millis() - timeInLeaving > currLeaveTime || 
-							myGoalkeeper.distance(x, y) > 0.61 * DIST_BETWEEN_GOALS ||
+							myGoalkeeper.distance(x, y) > 0.58 * DIST_BETWEEN_GOALS ||
 							!myGoalkeeper.checkXLeft(x, myRole) || !myGoalkeeper.checkXRight(x, myRole)) {
 						inLeave = false;
 						inReturn = true;

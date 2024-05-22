@@ -62,8 +62,8 @@ int16_t ProcessingCoord::getTarget2Enemy() {
 Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
 	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
 	float u = dist * 0.057f; //0.027
-	if (u < 0.2f) u = 0.2f;
-	else if (u > 0.65f) u = 0.65f;
+	if (u < 0.25f) u = 0.25f;
+	else if (u > 0.6f) u = 0.6f;
 	
 	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
 }
@@ -91,12 +91,12 @@ bool ProcessingCoord::suitableParams2Kick() {
 }
 
 bool ProcessingCoord::checkXLeft(int16_t x, uint8_t role) {
-	if (role == GOALKEEPER_ROLE) return x > THRESHOLD_X_LEFT + DELTA_DIST;//leftThreshold - 3.5 * DELTA_DIST + SAVE_DELTA_GK;
+	if (role == GOALKEEPER_ROLE) return x > THRESHOLD_X_LEFT + DELTA_DIST + SAVE_DELTA_GK;//leftThreshold - 3.5 * DELTA_DIST + SAVE_DELTA_GK;
 	else return x > leftThreshold;
 }
 
 bool ProcessingCoord::checkXRight(int16_t x, uint8_t role) {
-	if (role == GOALKEEPER_ROLE) return x < THRESHOLD_X_RIGHT - DELTA_DIST;//rightThreshold + 2 * DELTA_DIST - SAVE_DELTA_GK;
+	if (role == GOALKEEPER_ROLE) return x < THRESHOLD_X_RIGHT - DELTA_DIST - SAVE_DELTA_GK / 2;//rightThreshold + 2 * DELTA_DIST - SAVE_DELTA_GK;
 	else return x < rightThreshold;
 }
 
