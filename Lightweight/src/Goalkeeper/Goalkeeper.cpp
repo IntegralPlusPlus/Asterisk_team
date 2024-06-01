@@ -14,7 +14,7 @@ Goalkeeper::Goalkeeper(): ProcessingCoord() {
 		_downYLeft = 28;
 	} else {
 		_downYRight = 27;
-		_downYLeft = 21;
+		_downYLeft = 24;
 	}
 }
 
@@ -61,7 +61,7 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 	
 	if (gkPos == centralLine) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		float speed = err * 0.025f; //0.04f 
+		float speed = err * 0.023f; //0.04f 
 		vec = Vec2b(speed, 270 + _angle); 
 		//errOld = 0;
 	} else {
@@ -69,14 +69,14 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (gkPos == leftPart) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			p = err * 0.05f; //0.058
+			p = err * 0.07f; //0.058
 			d = (err - errOld) * 1.f;
 			u = p + d;
 			errOld = err;
 		} else if (gkPos == rightPart) {
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
-			p = err * 0.03f;
-			d = (err - errOld) * 0.7f;
+			p = err * 0.029f;
+			d = (err - errOld) * 0.4f;
 			u = p + d;
 			errOld = err;
 		}		
@@ -107,8 +107,8 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 
 		float err, p, d, u;
 		err = pow(abs(float(globalAngToBall - angGoal)), 2.f); //1.3f
-		p = 0.0004f * err; //0.00087 0.0015 0.0041f
-		d = (err - errOldGkLine) * 0.012f; //0.08f
+		p = 0.00035f * err; //0.00087 0.0015 0.0041f
+		d = (err - errOldGkLine) * 0.016f; //0.08f
 		u = p + d;
 		errOldGkLine = err;
 		
@@ -140,7 +140,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			
 			err = pow(abs(float(globalAngToBall - angGoal)), 1.4f);
-			p = 0.003f * err; //0.0045
+			p = 0.0025f * err; //0.0045
 			d = (err - errOldGkLeft) * 0.07f; //0.05
 			u = p + d;
 			errOldGkLeft = err;
