@@ -2,17 +2,18 @@ import sensor, utime, image, time, pyb, math
 from pyb import UART
 
 EXPOSURE_TIME_SCALE = 1
-DELTA_ANGLE = 50
+DELTA_ANGLE = 45
+MAX_DISTANCE_BETWEEN_BLOBS = 65
 
 uart = UART(3, 460800, timeout = 100, timeout_char = 100)
 uart.init(460800, bits = 8, parity = False, stop = 1, timeout_char = 100)
-threshold_yellow = (63, 100, -22, 127, 19, 127)#(55, 100, -23, 127, 9, 127)#(53, 100, -38, -14, 28, 127)#(53, 100, -38, -14, 28, 127)#(62, 71, -34, -20, 16, 127)
-threshold_blue = (0, 90, -36, -9, -128, -9)#(0, 90, -24, -11, -128, -17)#(0, 90, -31, -11, -128, -5)#(0, 100, -128, -11, -128, -5)#(0, 58, -128, -12, -128, -6)#(0, 100, -128, -6, -128, -16)#(0, 100, -128, -14, -128, -7)#(0, 100, -128, -22, -128, 0)#(0, 67, -128, 23, -128, -19)#(0, 67, -128, 2, -128, -25)#(0, 67, -128, -18, -128, -8)
+threshold_yellow = (0, 100, -42, 127, 48, 127)#(0, 100, -34, 127, 39, 127)#(0, 100, -41, 127, 35, 127)#(54, 100, -26, 127, 24, 127)#(0, 100, -44, 127, 23, 127)#(0, 100, -43, 127, 32, 127)#(0, 100, -37, 127, 31, 127)#(47, 100, -35, 127, 44, 127)
+threshold_blue = (0, 100, -28, -7, -128, -4)#(0, 100, -28, -7, -128, -13)#(0, 100, -42, -7, -128, 0)#(0, 100, -128, -9, -128, -15)#(0, 100, -128, -20, -128, 6)#(0, 100, -50, 127, -125, -7)#(0, 100, -24, 127, -128, -6)
 x0 = 166
 y0 = 139
-r0 = 150
+r0 = 148
 
-#       pix  sm
+#       pix sm
 arr = [[0, 0],
        [20, 11],
        [32, 15],
@@ -159,7 +160,7 @@ clock = time.clock()
 while(True):
     #####################################################INIT
     clock.tick()
-    img = sensor.snapshot().mask_circle(x0, y0, r0)
+
     #inits
     yellow = (0, 0)
     blue = (0, 0)
@@ -171,13 +172,13 @@ while(True):
     alphaY = 0
     pointsY = []
     pointsB = []
-
+    img = sensor.snapshot().mask_circle(x0, y0, r0)
 
     yellowSidesOfImg = True
     blueSidesOfImg = True
 
     #####################################################FIND_BLOBS
-    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 15, pixel_threshold = 350, area_threshold = 220):
+    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 30, pixel_threshold = 310, area_threshold = 200):
         img.draw_rectangle(int(yb.x()), int(yb.y()), int(yb.w()), int(yb.h()), thickness = 2)
         pointsY.append([yb.x(), yb.y() + yb.h() / 2])
         pointsY.append([yb.x() + yb.w(), yb.y() + yb.h() / 2])
@@ -190,6 +191,21 @@ while(True):
 
     #print("SIDE:", yellowSidesOfImg)
     if len(pointsY):
+        '''if len(pointsY) == 4:
+            point1 = getMiddlePoint(pointsY[0], pointsY[1])
+            point2 = getMiddlePoint(pointsY[2], pointsY[3])
+            distBetween = dist(point1[0], point1[1], point2[0], point2[1])
+            if distBetween > MAX_DISTANCE_BETWEEN_BLOBS:
+                s1 = dist(pointsY[0][0], pointsY[0][1], pointsY[1][0], pointsY[1][1])
+                s2 = dist(pointsY[2][0], pointsY[2][1], pointsY[3][0], pointsY[3][1])
+                if s1 > s2:
+                    pointsY.pop(2)
+                    pointsY.pop(2)
+                else:
+                    pointsY.pop(0)
+                    pointsY.pop
+
+        '''
         minValue = 200000
         maxValue = -200000
         indMin = 0
@@ -204,11 +220,11 @@ while(True):
                 indMax = i
 
         yellow = getMiddlePoint(pointsY[indMin], pointsY[indMax])
-        img.draw_circle(int(yellow[0]), int(yellow[1]), 4, fill = True, color = (0, 0, 0))
-        img.draw_line(int(x0), int(y0), int(yellow[0]), int(yellow[1]), thickness = 2, color = (0, 0, 0))
+        img.draw_circle(int(yellow[0]), int(yellow[1]), 4, fill = True, color = (255, 255, 0))
+        img.draw_line(int(x0), int(y0), int(yellow[0]), int(yellow[1]), thickness = 2, color = (255, 255, 0))
         pixY = dist(x0, y0, yellow[0], yellow[1])
 
-    for bb in img.find_blobs([threshold_blue], merge = True, margin = 15, pixel_threshold = 350, area_threshold = 280):
+    for bb in img.find_blobs([threshold_blue], merge = True, margin = 25, pixel_threshold = 350, area_threshold = 280):
         img.draw_rectangle(int(bb.x()), int(bb.y()), int(bb.w()), int(bb.h()), thickness = 2)
         pointsB.append([bb.x(), bb.y() + bb.h() / 2])
         pointsB.append([bb.x() + bb.w(), bb.y() + bb.h() / 2])
@@ -233,8 +249,8 @@ while(True):
         #img.draw_circle(int(pointsB[indMin][0]), int(pointsB[indMin][1]), 3, fill = True, color = (255, 0, 0))
         #img.draw_circle(int(pointsB[indMax][0]), int(pointsB[indMax][1]), 3, fill = True, color = (255, 0, 0))
         blue = getMiddlePoint(pointsB[indMin], pointsB[indMax])
-        img.draw_circle(int(blue[0]), int(blue[1]), 4, fill = True)
-        img.draw_line(int(x0), int(y0), int(blue[0]), int(blue[1]), thickness = 2)
+        img.draw_circle(int(blue[0]), int(blue[1]), 4, fill = True, color = (0, 0, 255))
+        img.draw_line(int(x0), int(y0), int(blue[0]), int(blue[1]), thickness = 2, color = (0, 0, 255))
         pixB = dist(x0, y0, blue[0], blue[1])
     #####################################################END_FIND
 
@@ -252,7 +268,7 @@ while(True):
     alphaB = adduction(alphaB - 90) # -90 because camera is rotated
     #print(alphaY)
     #print(clock.fps())
-    print(distY, pixY)
+    #print(distY, pixY)
     #print(pixB, distB, alphaB / 2, pixY, distY, alphaY / 2)
     #print(alphaY, end = " ")
 
