@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Lightweight.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Lightweight.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Jun 01 20:04:52 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Jun 03 17:25:29 2024
 <BR><P>
 <H3>Maximum Stack Usage =        792 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1166,7 +1166,6 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getVecToIntersection(short)
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::mustLeave()
-<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::goalkeeperStrategy()
 <LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::forwardStrategy()
 </UL>
 
@@ -1184,7 +1183,7 @@ Global Symbols
 <LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::goalkeeperStrategy()
 </UL>
 
-<P><STRONG><a name="[b6]"></a>ProcessingCoord::getVecToPoint(short, short)</STRONG> (Thumb, 290 bytes, Stack size 88 bytes, processing_coord.o(i._ZN15ProcessingCoord13getVecToPointEss))
+<P><STRONG><a name="[b6]"></a>ProcessingCoord::getVecToPoint(short, short)</STRONG> (Thumb, 296 bytes, Stack size 88 bytes, processing_coord.o(i._ZN15ProcessingCoord13getVecToPointEss))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = ProcessingCoord::getVecToPoint(short, short) &rArr; std::pow(float, int) &rArr; __hardfp_powf &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::pow(float, int)
@@ -2289,10 +2288,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[14b]"></a>Asterisk::goalkeeperStrategy()</STRONG> (Thumb, 2610 bytes, Stack size 120 bytes, main.o(i._ZN8Asterisk18goalkeeperStrategyEv))
+<P><STRONG><a name="[14b]"></a>Asterisk::goalkeeperStrategy()</STRONG> (Thumb, 2772 bytes, Stack size 120 bytes, main.o(i._ZN8Asterisk18goalkeeperStrategyEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 536<LI>Call Chain = Asterisk::goalkeeperStrategy() &rArr; Asterisk::getVec2bToBallFollow() &rArr; TSOP::angleOffset(double, double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::setTarget(float)
+<LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::getTarget()
 <LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::setRotationForTarget()
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::getMaxRotation()
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::calculateSoft(float, float, unsigned char)
@@ -2317,7 +2317,6 @@ Global Symbols
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::getVecToPoint(short, short)
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::checkXRight(short, unsigned char)
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::checkXLeft(short, unsigned char)
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::ballInBack(float, unsigned char)
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;time_service::millis()
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;omniplatform::move(float, float, float, float, float)
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getVecToIntersection(short)
@@ -2516,7 +2515,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[143]"></a>gyro_imu::getTarget()</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, imu_usart.o(i._ZN8gyro_imu9getTargetEv))
-<BR><BR>[Called By]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::forwardStrategy()
+<BR><BR>[Called By]<UL><LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::goalkeeperStrategy()
+<LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::forwardStrategy()
 </UL>
 
 <P><STRONG><a name="[16e]"></a>gyro_imu::initUSART(unsigned char)</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, imu_usart.o(i._ZN8gyro_imu9initUSARTEh))

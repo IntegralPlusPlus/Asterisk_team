@@ -212,7 +212,7 @@ namespace Asterisk {
 			x = camera.getX();
 			y = camera.getY();
 			doesntSeeGoals = false;
-			//if (myRole == GOALKEEPER_ROLE) 
+			
 			myGoalkeeper.setParams(x, y, angleIMU, dBl, dYe);
 			myForward.setParams(x, y, angleIMU, dBl, dYe);
 		} else doesntSeeGoals = true;
@@ -423,7 +423,7 @@ namespace Asterisk {
 		pow = gyro.getRotation();
 		
 		led2.set(!doesntSeeGoals);
-		led3.set(myGoalkeeper.ballInBack(ang, tsopRaw));
+		led3.set(abs(-angleIMU - gyro.getTarget()) <= 3);//myGoalkeeper.ballInBack(ang, tsopRaw));
 		//led3.set(abs(-gyro.getTarget() - angleIMU) <= 4);
 		
 		if (!doesntSeeGoals) {
@@ -502,6 +502,8 @@ namespace Asterisk {
 					}
 				} else {
 					goTo = myGoalkeeper.getVecToPoint(0, 0);
+					if (!myGoalkeeper.checkXLeft(x, myRole)) goTo = goTo + Vec2b(MAX_VEC2B_LEN, angleIMU);
+					else goTo = goTo + Vec2b(MAX_VEC2B_LEN, 180 + angleIMU);
 				}
 				
 				if (myGoalkeeper.changeFromReturn()) {

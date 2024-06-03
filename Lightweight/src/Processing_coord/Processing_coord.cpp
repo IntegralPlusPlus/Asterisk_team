@@ -62,7 +62,7 @@ int16_t ProcessingCoord::getTarget2Enemy() {
 Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
 	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
 	float u = dist * 0.057f; //0.027
-	if (u < 0.25f) u = 0.25f;
+	if (u < 0.25f && !(pointX == 0 && pointY == GOAL_OUT_Y_THRESHOLD)) u = 0.25f;
 	else if (u > 0.6f) u = 0.6f;
 	
 	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));

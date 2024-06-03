@@ -27,7 +27,49 @@ Project File Date:  05/22/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-".\Objects\Lightweight.axf" - 0 Error(s), 0 Warning(s).
+compiling Goalkeeper.cpp...
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\time_service\time_service.h(13): warning:  #1-D: last line of file ends without a newline
+  }
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Vec2b\Vec2b.h(24): warning:  #1-D: last line of file ends without a newline
+  #endif /* VEC2B_H_ */
+.\src\Processing_coord\Processing_coord.h(60): warning:  #1-D: last line of file ends without a newline
+  };
+src\Goalkeeper\Goalkeeper.h(59): warning:  #1-D: last line of file ends without a newline
+  };
+src\Goalkeeper\Goalkeeper.cpp(22): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	_targetIMU = adduct180(RAD2DEG * atan2(float(_y), float(_x)) - 90);
+src\Goalkeeper\Goalkeeper.cpp(28): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	_targetIMU = RAD2DEG * atan2(float(_y), float(_x)) - 180;
+src\Goalkeeper\Goalkeeper.cpp(38): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Goalkeeper\Goalkeeper.cpp(50): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Goalkeeper\Goalkeeper.cpp(68): warning:  #177-D: variable "speed"  was declared but never referenced
+  		float err, speed;
+src\Goalkeeper\Goalkeeper.cpp(95): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+src\Goalkeeper\Goalkeeper.cpp(120): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if (globalAngToBall > angGoal) res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
+src\Goalkeeper\Goalkeeper.cpp(121): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
+src\Goalkeeper\Goalkeeper.cpp(139): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
+src\Goalkeeper\Goalkeeper.cpp(140): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
+src\Goalkeeper\Goalkeeper.cpp(200): warning:  #1-D: last line of file ends without a newline
+  }
+src\Goalkeeper\Goalkeeper.cpp: 19 warnings, 0 errors
+linking...
+Program Size: Code=53150 RO-data=1430 RW-data=440 ZI-data=16088  
+".\Objects\Lightweight.axf" - 0 Error(s), 19 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -54,11 +96,11 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:2.6.3
       Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
-      Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
       Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
+      Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>
