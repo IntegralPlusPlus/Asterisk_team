@@ -4,7 +4,7 @@ int main() {
 	Asterisk::init(BLUE_GOAL, FORWARD_ROLE);
 	Vec2b curr;
 	volatile float x, y, dist, kAng, kLen, ballADC;
-	volatile float angleTSSP, target, angleIMU;
+	volatile float angleTSSP, target, angleIMU, ballVal;
 	volatile uint64_t timeCheckLeave, buttonForwTime;
 	volatile bool mayKickBall, mustLeave;
 	volatile bool inLeave, inReturn;
@@ -19,6 +19,7 @@ int main() {
 		target = Asterisk::myForward.adduct180(Asterisk::ang - Asterisk::angleIMU);//abs(-Asterisk::angleIMU - Asterisk::gyro.getTarget());
 		angleTSSP = Asterisk::ang;//Asterisk::myForward.adduct180(Asterisk::ang - Asterisk::angleIMU);	
 		timeCheckLeave = Asterisk::timeCheckLeave;
+		ballVal = Asterisk::ballVal;
 		mayKickBall = Asterisk::mayKick2Ball();
 		angleIMU = Asterisk::angleIMU;
 		kAng = Asterisk::kAng;

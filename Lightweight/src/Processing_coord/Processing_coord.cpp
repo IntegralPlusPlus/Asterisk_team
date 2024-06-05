@@ -9,8 +9,8 @@ ProcessingCoord::ProcessingCoord() {
 		leftThreshold = -78 + DELTA_DIST;//THRESHOLD_X_LEFT + 3.5 * DELTA_DIST;
 		rightThreshold = 56 - DELTA_DIST;//THRESHOLD_X_RIGHT - 1 * DELTA_DIST;
 	} else {
-		leftThreshold = THRESHOLD_X_LEFT + 4 * DELTA_DIST;
-		rightThreshold = THRESHOLD_X_RIGHT - 3.5 * DELTA_DIST;
+		leftThreshold = THRESHOLD_X_LEFT + 4.8 * DELTA_DIST;
+		rightThreshold = THRESHOLD_X_RIGHT - 3 * DELTA_DIST;
 	}
 }
 
@@ -56,7 +56,8 @@ int16_t ProcessingCoord::adduct180(int16_t value) {
 }
 
 int16_t ProcessingCoord::getTarget2Enemy() {
-	return adduct180(RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(-_x)) - 90);
+	//                                     DIST_BETWEEN_GOALS
+	return adduct180(RAD2DEG * atan2(float(219 - _y), float(-_x)) - 90);
 }
 
 Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {

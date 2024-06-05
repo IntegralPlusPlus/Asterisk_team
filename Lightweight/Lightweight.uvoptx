@@ -235,6 +235,11 @@
           <WinNumber>1</WinNumber>
           <ItemText>enemyGoal</ItemText>
         </Ww>
+        <Ww>
+          <count>17</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>ballVal</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
@@ -375,25 +380,20 @@
         <Ww>
           <count>27</count>
           <WinNumber>2</WinNumber>
-          <ItemText>millis,0x0A</ItemText>
+          <ItemText>timeCheckLeave,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>28</count>
           <WinNumber>2</WinNumber>
-          <ItemText>timeCheckLeave,0x0A</ItemText>
+          <ItemText>timer,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>29</count>
           <WinNumber>2</WinNumber>
-          <ItemText>timer,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>30</count>
-          <WinNumber>2</WinNumber>
           <ItemText>globalAng</ItemText>
         </Ww>
         <Ww>
-          <count>31</count>
+          <count>30</count>
           <WinNumber>2</WinNumber>
           <ItemText>kek</ItemText>
         </Ww>
@@ -656,7 +656,7 @@
 
   <Group>
     <GroupName>kicker</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -720,7 +720,7 @@
 
   <Group>
     <GroupName>OpenMV</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -816,7 +816,7 @@
 
   <Group>
     <GroupName>IMU_USART</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

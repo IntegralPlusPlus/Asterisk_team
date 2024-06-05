@@ -5,8 +5,8 @@
 #include "Dma.h"
 
 #define KICK_DMA 2600
-#define KICK_OPEN_TIME 700
-#define KICK_CLOSE_TIME 1500
+#define KICK_OPEN_TIME 200
+#define KICK_CLOSE_TIME 3500
 #define KICKER_KSOFT_DMA 0.008f
 
 class Kicker {
