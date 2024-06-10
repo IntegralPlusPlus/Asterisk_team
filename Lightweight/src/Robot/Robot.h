@@ -1,8 +1,9 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 40000
-#define NEED_TO_CALIBRATE 0
+#define IMU_CALIBRATE_TIME 8000
+//40000
+#define NEED_TO_CALIBRATE 1
 
 #define TIME_NOT_SEEN 450
 #define TIME_LEAVE 3300
@@ -10,8 +11,8 @@
 #define TIME_CANT_CHANGE_DIRECTION 700 
 #define TIME_BALL_IN_FRONT 7
 
-#define USUAL_FOLLOWING_SPEED 0.69
-//0.67
+#define USUAL_FOLLOWING_SPEED 0.25
+//0.69
 #define MAX_VEC2B_LEN 0.89
 //0.89
 
@@ -229,7 +230,7 @@ namespace Asterisk {
 		
 		if (!imuCalibrated && (time_service::millis() - t > IMU_CALIBRATE_TIME 
 													|| !NEED_TO_CALIBRATE)) {
-			gyro.setZeroAngle();
+			//gyro.setZeroAngle();
 			imuCalibrated = true;
 			timeCalibrEnd = time_service::millis();
 		}
@@ -289,21 +290,17 @@ namespace Asterisk {
 		return true;//time_service::millis() - timeBallFront > TIME_BALL_IN_FRONT;
 	}
 	
+	bool stop;
+	uint16_t timeStop;
 	void forwardStrategy() {
 		if (!doesntSeeGoals) {
 			if (myGoal == YELLOW_GOAL) targetRaw = float(myForward.getTarget2Enemy() + 10);
-			else targetRaw = float(myForward.getTarget2Enemy());
+			else targetRaw = float(myForward.getTarget2Enemy() - 10);
 		}
 		gyro.setTarget(targetRaw);
 		
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
-		
-		kicker.setKickerStatus(button3.readPin() || 
-													 ballGrip && mayKick2Ball() && myForward.suitableParams2Kick() && myForward.distance(x, y, 0, DIST_BETWEEN_GOALS) < DIST_BETWEEN_GOALS * 0.55);// && motorsWork && !neverTurnMotors);
-		
-		if (!kicker.canKick()) kicker.close();
-		else kicker.open();
 		
 		led2.set(!doesntSeeGoals);
 		led3.set(abs(-angleIMU - gyro.getTarget()) <= 3);
@@ -313,7 +310,7 @@ namespace Asterisk {
 		float globalBall = myForward.adduct180(ang - angleIMU);
 		if (!doesntSeeGoals) {
 			outStatus = myForward.checkOUTs();
-			robotInOUT = myForward.robotInOUT();
+			robotInOUT = false;//myForward.robotInOUT();
 			
 			if (!goFromOUT && myForward.robotInOUT()) {
 				goFromOUT = true;
@@ -337,10 +334,10 @@ namespace Asterisk {
 		if (time_service::millis() != t) {
 			if (doesntSeeGoals) {
 				goTo = myForward.getVecToPoint(0, DIST_BETWEEN_GOALS / 2);
-			} else if (!robotInOUT) {
-				uint8_t nearOutStatus = myForward.robotNearOUT();
+			} else if (!robotInOUT || true) {
+				//uint8_t nearOutStatus = myForward.robotNearOUT();
 				//uint8_t nearOutStatusHigh = myForward.robotNearOUT(highNear);
-				float angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - y), float(x));
+				//float angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - y), float(x));
 				
 				/*if (globalBall >= 50 && globalBall <= 90 && nearOutStatusHigh == up) {
 					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
@@ -351,16 +348,22 @@ namespace Asterisk {
 				} else if (globalBall >= 120 && globalBall <= 140 && nearOutStatusHigh == down) {
 					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
 				} else */
-				if ((nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {			
-					goTo = Vec2b(myForward.setNearSpeed(nearOutStatus, USUAL_FOLLOWING_SPEED), ang + 90);
+				//if ((nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {			
+					//goTo = Vec2b(myForward.setNearSpeed(nearOutStatus, USUAL_FOLLOWING_SPEED), ang + 90);
 					//if (nearOutStatus == left || nearOutStatus == right) goTo = myForward.projectionOnY(goTo);
-				} else if (myForward.nearMyGoal()) { 
+				//} else if (myForward.nearMyGoal()) { 
 					//if (globalBall < -70 || globalBall > 70) goTo = myForward.vec2bOnGoal(USUAL_FOLLOWING_SPEED, ang);
 					//else goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
-					goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
-				} else {
-					goTo = goToBall;
+					//goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
+				//} else {
+				if (stop && time_service::millis() - timeStop > 400) goTo = Vec2b(0, 0);
+				else if (!ballGrip || stop && time_service::millis() - timeStop < 400) goTo = goToBall;
+				else {
+					stop = true;
+					timeStop = time_service::millis();
+					//goTo = Vec2b(0, 0);
 				}
+				//}
 			} else if (robotInOUT) {
 				if (myForward.inEnemyGoal()) {
 					if (globalBall < 30 && globalBall > -30) {
@@ -391,7 +394,15 @@ namespace Asterisk {
 			t = time_service::millis();
 		}
 		
+		kicker.setKickerStatus(button3.readPin() || 
+													stop && time_service::millis() - timeStop > 0);//ballGrip && mayKick2Ball() && myForward.suitableParams2Kick() && myForward.distance(x, y, 0, DIST_BETWEEN_GOALS) < DIST_BETWEEN_GOALS * 0.55);// && motorsWork && !neverTurnMotors);
+		
+		if (!kicker.canKick()) kicker.close();
+		else kicker.open();
+		
 		//currentVector.length = 0;
+		motorsWork = true;
+		neverTurnMotors = false;
 		if (myMode == P_MODE && motorsWork && !neverTurnMotors) 
 			omni.move(1, currentVector.length, currentVector.angle, pow, gyro.getMaxRotation());
 		else omni.move(1, 0, 0, 0, gyro.getMaxRotation());
