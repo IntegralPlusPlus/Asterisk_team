@@ -4,7 +4,7 @@
 #include "Dma.h"
 
 #define SEE_BALL 1500
-#define MINIMUM_ADC_SIGNAL 50
+#define MINIMUM_ADC_SIGNAL 45
 #define COUNT_THRESHOLD 2
 #define TIME_IN_GRIP 50
 
@@ -18,4 +18,5 @@ class BallSensor {
 		Dma& _sensor;
 		uint8_t count2See;
 		uint64_t timeInGrip;
+		float valSoft;
 };

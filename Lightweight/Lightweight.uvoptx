@@ -240,6 +240,26 @@
           <WinNumber>1</WinNumber>
           <ItemText>ballVal</ItemText>
         </Ww>
+        <Ww>
+          <count>18</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>timeBallFront,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>19</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>ballInGrip,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>20</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>ballInGrip</ItemText>
+        </Ww>
+        <Ww>
+          <count>21</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>ballInGrip</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>

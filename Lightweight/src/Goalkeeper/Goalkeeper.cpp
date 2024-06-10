@@ -69,13 +69,13 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (gkPos == leftPart) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			p = err * 0.06f; //0.058
+			p = err * 0.066f; //0.058
 			d = (err - errOld) * 0.5f;
 			u = p + d;
 			errOld = err;
 		} else if (gkPos == rightPart) {
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
-			p = err * 0.029f;
+			p = err * 0.023f;
 			d = (err - errOld) * 0.4f;
 			u = p + d;
 			errOld = err;
@@ -140,7 +140,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			
 			err = pow(abs(float(globalAngToBall - angGoal)), 1.4f);
-			p = 0.002f * err; //0.0045
+			p = 0.0015f * err; //0.0045
 			d = (err - errOldGkLeft) * 0.07f; //0.05
 			u = p + d;
 			errOldGkLeft = err;

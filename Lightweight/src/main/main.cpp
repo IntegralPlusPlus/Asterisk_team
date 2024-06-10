@@ -5,8 +5,8 @@ int main() {
 	Vec2b curr;
 	volatile float x, y, dist, kAng, kLen, ballADC;
 	volatile float angleTSSP, target, angleIMU, ballVal;
-	volatile uint64_t timeCheckLeave, buttonForwTime;
-	volatile bool mayKickBall, mustLeave;
+	volatile uint64_t timeCheckLeave, buttonForwTime, timeBallFront;
+	volatile bool mayKickBall, mustLeave, ballInGrip;
 	volatile bool inLeave, inReturn;
 	volatile bool enemyGoal;
 	
@@ -31,6 +31,8 @@ int main() {
 		ballADC = Asterisk::ballSens.getValue();
 		enemyGoal = Asterisk::myForward.isEnemyGoalCircle(Asterisk::x, Asterisk::y, Asterisk::dBl, Asterisk::dYe);
 		//timeLong = Asterisk::ballSens.timeInGrip;
+		timeBallFront = Asterisk::timeBallFront;
+		ballInGrip = Asterisk::ballGrip;
 		
 		if (!Asterisk::calibrated()) continue;
 		if (Asterisk::getRole() == FORWARD_ROLE) Asterisk::forwardStrategy();

@@ -1,14 +1,14 @@
 #pragma once
 #include "libraries.h"
 
-#define IMU_CALIBRATE_TIME 43000
+#define IMU_CALIBRATE_TIME 40000
 #define NEED_TO_CALIBRATE 0
 
 #define TIME_NOT_SEEN 450
 #define TIME_LEAVE 3300
 #define TIME_FINISH_LEAVE 2000
 #define TIME_CANT_CHANGE_DIRECTION 700 
-#define TIME_BALL_IN_FRONT 100
+#define TIME_BALL_IN_FRONT 7
 
 #define USUAL_FOLLOWING_SPEED 0.69
 //0.67
@@ -260,7 +260,7 @@ namespace Asterisk {
 			if (tsops.ballFar(dist)) {
 				offset = 0;
 				speedForward *= 1.12;
-			} else if (dist > 9.17 && abs(ang) > 35) speedForward *= 0.8;
+			} else if (dist > 9.2 && abs(ang) > 35) speedForward *= 0.85;
 			
 			angRes = ang + offset + 90;
 			
@@ -282,22 +282,25 @@ namespace Asterisk {
 	}
 	
 	bool mayKick2Ball() {
-		if (!(ballGrip || dist > 7.9 && abs(ang) <= 25)) {
+		if (!ballGrip) {
 			timeBallFront = time_service::millis();
 		}
 		
-		return time_service::millis() - timeBallFront > TIME_BALL_IN_FRONT;
+		return true;//time_service::millis() - timeBallFront > TIME_BALL_IN_FRONT;
 	}
 	
 	void forwardStrategy() {
-		if (!doesntSeeGoals) targetRaw = float(myForward.getTarget2Enemy() + 15);
+		if (!doesntSeeGoals) {
+			if (myGoal == YELLOW_GOAL) targetRaw = float(myForward.getTarget2Enemy() + 10);
+			else targetRaw = float(myForward.getTarget2Enemy());
+		}
 		gyro.setTarget(targetRaw);
 		
 		gyro.setRotationForTarget();
 		pow = gyro.getRotation();
 		
 		kicker.setKickerStatus(button3.readPin() || 
-													 ballGrip && mayKick2Ball() && myForward.suitableParams2Kick() && myForward.distance(x, y, 0, DIST_BETWEEN_GOALS) < DIST_BETWEEN_GOALS * 0.55 && motorsWork && !neverTurnMotors);
+													 ballGrip && mayKick2Ball() && myForward.suitableParams2Kick() && myForward.distance(x, y, 0, DIST_BETWEEN_GOALS) < DIST_BETWEEN_GOALS * 0.55);// && motorsWork && !neverTurnMotors);
 		
 		if (!kicker.canKick()) kicker.close();
 		else kicker.open();
@@ -363,9 +366,10 @@ namespace Asterisk {
 					if (globalBall < 30 && globalBall > -30) {
 						goTo = goOUT;
 					} else {
-						goToBall *= 0.3;
+						goToBall *= 0.63;
 						goTo = goToBall + goOUT;
 					}
+					//goTo = goOUT;
 				} else if (outStatus != up && myForward.inMyGoal()) {
 					if (myForward.ballInBack(ang, tsopRaw)) {
 						goOUT *= 1.1f;
@@ -398,7 +402,7 @@ namespace Asterisk {
 	
 		//myGoalkeeper.dist2GoalLong()
 		if (time_service::millis() - timeMotorsWork < 2000 || time_service::millis() - timeCalibrEnd < 2000 
-				|| myGoalkeeper.ballInBack(ang, tsopRaw) || dist < 4.1f// || dist > 9.f
+				|| myGoalkeeper.ballInBack(ang, tsopRaw) || dist < 3.7f// || dist > 9.f
 				|| angGoal < ANGLE_LOW_DOESNT_LEAVE || angGoal > ANGLE_HIGH_DOESNT_LEAVE
 				|| !seeBall ||  (seeBall && !(abs(kAng) < 0.12 && abs(kLen) < 0.013))) timeCheckLeave = time_service::millis(); //0.6 0.018
 		

@@ -7,10 +7,10 @@ ProcessingCoord::ProcessingCoord() {
 	downThreshold = DOWN_Y + 2.5 * DELTA_DIST;
 	if (_goal == YELLOW_GOAL) {
 		leftThreshold = -78 + DELTA_DIST;//THRESHOLD_X_LEFT + 3.5 * DELTA_DIST;
-		rightThreshold = 56 - DELTA_DIST;//THRESHOLD_X_RIGHT - 1 * DELTA_DIST;
+		rightThreshold = 58 - DELTA_DIST;//THRESHOLD_X_RIGHT - 1 * DELTA_DIST;
 	} else {
-		leftThreshold = THRESHOLD_X_LEFT + 4.8 * DELTA_DIST;
-		rightThreshold = THRESHOLD_X_RIGHT - 3 * DELTA_DIST;
+		leftThreshold = THRESHOLD_X_LEFT + 4.8 * DELTA_DIST; //4.8
+		rightThreshold = THRESHOLD_X_RIGHT - 3 * DELTA_DIST; //2
 	}
 }
 
@@ -93,12 +93,24 @@ bool ProcessingCoord::suitableParams2Kick() {
 
 bool ProcessingCoord::checkXLeft(int16_t x, uint8_t role) {
 	if (role == GOALKEEPER_ROLE) return x > THRESHOLD_X_LEFT + DELTA_DIST + SAVE_DELTA_GK;//leftThreshold - 3.5 * DELTA_DIST + SAVE_DELTA_GK;
-	else return x > leftThreshold;
+	else {
+		if (_y > 210 - 70) {
+			return x > leftThreshold - 9;
+		} else {
+			return x > leftThreshold;
+		}
+	}
 }
 
 bool ProcessingCoord::checkXRight(int16_t x, uint8_t role) {
 	if (role == GOALKEEPER_ROLE) return x < THRESHOLD_X_RIGHT - DELTA_DIST - SAVE_DELTA_GK / 2;//rightThreshold + 2 * DELTA_DIST - SAVE_DELTA_GK;
-	else return x < rightThreshold;
+	else {
+		if (_y > 210 - 40) {
+			return x < rightThreshold + 10;
+		} else {
+			return x < rightThreshold;
+		}
+	}
 }
 
 bool ProcessingCoord::checkYUp(int16_t y) {

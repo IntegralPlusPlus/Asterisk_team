@@ -3,17 +3,19 @@
 BallSensor::BallSensor(Dma& sens): _sensor(sens) {
 	count2See = 0;
 	timeInGrip = time_service::millis();
+	valSoft = 0;
 }
 
 bool BallSensor::ballInGrip() {
 	int16_t val = getValue();
+	valSoft = 0.01 * float(val) + 0.99 * valSoft;
 	
-	if (val > MINIMUM_ADC_SIGNAL && val < SEE_BALL && count2See < COUNT_THRESHOLD) count2See++;
+	if (valSoft > MINIMUM_ADC_SIGNAL && valSoft < SEE_BALL && count2See < COUNT_THRESHOLD) count2See++;
 	else count2See = 0;
 	
-	if (val >= SEE_BALL) timeInGrip = time_service::millis();
+	if (valSoft >= SEE_BALL) timeInGrip = time_service::millis();
 	
-	return count2See >= COUNT_THRESHOLD;
+	return valSoft > MINIMUM_ADC_SIGNAL && valSoft < SEE_BALL;//count2See >= COUNT_THRESHOLD;
 }
 
 bool BallSensor::ballLongTimeInGrip() {
