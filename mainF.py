@@ -178,7 +178,7 @@ while(True):
     blueSidesOfImg = True
 
     #####################################################FIND_BLOBS
-    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 30, pixel_threshold = 310, area_threshold = 300):
+    '''for yb in img.find_blobs([threshold_yellow], merge = True, margin = 30, pixel_threshold = 310, area_threshold = 300):
         img.draw_rectangle(int(yb.x()), int(yb.y()), int(yb.w()), int(yb.h()), thickness = 2)
         pointsY.append([yb.x(), yb.y() + yb.h() / 2])
         pointsY.append([yb.x() + yb.w(), yb.y() + yb.h() / 2])
@@ -191,21 +191,7 @@ while(True):
 
     #print("SIDE:", yellowSidesOfImg)
     if len(pointsY):
-        '''if len(pointsY) == 4:
-            point1 = getMiddlePoint(pointsY[0], pointsY[1])
-            point2 = getMiddlePoint(pointsY[2], pointsY[3])
-            distBetween = dist(point1[0], point1[1], point2[0], point2[1])
-            if distBetween > MAX_DISTANCE_BETWEEN_BLOBS:
-                s1 = dist(pointsY[0][0], pointsY[0][1], pointsY[1][0], pointsY[1][1])
-                s2 = dist(pointsY[2][0], pointsY[2][1], pointsY[3][0], pointsY[3][1])
-                if s1 > s2:
-                    pointsY.pop(2)
-                    pointsY.pop(2)
-                else:
-                    pointsY.pop(0)
-                    pointsY.pop
 
-        '''
         minValue = 200000
         maxValue = -200000
         indMin = 0
@@ -222,6 +208,46 @@ while(True):
         yellow = getMiddlePoint(pointsY[indMin], pointsY[indMax])
         img.draw_circle(int(yellow[0]), int(yellow[1]), 4, fill = True, color = (255, 255, 0))
         img.draw_line(int(x0), int(y0), int(yellow[0]), int(yellow[1]), thickness = 2, color = (255, 255, 0))
+        pixY = dist(x0, y0, yellow[0], yellow[1])'''
+
+    mxYe = 0
+    yblob = []
+    for yb in img.find_blobs([threshold_yellow], merge = True, margin = 25, pixel_threshold = 350, area_threshold = 280):
+        img.draw_rectangle(int(yb.x()), int(yb.y()), int(yb.w()), int(yb.h()), thickness = 2)
+        if yb.area() > mxYe:
+            mxYe = yb.area()
+            yblob = yb
+        #pointsB.append([bb.x(), bb.y() + bb.h() / 2])
+        #pointsB.append([bb.x() + bb.w(), bb.y() + bb.h() / 2])
+
+        #if not angInSides([bb.x(), bb.y() + bb.h() / 2]) or not angInSides([bb.x() + bb.w(), bb.y() + bb.h() / 2]):
+        #    blueSidesOfImg = False
+
+    '''if len(pointsB):
+        minValue = 200000
+        maxValue = -200000
+        indMin = 0
+        indMax = 0
+
+        for i in range(len(pointsB)):
+            if i % 2 == 0 and funcComparison(pointsB[i], blueSidesOfImg) < minValue:
+                minValue = funcComparison(pointsB[i], blueSidesOfImg)
+                indMin = i
+            if i % 2 != 0 and funcComparison(pointsB[i], blueSidesOfImg) > maxValue:
+                maxValue = funcComparison(pointsB[i], blueSidesOfImg)
+                indMax = i
+
+        #img.draw_circle(int(pointsB[indMin][0]), int(pointsB[indMin][1]), 3, fill = True, color = (255, 0, 0))
+        #img.draw_circle(int(pointsB[indMax][0]), int(pointsB[indMax][1]), 3, fill = True, color = (255, 0, 0))
+        blue = getMiddlePoint(pointsB[indMin], pointsB[indMax])
+        img.draw_circle(int(blue[0]), int(blue[1]), 4, fill = True, color = (0, 0, 255))
+        img.draw_line(int(x0), int(y0), int(blue[0]), int(blue[1]), thickness = 2, color = (0, 0, 255))
+        pixB = dist(x0, y0, blue[0], blue[1])'''
+    #####################################################END_FIND
+    if mxYe:
+        yellow = [yblob.x() + yblob.w() / 2, yblob.y() + yblob.h() / 2]#getMiddlePoint(pointsB[indMin], pointsB[indMax])
+        img.draw_circle(int(yellow[0]), int(yellow[1]), 4, fill = True, color = (0, 0, 255))
+        img.draw_line(int(x0), int(y0), int(yellow[0]), int(yellow[1]), thickness = 2, color = (0, 0, 255))
         pixY = dist(x0, y0, yellow[0], yellow[1])
 
     mxBb = 0
