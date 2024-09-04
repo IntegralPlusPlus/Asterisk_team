@@ -74,7 +74,7 @@ bool TSOP::distBad(int16_t distLocator) {
 }
 
 double TSOP::angleOffset(double angle, double dist, double angleIMU){
-  double angK = 0.077 * pow(double(Ec), double(0.2 * abs(angle))); //0.065 0.19				0.06 0.19
+  double angK = 0.071 * pow(double(Ec), double(0.2 * abs(angle))); //0.077 0.2				0.06 0.19
   if (angK > 90)
     angK = 90;
 	

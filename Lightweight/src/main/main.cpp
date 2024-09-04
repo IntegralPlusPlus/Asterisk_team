@@ -3,16 +3,20 @@
 int main() {
 	Asterisk::init(BLUE_GOAL, FORWARD_ROLE);
 	Vec2b curr;
-	volatile float x, y, dist, kAng, kLen, ballADC;
+	volatile float x, y, dBl, dYe, dist, kAng, kLen, ballADC;
 	volatile float angleTSSP, target, angleIMU, ballVal;
 	volatile uint64_t timeCheckLeave, buttonForwTime, timeBallFront;
 	volatile bool mayKickBall, mustLeave, ballInGrip;
 	volatile bool inLeave, inReturn;
 	volatile bool enemyGoal;
+	volatile bool doesntSeeGoals;
 	
 	while (true) {
 		Asterisk::update();
 		curr = Asterisk::currentVector;
+		doesntSeeGoals = Asterisk::doesntSeeGoals;
+		dBl = Asterisk::dBl;
+		dYe = Asterisk::dYe;
 		x = Asterisk::x;
 		y = Asterisk::y;
 		dist = Asterisk::dist;

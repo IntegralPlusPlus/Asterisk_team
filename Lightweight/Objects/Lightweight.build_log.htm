@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.33.0.0
 Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: David Avetisyan, HP Inc., LIC=Y2B1Q-N904B-SGC7K-ZYXX4-RB7KQ-KLE07
+License Information: David Avetisyan, PFML 239, LIC=Y2B1Q-N9B5N-06VQU-SEMWS-UEXB3-CUHMT
  
 Tool Versions:
 Toolchain:       MDK-ARM Professional  Version: 5.33.0.0
@@ -21,12 +21,26 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.8.0
 Dialog DLL:      TCM.DLL V1.48.0.0
  
 <h2>Project:</h2>
-C:\PARK_HAYASTANIN\Asterisk_team\Lightweight\Lightweight.uvprojx
-Project File Date:  05/22/2024
+C:\Users\4s\Documents\Asterisk_team\Asterisk_team\Lightweight\Lightweight.uvprojx
+Project File Date:  06/23/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
+compiling TSOP.cpp...
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Pin\Pin.h(71): warning:  #1-D: last line of file ends without a newline
+  #endif /* PIN_H_ */
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\adc\Adc.h(25): warning:  #1-D: last line of file ends without a newline
+  };
+src\TSOP\TSOP.h(32): warning:  #1-D: last line of file ends without a newline
+  };
+src\TSOP\TSOP.cpp(104): warning:  #1-D: last line of file ends without a newline
+  }
+src\TSOP\TSOP.cpp: 6 warnings, 0 errors
 compiling main.cpp...
 .\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
   #define P_MODE 1
@@ -162,24 +176,26 @@ compiling main.cpp...
   #define P_MODE 1
 .\src\BallSensor\BallSensor.h(22): warning:  #1-D: last line of file ends without a newline
   };
-.\src\Robot\Robot.h(264): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+.\src\Robot\Robot.h(267): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   			} else if (dist > 9.2 && abs(ang) > 35) speedForward *= 0.85;
-.\src\Robot\Robot.h(277): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+.\src\Robot\Robot.h(280): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		if (ballGrip || (abs(ang) <= 15 && dist > 9.2)) { 
-.\src\Robot\Robot.h(412): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+.\src\Robot\Robot.h(348): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				float angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - y), float(x));
+.\src\Robot\Robot.h(406): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		int16_t angGoal = RAD2DEG * atan2(float(y), float(x));
-.\src\Robot\Robot.h(451): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+.\src\Robot\Robot.h(445): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   				angToGoal = int16_t(RAD2DEG * atan2(float(y), float(x)));
-.\src\Robot\Robot.h(612): warning:  #1-D: last line of file ends without a newline
+.\src\Robot\Robot.h(606): warning:  #1-D: last line of file ends without a newline
   }
-src\main\main.cpp(42): warning:  #111-D: statement is unreachable
+src\main\main.cpp(46): warning:  #111-D: statement is unreachable
   	return 0;
-src\main\main.cpp(43): warning:  #1-D: last line of file ends without a newline
+src\main\main.cpp(47): warning:  #1-D: last line of file ends without a newline
   }
-src\main\main.cpp: 74 warnings, 0 errors
+src\main\main.cpp: 75 warnings, 0 errors
 linking...
-Program Size: Code=50474 RO-data=1426 RW-data=440 ZI-data=16096  
-".\Objects\Lightweight.axf" - 0 Error(s), 74 Warning(s).
+Program Size: Code=53026 RO-data=1426 RW-data=440 ZI-data=16096  
+".\Objects\Lightweight.axf" - 0 Error(s), 81 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -190,27 +206,27 @@ Package Vendor: ARM
    * Component: CORE Version: 5.6.0
 
 Package Vendor: Keil
-                https://www.keil.com/pack/Keil.STM32F4xx_DFP.2.17.0.pack
-                Keil.STM32F4xx_DFP.2.17.0
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.15.0.pack
+                Keil.STM32F4xx_DFP.2.15.0
                 STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
    * Component: Startup Version: 2.6.3
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\_Target_1
-  C:\Users\Arkady\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
-  C:\Users\Arkady\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+  C:\Users\4s\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+  C:\Users\4s\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s
-      Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
       Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
+      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s
       Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
+      Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
