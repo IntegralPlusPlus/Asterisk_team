@@ -168,7 +168,7 @@ bool Forward::myGoalLine(int16_t x, int16_t y) {
 bool Forward::enemyGoalLine(int16_t x, int16_t y) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
-	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 2.5 * DELTA_DIST) &&
+	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 1.2 * DELTA_DIST) && //2.5
 				 angGoal > ANGLE_LOW_TO_CIRCLE_ENEMY && angGoal < ANGLE_HIGH_TO_CIRCLE_ENEMY;
 }
 

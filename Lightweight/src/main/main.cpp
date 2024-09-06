@@ -11,6 +11,10 @@ int main() {
 	volatile bool enemyGoal;
 	volatile bool doesntSeeGoals;
 	
+	//Asterisk::update();
+	if (Asterisk::reset_imu_pin.readPin()) Asterisk::NEED_TO_CALIBRATE = 1;
+	else Asterisk::NEED_TO_CALIBRATE = 0;
+	
 	while (true) {
 		Asterisk::update();
 		curr = Asterisk::currentVector;

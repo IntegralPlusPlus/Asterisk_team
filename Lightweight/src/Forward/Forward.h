@@ -4,7 +4,7 @@
 #include "Vec2b.h"
 
 #define DELTA_DIST 8
-#define NEAR_OUT_DIST 4
+#define NEAR_OUT_DIST 3
 //10
 #define BACK_SECTOR 140
 #define BACK_SECTOR_DETOUR 30

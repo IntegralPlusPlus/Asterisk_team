@@ -2,7 +2,6 @@
 #include "libraries.h"
 
 #define IMU_CALIBRATE_TIME 40000
-#define NEED_TO_CALIBRATE 0
 
 #define TIME_NOT_SEEN 450
 #define TIME_LEAVE 3300
@@ -14,7 +13,7 @@
 //0.67
 #define MAX_VEC2B_LEN 0.89
 //0.89
-
+//oh ug ety naglie armyane! neeeeeeeeeeeeeeeeeeet
 //I am waiting..............(ENG)
 //Ya zhdu...................(RUS)
 //Ani mekhake...............(HEB)
@@ -59,6 +58,8 @@ namespace Asterisk {
 	volatile uint8_t byEnemyGoalGK, timeDetour;
 	volatile float xReturn, yReturn;
 	volatile float globalAng;
+	
+	volatile bool NEED_TO_CALIBRATE;
 
 	Pin voltageDividerPin('A', 5, adc);
 	Adc voltageDividerPinADC(ADC2, 1, 5);
@@ -101,7 +102,7 @@ namespace Asterisk {
 	Button motorsButton(button1, invertedConfig);
 	Button butt2(button2);
 	Button butt3(button3);
-	Button resetIMU(reset_imu_pin);
+	//Button resetIMU(reset_imu_pin);
 	
 	Pin swMotorPower('D', 2, read_pupd_down);
 	Pin swGoalChoose('E', 4, read_pupd_down);
@@ -356,8 +357,8 @@ namespace Asterisk {
 				} else if (globalBall >= 120 && globalBall <= 140 && nearOutStatusHigh == down) {
 					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
 				} else */
-				if ((nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {			
-					goTo = Vec2b(myForward.setNearSpeed(nearOutStatus, USUAL_FOLLOWING_SPEED), ang + 90);
+				if (nearOutStatus == left || nearOutStatus == right || (nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {			
+					goTo = Vec2b(USUAL_FOLLOWING_SPEED * 0.5, ang + 90);
 					//if (nearOutStatus == left || nearOutStatus == right) goTo = myForward.projectionOnY(goTo);
 				} else if (myForward.nearMyGoal()) { 
 					//if (globalBall < -70 || globalBall > 70) goTo = myForward.vec2bOnGoal(USUAL_FOLLOWING_SPEED, ang);
@@ -365,6 +366,10 @@ namespace Asterisk {
 					goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
 				} else {
 					goTo = goToBall;
+				}
+				
+				if (myForward.distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.9 * RADIUS_GOAL_OUT_LEFT) {
+					goTo *= 0.5;
 				}
 			} else if (robotInOUT) {
 				if (myForward.inEnemyGoal()) {
