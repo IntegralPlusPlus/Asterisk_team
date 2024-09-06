@@ -9,8 +9,8 @@ ProcessingCoord::ProcessingCoord() {
 		leftThreshold = -78 + DELTA_DIST;//THRESHOLD_X_LEFT + 3.5 * DELTA_DIST;
 		rightThreshold = 58 - DELTA_DIST;//THRESHOLD_X_RIGHT - 1 * DELTA_DIST;
 	} else {
-		leftThreshold = THRESHOLD_X_LEFT + 4.8 * DELTA_DIST; //4.8
-		rightThreshold = THRESHOLD_X_RIGHT - 3 * DELTA_DIST; //2
+		leftThreshold = -44.6 + DELTA_DIST; //4.8
+		rightThreshold = 34 - DELTA_DIST; //2
 	}
 }
 
@@ -35,10 +35,15 @@ float ProcessingCoord::distance(float x, float y, float startX, float startY) {
 }
 
 float ProcessingCoord::map(float a, float from1, float to1, float from2, float to2) {
-	if (a > to1) a = to1;
-	if (a < from1) a = from1;
-	if (to1 > from1) return from2 + (to2 - from2) * (a - from1) / (to1 - from1);
-	else return from2;
+    if (from1 >= 0 || to1 >= 0) {
+      if (a > to1) a = to1;
+      if (a < from1) a = from1;
+      if (to1 > from1) return from2 + (to2 - from2) * (a - from1) / (to1 - from1);
+      else return from2;
+    } else {
+      if (to1 < from1) return from2 + (to2 - from2) * (-a + from1) / (-to1 + from1);
+      else return from2;
+    }
 }
 
 int16_t ProcessingCoord::adduct(int16_t value) {
