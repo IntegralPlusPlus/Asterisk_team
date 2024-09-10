@@ -61,7 +61,7 @@ float TSOP::getDist() {
 }
 
 double TSOP::convertDist(double dist) {
-	double maxDist = 8.5;//10.1; //7.85
+	double maxDist = 9.1;//10.1; //7.85
 	double v = (dist - maxDist) / maxDist + 1;
   if (v > 1) v = 1;
   if (v < 0) v = 0;

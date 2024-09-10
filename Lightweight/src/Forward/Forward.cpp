@@ -180,12 +180,30 @@ bool Forward::inMyGoal() {
 	return myGoalLine(_x, _y) || isMyGoalCircle(_x, _y, _dBlue, _dYellow);
 }
 
+bool Forward::nearEnemyGoal() {
+	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
+	
+	bool goalLine = _y < DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 1.2 * DELTA_DIST + NEAR_OUT_DIST) 
+									&& angGoal > ANGLE_LOW_TO_CIRCLE_ENEMY && angGoal < ANGLE_HIGH_TO_CIRCLE_ENEMY;
+	bool goalCircle = false;
+	
+	if (_x > 0) {
+		return distance(_x, _y, 0, DIST_BETWEEN_GOALS) < NEAR_OUT_DIST + 1.4 * RADIUS_GOAL_OUT_LEFT
+					&& angGoal < ANGLE_LOW_TO_CIRCLE_ENEMY; 
+	} else {
+		return distance(_x, _y, 0, DIST_BETWEEN_GOALS) < NEAR_OUT_DIST + 1.42 * RADIUS_GOAL_OUT_RIGHT
+					&& angGoal > ANGLE_HIGH_TO_CIRCLE_ENEMY; 
+	}
+	
+	return goalLine || goalCircle;
+}
+
 bool Forward::nearMyGoal() {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	
 	bool goalLine = _y < GOAL_OUT_Y_THRESHOLD + DELTA_DIST + NEAR_OUT_DIST &&
 									angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
-	bool goalCircle;
+	bool goalCircle = false;
 	
 	if (_x > 0) {
 		goalCircle = distance(_x, _y, 0, 0) < NEAR_OUT_DIST + float(COEFF_CIRCLE * RADIUS_GOAL_OUT_RIGHT) 
@@ -217,7 +235,7 @@ float Forward::setNearSpeed(uint8_t status, float maxSpeed) {
 	} else if (status == up) {
 		return map(_y, upThreshold - NEAR_OUT_DIST, upThreshold, minSpeed, maxSpeed);
 	} else if (status == left) {
-		return map(_x, leftThreshold, leftThreshold + NEAR_OUT_DIST, minSpeed, maxSpeed);
+		return map(_x, leftThreshold + NEAR_OUT_DIST, leftThreshold, minSpeed, maxSpeed);
 	} else if (status == right) {
 		return map(_x, rightThreshold - NEAR_OUT_DIST, rightThreshold, minSpeed, maxSpeed);
 	} else return maxSpeed;

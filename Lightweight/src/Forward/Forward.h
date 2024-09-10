@@ -4,7 +4,7 @@
 #include "Vec2b.h"
 
 #define DELTA_DIST 8
-#define NEAR_OUT_DIST 3
+#define NEAR_OUT_DIST 4
 //10
 #define BACK_SECTOR 140
 #define BACK_SECTOR_DETOUR 30
@@ -81,14 +81,15 @@ class Forward : public ProcessingCoord {
 		Vec2b setVec2Out(uint8_t status, Vec2b current);
 		Vec2b vec2bOnGoal(float speed, float angBall);
 		Vec2b projectionOnY(Vec2b vec);
-		float setNearSpeed(uint8_t status, float maxSpeed);
 		OutPair checkOUTs();
+		float setNearSpeed(uint8_t status, float maxSpeed);
 		uint8_t getBallSide(float angBall);
 		uint8_t robotNearOUT(uint8_t nearStatus = standartNear);
 		bool ballInOUT(float globalAng);
 		bool inEnemyGoal();
 		bool inMyGoal();
 		bool nearMyGoal();	
+		bool nearEnemyGoal();
 		bool isMyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool isEnemyGoalCircle(int16_t x, int16_t y, int16_t dBlue, int16_t dYellow);
 		bool myGoalLine(int16_t x, int16_t y);
