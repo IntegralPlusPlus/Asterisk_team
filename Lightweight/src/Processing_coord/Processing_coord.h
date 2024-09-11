@@ -21,7 +21,7 @@
 #define ANGLE_HIGH_TO_CIRCLE 138
 #define RADIUS_GOAL_OUT_RIGHT 52
 //52
-#define RADIUS_GOAL_OUT_LEFT 45
+#define RADIUS_GOAL_OUT_LEFT 44
 //44
 
 #define BACK_ANGLE 20
@@ -30,6 +30,7 @@
 
 #define LEFT_GOAL_THRESHOLD -23 
 #define RIGHT_GOAL_THRESHOLD 20
+#define DELTA_GOAL_THRESHOLD 0
 
 enum ballAng {
 	tsopRaw,

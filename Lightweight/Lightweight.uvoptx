@@ -248,30 +248,15 @@
         <Ww>
           <count>19</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ballInGrip,0x0A</ItemText>
+          <ItemText>dBl</ItemText>
         </Ww>
         <Ww>
           <count>20</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ballInGrip</ItemText>
-        </Ww>
-        <Ww>
-          <count>21</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>ballInGrip</ItemText>
-        </Ww>
-        <Ww>
-          <count>22</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>dBl</ItemText>
-        </Ww>
-        <Ww>
-          <count>23</count>
-          <WinNumber>1</WinNumber>
           <ItemText>dYe</ItemText>
         </Ww>
         <Ww>
-          <count>24</count>
+          <count>21</count>
           <WinNumber>1</WinNumber>
           <ItemText>doesntSeeGoals</ItemText>
         </Ww>
