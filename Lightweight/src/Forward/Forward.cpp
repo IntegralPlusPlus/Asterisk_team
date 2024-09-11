@@ -168,7 +168,7 @@ bool Forward::myGoalLine(int16_t x, int16_t y) {
 bool Forward::enemyGoalLine(int16_t x, int16_t y) {
 	int16_t angGoal = RAD2DEG * atan2(float(DIST_BETWEEN_GOALS - _y), float(_x));
 	
-	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 1.2 * DELTA_DIST) && //2.5
+	return y > DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 2.5 * DELTA_DIST) && //2.5
 				 angGoal > ANGLE_LOW_TO_CIRCLE_ENEMY && angGoal < ANGLE_HIGH_TO_CIRCLE_ENEMY;
 }
 
@@ -183,15 +183,15 @@ bool Forward::inMyGoal() {
 bool Forward::nearEnemyGoal() {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	
-	bool goalLine = _y < DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 1.2 * DELTA_DIST + NEAR_OUT_DIST) 
+	bool goalLine = _y < DIST_BETWEEN_GOALS - (GOAL_OUT_Y_THRESHOLD + 1.2 * DELTA_DIST) 
 									&& angGoal > ANGLE_LOW_TO_CIRCLE_ENEMY && angGoal < ANGLE_HIGH_TO_CIRCLE_ENEMY;
 	bool goalCircle = false;
 	
 	if (_x > 0) {
-		return distance(_x, _y, 0, DIST_BETWEEN_GOALS) < NEAR_OUT_DIST + 1.4 * RADIUS_GOAL_OUT_LEFT
+		return distance(_x, _y, 0, DIST_BETWEEN_GOALS) < NEAR_OUT_DIST + 1.1 * RADIUS_GOAL_OUT_LEFT
 					&& angGoal < ANGLE_LOW_TO_CIRCLE_ENEMY; 
 	} else {
-		return distance(_x, _y, 0, DIST_BETWEEN_GOALS) < NEAR_OUT_DIST + 1.42 * RADIUS_GOAL_OUT_RIGHT
+		return distance(_x, _y, 0, DIST_BETWEEN_GOALS) < NEAR_OUT_DIST + 1.1 * RADIUS_GOAL_OUT_RIGHT
 					&& angGoal > ANGLE_HIGH_TO_CIRCLE_ENEMY; 
 	}
 	
@@ -201,7 +201,7 @@ bool Forward::nearEnemyGoal() {
 bool Forward::nearMyGoal() {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	
-	bool goalLine = _y < GOAL_OUT_Y_THRESHOLD + DELTA_DIST + NEAR_OUT_DIST &&
+	bool goalLine = _y < GOAL_OUT_Y_THRESHOLD + DELTA_DIST + NEAR_OUT_DIST && //4
 									angGoal > ANGLE_LOW_TO_CIRCLE && angGoal < ANGLE_HIGH_TO_CIRCLE;
 	bool goalCircle = false;
 	
@@ -213,7 +213,8 @@ bool Forward::nearMyGoal() {
 									&& angGoal > ANGLE_HIGH_TO_CIRCLE; 
 	}
 	
-	return goalLine || goalCircle;
+	return _y < 2 * (GOAL_OUT_Y_THRESHOLD + DELTA_DIST);
+	//return goalLine || goalCircle;
 }
 
 uint8_t Forward::robotNearOUT(uint8_t nearStatus) {

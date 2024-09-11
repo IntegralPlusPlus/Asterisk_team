@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Objects\Lightweight.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Lightweight.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Sep 11 15:13:53 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Sep 11 18:26:44 2024
 <BR><P>
-<H3>Maximum Stack Usage =        816 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        792 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; Asterisk::forwardStrategy() &rArr; Forward::setResOUTVector(OutPair, Vec2b) &rArr; Forward::setVec2Out(unsigned char, Vec2b) &rArr; Vec2b::operator +(const Vec2b&) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 <P>
@@ -251,7 +251,7 @@ Global Symbols
 <P><STRONG><a name="[1d7]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[77]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 816 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 792 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; Asterisk::forwardStrategy() &rArr; Forward::setResOUTVector(OutPair, Vec2b) &rArr; Forward::setVec2Out(unsigned char, Vec2b) &rArr; Vec2b::operator +(const Vec2b&) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1995,7 +1995,7 @@ Global Symbols
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::forwardStrategy()
 </UL>
 
-<P><STRONG><a name="[127]"></a>Forward::nearMyGoal()</STRONG> (Thumb, 280 bytes, Stack size 40 bytes, forward.o(i._ZN7Forward10nearMyGoalEv))
+<P><STRONG><a name="[127]"></a>Forward::nearMyGoal()</STRONG> (Thumb, 284 bytes, Stack size 40 bytes, forward.o(i._ZN7Forward10nearMyGoalEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = Forward::nearMyGoal() &rArr; ProcessingCoord::distance(float, float, float, float) &rArr; std::pow(float, int) &rArr; __hardfp_powf &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::distance(float, float, float, float)
@@ -2234,8 +2234,8 @@ Global Symbols
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::forwardStrategy()
 </UL>
 
-<P><STRONG><a name="[13d]"></a>Asterisk::forwardStrategy()</STRONG> (Thumb, 1864 bytes, Stack size 80 bytes, main.o(i._ZN8Asterisk15forwardStrategyEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 696<LI>Call Chain = Asterisk::forwardStrategy() &rArr; Forward::setResOUTVector(OutPair, Vec2b) &rArr; Forward::setVec2Out(unsigned char, Vec2b) &rArr; Vec2b::operator +(const Vec2b&) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
+<P><STRONG><a name="[13d]"></a>Asterisk::forwardStrategy()</STRONG> (Thumb, 1782 bytes, Stack size 56 bytes, main.o(i._ZN8Asterisk15forwardStrategyEv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 672<LI>Call Chain = Asterisk::forwardStrategy() &rArr; Forward::setResOUTVector(OutPair, Vec2b) &rArr; Forward::setVec2Out(unsigned char, Vec2b) &rArr; Vec2b::operator +(const Vec2b&) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::setTarget(float)
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::getTarget()
@@ -3154,7 +3154,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[78]"></a>main</STRONG> (Thumb, 408 bytes, Stack size 120 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 816<LI>Call Chain = main &rArr; Asterisk::forwardStrategy() &rArr; Forward::setResOUTVector(OutPair, Vec2b) &rArr; Forward::setVec2Out(unsigned char, Vec2b) &rArr; Vec2b::operator +(const Vec2b&) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
+<BR><BR>[Stack]<UL><LI>Max Depth = 792<LI>Call Chain = main &rArr; Asterisk::forwardStrategy() &rArr; Forward::setResOUTVector(OutPair, Vec2b) &rArr; Forward::setVec2Out(unsigned char, Vec2b) &rArr; Vec2b::operator +(const Vec2b&) &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::isEnemyGoalCircle(short, short, short, short)
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::Vec2b()
