@@ -6,11 +6,11 @@ ProcessingCoord::ProcessingCoord() {
 	upThreshold = UP_Y - DELTA_DIST;
 	downThreshold = DOWN_Y + 2.5 * DELTA_DIST;
 	if (_goal == YELLOW_GOAL) {
-		leftThreshold = -80 + DELTA_DIST;//THRESHOLD_X_LEFT + 3.5 * DELTA_DIST;
-		rightThreshold = 58 - DELTA_DIST;//THRESHOLD_X_RIGHT - 1 * DELTA_DIST;
+		leftThreshold = -78 + DELTA_DIST;//-78
+		rightThreshold = 58 - DELTA_DIST;//58
 	} else {
-		leftThreshold = -50 + DELTA_DIST; //-44.6
-		rightThreshold = 40 - DELTA_DIST; //34
+		leftThreshold = -47 + DELTA_DIST; //-44.6
+		rightThreshold = 34 - DELTA_DIST; //34
 	}
 }
 
@@ -90,8 +90,8 @@ bool ProcessingCoord::ballInBack(float angBall, uint8_t varible) {
 }
 
 bool ProcessingCoord::suitableParams2Kick() {
-	float angLeft = atan2(float(LEFT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
-	float angRight = atan2(float(RIGHT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
+	float angLeft = atan2(float(-2 + LEFT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
+	float angRight = atan2(float(2 + RIGHT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
 
 	return _angle >= angLeft && _angle <= angRight;
 }
@@ -100,7 +100,7 @@ bool ProcessingCoord::checkXLeft(int16_t x, uint8_t role) {
 	if (role == GOALKEEPER_ROLE) return x > THRESHOLD_X_LEFT + DELTA_DIST + SAVE_DELTA_GK;//leftThreshold - 3.5 * DELTA_DIST + SAVE_DELTA_GK;
 	else {
 		if (_y > 210 - 90) { //- 70
-			return x > leftThreshold - 11; //- 9
+			return x > leftThreshold - 8; //- 9
 		} else {
 			return x > leftThreshold;
 		}
@@ -111,7 +111,7 @@ bool ProcessingCoord::checkXRight(int16_t x, uint8_t role) {
 	if (role == GOALKEEPER_ROLE) return x < THRESHOLD_X_RIGHT - DELTA_DIST - SAVE_DELTA_GK / 2;//rightThreshold + 2 * DELTA_DIST - SAVE_DELTA_GK;
 	else {
 		if (_y > 210 - 80) { //-40
-			return x < rightThreshold + 10; //+ 10
+			return x < rightThreshold + 7; //+ 10
  		} else {
 			return x < rightThreshold;
 		}

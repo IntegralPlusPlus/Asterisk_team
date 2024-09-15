@@ -5,11 +5,11 @@
 
 #define TIME_NOT_SEEN 450
 #define TIME_LEAVE 3300
-#define TIME_FINISH_LEAVE 2000
+#define TIME_FINISH_LEAVE 1600
 #define TIME_CANT_CHANGE_DIRECTION 700 
 #define TIME_BALL_IN_FRONT 7
 
-#define USUAL_FOLLOWING_SPEED 0.7
+#define USUAL_FOLLOWING_SPEED 0.67
 //0.69
 #define MAX_VEC2B_LEN 0.89
 //0.89
@@ -352,7 +352,7 @@ namespace Asterisk {
 				if ((nearOutStatus != unknow) && globalBall >= -90 && globalBall <= 90) {			
 					goTo = Vec2b(USUAL_FOLLOWING_SPEED, ang + 90);
 					//if (nearOutStatus == left || nearOutStatus == right) goTo = myForward.projectionOnY(goTo);
-				} else if (myForward.nearMyGoal()) { 
+				} else if (myForward.nearMyGoal() && !myForward.ballInBack(ang, tsopRaw)) { 
 					//if (globalBall < -70 || globalBall > 70) goTo = myForward.vec2bOnGoal(USUAL_FOLLOWING_SPEED, ang);
 					//else goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
 					goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
@@ -467,8 +467,9 @@ namespace Asterisk {
 			} else if (inLeave) {
 				if (currLeaveTime == TIME_FINISH_LEAVE) { //ball not in sides 
 					float speed2Ball;
-					if (abs(-targetRaw - angleIMU) <= 8) speed2Ball = 0.91;
-					else speed2Ball = 0.72;
+					//if (abs(-targetRaw - angleIMU) <= 4) speed2Ball = 0.88; //0.91
+					//else speed2Ball = 0.68; //0.72
+					speed2Ball = 0.7;
 					
 					if (!ballGrip) {
 						angSoft = gyro.calculateSoft(angSoft, 90 + ang, leavingSoft);	

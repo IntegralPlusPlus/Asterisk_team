@@ -61,7 +61,7 @@ float TSOP::getDist() {
 }
 
 double TSOP::convertDist(double dist) {
-	double maxDist = 10.1;//9.1 10.1; //7.85
+	double maxDist = 8.5;//9.1 10.1; //7.85
 	double v = (dist - maxDist) / maxDist + 1;
   if (v > 1) v = 1;
   if (v < 0) v = 0;
@@ -74,16 +74,16 @@ bool TSOP::distBad(int16_t distLocator) {
 }
 
 double TSOP::angleOffset(double angle, double dist, double angleIMU){
-  double angK = 0.071 * pow(double(Ec), double(0.18 * abs(angle))); //0.071 0.2				0.06 0.19
+  double angK = 0.16 * pow(double(Ec), double(0.25 * abs(angle))); //0.2 0.26				0.06 0.19
   if (angK > 90)
     angK = 90;
 	
-	//dist *= 1.1;
+	dist *= 1.1; //1.1
   dist = convertDist(dist);
-  double distK = 0.06 * pow(double(Ec), double(4 * abs(dist)));//0.0382 4					0.037 4.02
+  double distK = 0.075 * pow(double(Ec), double(4.05 * abs(dist)));//0.0382 4					0.037 4.02
   if (distK > 1) distK = 1;
 	
-	double offset = angK * distK;
+	double offset = angK * distK; //YA GOTOV ZALIVATSYA
 	//if (adduct(angle - angleIMU) >= 10
 	//	&& adduct(angle - angleIMU) <= 90) offset *= 7;
 	if (offset > 90) offset = 90;

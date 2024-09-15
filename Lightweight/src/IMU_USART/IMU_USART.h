@@ -11,7 +11,7 @@
 #define KOEFF_P 10.4f
 #define KOEFF_D 100
 #define MAXROTATION 2048
-#define K_SOFT 0.03f
+#define K_SOFT 0.04f
 #define TARGET_K_FOFT 0.08f
 
 enum softCategoty {

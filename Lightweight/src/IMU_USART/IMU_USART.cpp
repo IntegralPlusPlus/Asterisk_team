@@ -46,7 +46,7 @@ void gyro_imu::setRotationForTarget() {
 float gyro_imu::calculateSoft(float soft, float now, uint8_t softParam) {
 	float kSoft;
 	if (softParam == baseSoft) kSoft = K_SOFT;
-	else if (softParam == leavingSoft) kSoft = 0.02f;
+	else if (softParam == leavingSoft) kSoft = 0.05f; //0.026f
 	
 	if (abs(now - soft) < 180) {
 		soft = kSoft * now + (1 - kSoft) * soft;
