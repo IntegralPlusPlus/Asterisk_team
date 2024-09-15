@@ -264,7 +264,7 @@ namespace Asterisk {
 			
 			if (tsops.ballFar(dist)) {
 				offset = 0;
-				speedForward *= 1.12;
+				speedForward *= 1.06; //1.12
 			} else if (dist > 9.2 && abs(ang) > 35) speedForward *= 0.85;
 			
 			angRes = ang + offset + 90;
