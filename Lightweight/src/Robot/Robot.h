@@ -9,7 +9,7 @@
 #define TIME_CANT_CHANGE_DIRECTION 700 
 #define TIME_BALL_IN_FRONT 7
 
-#define USUAL_FOLLOWING_SPEED 0.67
+#define USUAL_FOLLOWING_SPEED 0.59 //0.67
 //0.69
 #define MAX_VEC2B_LEN 0.89
 //0.89
@@ -193,8 +193,8 @@ namespace Asterisk {
 			timeMotorsWork = time_service::millis();
 		
 		if (!tsops.distBad(distRaw)) {
-			ang = ball.getCurrentVec2b().angle;
-			dist = ball.getCurrentVec2b().length;
+			ang = angRaw;//ball.getCurrentVec2b().angle;
+			dist = distRaw;//ball.getCurrentVec2b().length;
 			timeNotSeenBall = time_service::millis();
 		}
 		
@@ -265,7 +265,7 @@ namespace Asterisk {
 			if (tsops.ballFar(dist)) {
 				offset = 0;
 				speedForward *= 1.06; //1.12
-			} else if (dist > 9.2 && abs(ang) > 35) speedForward *= 0.85;
+			} else if (dist > 8.2 && abs(ang) > 20) speedForward *= 0.85; //0.85
 			
 			angRes = ang + offset + 90;
 			
@@ -297,7 +297,7 @@ namespace Asterisk {
 	void forwardStrategy() {
 		if (!doesntSeeGoals) {
 			if (myGoal == YELLOW_GOAL) targetRaw = float(myForward.getTarget2Enemy() + 10); //+ 10
-			else targetRaw = float(myForward.getTarget2Enemy() + 15);
+			else targetRaw = float(myForward.getTarget2Enemy() + 7); //+ 15
 		}
 		
 		gyro.setTarget(targetRaw);
@@ -305,7 +305,7 @@ namespace Asterisk {
 		pow = gyro.getRotation();
 		
 		kicker.setKickerStatus(button3.readPin() || 
-													 ballGrip && mayKick2Ball() && myForward.suitableParams2Kick() && myForward.distance(x, y, 0, DIST_BETWEEN_GOALS) < DIST_BETWEEN_GOALS * 0.6);// && motorsWork && !neverTurnMotors);
+													 ballGrip && mayKick2Ball() && myForward.suitableParams2Kick() && myForward.distance(x, y, 0, DIST_BETWEEN_GOALS) < DIST_BETWEEN_GOALS * 0.51);// && motorsWork && !neverTurnMotors);
 		
 		if (!kicker.canKick()) kicker.close();
 		else kicker.open();

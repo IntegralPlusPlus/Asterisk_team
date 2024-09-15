@@ -7,9 +7,9 @@
 #define DEG2RAD	0.01745329251994329576f
 #define TSOP1GRAD 11.25f
 #define Ec 2.718281828459f
-#define BALL_FAR 6.5f //6.5
+#define BALL_FAR 5.0f //6.5
 //6.9
-// davai
+// davai// pizdec
 
 class TSOP {
 	public:

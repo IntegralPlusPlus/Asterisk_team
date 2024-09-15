@@ -35,7 +35,7 @@ void TSOP::updateTSOPs() {
 	
 		//if (!value1mux || !value2mux) iSeeBall = true;
 	}
-	
+	//return iSeeBall;
 	//return iSeeBall;
 }
 
@@ -74,18 +74,18 @@ bool TSOP::distBad(int16_t distLocator) {
 }
 
 double TSOP::angleOffset(double angle, double dist, double angleIMU){
-  double angK = 0.24 * pow(double(Ec), double(0.26 * abs(angle))); //0.2 0.26				0.06 0.19
+  double angK = 0.24 * pow(double(Ec), double(0.3 * abs(angle))); //0.24 0.26				0.06 0.19
   if (angK > 90)
     angK = 90;
 	
-	dist *= 1.2; //1.1
+	
+	dist *= 1.1; //1.1
   dist = convertDist(dist);
+	//0.076 4.05
   double distK = 0.076 * pow(double(Ec), double(4.05 * abs(dist)));//0.0382 4					0.037 4.02
   if (distK > 1) distK = 1;
 	
-	double offset = angK * distK; //YA GOTOV ZALIVATSYA
-	//if (adduct(angle - angleIMU) >= 10
-	//	&& adduct(angle - angleIMU) <= 90) offset *= 7;
+	double offset = angK * distK;
 	if (offset > 90) offset = 90;
 	
   if (adduct(angle - angleIMU) >= 0) return offset;
