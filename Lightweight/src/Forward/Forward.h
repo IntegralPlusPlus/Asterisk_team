@@ -8,7 +8,8 @@
 //4
 #define BACK_SECTOR 140
 #define BACK_SECTOR_DETOUR 30
-#define COEFF_CIRCLE 1.65f
+//1.65f
+#define COEFF_CIRCLE 1.67f
 #define ANGLE2SIDES 20
 #define MINIMUM_SPEED_TO_BALL 0.6f  
 #define LIMIT_OUT_CYCLES 20

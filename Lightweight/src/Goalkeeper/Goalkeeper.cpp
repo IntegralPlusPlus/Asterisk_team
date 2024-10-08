@@ -61,7 +61,7 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 	
 	if (gkPos == centralLine) {
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		float speed = err * 0.023f; //0.04f 
+		float speed = err * 0.024f; //0.04f 
 		vec = Vec2b(speed, 270 + _angle); 
 		//errOld = 0;
 	} else {

@@ -10,8 +10,11 @@
 #define TIME_BALL_IN_FRONT 7
 
 #define USUAL_FOLLOWING_SPEED 0.59 //0.67
-//0.69
+//0.59
 #define MAX_VEC2B_LEN 0.89
+#define MY_GOAL 1
+//1 -- blue
+//0 -- yellow
 //0.89
 //oh ug ety naglie armyane! neeeeeeeeeeeeeeeeeeet
 //I am waiting..............(ENG)
@@ -101,7 +104,7 @@ namespace Asterisk {
 	Pin button3('A', 9, read_pupd_down);
 	Button motorsButton(button1, invertedConfig);
 	Button butt2(button2);
-	Button butt3(button3);
+	Button goalButton(button3);
 	//Button resetIMU(reset_imu_pin);
 	
 	Pin swMotorPower('D', 2, read_pupd_down);
@@ -175,7 +178,7 @@ namespace Asterisk {
 			yReturn = GOAL_OUT_Y_THRESHOLD;
 		}
 		
-		myGoal = !swGoalChoose.readPin();//goalSW.pressed();
+		myGoal = goalButton.pressed();//MY_GOAL;//!swGoalChoose.readPin();//goalSW.pressed();
 		blueGoalLED.set(myGoal);
 		yellowGoalLED.set(!myGoal);
 		
@@ -360,7 +363,7 @@ namespace Asterisk {
 					goTo = goToBall;
 					
 					if (myForward.distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.05 * RADIUS_GOAL_OUT_LEFT) {
-						goTo *= 0.85;
+						goTo *= 0.95; //0.85
 					}
 				}
 			} else if (robotInOUT) {

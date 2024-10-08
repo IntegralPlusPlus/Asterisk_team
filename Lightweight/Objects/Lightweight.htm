@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Lightweight.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Lightweight.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sun Sep 15 09:33:02 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Oct 08 19:10:34 2024
 <BR><P>
 <H3>Maximum Stack Usage =        792 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1528,8 +1528,8 @@ Global Symbols
 
 <P><STRONG><a name="[1ea]"></a>Pin::Pin__sub_object(char, unsigned char, unsigned short)</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, pin.o(i._ZN3PinC1Echt), UNUSED)
 
-<P><STRONG><a name="[f2]"></a>TSOP::angleOffset(double, double, double)</STRONG> (Thumb, 410 bytes, Stack size 88 bytes, tsop.o(i._ZN4TSOP11angleOffsetEddd))
-<BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = TSOP::angleOffset(double, double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
+<P><STRONG><a name="[f2]"></a>TSOP::angleOffset(double, double, double)</STRONG> (Thumb, 370 bytes, Stack size 80 bytes, tsop.o(i._ZN4TSOP11angleOffsetEddd))
+<BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = TSOP::angleOffset(double, double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::abs(double)
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TSOP::adduct(short)
@@ -1538,7 +1538,6 @@ Global Symbols
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dneg
 </UL>
 <BR>[Called By]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::getVec2bToBallFollow()
@@ -2286,7 +2285,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[14a]"></a>Asterisk::goalkeeperStrategy()</STRONG> (Thumb, 2738 bytes, Stack size 112 bytes, main.o(i._ZN8Asterisk18goalkeeperStrategyEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 528<LI>Call Chain = Asterisk::goalkeeperStrategy() &rArr; Asterisk::getVec2bToBallFollow() &rArr; TSOP::angleOffset(double, double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
+<BR><BR>[Stack]<UL><LI>Max Depth = 520<LI>Call Chain = Asterisk::goalkeeperStrategy() &rArr; Asterisk::getVec2bToBallFollow() &rArr; TSOP::angleOffset(double, double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::setTarget(float)
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::getTarget()
@@ -2341,7 +2340,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[143]"></a>Asterisk::getVec2bToBallFollow()</STRONG> (Thumb, 618 bytes, Stack size 64 bytes, main.o(i._ZN8Asterisk20getVec2bToBallFollowEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 416<LI>Call Chain = Asterisk::getVec2bToBallFollow() &rArr; TSOP::angleOffset(double, double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
+<BR><BR>[Stack]<UL><LI>Max Depth = 408<LI>Call Chain = Asterisk::getVec2bToBallFollow() &rArr; TSOP::angleOffset(double, double, double) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gyro_imu::calculateSoft(float, float, unsigned char)
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::Vec2b(double, double)
@@ -2375,7 +2374,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[157]"></a>Asterisk::update()</STRONG> (Thumb, 1346 bytes, Stack size 48 bytes, main.o(i._ZN8Asterisk6updateEv))
+<P><STRONG><a name="[157]"></a>Asterisk::update()</STRONG> (Thumb, 1344 bytes, Stack size 48 bytes, main.o(i._ZN8Asterisk6updateEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 496<LI>Call Chain = Asterisk::update() &rArr; BallVec2b::push(Vec2b, long long) &rArr; BallVec2b::changeValues(bool) &rArr; std::pow(double, int) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, long long)
@@ -3507,7 +3506,6 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getTargetRadiuses()
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, long long)
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vec2b::changeTo(Vec2b)
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TSOP::angleOffset(double, double, double)
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessingCoord::getTarget2Enemy()
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getVecToIntersection(short)
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Goalkeeper::getTargetGoalkeeper()
