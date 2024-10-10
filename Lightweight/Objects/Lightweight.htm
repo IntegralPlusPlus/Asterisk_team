@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Lightweight.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Lightweight.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Oct 08 19:10:34 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Oct 09 12:21:11 2024
 <BR><P>
 <H3>Maximum Stack Usage =        792 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2062,14 +2062,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Asterisk::forwardStrategy()
 </UL>
 
-<P><STRONG><a name="[12d]"></a>Forward::enemyGoalLine(short, short)</STRONG> (Thumb, 136 bytes, Stack size 40 bytes, forward.o(i._ZN7Forward13enemyGoalLineEss))
+<P><STRONG><a name="[12d]"></a>Forward::enemyGoalLine(short, short)</STRONG> (Thumb, 116 bytes, Stack size 40 bytes, forward.o(i._ZN7Forward13enemyGoalLineEss))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = Forward::enemyGoalLine(short, short) &rArr; std::atan2(float, float) &rArr; __hardfp_atan2f &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::atan2(float, float)
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 </UL>
 <BR>[Called By]<UL><LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::checkOUTs()
@@ -2374,7 +2372,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[157]"></a>Asterisk::update()</STRONG> (Thumb, 1344 bytes, Stack size 48 bytes, main.o(i._ZN8Asterisk6updateEv))
+<P><STRONG><a name="[157]"></a>Asterisk::update()</STRONG> (Thumb, 1348 bytes, Stack size 48 bytes, main.o(i._ZN8Asterisk6updateEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 496<LI>Call Chain = Asterisk::update() &rArr; BallVec2b::push(Vec2b, long long) &rArr; BallVec2b::changeValues(bool) &rArr; std::pow(double, int) &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::push(Vec2b, long long)
@@ -3330,7 +3328,6 @@ Global Symbols
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::changeValues(bool)
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::getVecForEnemyCircle(short, short)
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::getVecForMyCircle(short, short)
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::enemyGoalLine(short, short)
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::setVec2Out(unsigned char, Vec2b)
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
@@ -3466,7 +3463,6 @@ Global Symbols
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TSOP::convertDist(double)
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::adduct(double)
 <LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BallVec2b::setTransitionBy360()
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Forward::enemyGoalLine(short, short)
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 

@@ -27,7 +27,23 @@ Project File Date:  09/09/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-".\Objects\Lightweight.axf" - 0 Error(s), 0 Warning(s).
+compiling TSOP.cpp...
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\Pin\Pin.h(71): warning:  #1-D: last line of file ends without a newline
+  #endif /* PIN_H_ */
+.\src\main\project_config.h(18): warning:  #1-D: last line of file ends without a newline
+  #define P_MODE 1
+.\src\adc\Adc.h(25): warning:  #1-D: last line of file ends without a newline
+  };
+src\TSOP\TSOP.h(33): warning:  #1-D: last line of file ends without a newline
+  };
+src\TSOP\TSOP.cpp(113): warning:  #1-D: last line of file ends without a newline
+  }
+src\TSOP\TSOP.cpp: 6 warnings, 0 errors
+linking...
+Program Size: Code=52478 RO-data=1430 RW-data=440 ZI-data=16016  
+".\Objects\Lightweight.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -58,7 +74,7 @@ Package Vendor: Keil
       Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
       Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

@@ -7,11 +7,17 @@ ProcessingCoord::ProcessingCoord() {
 	downThreshold = DOWN_Y + 2.5 * DELTA_DIST;
 	if (_goal == YELLOW_GOAL) {
 		leftThreshold = -55 + DELTA_DIST;//-78
-		rightThreshold = 60 - DELTA_DIST;//58
+		rightThreshold = 63 - DELTA_DIST;//60
 	} else {
-		leftThreshold = -51 + DELTA_DIST; //-47
+		leftThreshold = -50 + DELTA_DIST; //-51
 		rightThreshold = 34 - DELTA_DIST; //34
 	}
+	
+	/*if (_role == GOALKEEPER_ROLE) {
+		GOAL_OUT_Y_THRESHOLD = GOAL_OUT_Y_THRESHOLD_GOALKEEPER;
+	} else {
+		GOAL_OUT_Y_THRESHOLD = GOAL_OUT_Y_THRESHOLD_FORWARD;
+	}*/
 } 
 
 void ProcessingCoord::setGoal(uint8_t currentGoal) {

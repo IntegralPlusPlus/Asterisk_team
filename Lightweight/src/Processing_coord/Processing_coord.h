@@ -13,8 +13,9 @@
 #define DOWN_Y 32.f
 //202
 
-#define GOAL_OUT_Y_THRESHOLD 30
+#define GOAL_OUT_Y_THRESHOLD 35//30
 //33
+//#define GOAL_OUT_Y_THRESHOLD_FORWARD 30
 #define DIST_BETWEEN_GOALS 231
 
 #define ANGLE_LOW_TO_CIRCLE 55
@@ -41,6 +42,7 @@ class ProcessingCoord {
 	public:
 		ProcessingCoord();
 		void setGoal(uint8_t currentGoal);
+		//void setRole(uint8_t currentRole);
 		void setParams(int16_t x, int16_t y, int16_t angle, int16_t dBlue, int16_t dYellow);
 		void setMaxLen(float len);
 		Vec2b getVecToPoint(int16_t pointX = 0, int16_t pointY = GOAL_OUT_Y_THRESHOLD);
@@ -62,4 +64,5 @@ class ProcessingCoord {
 		int16_t _x, _y, _angle;
 		int16_t _dBlue, _dYellow;
 		uint8_t _goal;
+		//int16_t GOAL_OUT_Y_THRESHOLD;
 };
