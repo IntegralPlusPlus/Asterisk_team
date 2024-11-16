@@ -69,8 +69,8 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (gkPos == leftPart) {
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			p = err * 0.067f; //0.066 0.058
-			d = (err - errOld) * 0.5f;
+			p = err * 0.055f; //0.067 0.066 0.058
+			d = (err - errOld) * 0.4f;
 			u = p + d;
 			errOld = err;
 		} else if (gkPos == rightPart) {

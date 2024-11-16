@@ -10,7 +10,7 @@ ProcessingCoord::ProcessingCoord() {
 		rightThreshold = 63 - DELTA_DIST;//60
 	} else {
 		leftThreshold = -50 + DELTA_DIST; //-51
-		rightThreshold = 34 - DELTA_DIST; //34
+		rightThreshold = 36 - DELTA_DIST; //34
 	}
 	
 	/*if (_role == GOALKEEPER_ROLE) {
