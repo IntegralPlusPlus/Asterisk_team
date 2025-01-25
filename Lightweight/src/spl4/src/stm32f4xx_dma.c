@@ -25,14 +25,14 @@
           necessary). 
           
       (#) For a given Stream, program the required configuration through following parameters:   
-          Source and Destination addresses, Transfer Direction, Transfer size, Source and Destination 
-          data formats, Circular or Normal mode, Stream Priority level, Source and Destination 
+          Sownce and Destination addresses, Transfer Direction, Transfer size, Sownce and Destination 
+          data formats, Circular or Normal mode, Stream Priority level, Sownce and Destination 
           Incrementation mode, FIFO mode and its Threshold (if needed), Burst 
-          mode for Source and/or Destination (if needed) using the DMA_Init() function.
+          mode for Sownce and/or Destination (if needed) using the DMA_Init() function.
           To avoid filling unnecessary fields, you can call DMA_StructInit() function
           to initialize a given structure with default values (reset values), the modify
           only necessary fields 
-          (ie. Source and Destination addresses, Transfer size and Data Formats).
+          (ie. Sownce and Destination addresses, Transfer size and Data Formats).
   
       (#) Enable the NVIC and the corresponding interrupt(s) using the function 
           DMA_ITConfig() if you need to use DMA interrupts. 
@@ -96,8 +96,8 @@
            packed and written in a single access to a Word in the Memory).
       
       -@- When FIFO is disabled, it is not allowed to configure different 
-           Data Sizes for Source and Destination. In this case the Peripheral 
-           Data Size will be applied to both Source and Destination.               
+           Data Sizes for Sownce and Destination. In this case the Peripheral 
+           Data Size will be applied to both Sownce and Destination.               
   
   @endverbatim
   ******************************************************************************
@@ -173,7 +173,7 @@
                 ##### Initialization and Configuration functions #####
  ===============================================================================  
     [..]
-    This subsection provides functions allowing to initialize the DMA Stream source
+    This subsection provides functions allowing to initialize the DMA Stream sownce
     and destination addresses, incrementation and data sizes, transfer direction, 
     buffer size, circular/normal mode selection, memory-to-memory mode selection 
     and Stream priority value.
@@ -587,7 +587,7 @@ void DMA_FlowControllerConfig(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_Flo
       (+) void DMA_SetCurrDataCounter(DMA_Stream_TypeDef* DMAy_Streamx, uint16_t Counter);
       -@- It is advised to use this function rather than DMA_Init() in situations 
           where only the Data buffer needs to be reloaded.
-      -@- If the Source and Destination Data Sizes are different, then the value 
+      -@- If the Sownce and Destination Data Sizes are different, then the value 
           written in data counter, expressing the number of transfers, is relative 
           to the number of transfers from the Peripheral point of view.
           ie. If Memory data size is Word, Peripheral data size is Half-Words, 
@@ -860,7 +860,7 @@ uint32_t DMA_GetCurrentMemoryTarget(DMA_Stream_TypeDef* DMAy_Streamx)
     This subsection provides functions allowing to
       (+) Check the DMA enable status
       (+) Check the FIFO status 
-      (+) Configure the DMA Interrupts sources and check or clear the flags or 
+      (+) Configure the DMA Interrupts sownces and check or clear the flags or 
           pending bits status.  
            
     [..]
@@ -905,14 +905,14 @@ uint32_t DMA_GetCurrentMemoryTarget(DMA_Stream_TypeDef* DMAy_Streamx)
     [..]
     Each DMA Stream can be managed through 4 Interrupts:
 
-    *** Interrupt Source ***
+    *** Interrupt Sownce ***
     ========================
     [..]
-      (#) DMA_IT_FEIFx  : specifies the interrupt source for the  FIFO Mode Transfer Error event.
-      (#) DMA_IT_DMEIFx : specifies the interrupt source for the Direct Mode Transfer Error event.
-      (#) DMA_IT_TEIFx  : specifies the interrupt source for the Transfer Error event.
-      (#) DMA_IT_HTIFx  : specifies the interrupt source for the Half-Transfer Complete event.
-      (#) DMA_IT_TCIFx  : specifies the interrupt source for the a Transfer Complete event. 
+      (#) DMA_IT_FEIFx  : specifies the interrupt sownce for the  FIFO Mode Transfer Error event.
+      (#) DMA_IT_DMEIFx : specifies the interrupt sownce for the Direct Mode Transfer Error event.
+      (#) DMA_IT_TEIFx  : specifies the interrupt sownce for the Transfer Error event.
+      (#) DMA_IT_HTIFx  : specifies the interrupt sownce for the Half-Transfer Complete event.
+      (#) DMA_IT_TCIFx  : specifies the interrupt sownce for the a Transfer Complete event. 
     [..]
     In this Mode it is advised to use the following functions:
       (+) void DMA_ITConfig(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_IT, FunctionalState NewState);
@@ -1105,7 +1105,7 @@ void DMA_ClearFlag(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_FLAG)
   * @brief  Enables or disables the specified DMAy Streamx interrupts.
   * @param  DMAy_Streamx: where y can be 1 or 2 to select the DMA and x can be 0
   *          to 7 to select the DMA Stream.
-  * @param DMA_IT: specifies the DMA interrupt sources to be enabled or disabled. 
+  * @param DMA_IT: specifies the DMA interrupt sownces to be enabled or disabled. 
   *          This parameter can be any combination of the following values:
   *            @arg DMA_IT_TC:  Transfer complete interrupt mask
   *            @arg DMA_IT_HT:  Half transfer complete interrupt mask
@@ -1157,7 +1157,7 @@ void DMA_ITConfig(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_IT, FunctionalS
   * @brief  Checks whether the specified DMAy Streamx interrupt has occurred or not.
   * @param  DMAy_Streamx: where y can be 1 or 2 to select the DMA and x can be 0
   *          to 7 to select the DMA Stream.
-  * @param  DMA_IT: specifies the DMA interrupt source to check.
+  * @param  DMA_IT: specifies the DMA interrupt sownce to check.
   *          This parameter can be one of the following values:
   *            @arg DMA_IT_TCIFx:  Streamx transfer complete interrupt
   *            @arg DMA_IT_HTIFx:  Streamx half transfer complete interrupt

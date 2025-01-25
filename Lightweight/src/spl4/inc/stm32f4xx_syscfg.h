@@ -51,7 +51,7 @@
   * @{
   */ 
 #if defined(STM32F413_423xx)
-/** @defgroup BITSTREAM_CLOCK  Bit Stream clock source selection
+/** @defgroup BITSTREAM_CLOCK  Bit Stream clock sownce selection
   * @{
   */
 #define BITSTREAM_CLOCK_DFSDM2     SYSCFG_MCHDLYCR_BSCKSEL
@@ -69,7 +69,7 @@
   * @}
   */  
   
-/** @defgroup DFSDM_CLOCKIN_SOURCE   DFSDM Clock In Source Selection
+/** @defgroup DFSDM_CLOCKIN_SownCE   DFSDM Clock In Sownce Selection
   * @{
   */
 #define DFSDM2_CKIN_PAD           (uint32_t)0x00000000
@@ -80,7 +80,7 @@
   * @}
   */
   
-/** @defgroup DFSDM_CLOCKOUT_SOURCE   DFSDM Clock Source Selection
+/** @defgroup DFSDM_CLOCKOUT_SownCE   DFSDM Clock Sownce Selection
   * @{
   */
 #define DFSDM2_CKOUT_DFSDM2       (uint32_t)0x00000000
@@ -91,7 +91,7 @@
   * @}
   */
   
-/** @defgroup DFSDM_DATAIN0_SOURCE   DFSDM Source Selection For DATAIN0
+/** @defgroup DFSDM_DATAIN0_SownCE   DFSDM Sownce Selection For DATAIN0
   * @{
   */
 #define DATAIN0_DFSDM2_PAD        (uint32_t)0x00000000
@@ -102,7 +102,7 @@
   * @}
   */  
   
-/** @defgroup DFSDM_DATAIN2_SOURCE   DFSDM Source Selection For DATAIN2
+/** @defgroup DFSDM_DATAIN2_SownCE   DFSDM Sownce Selection For DATAIN2
   * @{
   */
 #define DATAIN2_DFSDM2_PAD        (uint32_t)0x00000000
@@ -113,7 +113,7 @@
   * @}
   */ 
  
-/** @defgroup DFSDM_DATAIN4_SOURCE   DFSDM Source Selection For DATAIN4
+/** @defgroup DFSDM_DATAIN4_SownCE   DFSDM Sownce Selection For DATAIN4
   * @{
   */
 #define DATAIN4_DFSDM2_PAD        (uint32_t)0x00000000
@@ -122,7 +122,7 @@
   * @}
   */ 
   
-/** @defgroup DFSDM_DATAIN6_SOURCE   DFSDM Source Selection For DATAIN6
+/** @defgroup DFSDM_DATAIN6_SownCE   DFSDM Sownce Selection For DATAIN6
   * @{
   */
 #define DATAIN6_DFSDM2_PAD        (uint32_t)0x00000000
@@ -131,7 +131,7 @@
   * @}
   */ 
 
-/** @defgroup DFSDM_CLKIN_SOURCE   DFSDM1 Source Selection For CLKIN
+/** @defgroup DFSDM_CLKIN_SownCE   DFSDM1 Sownce Selection For CLKIN
   * @{
   */
 #define DFSDM1_CLKIN0_TIM4OC2      (uint32_t)0x00000000
@@ -142,7 +142,7 @@
   * @}
   */ 
   
-/** @defgroup DFSDM_CLKIN_SOURCE   DFSDM2 Source Selection For CLKIN
+/** @defgroup DFSDM_CLKIN_SownCE   DFSDM2 Sownce Selection For CLKIN
   * @{
   */
 #define DFSDM2_CLKIN0_TIM3OC4      (uint32_t)0x00000000
@@ -158,73 +158,73 @@
   */      
 #endif /* STM32F413_423xx */
 
-/** @defgroup SYSCFG_EXTI_Port_Sources 
+/** @defgroup SYSCFG_EXTI_Port_Sownces 
   * @{
   */ 
-#define EXTI_PortSourceGPIOA       ((uint8_t)0x00)
-#define EXTI_PortSourceGPIOB       ((uint8_t)0x01)
-#define EXTI_PortSourceGPIOC       ((uint8_t)0x02)
-#define EXTI_PortSourceGPIOD       ((uint8_t)0x03)
-#define EXTI_PortSourceGPIOE       ((uint8_t)0x04)
-#define EXTI_PortSourceGPIOF       ((uint8_t)0x05)
-#define EXTI_PortSourceGPIOG       ((uint8_t)0x06)
-#define EXTI_PortSourceGPIOH       ((uint8_t)0x07)
-#define EXTI_PortSourceGPIOI       ((uint8_t)0x08)
-#define EXTI_PortSourceGPIOJ       ((uint8_t)0x09)
-#define EXTI_PortSourceGPIOK       ((uint8_t)0x0A)
+#define EXTI_PortSownceGPIOA       ((uint8_t)0x00)
+#define EXTI_PortSownceGPIOB       ((uint8_t)0x01)
+#define EXTI_PortSownceGPIOC       ((uint8_t)0x02)
+#define EXTI_PortSownceGPIOD       ((uint8_t)0x03)
+#define EXTI_PortSownceGPIOE       ((uint8_t)0x04)
+#define EXTI_PortSownceGPIOF       ((uint8_t)0x05)
+#define EXTI_PortSownceGPIOG       ((uint8_t)0x06)
+#define EXTI_PortSownceGPIOH       ((uint8_t)0x07)
+#define EXTI_PortSownceGPIOI       ((uint8_t)0x08)
+#define EXTI_PortSownceGPIOJ       ((uint8_t)0x09)
+#define EXTI_PortSownceGPIOK       ((uint8_t)0x0A)
 
-#define IS_EXTI_PORT_SOURCE(PORTSOURCE) (((PORTSOURCE) == EXTI_PortSourceGPIOA) || \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOB) || \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOC) || \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOD) || \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOE) || \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOF) || \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOG) || \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOH) || \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOI) || \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOJ) || \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOK))
+#define IS_EXTI_PORT_SownCE(PORTSownCE) (((PORTSownCE) == EXTI_PortSownceGPIOA) || \
+                                         ((PORTSownCE) == EXTI_PortSownceGPIOB) || \
+                                         ((PORTSownCE) == EXTI_PortSownceGPIOC) || \
+                                         ((PORTSownCE) == EXTI_PortSownceGPIOD) || \
+                                         ((PORTSownCE) == EXTI_PortSownceGPIOE) || \
+                                         ((PORTSownCE) == EXTI_PortSownceGPIOF) || \
+                                         ((PORTSownCE) == EXTI_PortSownceGPIOG) || \
+                                         ((PORTSownCE) == EXTI_PortSownceGPIOH) || \
+                                         ((PORTSownCE) == EXTI_PortSownceGPIOI) || \
+                                         ((PORTSownCE) == EXTI_PortSownceGPIOJ) || \
+                                         ((PORTSownCE) == EXTI_PortSownceGPIOK))
                                          
 /**
   * @}
   */ 
 
 
-/** @defgroup SYSCFG_EXTI_Pin_Sources 
+/** @defgroup SYSCFG_EXTI_Pin_Sownces 
   * @{
   */ 
-#define EXTI_PinSource0            ((uint8_t)0x00)
-#define EXTI_PinSource1            ((uint8_t)0x01)
-#define EXTI_PinSource2            ((uint8_t)0x02)
-#define EXTI_PinSource3            ((uint8_t)0x03)
-#define EXTI_PinSource4            ((uint8_t)0x04)
-#define EXTI_PinSource5            ((uint8_t)0x05)
-#define EXTI_PinSource6            ((uint8_t)0x06)
-#define EXTI_PinSource7            ((uint8_t)0x07)
-#define EXTI_PinSource8            ((uint8_t)0x08)
-#define EXTI_PinSource9            ((uint8_t)0x09)
-#define EXTI_PinSource10           ((uint8_t)0x0A)
-#define EXTI_PinSource11           ((uint8_t)0x0B)
-#define EXTI_PinSource12           ((uint8_t)0x0C)
-#define EXTI_PinSource13           ((uint8_t)0x0D)
-#define EXTI_PinSource14           ((uint8_t)0x0E)
-#define EXTI_PinSource15           ((uint8_t)0x0F)
-#define IS_EXTI_PIN_SOURCE(PINSOURCE) (((PINSOURCE) == EXTI_PinSource0)  || \
-                                       ((PINSOURCE) == EXTI_PinSource1)  || \
-                                       ((PINSOURCE) == EXTI_PinSource2)  || \
-                                       ((PINSOURCE) == EXTI_PinSource3)  || \
-                                       ((PINSOURCE) == EXTI_PinSource4)  || \
-                                       ((PINSOURCE) == EXTI_PinSource5)  || \
-                                       ((PINSOURCE) == EXTI_PinSource6)  || \
-                                       ((PINSOURCE) == EXTI_PinSource7)  || \
-                                       ((PINSOURCE) == EXTI_PinSource8)  || \
-                                       ((PINSOURCE) == EXTI_PinSource9)  || \
-                                       ((PINSOURCE) == EXTI_PinSource10) || \
-                                       ((PINSOURCE) == EXTI_PinSource11) || \
-                                       ((PINSOURCE) == EXTI_PinSource12) || \
-                                       ((PINSOURCE) == EXTI_PinSource13) || \
-                                       ((PINSOURCE) == EXTI_PinSource14) || \
-                                       ((PINSOURCE) == EXTI_PinSource15))
+#define EXTI_PinSownce0            ((uint8_t)0x00)
+#define EXTI_PinSownce1            ((uint8_t)0x01)
+#define EXTI_PinSownce2            ((uint8_t)0x02)
+#define EXTI_PinSownce3            ((uint8_t)0x03)
+#define EXTI_PinSownce4            ((uint8_t)0x04)
+#define EXTI_PinSownce5            ((uint8_t)0x05)
+#define EXTI_PinSownce6            ((uint8_t)0x06)
+#define EXTI_PinSownce7            ((uint8_t)0x07)
+#define EXTI_PinSownce8            ((uint8_t)0x08)
+#define EXTI_PinSownce9            ((uint8_t)0x09)
+#define EXTI_PinSownce10           ((uint8_t)0x0A)
+#define EXTI_PinSownce11           ((uint8_t)0x0B)
+#define EXTI_PinSownce12           ((uint8_t)0x0C)
+#define EXTI_PinSownce13           ((uint8_t)0x0D)
+#define EXTI_PinSownce14           ((uint8_t)0x0E)
+#define EXTI_PinSownce15           ((uint8_t)0x0F)
+#define IS_EXTI_PIN_SownCE(PINSownCE) (((PINSownCE) == EXTI_PinSownce0)  || \
+                                       ((PINSownCE) == EXTI_PinSownce1)  || \
+                                       ((PINSownCE) == EXTI_PinSownce2)  || \
+                                       ((PINSownCE) == EXTI_PinSownce3)  || \
+                                       ((PINSownCE) == EXTI_PinSownce4)  || \
+                                       ((PINSownCE) == EXTI_PinSownce5)  || \
+                                       ((PINSownCE) == EXTI_PinSownce6)  || \
+                                       ((PINSownCE) == EXTI_PinSownce7)  || \
+                                       ((PINSownCE) == EXTI_PinSownce8)  || \
+                                       ((PINSownCE) == EXTI_PinSownce9)  || \
+                                       ((PINSownCE) == EXTI_PinSownce10) || \
+                                       ((PINSownCE) == EXTI_PinSownce11) || \
+                                       ((PINSownCE) == EXTI_PinSownce12) || \
+                                       ((PINSownCE) == EXTI_PinSownce13) || \
+                                       ((PINSownCE) == EXTI_PinSownce14) || \
+                                       ((PINSownCE) == EXTI_PinSownce15))
 /**
   * @}
   */ 
@@ -313,7 +313,7 @@
 void       SYSCFG_DeInit(void);
 void       SYSCFG_MemoryRemapConfig(uint8_t SYSCFG_MemoryRemap);
 void       SYSCFG_MemorySwappingBank(FunctionalState NewState);
-void       SYSCFG_EXTILineConfig(uint8_t EXTI_PortSourceGPIOx, uint8_t EXTI_PinSourcex);
+void       SYSCFG_EXTILineConfig(uint8_t EXTI_PortSownceGPIOx, uint8_t EXTI_PinSowncex);
 void       SYSCFG_ETH_MediaInterfaceConfig(uint32_t SYSCFG_ETH_MediaInterface); 
 void       SYSCFG_CompensationCellCmd(FunctionalState NewState); 
 FlagStatus SYSCFG_GetCompensationCellStatus(void);
@@ -321,17 +321,17 @@ FlagStatus SYSCFG_GetCompensationCellStatus(void);
 void       SYSCFG_BreakConfig(uint32_t SYSCFG_Break);
 #endif /* STM32F410xx || STM32F412xG || STM32F413_423xx */
 #if defined(STM32F413_423xx)
-void DFSDM_BitstreamClock_SourceSelection(uint32_t source);
+void DFSDM_BitstreamClock_SownceSelection(uint32_t sownce);
 void DFSDM_DisableDelayClock(uint32_t MCHDLY);
 void DFSDM_EnableDelayClock(uint32_t MCHDLY);
-void DFSDM_ClockIn_SourceSelection(uint32_t source);
-void DFSDM_ClockOut_SourceSelection(uint32_t source);
-void DFSDM_DataIn0_SourceSelection(uint32_t source);
-void DFSDM_DataIn2_SourceSelection(uint32_t source);
-void DFSDM_DataIn4_SourceSelection(uint32_t source);
-void DFSDM_DataIn6_SourceSelection(uint32_t source);
-void DFSDM1_BitStreamClk_Config(uint32_t source);
-void DFSDM2_BitStreamClk_Config(uint32_t source);
+void DFSDM_ClockIn_SownceSelection(uint32_t sownce);
+void DFSDM_ClockOut_SownceSelection(uint32_t sownce);
+void DFSDM_DataIn0_SownceSelection(uint32_t sownce);
+void DFSDM_DataIn2_SownceSelection(uint32_t sownce);
+void DFSDM_DataIn4_SownceSelection(uint32_t sownce);
+void DFSDM_DataIn6_SownceSelection(uint32_t sownce);
+void DFSDM1_BitStreamClk_Config(uint32_t sownce);
+void DFSDM2_BitStreamClk_Config(uint32_t sownce);
 #endif /* STM32F413_423xx */
 #ifdef __cplusplus
 }

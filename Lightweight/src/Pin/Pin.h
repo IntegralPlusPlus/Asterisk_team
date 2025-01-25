@@ -53,7 +53,7 @@ class Pin {
 		GPIO_TypeDef* _GPIOx;
 		uint32_t _pin;
 		uint8_t _typeAF;
-		uint8_t _pinSource;
+		uint8_t _pinSownce;
 	
 		GPIOMode_TypeDef _modeGPIO;
 		GPIOSpeed_TypeDef _speedGPIO;

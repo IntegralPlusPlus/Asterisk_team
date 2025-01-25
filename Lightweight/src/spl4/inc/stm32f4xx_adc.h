@@ -68,7 +68,7 @@ typedef struct
   uint32_t ADC_ExternalTrigConv;          /*!< Select the external event used to trigger 
                                                the start of conversion of a regular group.
                                                This parameter can be a value of 
-                                               @ref ADC_extrenal_trigger_sources_for_regular_channels_conversion */
+                                               @ref ADC_extrenal_trigger_sownces_for_regular_channels_conversion */
   uint32_t ADC_DataAlign;                 /*!< Specifies whether the ADC data  alignment
                                                is left or right. This parameter can be 
                                                a value of @ref ADC_data_align */
@@ -250,7 +250,7 @@ typedef struct
   */ 
 
 
-/** @defgroup ADC_extrenal_trigger_sources_for_regular_channels_conversion 
+/** @defgroup ADC_extrenal_trigger_sownces_for_regular_channels_conversion 
   * @{
   */ 
 #define ADC_ExternalTrigConv_T1_CC1                ((uint32_t)0x00000000)
@@ -401,7 +401,7 @@ typedef struct
   */ 
 
 
-/** @defgroup ADC_extrenal_trigger_sources_for_injected_channels_conversion 
+/** @defgroup ADC_extrenal_trigger_sownces_for_injected_channels_conversion 
   * @{
   */ 
 #define ADC_ExternalTrigInjecConv_T1_CC4            ((uint32_t)0x00000000)

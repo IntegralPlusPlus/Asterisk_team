@@ -961,7 +961,7 @@ void I2C_DMALastTransferCmd(I2C_TypeDef* I2Cx, FunctionalState NewState)
  ===============================================================================
     [..]
     This section provides functions allowing to configure the I2C Interrupts 
-    sources and check or clear the flags or pending bits status.
+    sownces and check or clear the flags or pending bits status.
     The user should identify which mode will be used in his application to manage 
     the communication: Polling mode, Interrupt mode or DMA mode. 
 
@@ -1000,7 +1000,7 @@ void I2C_DMALastTransferCmd(I2C_TypeDef* I2Cx, FunctionalState NewState)
         (+@@) I2C_GetFlagStatus() or I2C_GetITStatus()  to be called into the 
               I2Cx_ER_IRQHandler() function in order to determine which error occurred.
         (+@@) I2C_ClearFlag() or I2C_ClearITPendingBit() and/or I2C_SoftwareResetCmd() 
-              and/or I2C_GenerateStop() in order to clear the error flag and source 
+              and/or I2C_GenerateStop() in order to clear the error flag and sownce 
               and return to correct  communication status.
              
  
@@ -1087,7 +1087,7 @@ uint16_t I2C_ReadRegister(I2C_TypeDef* I2Cx, uint8_t I2C_Register)
 /**
   * @brief  Enables or disables the specified I2C interrupts.
   * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  I2C_IT: specifies the I2C interrupts sources to be enabled or disabled. 
+  * @param  I2C_IT: specifies the I2C interrupts sownces to be enabled or disabled. 
   *          This parameter can be any combination of the following values:
   *            @arg I2C_IT_BUF: Buffer interrupt mask
   *            @arg I2C_IT_EVT: Event interrupt mask
@@ -1350,7 +1350,7 @@ void I2C_ClearFlag(I2C_TypeDef* I2Cx, uint32_t I2C_FLAG)
 /**
   * @brief  Checks whether the specified I2C interrupt has occurred or not.
   * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  I2C_IT: specifies the interrupt source to check. 
+  * @param  I2C_IT: specifies the interrupt sownce to check. 
   *          This parameter can be one of the following values:
   *            @arg I2C_IT_SMBALERT: SMBus Alert flag
   *            @arg I2C_IT_TIMEOUT: Timeout or Tlow error flag
@@ -1378,7 +1378,7 @@ ITStatus I2C_GetITStatus(I2C_TypeDef* I2Cx, uint32_t I2C_IT)
   assert_param(IS_I2C_ALL_PERIPH(I2Cx));
   assert_param(IS_I2C_GET_IT(I2C_IT));
 
-  /* Check if the interrupt source is enabled or not */
+  /* Check if the interrupt sownce is enabled or not */
   enablestatus = (uint32_t)(((I2C_IT & ITEN_MASK) >> 16) & (I2Cx->CR2)) ;
   
   /* Get bit[23:0] of the flag */

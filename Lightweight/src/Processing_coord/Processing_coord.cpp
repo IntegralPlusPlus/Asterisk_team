@@ -5,19 +5,15 @@ ProcessingCoord::ProcessingCoord() {
 	
 	upThreshold = UP_Y - 4 * DELTA_DIST;//-2
 	downThreshold = DOWN_Y + 2.5 * DELTA_DIST;
+	
+	//left and right thresholds for forward
 	if (_goal == YELLOW_GOAL) {
 		leftThreshold = -55 + DELTA_DIST;//-78
 		rightThreshold = 63 - DELTA_DIST;//60
-	} else {
+	} else { //_goal == BLUE_GOAL
 		leftThreshold = -50 + DELTA_DIST; //-51
 		rightThreshold = 36 - DELTA_DIST; //34
 	}
-	
-	/*if (_role == GOALKEEPER_ROLE) {
-		GOAL_OUT_Y_THRESHOLD = GOAL_OUT_Y_THRESHOLD_GOALKEEPER;
-	} else {
-		GOAL_OUT_Y_THRESHOLD = GOAL_OUT_Y_THRESHOLD_FORWARD;
-	}*/
 } 
 
 void ProcessingCoord::setGoal(uint8_t currentGoal) {
@@ -66,8 +62,8 @@ int16_t ProcessingCoord::adduct180(int16_t value) {
 	return value;
 }
 
+//Target to enemy goal
 int16_t ProcessingCoord::getTarget2Enemy() {
-	//                                     DIST_BETWEEN_GOALS
 	return adduct180(RAD2DEG * atan2(float(219 - _y), float(-_x)) - 90);
 }
 
@@ -86,6 +82,7 @@ float ProcessingCoord::getAngleBetween(float ang1, float ang2) {
 	else return abs(ang2 - ang1 - 360);
 }
 
+//Ball in back of robot
 bool ProcessingCoord::ballInBack(float angBall, uint8_t varible) {
 	float angLeft = 180 + adduct180(RAD2DEG * atan2(float(_y), float(_x - (LEFT_GOAL_THRESHOLD - DELTA_GOAL_THRESHOLD))));
 	float angRight = 180 + adduct180(RAD2DEG * atan2(float(_y), float(_x - (RIGHT_GOAL_THRESHOLD + DELTA_GOAL_THRESHOLD))));
@@ -95,6 +92,7 @@ bool ProcessingCoord::ballInBack(float angBall, uint8_t varible) {
 	else return adduct(angBall) >= angLeft && adduct(angBall) <= angRight;
 }
 
+//If robot may kick now 
 bool ProcessingCoord::suitableParams2Kick() {
 	float angLeft = atan2(float(-2 + LEFT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
 	float angRight = atan2(float(2 + RIGHT_GOAL_THRESHOLD - _x), float(DIST_BETWEEN_GOALS - _y)) * RAD2DEG;
@@ -102,9 +100,13 @@ bool ProcessingCoord::suitableParams2Kick() {
 	return _angle >= angLeft && _angle <= angRight;
 }
 
+//Check left threshold
 bool ProcessingCoord::checkXLeft(int16_t x, uint8_t role) {
-	if (role == GOALKEEPER_ROLE) return x > THRESHOLD_X_LEFT + DELTA_DIST + SAVE_DELTA_GK;//leftThreshold - 3.5 * DELTA_DIST + SAVE_DELTA_GK;
-	else {
+	if (role == GOALKEEPER_ROLE) {
+		//X-left-threshold for goalkeeper 
+		return x > THRESHOLD_X_LEFT + DELTA_DIST + SAVE_DELTA_GK;
+	} else {
+		//Increase X-left-zone near the enemy goal area
 		if (_y > 210 - 90) { //- 70
 			return x > leftThreshold - 2; //- 9
 		} else {
@@ -113,9 +115,13 @@ bool ProcessingCoord::checkXLeft(int16_t x, uint8_t role) {
 	}
 }
 
+//Check right threshold
 bool ProcessingCoord::checkXRight(int16_t x, uint8_t role) {
-	if (role == GOALKEEPER_ROLE) return x < THRESHOLD_X_RIGHT - DELTA_DIST - SAVE_DELTA_GK / 2;//rightThreshold + 2 * DELTA_DIST - SAVE_DELTA_GK;
-	else {
+	if (role == GOALKEEPER_ROLE) {
+		//X-right-threshold for goalkeeper
+		return x < THRESHOLD_X_RIGHT - DELTA_DIST - SAVE_DELTA_GK / 2;
+	} else {
+		//Increase X-right-zone near the enemy goal area
 		if (_y > 210 - 80) { //-40
 			return x < rightThreshold + 7; //+ 10
  		} else {

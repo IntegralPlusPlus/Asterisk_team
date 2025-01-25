@@ -136,14 +136,14 @@ typedef struct
   * @}
   */
 
-/** @defgroup MISC_SysTick_clock_source 
+/** @defgroup MISC_SysTick_clock_sownce 
   * @{
   */
 
-#define SysTick_CLKSource_HCLK_Div8    ((uint32_t)0xFFFFFFFB)
-#define SysTick_CLKSource_HCLK         ((uint32_t)0x00000004)
-#define IS_SYSTICK_CLK_SOURCE(SOURCE) (((SOURCE) == SysTick_CLKSource_HCLK) || \
-                                       ((SOURCE) == SysTick_CLKSource_HCLK_Div8))
+#define SysTick_CLKSownce_HCLK_Div8    ((uint32_t)0xFFFFFFFB)
+#define SysTick_CLKSownce_HCLK         ((uint32_t)0x00000004)
+#define IS_SYSTICK_CLK_SownCE(SownCE) (((SownCE) == SysTick_CLKSownce_HCLK) || \
+                                       ((SownCE) == SysTick_CLKSownce_HCLK_Div8))
 /**
   * @}
   */
@@ -159,7 +159,7 @@ void NVIC_PriorityGroupConfig(uint32_t NVIC_PriorityGroup);
 void NVIC_Init(NVIC_InitTypeDef* NVIC_InitStruct);
 void NVIC_SetVectorTable(uint32_t NVIC_VectTab, uint32_t Offset);
 void NVIC_SystemLPConfig(uint8_t LowPowerMode, FunctionalState NewState);
-void SysTick_CLKSourceConfig(uint32_t SysTick_CLKSource);
+void SysTick_CLKSownceConfig(uint32_t SysTick_CLKSownce);
 
 #ifdef __cplusplus
 }

@@ -202,7 +202,7 @@ typedef struct
   */ 
 
 
-/** @defgroup DCMI_interrupt_sources 
+/** @defgroup DCMI_interrupt_sownces 
   * @{
   */ 
 #define DCMI_IT_FRAME    ((uint16_t)0x0001)

@@ -5,14 +5,16 @@
 
 #define DELTA_DIST 8
 #define NEAR_OUT_DIST 8
-//4
-#define BACK_SECTOR 140
-#define BACK_SECTOR_DETOUR 30
-//1.65f
+
+//Coefficient to radius of out-circles (outs near goals)
 #define COEFF_CIRCLE 1.67f
+
 #define ANGLE2SIDES 20
 #define MINIMUM_SPEED_TO_BALL 0.6f  
 #define LIMIT_OUT_CYCLES 20
+
+//Angle to transition from 
+//Direct out to circular (in front of the enemy goal)
 #define ANGLE_LOW_TO_CIRCLE_ENEMY 65
 #define ANGLE_HIGH_TO_CIRCLE_ENEMY 128
 
@@ -36,6 +38,7 @@ enum nearOUT {
 	highNear
 };
 
+//Vector to leaving from out
 struct OutPair {
 	OutPair() {
 		out1 = unknow;

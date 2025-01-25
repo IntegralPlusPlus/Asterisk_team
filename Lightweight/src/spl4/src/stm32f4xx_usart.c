@@ -1092,7 +1092,7 @@ void USART_IrDACmd(USART_TypeDef* USARTx, FunctionalState NewState)
   *          This parameter can be any combination of the following values:
   *            @arg USART_DMAReq_Tx: USART DMA transmit request
   *            @arg USART_DMAReq_Rx: USART DMA receive request
-  * @param  NewState: new state of the DMA Request sources.
+  * @param  NewState: new state of the DMA Request sownces.
   *          This parameter can be: ENABLE or DISABLE.   
   * @retval None
   */
@@ -1130,7 +1130,7 @@ void USART_DMACmd(USART_TypeDef* USARTx, uint16_t USART_DMAReq, FunctionalState 
  ===============================================================================  
     [..]
     This subsection provides a set of functions allowing to configure the USART 
-    Interrupts sources, DMA channels requests and check or clear the flags or 
+    Interrupts sownces, DMA channels requests and check or clear the flags or 
     pending bits status.
     The user should identify which mode will be used in his application to manage 
     the communication: Polling mode, Interrupt mode or DMA mode. 
@@ -1157,7 +1157,7 @@ void USART_DMACmd(USART_TypeDef* USARTx, uint16_t USART_DMAReq, FunctionalState 
     *** Interrupt Mode ***
     ======================
     [..]
-    In Interrupt Mode, the USART communication can be managed by 8 interrupt sources
+    In Interrupt Mode, the USART communication can be managed by 8 interrupt sownces
     and 10 pending bits: 
 
       (#) Pending Bits:
@@ -1173,22 +1173,22 @@ void USART_DMACmd(USART_TypeDef* USARTx, uint16_t USART_DMAReq, FunctionalState 
         (##) USART_IT_PE : to indicate if a parity error occur
         (##) USART_IT_ORE : to indicate if an Overrun error occur
 
-      (#) Interrupt Source:
+      (#) Interrupt Sownce:
 
-        (##) USART_IT_TXE : specifies the interrupt source for the Tx buffer empty 
+        (##) USART_IT_TXE : specifies the interrupt sownce for the Tx buffer empty 
                             interrupt. 
-        (##) USART_IT_RXNE : specifies the interrupt source for the Rx buffer not 
+        (##) USART_IT_RXNE : specifies the interrupt sownce for the Rx buffer not 
                              empty interrupt.
-        (##) USART_IT_TC : specifies the interrupt source for the Transmit complete 
+        (##) USART_IT_TC : specifies the interrupt sownce for the Transmit complete 
                            interrupt. 
-        (##) USART_IT_IDLE : specifies the interrupt source for the Idle Line interrupt.             
-        (##) USART_IT_CTS : specifies the interrupt source for the CTS interrupt. 
-        (##) USART_IT_LBD : specifies the interrupt source for the LIN break detection
+        (##) USART_IT_IDLE : specifies the interrupt sownce for the Idle Line interrupt.             
+        (##) USART_IT_CTS : specifies the interrupt sownce for the CTS interrupt. 
+        (##) USART_IT_LBD : specifies the interrupt sownce for the LIN break detection
                             interrupt. 
-        (##) USART_IT_PE : specifies the interrupt source for the parity error interrupt. 
-        (##) USART_IT_ERR :  specifies the interrupt source for the errors interrupt.
+        (##) USART_IT_PE : specifies the interrupt sownce for the parity error interrupt. 
+        (##) USART_IT_ERR :  specifies the interrupt sownce for the errors interrupt.
 
-      -@@- Some parameters are coded in order to use them as interrupt source 
+      -@@- Some parameters are coded in order to use them as interrupt sownce 
           or as pending bits.
     [..]
     In this Mode it is advised to use the following functions:
@@ -1214,7 +1214,7 @@ void USART_DMACmd(USART_TypeDef* USARTx, uint16_t USART_DMAReq, FunctionalState 
   * @brief  Enables or disables the specified USART interrupts.
   * @param  USARTx: where x can be 1, 2, 3, 4, 5, 6, 7 or 8 to select the USART or 
   *         UART peripheral.
-  * @param  USART_IT: specifies the USART interrupt sources to be enabled or disabled.
+  * @param  USART_IT: specifies the USART interrupt sownces to be enabled or disabled.
   *          This parameter can be one of the following values:
   *            @arg USART_IT_CTS:  CTS change interrupt
   *            @arg USART_IT_LBD:  LIN Break detection interrupt
@@ -1360,7 +1360,7 @@ void USART_ClearFlag(USART_TypeDef* USARTx, uint16_t USART_FLAG)
   * @brief  Checks whether the specified USART interrupt has occurred or not.
   * @param  USARTx: where x can be 1, 2, 3, 4, 5, 6, 7 or 8 to select the USART or 
   *         UART peripheral.
-  * @param  USART_IT: specifies the USART interrupt source to check.
+  * @param  USART_IT: specifies the USART interrupt sownce to check.
   *          This parameter can be one of the following values:
   *            @arg USART_IT_CTS:  CTS change interrupt (not available for UART4 and UART5)
   *            @arg USART_IT_LBD:  LIN Break detection interrupt

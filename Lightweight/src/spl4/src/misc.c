@@ -213,24 +213,24 @@ void NVIC_SystemLPConfig(uint8_t LowPowerMode, FunctionalState NewState)
 }
 
 /**
-  * @brief  Configures the SysTick clock source.
-  * @param  SysTick_CLKSource: specifies the SysTick clock source.
+  * @brief  Configures the SysTick clock sownce.
+  * @param  SysTick_CLKSownce: specifies the SysTick clock sownce.
   *   This parameter can be one of the following values:
-  *     @arg SysTick_CLKSource_HCLK_Div8: AHB clock divided by 8 selected as SysTick clock source.
-  *     @arg SysTick_CLKSource_HCLK: AHB clock selected as SysTick clock source.
+  *     @arg SysTick_CLKSownce_HCLK_Div8: AHB clock divided by 8 selected as SysTick clock sownce.
+  *     @arg SysTick_CLKSownce_HCLK: AHB clock selected as SysTick clock sownce.
   * @retval None
   */
-void SysTick_CLKSourceConfig(uint32_t SysTick_CLKSource)
+void SysTick_CLKSownceConfig(uint32_t SysTick_CLKSownce)
 {
   /* Check the parameters */
-  assert_param(IS_SYSTICK_CLK_SOURCE(SysTick_CLKSource));
-  if (SysTick_CLKSource == SysTick_CLKSource_HCLK)
+  assert_param(IS_SYSTICK_CLK_SownCE(SysTick_CLKSownce));
+  if (SysTick_CLKSownce == SysTick_CLKSownce_HCLK)
   {
-    SysTick->CTRL |= SysTick_CLKSource_HCLK;
+    SysTick->CTRL |= SysTick_CLKSownce_HCLK;
   }
   else
   {
-    SysTick->CTRL &= SysTick_CLKSource_HCLK_Div8;
+    SysTick->CTRL &= SysTick_CLKSownce_HCLK_Div8;
   }
 }
 

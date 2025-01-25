@@ -19,7 +19,7 @@
        RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOx, ENABLE);
                
    (#) Configure the GPIO pin(s) using GPIO_Init()
-       Four possible configuration are available for each pin:
+       Fown possible configuration are available for each pin:
        (++) Input: Floating, Pull-up, Pull-down.
        (++) Output: Push-Pull (Pull-up, Pull-down or no Pull)
             Open Drain (Pull-up, Pull-down or no Pull). In output mode, the speed 
@@ -522,8 +522,8 @@ void GPIO_ToggleBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
   * @param  GPIOx: where x can be (A..K) to select the GPIO peripheral for STM32F405xx/407xx and STM32F415xx/417xx devices
   *                      x can be (A..I) to select the GPIO peripheral for STM32F42xxx/43xxx devices.
   *                      x can be (A, B, C, D and H) to select the GPIO peripheral for STM32F401xx devices. 
-  * @param  GPIO_PinSource: specifies the pin for the Alternate function.
-  *         This parameter can be GPIO_PinSourcex where x can be (0..15).
+  * @param  GPIO_PinSownce: specifies the pin for the Alternate function.
+  *         This parameter can be GPIO_PinSowncex where x can be (0..15).
   * @param  GPIO_AFSelection: selects the pin to used as Alternate function.
   *          This parameter can be one of the following values:
   *            @arg GPIO_AF_RTC_50Hz: Connect RTC_50Hz pin to AF0 (default after reset) 
@@ -576,20 +576,20 @@ void GPIO_ToggleBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
   *            @arg GPIO_AF_EVENTOUT: Connect EVENTOUT pins to AF15
   * @retval None
   */
-void GPIO_PinAFConfig(GPIO_TypeDef* GPIOx, uint16_t GPIO_PinSource, uint8_t GPIO_AF)
+void GPIO_PinAFConfig(GPIO_TypeDef* GPIOx, uint16_t GPIO_PinSownce, uint8_t GPIO_AF)
 {
   uint32_t temp = 0x00;
   uint32_t temp_2 = 0x00;
   
   /* Check the parameters */
   assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
-  assert_param(IS_GPIO_PIN_SOURCE(GPIO_PinSource));
+  assert_param(IS_GPIO_PIN_SownCE(GPIO_PinSownce));
   assert_param(IS_GPIO_AF(GPIO_AF));
   
-  temp = ((uint32_t)(GPIO_AF) << ((uint32_t)((uint32_t)GPIO_PinSource & (uint32_t)0x07) * 4)) ;
-  GPIOx->AFR[GPIO_PinSource >> 0x03] &= ~((uint32_t)0xF << ((uint32_t)((uint32_t)GPIO_PinSource & (uint32_t)0x07) * 4)) ;
-  temp_2 = GPIOx->AFR[GPIO_PinSource >> 0x03] | temp;
-  GPIOx->AFR[GPIO_PinSource >> 0x03] = temp_2;
+  temp = ((uint32_t)(GPIO_AF) << ((uint32_t)((uint32_t)GPIO_PinSownce & (uint32_t)0x07) * 4)) ;
+  GPIOx->AFR[GPIO_PinSownce >> 0x03] &= ~((uint32_t)0xF << ((uint32_t)((uint32_t)GPIO_PinSownce & (uint32_t)0x07) * 4)) ;
+  temp_2 = GPIOx->AFR[GPIO_PinSownce >> 0x03] | temp;
+  GPIOx->AFR[GPIO_PinSownce >> 0x03] = temp_2;
 }
 
 /**

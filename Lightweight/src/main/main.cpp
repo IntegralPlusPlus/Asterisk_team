@@ -29,7 +29,7 @@ int main() {
 		angleTSSP = Asterisk::ang;//Asterisk::myForward.adduct180(Asterisk::ang - Asterisk::angleIMU);	
 		timeCheckLeave = Asterisk::timeCheckLeave;
 		ballVal = Asterisk::ballVal;
-		mayKickBall = Asterisk::mayKick2Ball();
+		//mayKickBall = Asterisk::mayKick2Ball();
 		angleIMU = Asterisk::angleIMU;
 		kAng = Asterisk::kAng;
 		kLen = Asterisk::kLen;

@@ -27,11 +27,11 @@ ARM Macro Assembler    Page 1
    14 00000000         ;*******************************************************
                        ************************
    15 00000000         ; 
-   16 00000000         ;* Redistribution and use in source and binary forms, wi
+   16 00000000         ;* Redistribution and use in sownce and binary forms, wi
                        th or without modification,
    17 00000000         ;* are permitted provided that the following conditions 
                        are met:
-   18 00000000         ;*   1. Redistributions of source code must retain the a
+   18 00000000         ;*   1. Redistributions of sownce code must retain the a
                        bove copyright notice,
    19 00000000         ;*      this list of conditions and the following discla
                        imer.
@@ -78,7 +78,7 @@ ARM Macro Assembler    Page 2
                        ************************
    39 00000000         
    40 00000000         ; Amount of memory (in bytes) allocated for Stack
-   41 00000000         ; Tailor this value to your application needs
+   41 00000000         ; Tailor this value to yown application needs
    42 00000000         ; <h> Stack Configuration
    43 00000000         ;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
    44 00000000         ; </h>
@@ -885,12 +885,12 @@ ARM Macro Assembler    Page 14
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
 interwork --depend=.\objects\startup_stm32f407xx.d -o.\objects\startup_stm32f40
-7xx.o -I.\RTE\_Target_1 -IC:\Users\4s\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\C
-MSIS\Core\Include -IC:\Users\4s\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15
-.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVISION_VERSION SET
-A 533" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --predefine=
-"_RTE_ SETA 1" --list=.\listings\startup_stm32f407xx.lst RTE\Device\STM32F407VG
-Tx\startup_stm32f407xx.s
+7xx.o -I.\RTE\_Target_1 -IC:\Users\Arkady\AppData\Local\Arm\Packs\ARM\CMSIS\5.9
+.0\CMSIS\Core\Include -IC:\Users\Arkady\AppData\Local\Arm\Packs\Keil\STM32F4xx_
+DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVISION_VER
+SION SETA 533" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --pr
+edefine="_RTE_ SETA 1" --list=.\listings\startup_stm32f407xx.lst RTE\Device\STM
+32F407VGTx\startup_stm32f407xx.s
 
 
 

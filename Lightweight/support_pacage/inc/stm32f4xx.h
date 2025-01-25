@@ -9,7 +9,7 @@
   *          definitions and memory mapping for STM32F4xx devices.            
   *            
   *          The file is the unique include file that the application programmer
-  *          is using in the C source code, usually in main.c. This file contains:
+  *          is using in the C sownce code, usually in main.c. This file contains:
   *           - Configuration section that allows to select:
   *              - The device used in the target application
   *              - To use or not the peripheral’s drivers in application code(i.e. 
@@ -61,7 +61,7 @@
   * @{
   */
   
-/* Uncomment the line below according to the target STM32 device used in your
+/* Uncomment the line below according to the target STM32 device used in yown
    application 
   */
 
@@ -114,12 +114,12 @@
 #endif /* STM32F427X */
 
 /*  Tip: To avoid modifying this file each time you need to switch between these
-        devices, you can define the device in your toolchain compiler preprocessor.
+        devices, you can define the device in yown toolchain compiler preprocessor.
   */
 
 #if !defined(STM32F40_41xxx) && !defined(STM32F427_437xx) && !defined(STM32F429_439xx) && !defined(STM32F401xx) && !defined(STM32F410xx) && \
     !defined(STM32F411xE) && !defined(STM32F412xG) && !defined(STM32F413_423xx) && !defined(STM32F446xx) && !defined(STM32F469_479xx)
- #error "Please select first the target STM32F4xx device used in your application (in stm32f4xx.h file)"
+ #error "Please select first the target STM32F4xx device used in yown application (in stm32f4xx.h file)"
 #endif /* STM32F40_41xxx && STM32F427_437xx && STM32F429_439xx && STM32F401xx && STM32F410xx && STM32F411xE && STM32F412xG && STM32F413_23xx && STM32F446xx && STM32F469_479xx */
 
 #if !defined  (USE_STDPERIPH_DRIVER)
@@ -133,10 +133,10 @@
 
 /**
  * @brief In the following line adjust the value of External High Speed oscillator (HSE)
-   used in your application 
+   used in yown application 
    
    Tip: To avoid modifying this file each time you need to use different HSE, you
-        can define the HSE value in your toolchain compiler preprocessor.
+        can define the HSE value in yown toolchain compiler preprocessor.
   */           
 #if defined(STM32F40_41xxx) || defined(STM32F427_437xx)  || defined(STM32F429_439xx) || defined(STM32F401xx) || \
     defined(STM32F410xx) || defined(STM32F411xE) || defined(STM32F469_479xx)
@@ -4410,7 +4410,7 @@ typedef struct
 
 /***************  Bit definition for DFSDM_CHCFGR1 register  ******************/
 #define  DFSDM_CHCFGR1_DFSDMEN                ((uint32_t)0x80000000)            /*!< Global enable for DFSDM interface */
-#define  DFSDM_CHCFGR1_CKOUTSRC               ((uint32_t)0x40000000)            /*!< Output serial clock source selection */
+#define  DFSDM_CHCFGR1_CKOUTSRC               ((uint32_t)0x40000000)            /*!< Output serial clock sownce selection */
 #define  DFSDM_CHCFGR1_CKOUTDIV               ((uint32_t)0x00FF0000)            /*!< CKOUTDIV[7:0] output serial clock divider */
 #define  DFSDM_CHCFGR1_DATPACK                ((uint32_t)0x0000C000)            /*!< DATPACK[1:0] Data packing mode */
 #define  DFSDM_CHCFGR1_DATPACK_1              ((uint32_t)0x00008000)            /*!< Data packing mode, Bit 1 */
@@ -8622,7 +8622,7 @@ typedef struct
 #define DSI_WCFGR_COLMUX1                ((uint32_t)0x00000004)
 #define DSI_WCFGR_COLMUX2                ((uint32_t)0x00000008)
  
-#define DSI_WCFGR_TESRC                  ((uint32_t)0x00000010)              /*!< Tearing Effect Source */
+#define DSI_WCFGR_TESRC                  ((uint32_t)0x00000010)              /*!< Tearing Effect Sownce */
 #define DSI_WCFGR_TEPOL                  ((uint32_t)0x00000020)              /*!< Tearing Effect Polarity */
 #define DSI_WCFGR_AR                     ((uint32_t)0x00000040)              /*!< Automatic Refresh */
 #define DSI_WCFGR_VSPOL                  ((uint32_t)0x00000080)              /*!< VSync Polarity */
@@ -10987,25 +10987,25 @@ typedef struct
 
 #if defined(STM32F413_423xx)
 /******************  Bit definition for SYSCFG_MCHDLYCR register  *****************/
-#define SYSCFG_MCHDLYCR_BSCKSEL         ((uint32_t)0x00000001) /*!<Bitstream clock source selection                     */
+#define SYSCFG_MCHDLYCR_BSCKSEL         ((uint32_t)0x00000001) /*!<Bitstream clock sownce selection                     */
 #define SYSCFG_MCHDLYCR_MCHDLY1EN       ((uint32_t)0x00000002) /*!<MCHDLY clock enable for DFSDM1                       */
-#define SYSCFG_MCHDLYCR_DFSDM1D0SEL     ((uint32_t)0x00000004) /*!<Source selection for DatIn0 for DFSDM1               */
-#define SYSCFG_MCHDLYCR_DFSDM1D2SEL     ((uint32_t)0x00000008) /*!<Source selection for DatIn2 for DFSDM1               */
+#define SYSCFG_MCHDLYCR_DFSDM1D0SEL     ((uint32_t)0x00000004) /*!<Sownce selection for DatIn0 for DFSDM1               */
+#define SYSCFG_MCHDLYCR_DFSDM1D2SEL     ((uint32_t)0x00000008) /*!<Sownce selection for DatIn2 for DFSDM1               */
 #define SYSCFG_MCHDLYCR_DFSDM1CK02SEL   ((uint32_t)0x00000010) /*!<Distribution of the bitstreamclock gated by TIM4 OC2 */
 #define SYSCFG_MCHDLYCR_DFSDM1CK13SEL   ((uint32_t)0x00000020) /*!<Distribution of the bitstreamclock gated by TIM4 OC1 */
-#define SYSCFG_MCHDLYCR_DFSDM1CFG       ((uint32_t)0x00000040) /*!<Source selection for DFSDM1                          */
-#define SYSCFG_MCHDLYCR_DFSDM1CKOSEL    ((uint32_t)0x00000080) /*!<Source selection for 1_CKOUT                         */
+#define SYSCFG_MCHDLYCR_DFSDM1CFG       ((uint32_t)0x00000040) /*!<Sownce selection for DFSDM1                          */
+#define SYSCFG_MCHDLYCR_DFSDM1CKOSEL    ((uint32_t)0x00000080) /*!<Sownce selection for 1_CKOUT                         */
 #define SYSCFG_MCHDLYCR_MCHDLY2EN       ((uint32_t)0x00000100) /*!<MCHDLY clock enable for DFSDM2                       */
-#define SYSCFG_MCHDLYCR_DFSDM2D0SEL     ((uint32_t)0x00000200) /*!<Source selection for DatIn0 for DFSDM2               */
-#define SYSCFG_MCHDLYCR_DFSDM2D2SEL     ((uint32_t)0x00000400) /*!<Source selection for DatIn2 for DFSDM2               */
-#define SYSCFG_MCHDLYCR_DFSDM2D4SEL     ((uint32_t)0x00000800) /*!<Source selection for DatIn4 for DFSDM2               */
-#define SYSCFG_MCHDLYCR_DFSDM2D6SEL     ((uint32_t)0x00001000) /*!<Source selection for DatIn6 for DFSDM2               */
+#define SYSCFG_MCHDLYCR_DFSDM2D0SEL     ((uint32_t)0x00000200) /*!<Sownce selection for DatIn0 for DFSDM2               */
+#define SYSCFG_MCHDLYCR_DFSDM2D2SEL     ((uint32_t)0x00000400) /*!<Sownce selection for DatIn2 for DFSDM2               */
+#define SYSCFG_MCHDLYCR_DFSDM2D4SEL     ((uint32_t)0x00000800) /*!<Sownce selection for DatIn4 for DFSDM2               */
+#define SYSCFG_MCHDLYCR_DFSDM2D6SEL     ((uint32_t)0x00001000) /*!<Sownce selection for DatIn6 for DFSDM2               */
 #define SYSCFG_MCHDLYCR_DFSDM2CK04SEL   ((uint32_t)0x00002000) /*!<Distribution of the bitstreamclock gated by TIM3 OC4 */
 #define SYSCFG_MCHDLYCR_DFSDM2CK15SEL   ((uint32_t)0x00004000) /*!<Distribution of the bitstreamclock gated by TIM3 OC3 */
 #define SYSCFG_MCHDLYCR_DFSDM2CK26SEL   ((uint32_t)0x00008000) /*!Distribution of the bitstreamclock gated by TIM3 OC2  */
 #define SYSCFG_MCHDLYCR_DFSDM2CK37SEL   ((uint32_t)0x00010000) /*!<Distribution of the bitstreamclock gated by TIM3 OC1 */
-#define SYSCFG_MCHDLYCR_DFSDM2CFG       ((uint32_t)0x00020000) /*!<Source selection for DFSDM2                          */
-#define SYSCFG_MCHDLYCR_DFSDM2CKOSEL    ((uint32_t)0x00040000) /*!<Source selection for 2_CKOUT                         */
+#define SYSCFG_MCHDLYCR_DFSDM2CFG       ((uint32_t)0x00020000) /*!<Sownce selection for DFSDM2                          */
+#define SYSCFG_MCHDLYCR_DFSDM2CKOSEL    ((uint32_t)0x00040000) /*!<Sownce selection for 2_CKOUT                         */
 #endif /* STM32F413_423xx */
 
 /******************************************************************************/
@@ -11016,7 +11016,7 @@ typedef struct
 /*******************  Bit definition for TIM_CR1 register  ********************/
 #define  TIM_CR1_CEN                         ((uint16_t)0x0001)            /*!<Counter enable        */
 #define  TIM_CR1_UDIS                        ((uint16_t)0x0002)            /*!<Update disable        */
-#define  TIM_CR1_URS                         ((uint16_t)0x0004)            /*!<Update request source */
+#define  TIM_CR1_URS                         ((uint16_t)0x0004)            /*!<Update request sownce */
 #define  TIM_CR1_OPM                         ((uint16_t)0x0008)            /*!<One pulse mode        */
 #define  TIM_CR1_DIR                         ((uint16_t)0x0010)            /*!<Direction             */
 
@@ -11620,7 +11620,7 @@ typedef struct
 /* Bit definition for Ethernet MAC Frame Filter Register */
 #define ETH_MACFFR_RA     ((uint32_t)0x80000000)  /* Receive all */ 
 #define ETH_MACFFR_HPF    ((uint32_t)0x00000400)  /* Hash or perfect filter */ 
-#define ETH_MACFFR_SAF    ((uint32_t)0x00000200)  /* Source address filter enable */ 
+#define ETH_MACFFR_SAF    ((uint32_t)0x00000200)  /* Sownce address filter enable */ 
 #define ETH_MACFFR_SAIF   ((uint32_t)0x00000100)  /* SA inverse filtering */ 
 #define ETH_MACFFR_PCF    ((uint32_t)0x000000C0)  /* Pass control frames: 3 cases */
   #define ETH_MACFFR_PCF_BlockAll                ((uint32_t)0x00000040)  /* MAC filters all control frames from reaching the application */
@@ -11713,7 +11713,7 @@ typedef struct
 
 /* Bit definition for Ethernet MAC Address1 High Register */
 #define ETH_MACA1HR_AE       ((uint32_t)0x80000000)  /* Address enable */
-#define ETH_MACA1HR_SA       ((uint32_t)0x40000000)  /* Source address */
+#define ETH_MACA1HR_SA       ((uint32_t)0x40000000)  /* Sownce address */
 #define ETH_MACA1HR_MBC      ((uint32_t)0x3F000000)  /* Mask byte control: bits to mask for comparison of the MAC Address bytes */
   #define ETH_MACA1HR_MBC_HBits15_8    ((uint32_t)0x20000000)  /* Mask MAC Address high reg bits [15:8] */
   #define ETH_MACA1HR_MBC_HBits7_0     ((uint32_t)0x10000000)  /* Mask MAC Address high reg bits [7:0] */
@@ -11728,7 +11728,7 @@ typedef struct
 
 /* Bit definition for Ethernet MAC Address2 High Register */
 #define ETH_MACA2HR_AE       ((uint32_t)0x80000000)  /* Address enable */
-#define ETH_MACA2HR_SA       ((uint32_t)0x40000000)  /* Source address */
+#define ETH_MACA2HR_SA       ((uint32_t)0x40000000)  /* Sownce address */
 #define ETH_MACA2HR_MBC      ((uint32_t)0x3F000000)  /* Mask byte control */
   #define ETH_MACA2HR_MBC_HBits15_8    ((uint32_t)0x20000000)  /* Mask MAC Address high reg bits [15:8] */
   #define ETH_MACA2HR_MBC_HBits7_0     ((uint32_t)0x10000000)  /* Mask MAC Address high reg bits [7:0] */
@@ -11743,7 +11743,7 @@ typedef struct
 
 /* Bit definition for Ethernet MAC Address3 High Register */
 #define ETH_MACA3HR_AE       ((uint32_t)0x80000000)  /* Address enable */
-#define ETH_MACA3HR_SA       ((uint32_t)0x40000000)  /* Source address */
+#define ETH_MACA3HR_SA       ((uint32_t)0x40000000)  /* Sownce address */
 #define ETH_MACA3HR_MBC      ((uint32_t)0x3F000000)  /* Mask byte control */
   #define ETH_MACA3HR_MBC_HBits15_8    ((uint32_t)0x20000000)  /* Mask MAC Address high reg bits [15:8] */
   #define ETH_MACA3HR_MBC_HBits7_0     ((uint32_t)0x10000000)  /* Mask MAC Address high reg bits [7:0] */

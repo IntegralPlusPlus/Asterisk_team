@@ -27,12 +27,12 @@
           are assigned to be used for debug purpose.
     [..]          
       Once the device started from reset, the user application has to:
-      (+) Configure the clock source to be used to drive the System clock
+      (+) Configure the clock sownce to be used to drive the System clock
           (if the application needs higher frequency/performance)
       (+) Configure the System clock frequency and Flash settings  
       (+) Configure the AHB and APB busses prescalers
       (+) Enable the clock for the peripheral(s) to be used
-      (+) Configure the clock source(s) for peripherals which clocks are not
+      (+) Configure the clock sownce(s) for peripherals which clocks are not
           derived from the System clock (I2S, RTC, ADC, USB OTG FS/SDIO/RNG)
  @endverbatim    
   ******************************************************************************
@@ -171,15 +171,15 @@ static __I uint8_t APBAHBPrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6
       PLLs, CSS and MCO pins.
   
       (#) HSI (high-speed internal), 16 MHz factory-trimmed RC used directly or through
-          the PLL as System clock source.
+          the PLL as System clock sownce.
 
       (#) LSI (low-speed internal), 32 KHz low consumption RC used as IWDG and/or RTC
-          clock source.
+          clock sownce.
 
       (#) HSE (high-speed external), 4 to 26 MHz crystal oscillator used directly or
-          through the PLL as System clock source. Can be used also as RTC clock source.
+          through the PLL as System clock sownce. Can be used also as RTC clock sownce.
 
-      (#) LSE (low-speed external), 32 KHz oscillator used as RTC clock source.   
+      (#) LSE (low-speed external), 32 KHz oscillator used as RTC clock sownce.   
 
       (#) PLL (clocked by HSI or HSE), featuring two different output clocks:
         (++) The first output is used to generate the high speed system clock (up to 168 MHz)
@@ -194,7 +194,7 @@ static __I uint8_t APBAHBPrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6
           interface and LCD TFT controller available only for STM32F42xxx/43xxx/446xx/469xx/479xx devices.
   
       (#) CSS (Clock security system), once enable and if a HSE clock failure occurs 
-         (HSE used directly or through PLL as System clock source), the System clock
+         (HSE used directly or through PLL as System clock sownce), the System clock
          is automatically switched to HSI and an interrupt is generated if enabled. 
          The interrupt is linked to the Cortex-M4 NMI (Non-Maskable Interrupt) 
          exception vector.   
@@ -211,7 +211,7 @@ static __I uint8_t APBAHBPrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6
 /**
   * @brief  Resets the RCC clock configuration to the default reset state.
   * @note   The default reset state of the clock configuration is given below:
-  *            - HSI ON and used as system clock source
+  *            - HSI ON and used as system clock sownce
   *            - HSE, PLL and PLLI2S OFF
   *            - AHB, APB1 and APB2 prescaler set to 1.
   *            - CSS, MCO1 and MCO2 OFF
@@ -267,7 +267,7 @@ void RCC_DeInit(void)
   *         software should wait on HSERDY flag to be set indicating that HSE clock
   *         is stable and can be used to clock the PLL and/or system clock.
   * @note   HSE state can not be changed if it is used directly or through the
-  *         PLL as system clock. In this case, you have to select another source
+  *         PLL as system clock. In this case, you have to select another sownce
   *         of the system clock then change the HSE state (ex. disable it).
   * @note   The HSE is stopped by hardware when entering STOP and STANDBY modes.  
   * @note   This function reset the CSSON bit, so if the Clock security system(CSS)
@@ -299,7 +299,7 @@ void RCC_HSEConfig(uint8_t RCC_HSE)
   *         this flag is set, otherwise returns ERROR if the timeout is reached 
   *         and this flag is not set. The timeout value is defined by the constant
   *         HSE_STARTUP_TIMEOUT in stm32f4xx.h file. You can tailor it depending
-  *         on the HSE crystal used in your application. 
+  *         on the HSE crystal used in yown application. 
   * @param  None
   * @retval An ErrorStatus enumeration value:
   *          - SUCCESS: HSE oscillator is stable and ready to use
@@ -357,15 +357,15 @@ void RCC_AdjustHSICalibrationValue(uint8_t HSICalibrationValue)
 /**
   * @brief  Enables or disables the Internal High Speed oscillator (HSI).
   * @note   The HSI is stopped by hardware when entering STOP and STANDBY modes.
-  *         It is used (enabled by hardware) as system clock source after startup
+  *         It is used (enabled by hardware) as system clock sownce after startup
   *         from Reset, wakeup from STOP and STANDBY mode, or in case of failure
   *         of the HSE used directly or indirectly as system clock (if the Clock
   *         Security System CSS is enabled).             
-  * @note   HSI can not be stopped if it is used as system clock source. In this case,
-  *         you have to select another source of the system clock then stop the HSI.  
+  * @note   HSI can not be stopped if it is used as system clock sownce. In this case,
+  *         you have to select another sownce of the system clock then stop the HSI.  
   * @note   After enabling the HSI, the application software should wait on HSIRDY
   *         flag to be set indicating that HSI clock is stable and can be used as
-  *         system clock source.  
+  *         system clock sownce.  
   * @param  NewState: new state of the HSI.
   *          This parameter can be: ENABLE or DISABLE.
   * @note   When the HSI is stopped, HSIRDY flag goes low after 6 HSI oscillator
@@ -447,14 +447,14 @@ void RCC_LSICmd(FunctionalState NewState)
 
 #if defined(STM32F410xx) || defined(STM32F412xG) || defined(STM32F413_423xx) || defined(STM32F446xx) || defined(STM32F469_479xx)
 /**
-  * @brief  Configures the main PLL clock source, multiplication and division factors.
+  * @brief  Configures the main PLL clock sownce, multiplication and division factors.
   * @note   This function must be used only when the main PLL is disabled.
   *  
-  * @param  RCC_PLLSource: specifies the PLL entry clock source.
+  * @param  RCC_PLLSownce: specifies the PLL entry clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_PLLSource_HSI: HSI oscillator clock selected as PLL clock entry
-  *            @arg RCC_PLLSource_HSE: HSE oscillator clock selected as PLL clock entry
-  * @note   This clock source (RCC_PLLSource) is common for the main PLL and PLLI2S.  
+  *            @arg RCC_PLLSownce_HSI: HSI oscillator clock selected as PLL clock entry
+  *            @arg RCC_PLLSownce_HSE: HSE oscillator clock selected as PLL clock entry
+  * @note   This clock sownce (RCC_PLLSownce) is common for the main PLL and PLLI2S.  
   *  
   * @param  PLLM: specifies the division factor for PLL VCO input clock
   *          This parameter must be a number between 0 and 63.
@@ -478,38 +478,38 @@ void RCC_LSICmd(FunctionalState NewState)
   * @param  PLLR: specifies the division factor for I2S, SAI, SYSTEM, SPDIF in STM32F446xx devices
   *          This parameter must be a number between 2 and 7.
   *
-  * @note   If the USB OTG FS is used in your application, you have to set the
+  * @note   If the USB OTG FS is used in yown application, you have to set the
   *         PLLQ parameter correctly to have 48 MHz clock for the USB. However,
   *         the SDIO and RNG need a frequency lower than or equal to 48 MHz to work
   *         correctly.
   *   
   * @retval None
   */
-void RCC_PLLConfig(uint32_t RCC_PLLSource, uint32_t PLLM, uint32_t PLLN, uint32_t PLLP, uint32_t PLLQ, uint32_t PLLR)
+void RCC_PLLConfig(uint32_t RCC_PLLSownce, uint32_t PLLM, uint32_t PLLN, uint32_t PLLP, uint32_t PLLQ, uint32_t PLLR)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_PLL_SOURCE(RCC_PLLSource));
+  assert_param(IS_RCC_PLL_SownCE(RCC_PLLSownce));
   assert_param(IS_RCC_PLLM_VALUE(PLLM));
   assert_param(IS_RCC_PLLN_VALUE(PLLN));
   assert_param(IS_RCC_PLLP_VALUE(PLLP));
   assert_param(IS_RCC_PLLQ_VALUE(PLLQ));
   assert_param(IS_RCC_PLLR_VALUE(PLLR));
   
-  RCC->PLLCFGR = PLLM | (PLLN << 6) | (((PLLP >> 1) -1) << 16) | (RCC_PLLSource) |
+  RCC->PLLCFGR = PLLM | (PLLN << 6) | (((PLLP >> 1) -1) << 16) | (RCC_PLLSownce) |
                  (PLLQ << 24) | (PLLR << 28);
 }
 #endif /* STM32F410xx || STM32F412xG || STM32F413_423xx || STM32F446xx || STM32F469_479xx */
 
 #if defined(STM32F40_41xxx) || defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F401xx) || defined(STM32F411xE)
 /**
-  * @brief  Configures the main PLL clock source, multiplication and division factors.
+  * @brief  Configures the main PLL clock sownce, multiplication and division factors.
   * @note   This function must be used only when the main PLL is disabled.
   *  
-  * @param  RCC_PLLSource: specifies the PLL entry clock source.
+  * @param  RCC_PLLSownce: specifies the PLL entry clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_PLLSource_HSI: HSI oscillator clock selected as PLL clock entry
-  *            @arg RCC_PLLSource_HSE: HSE oscillator clock selected as PLL clock entry
-  * @note   This clock source (RCC_PLLSource) is common for the main PLL and PLLI2S.  
+  *            @arg RCC_PLLSownce_HSI: HSI oscillator clock selected as PLL clock entry
+  *            @arg RCC_PLLSownce_HSE: HSE oscillator clock selected as PLL clock entry
+  * @note   This clock sownce (RCC_PLLSownce) is common for the main PLL and PLLI2S.  
   *  
   * @param  PLLM: specifies the division factor for PLL VCO input clock
   *          This parameter must be a number between 0 and 63.
@@ -529,23 +529,23 @@ void RCC_PLLConfig(uint32_t RCC_PLLSource, uint32_t PLLM, uint32_t PLLN, uint32_
   *  
   * @param  PLLQ: specifies the division factor for OTG FS, SDIO and RNG clocks
   *          This parameter must be a number between 4 and 15.
-  * @note   If the USB OTG FS is used in your application, you have to set the
+  * @note   If the USB OTG FS is used in yown application, you have to set the
   *         PLLQ parameter correctly to have 48 MHz clock for the USB. However,
   *         the SDIO and RNG need a frequency lower than or equal to 48 MHz to work
   *         correctly.
   *   
   * @retval None
   */
-void RCC_PLLConfig(uint32_t RCC_PLLSource, uint32_t PLLM, uint32_t PLLN, uint32_t PLLP, uint32_t PLLQ)
+void RCC_PLLConfig(uint32_t RCC_PLLSownce, uint32_t PLLM, uint32_t PLLN, uint32_t PLLP, uint32_t PLLQ)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_PLL_SOURCE(RCC_PLLSource));
+  assert_param(IS_RCC_PLL_SownCE(RCC_PLLSownce));
   assert_param(IS_RCC_PLLM_VALUE(PLLM));
   assert_param(IS_RCC_PLLN_VALUE(PLLN));
   assert_param(IS_RCC_PLLP_VALUE(PLLP));
   assert_param(IS_RCC_PLLQ_VALUE(PLLQ));
 
-  RCC->PLLCFGR = PLLM | (PLLN << 6) | (((PLLP >> 1) -1) << 16) | (RCC_PLLSource) |
+  RCC->PLLCFGR = PLLM | (PLLN << 6) | (((PLLP >> 1) -1) << 16) | (RCC_PLLSownce) |
                  (PLLQ << 24);
 }
 #endif /* STM32F40_41xxx || STM32F427_437xx || STM32F429_439xx || STM32F401xx || STM32F411xE */
@@ -554,8 +554,8 @@ void RCC_PLLConfig(uint32_t RCC_PLLSource, uint32_t PLLM, uint32_t PLLN, uint32_
   * @brief  Enables or disables the main PLL.
   * @note   After enabling the main PLL, the application software should wait on 
   *         PLLRDY flag to be set indicating that PLL clock is stable and can
-  *         be used as system clock source.
-  * @note   The main PLL can not be disabled if it is used as system clock source
+  *         be used as system clock sownce.
+  * @note   The main PLL can not be disabled if it is used as system clock sownce
   * @note   The main PLL is disabled by hardware when entering STOP and STANDBY modes.
   * @param  NewState: new state of the main PLL. This parameter can be: ENABLE or DISABLE.
   * @retval None
@@ -575,7 +575,7 @@ void RCC_PLLCmd(FunctionalState NewState)
   *         or STM32F401xx devices. 
   *    
   * @note   This function must be used only when the PLLI2S is disabled.
-  * @note   PLLI2S clock source is common with the main PLL (configured in 
+  * @note   PLLI2S clock sownce is common with the main PLL (configured in 
   *         RCC_PLLConfig function )  
   *             
   * @param  PLLI2SN: specifies the multiplication factor for PLLI2S VCO output clock
@@ -607,7 +607,7 @@ void RCC_PLLI2SConfig(uint32_t PLLI2SN, uint32_t PLLI2SR)
   * @note   This function can be used only for STM32F411xE devices. 
   *    
   * @note   This function must be used only when the PLLI2S is disabled.
-  * @note   PLLI2S clock source is common with the main PLL (configured in 
+  * @note   PLLI2S clock sownce is common with the main PLL (configured in 
   *         RCC_PLLConfig function )  
   *
   * @param  PLLI2SM: specifies the division factor for PLLI2S VCO input clock
@@ -646,7 +646,7 @@ void RCC_PLLI2SConfig(uint32_t PLLI2SN, uint32_t PLLI2SR, uint32_t PLLI2SM)
   * @note   This function can be used only for STM32F42xxx/43xxx devices 
   *         
   * @note   This function must be used only when the PLLI2S is disabled.
-  * @note   PLLI2S clock source is common with the main PLL (configured in 
+  * @note   PLLI2S clock sownce is common with the main PLL (configured in 
   *         RCC_PLLConfig function )  
   *             
   * @param  PLLI2SN: specifies the multiplication factor for PLLI2S VCO output clock
@@ -682,7 +682,7 @@ void RCC_PLLI2SConfig(uint32_t PLLI2SN, uint32_t PLLI2SQ, uint32_t PLLI2SR)
   * @note   This function can be used only for STM32F446xx devices 
   *         
   * @note   This function must be used only when the PLLI2S is disabled.
-  * @note   PLLI2S clock source is common with the main PLL (configured in 
+  * @note   PLLI2S clock sownce is common with the main PLL (configured in 
   *         RCC_PLLConfig function )  
   * 
   * @param  PLLI2SM: specifies the division factor for PLLI2S VCO input clock
@@ -743,7 +743,7 @@ void RCC_PLLI2SCmd(FunctionalState NewState)
   * @note   This function can be used only for STM32F469_479xx devices 
   *        
   * @note   This function must be used only when the PLLSAI is disabled.
-  * @note   PLLSAI clock source is common with the main PLL (configured in 
+  * @note   PLLSAI clock sownce is common with the main PLL (configured in 
   *         RCC_PLLConfig function )  
   *
   * @param  PLLSAIN: specifies the multiplication factor for PLLSAI VCO output clock
@@ -781,7 +781,7 @@ void RCC_PLLSAIConfig(uint32_t PLLSAIN, uint32_t PLLSAIP, uint32_t PLLSAIQ, uint
   * @note   This function can be used only for STM32F446xx devices 
   *        
   * @note   This function must be used only when the PLLSAI is disabled.
-  * @note   PLLSAI clock source is common with the main PLL (configured in 
+  * @note   PLLSAI clock sownce is common with the main PLL (configured in 
   *         RCC_PLLConfig function )  
   * 
   * @param  PLLSAIM: specifies the division factor for PLLSAI VCO input clock
@@ -822,7 +822,7 @@ void RCC_PLLSAIConfig(uint32_t PLLSAIM, uint32_t PLLSAIN, uint32_t PLLSAIP, uint
   * @note   This function can be used only for STM32F42xxx/43xxx devices 
   *        
   * @note   This function must be used only when the PLLSAI is disabled.
-  * @note   PLLSAI clock source is common with the main PLL (configured in 
+  * @note   PLLSAI clock sownce is common with the main PLL (configured in 
   *         RCC_PLLConfig function )  
   *             
   * @param  PLLSAIN: specifies the multiplication factor for PLLSAI VCO output clock
@@ -884,14 +884,14 @@ void RCC_ClockSecuritySystemCmd(FunctionalState NewState)
 }
 
 /**
-  * @brief  Selects the clock source to output on MCO1 pin(PA8).
+  * @brief  Selects the clock sownce to output on MCO1 pin(PA8).
   * @note   PA8 should be configured in alternate function mode.
-  * @param  RCC_MCO1Source: specifies the clock source to output.
+  * @param  RCC_MCO1Sownce: specifies the clock sownce to output.
   *          This parameter can be one of the following values:
-  *            @arg RCC_MCO1Source_HSI: HSI clock selected as MCO1 source
-  *            @arg RCC_MCO1Source_LSE: LSE clock selected as MCO1 source
-  *            @arg RCC_MCO1Source_HSE: HSE clock selected as MCO1 source
-  *            @arg RCC_MCO1Source_PLLCLK: main PLL clock selected as MCO1 source
+  *            @arg RCC_MCO1Sownce_HSI: HSI clock selected as MCO1 sownce
+  *            @arg RCC_MCO1Sownce_LSE: LSE clock selected as MCO1 sownce
+  *            @arg RCC_MCO1Sownce_HSE: HSE clock selected as MCO1 sownce
+  *            @arg RCC_MCO1Sownce_PLLCLK: main PLL clock selected as MCO1 sownce
   * @param  RCC_MCO1Div: specifies the MCO1 prescaler.
   *          This parameter can be one of the following values:
   *            @arg RCC_MCO1Div_1: no division applied to MCO1 clock
@@ -901,12 +901,12 @@ void RCC_ClockSecuritySystemCmd(FunctionalState NewState)
   *            @arg RCC_MCO1Div_5: division by 5 applied to MCO1 clock
   * @retval None
   */
-void RCC_MCO1Config(uint32_t RCC_MCO1Source, uint32_t RCC_MCO1Div)
+void RCC_MCO1Config(uint32_t RCC_MCO1Sownce, uint32_t RCC_MCO1Div)
 {
   uint32_t tmpreg = 0;
   
   /* Check the parameters */
-  assert_param(IS_RCC_MCO1SOURCE(RCC_MCO1Source));
+  assert_param(IS_RCC_MCO1SownCE(RCC_MCO1Sownce));
   assert_param(IS_RCC_MCO1DIV(RCC_MCO1Div));  
 
   tmpreg = RCC->CFGR;
@@ -914,8 +914,8 @@ void RCC_MCO1Config(uint32_t RCC_MCO1Source, uint32_t RCC_MCO1Div)
   /* Clear MCO1[1:0] and MCO1PRE[2:0] bits */
   tmpreg &= CFGR_MCO1_RESET_MASK;
 
-  /* Select MCO1 clock source and prescaler */
-  tmpreg |= RCC_MCO1Source | RCC_MCO1Div;
+  /* Select MCO1 clock sownce and prescaler */
+  tmpreg |= RCC_MCO1Sownce | RCC_MCO1Div;
   
   /* Store the new value */
   RCC->CFGR = tmpreg;
@@ -926,15 +926,15 @@ void RCC_MCO1Config(uint32_t RCC_MCO1Source, uint32_t RCC_MCO1Div)
 }
 
 /**
-  * @brief  Selects the clock source to output on MCO2 pin(PC9).
+  * @brief  Selects the clock sownce to output on MCO2 pin(PC9).
   * @note   PC9 should be configured in alternate function mode.
-  * @param  RCC_MCO2Source: specifies the clock source to output.
+  * @param  RCC_MCO2Sownce: specifies the clock sownce to output.
   *          This parameter can be one of the following values:
-  *            @arg RCC_MCO2Source_SYSCLK: System clock (SYSCLK) selected as MCO2 source
-  *            @arg RCC_MCO2SOURCE_PLLI2SCLK: PLLI2S clock selected as MCO2 source, available for all STM32F4 devices except STM32F410xx 
-  *            @arg RCC_MCO2SOURCE_I2SCLK: I2SCLK clock selected as MCO2 source, available only for STM32F410xx devices   
-  *            @arg RCC_MCO2Source_HSE: HSE clock selected as MCO2 source
-  *            @arg RCC_MCO2Source_PLLCLK: main PLL clock selected as MCO2 source
+  *            @arg RCC_MCO2Sownce_SYSCLK: System clock (SYSCLK) selected as MCO2 sownce
+  *            @arg RCC_MCO2SownCE_PLLI2SCLK: PLLI2S clock selected as MCO2 sownce, available for all STM32F4 devices except STM32F410xx 
+  *            @arg RCC_MCO2SownCE_I2SCLK: I2SCLK clock selected as MCO2 sownce, available only for STM32F410xx devices   
+  *            @arg RCC_MCO2Sownce_HSE: HSE clock selected as MCO2 sownce
+  *            @arg RCC_MCO2Sownce_PLLCLK: main PLL clock selected as MCO2 sownce
   * @param  RCC_MCO2Div: specifies the MCO2 prescaler.
   *          This parameter can be one of the following values:
   *            @arg RCC_MCO2Div_1: no division applied to MCO2 clock
@@ -946,12 +946,12 @@ void RCC_MCO1Config(uint32_t RCC_MCO1Source, uint32_t RCC_MCO1Div)
   *        at last one of the SPI clocks enabled (SPI1, SPI2 or SPI5).
   * @retval None
   */
-void RCC_MCO2Config(uint32_t RCC_MCO2Source, uint32_t RCC_MCO2Div)
+void RCC_MCO2Config(uint32_t RCC_MCO2Sownce, uint32_t RCC_MCO2Div)
 {
   uint32_t tmpreg = 0;
   
   /* Check the parameters */
-  assert_param(IS_RCC_MCO2SOURCE(RCC_MCO2Source));
+  assert_param(IS_RCC_MCO2SownCE(RCC_MCO2Sownce));
   assert_param(IS_RCC_MCO2DIV(RCC_MCO2Div));
   
   tmpreg = RCC->CFGR;
@@ -959,8 +959,8 @@ void RCC_MCO2Config(uint32_t RCC_MCO2Source, uint32_t RCC_MCO2Div)
   /* Clear MCO2 and MCO2PRE[2:0] bits */
   tmpreg &= CFGR_MCO2_RESET_MASK;
 
-  /* Select MCO2 clock source and prescaler */
-  tmpreg |= RCC_MCO2Source | RCC_MCO2Div;
+  /* Select MCO2 clock sownce and prescaler */
+  tmpreg |= RCC_MCO2Sownce | RCC_MCO2Div;
   
   /* Store the new value */
   RCC->CFGR = tmpreg;
@@ -985,7 +985,7 @@ void RCC_MCO2Config(uint32_t RCC_MCO2Source, uint32_t RCC_MCO2Div)
       This section provide functions allowing to configure the System, AHB, APB1 and 
       APB2 busses clocks.
   
-      (#) Several clock sources can be used to drive the System clock (SYSCLK): HSI,
+      (#) Several clock sownces can be used to drive the System clock (SYSCLK): HSI,
           HSE and PLL.
           The AHB clock (HCLK) is derived from System clock through configurable 
           prescaler and used to clock the CPU, memory and peripherals mapped 
@@ -1128,54 +1128,54 @@ void RCC_MCO2Config(uint32_t RCC_MCO2Source, uint32_t RCC_MCO2Div)
 
 /**
   * @brief  Configures the system clock (SYSCLK).
-  * @note   The HSI is used (enabled by hardware) as system clock source after
+  * @note   The HSI is used (enabled by hardware) as system clock sownce after
   *         startup from Reset, wake-up from STOP and STANDBY mode, or in case
   *         of failure of the HSE used directly or indirectly as system clock
   *         (if the Clock Security System CSS is enabled).
-  * @note   A switch from one clock source to another occurs only if the target
-  *         clock source is ready (clock stable after startup delay or PLL locked). 
-  *         If a clock source which is not yet ready is selected, the switch will
-  *         occur when the clock source will be ready. 
-  *         You can use RCC_GetSYSCLKSource() function to know which clock is
-  *         currently used as system clock source. 
-  * @param  RCC_SYSCLKSource: specifies the clock source used as system clock.
+  * @note   A switch from one clock sownce to another occurs only if the target
+  *         clock sownce is ready (clock stable after startup delay or PLL locked). 
+  *         If a clock sownce which is not yet ready is selected, the switch will
+  *         occur when the clock sownce will be ready. 
+  *         You can use RCC_GetSYSCLKSownce() function to know which clock is
+  *         currently used as system clock sownce. 
+  * @param  RCC_SYSCLKSownce: specifies the clock sownce used as system clock.
   *          This parameter can be one of the following values:
-  *            @arg RCC_SYSCLKSource_HSI: HSI selected as system clock source
-  *            @arg RCC_SYSCLKSource_HSE: HSE selected as system clock source
-  *            @arg RCC_SYSCLKSource_PLLCLK: PLL selected as system clock source (RCC_SYSCLKSource_PLLPCLK for STM32F446xx devices)
-  *            @arg RCC_SYSCLKSource_PLLRCLK: PLL R selected as system clock source only for STM32F412xG, STM32F413_423xx and STM32F446xx devices
+  *            @arg RCC_SYSCLKSownce_HSI: HSI selected as system clock sownce
+  *            @arg RCC_SYSCLKSownce_HSE: HSE selected as system clock sownce
+  *            @arg RCC_SYSCLKSownce_PLLCLK: PLL selected as system clock sownce (RCC_SYSCLKSownce_PLLPCLK for STM32F446xx devices)
+  *            @arg RCC_SYSCLKSownce_PLLRCLK: PLL R selected as system clock sownce only for STM32F412xG, STM32F413_423xx and STM32F446xx devices
   * @retval None
   */
-void RCC_SYSCLKConfig(uint32_t RCC_SYSCLKSource)
+void RCC_SYSCLKConfig(uint32_t RCC_SYSCLKSownce)
 {
   uint32_t tmpreg = 0;
 
   /* Check the parameters */
-  assert_param(IS_RCC_SYSCLK_SOURCE(RCC_SYSCLKSource));
+  assert_param(IS_RCC_SYSCLK_SownCE(RCC_SYSCLKSownce));
 
   tmpreg = RCC->CFGR;
 
   /* Clear SW[1:0] bits */
   tmpreg &= ~RCC_CFGR_SW;
 
-  /* Set SW[1:0] bits according to RCC_SYSCLKSource value */
-  tmpreg |= RCC_SYSCLKSource;
+  /* Set SW[1:0] bits according to RCC_SYSCLKSownce value */
+  tmpreg |= RCC_SYSCLKSownce;
 
   /* Store the new value */
   RCC->CFGR = tmpreg;
 }
 
 /**
-  * @brief  Returns the clock source used as system clock.
+  * @brief  Returns the clock sownce used as system clock.
   * @param  None
-  * @retval The clock source used as system clock. The returned value can be one
+  * @retval The clock sownce used as system clock. The returned value can be one
   *         of the following:
   *              - 0x00: HSI used as system clock
   *              - 0x04: HSE used as system clock
   *              - 0x08: PLL used as system clock (PLL P for STM32F446xx devices)
   *              - 0x0C: PLL R used as system clock (only for STM32F412xG, STM32F413_423xx and STM32F446xx devices)
   */
-uint8_t RCC_GetSYSCLKSource(void)
+uint8_t RCC_GetSYSCLKSownce(void)
 {
   return ((uint8_t)(RCC->CFGR & RCC_CFGR_SWS));
 }
@@ -1287,10 +1287,10 @@ void RCC_PCLK2Config(uint32_t RCC_HCLK)
   * 
   * @note   The system frequency computed by this function is not the real 
   *         frequency in the chip. It is calculated based on the predefined 
-  *         constant and the selected clock source:
-  * @note     If SYSCLK source is HSI, function returns values based on HSI_VALUE(*)
-  * @note     If SYSCLK source is HSE, function returns values based on HSE_VALUE(**)
-  * @note     If SYSCLK source is PLL, function returns values based on HSE_VALUE(**) 
+  *         constant and the selected clock sownce:
+  * @note     If SYSCLK sownce is HSI, function returns values based on HSI_VALUE(*)
+  * @note     If SYSCLK sownce is HSE, function returns values based on HSE_VALUE(**)
+  * @note     If SYSCLK sownce is PLL, function returns values based on HSE_VALUE(**) 
   *           or HSI_VALUE(*) multiplied/divided by the PLL factors.         
   * @note     (*) HSI_VALUE is a constant defined in stm32f4xx.h file (default value
   *               16 MHz) but the real value may vary depending on the variations
@@ -1316,38 +1316,38 @@ void RCC_PCLK2Config(uint32_t RCC_HCLK)
   */
 void RCC_GetClocksFreq(RCC_ClocksTypeDef* RCC_Clocks)
 {
-  uint32_t tmp = 0, presc = 0, pllvco = 0, pllp = 2, pllsource = 0, pllm = 2;
+  uint32_t tmp = 0, presc = 0, pllvco = 0, pllp = 2, pllsownce = 0, pllm = 2;
 #if defined(STM32F412xG) || defined(STM32F413_423xx) || defined(STM32F446xx)  
   uint32_t pllr = 2;
 #endif /* STM32F412xG || STM32F413_423xx || STM32F446xx */
   
-  /* Get SYSCLK source -------------------------------------------------------*/
+  /* Get SYSCLK sownce -------------------------------------------------------*/
   tmp = RCC->CFGR & RCC_CFGR_SWS;
   
   switch (tmp)
   {
-  case 0x00:  /* HSI used as system clock source */
+  case 0x00:  /* HSI used as system clock sownce */
     RCC_Clocks->SYSCLK_Frequency = HSI_VALUE;
     break;
-  case 0x04:  /* HSE used as system clock  source */
+  case 0x04:  /* HSE used as system clock  sownce */
     RCC_Clocks->SYSCLK_Frequency = HSE_VALUE;
     break;
-  case 0x08:  /* PLL P used as system clock  source */
+  case 0x08:  /* PLL P used as system clock  sownce */
     
     /* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLLM) * PLLN
     SYSCLK = PLL_VCO / PLLP
     */    
-    pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
+    pllsownce = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
     pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
     
-    if (pllsource != 0)
+    if (pllsownce != 0)
     {
-      /* HSE used as PLL clock source */
+      /* HSE used as PLL clock sownce */
       pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
     }
     else
     {
-      /* HSI used as PLL clock source */
+      /* HSI used as PLL clock sownce */
       pllvco = (HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);      
     }
     
@@ -1356,21 +1356,21 @@ void RCC_GetClocksFreq(RCC_ClocksTypeDef* RCC_Clocks)
     break;
 
 #if defined(STM32F412xG) || defined(STM32F413_423xx) || defined(STM32F446xx)
-  case 0x0C:  /* PLL R used as system clock  source */
+  case 0x0C:  /* PLL R used as system clock  sownce */
     /* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLLM) * PLLN
     SYSCLK = PLL_VCO / PLLR
     */    
-    pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
+    pllsownce = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
     pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
     
-    if (pllsource != 0)
+    if (pllsownce != 0)
     {
-      /* HSE used as PLL clock source */
+      /* HSE used as PLL clock sownce */
       pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
     }
     else
     {
-      /* HSI used as PLL clock source */
+      /* HSI used as PLL clock sownce */
       pllvco = (HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);      
     }
     
@@ -1446,55 +1446,55 @@ void RCC_GetClocksFreq(RCC_ClocksTypeDef* RCC_Clocks)
   * @note   As the RTC clock configuration bits are in the Backup domain and write
   *         access is denied to this domain after reset, you have to enable write
   *         access using PWR_BackupAccessCmd(ENABLE) function before to configure
-  *         the RTC clock source (to be done once after reset).    
+  *         the RTC clock sownce (to be done once after reset).    
   * @note   Once the RTC clock is configured it can't be changed unless the  
   *         Backup domain is reset using RCC_BackupResetCmd() function, or by
   *         a Power On Reset (POR).
   *    
-  * @param  RCC_RTCCLKSource: specifies the RTC clock source.
+  * @param  RCC_RTCCLKSownce: specifies the RTC clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_RTCCLKSource_LSE: LSE selected as RTC clock
-  *            @arg RCC_RTCCLKSource_LSI: LSI selected as RTC clock
-  *            @arg RCC_RTCCLKSource_HSE_Divx: HSE clock divided by x selected
+  *            @arg RCC_RTCCLKSownce_LSE: LSE selected as RTC clock
+  *            @arg RCC_RTCCLKSownce_LSI: LSI selected as RTC clock
+  *            @arg RCC_RTCCLKSownce_HSE_Divx: HSE clock divided by x selected
   *                                            as RTC clock, where x:[2,31]
   *  
-  * @note   If the LSE or LSI is used as RTC clock source, the RTC continues to
-  *         work in STOP and STANDBY modes, and can be used as wakeup source.
-  *         However, when the HSE clock is used as RTC clock source, the RTC
+  * @note   If the LSE or LSI is used as RTC clock sownce, the RTC continues to
+  *         work in STOP and STANDBY modes, and can be used as wakeup sownce.
+  *         However, when the HSE clock is used as RTC clock sownce, the RTC
   *         cannot be used in STOP and STANDBY modes.    
   * @note   The maximum input clock frequency for RTC is 1MHz (when using HSE as
-  *         RTC clock source).
+  *         RTC clock sownce).
   *  
   * @retval None
   */
-void RCC_RTCCLKConfig(uint32_t RCC_RTCCLKSource)
+void RCC_RTCCLKConfig(uint32_t RCC_RTCCLKSownce)
 {
   uint32_t tmpreg = 0;
 
   /* Check the parameters */
-  assert_param(IS_RCC_RTCCLK_SOURCE(RCC_RTCCLKSource));
+  assert_param(IS_RCC_RTCCLK_SownCE(RCC_RTCCLKSownce));
 
-  if ((RCC_RTCCLKSource & 0x00000300) == 0x00000300)
-  { /* If HSE is selected as RTC clock source, configure HSE division factor for RTC clock */
+  if ((RCC_RTCCLKSownce & 0x00000300) == 0x00000300)
+  { /* If HSE is selected as RTC clock sownce, configure HSE division factor for RTC clock */
     tmpreg = RCC->CFGR;
 
     /* Clear RTCPRE[4:0] bits */
     tmpreg &= ~RCC_CFGR_RTCPRE;
 
     /* Configure HSE division factor for RTC clock */
-    tmpreg |= (RCC_RTCCLKSource & 0xFFFFCFF);
+    tmpreg |= (RCC_RTCCLKSownce & 0xFFFFCFF);
 
     /* Store the new value */
     RCC->CFGR = tmpreg;
   }
     
-  /* Select the RTC clock source */
-  RCC->BDCR |= (RCC_RTCCLKSource & 0x00000FFF);
+  /* Select the RTC clock sownce */
+  RCC->BDCR |= (RCC_RTCCLKSownce & 0x00000FFF);
 }
 
 /**
   * @brief  Enables or disables the RTC clock.
-  * @note   This function must be used only after the RTC clock source was selected
+  * @note   This function must be used only after the RTC clock sownce was selected
   *         using the RCC_RTCCLKConfig function.
   * @param  NewState: new state of the RTC clock. This parameter can be: ENABLE or DISABLE.
   * @retval None
@@ -1510,7 +1510,7 @@ void RCC_RTCCLKCmd(FunctionalState NewState)
 /**
   * @brief  Forces or releases the Backup domain reset.
   * @note   This function resets the RTC peripheral (including the backup registers)
-  *         and the RTC clock source selection in RCC_CSR register.
+  *         and the RTC clock sownce selection in RCC_CSR register.
   * @note   The BKPSRAM is not affected by this reset.    
   * @param  NewState: new state of the Backup domain reset.
   *          This parameter can be: ENABLE or DISABLE.
@@ -1525,143 +1525,143 @@ void RCC_BackupResetCmd(FunctionalState NewState)
 
 #if defined (STM32F412xG) || defined(STM32F413_423xx) || defined(STM32F446xx)
 /**
-  * @brief  Configures the I2S clock source (I2SCLK).
+  * @brief  Configures the I2S clock sownce (I2SCLK).
   * @note   This function must be called before enabling the I2S APB clock.
   *
-  * @param  RCC_I2SAPBx: specifies the APBx I2S clock source.
+  * @param  RCC_I2SAPBx: specifies the APBx I2S clock sownce.
   *          This parameter can be one of the following values:
   *            @arg RCC_I2SBus_APB1: I2S peripheral instance is on APB1 Bus
   *            @arg RCC_I2SBus_APB2: I2S peripheral instance is on APB2 Bus
   *
-  * @param  RCC_I2SCLKSource: specifies the I2S clock source.
+  * @param  RCC_I2SCLKSownce: specifies the I2S clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_I2SCLKSource_PLLI2S: PLLI2S clock used as I2S clock source
-  *            @arg RCC_I2SCLKSource_Ext: External clock mapped on the I2S_CKIN pin
-  *                                        used as I2S clock source
-  *            @arg RCC_I2SCLKSource_PLL: PLL clock used as I2S clock source
-  *            @arg RCC_I2SCLKSource_HSI_HSE: HSI or HSE depends on PLLSRC used as I2S clock source
+  *            @arg RCC_I2SCLKSownce_PLLI2S: PLLI2S clock used as I2S clock sownce
+  *            @arg RCC_I2SCLKSownce_Ext: External clock mapped on the I2S_CKIN pin
+  *                                        used as I2S clock sownce
+  *            @arg RCC_I2SCLKSownce_PLL: PLL clock used as I2S clock sownce
+  *            @arg RCC_I2SCLKSownce_HSI_HSE: HSI or HSE depends on PLLSRC used as I2S clock sownce
   * @retval None
   */
-void RCC_I2SCLKConfig(uint32_t RCC_I2SAPBx, uint32_t RCC_I2SCLKSource)
+void RCC_I2SCLKConfig(uint32_t RCC_I2SAPBx, uint32_t RCC_I2SCLKSownce)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_I2SCLK_SOURCE(RCC_I2SCLKSource));
+  assert_param(IS_RCC_I2SCLK_SownCE(RCC_I2SCLKSownce));
   assert_param(IS_RCC_I2S_APBx(RCC_I2SAPBx));
   
   if(RCC_I2SAPBx == RCC_I2SBus_APB1)
   {
-    /* Clear APB1 I2Sx clock source selection bits */
+    /* Clear APB1 I2Sx clock sownce selection bits */
     RCC->DCKCFGR &= ~RCC_DCKCFGR_I2S1SRC;
-    /* Set new APB1 I2Sx clock source*/
-    RCC->DCKCFGR |= RCC_I2SCLKSource;
+    /* Set new APB1 I2Sx clock sownce*/
+    RCC->DCKCFGR |= RCC_I2SCLKSownce;
   }
   else
   {
-    /* Clear APB2 I2Sx clock source selection  bits */
+    /* Clear APB2 I2Sx clock sownce selection  bits */
     RCC->DCKCFGR &= ~RCC_DCKCFGR_I2S2SRC;
-    /* Set new APB2 I2Sx clock source */
-    RCC->DCKCFGR |= (RCC_I2SCLKSource << 2);
+    /* Set new APB2 I2Sx clock sownce */
+    RCC->DCKCFGR |= (RCC_I2SCLKSownce << 2);
   }
 }
 #if defined(STM32F446xx)
 /**
-  * @brief  Configures the SAIx clock source (SAIxCLK).
+  * @brief  Configures the SAIx clock sownce (SAIxCLK).
   * @note   This function must be called before enabling the SAIx APB clock.
   *
-  * @param  RCC_SAIInstance: specifies the SAIx clock source.
+  * @param  RCC_SAIInstance: specifies the SAIx clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_SAIInstance_SAI1: SAI1 clock source selection
-  *            @arg RCC_SAIInstance_SAI2: SAI2 clock source selections
+  *            @arg RCC_SAIInstance_SAI1: SAI1 clock sownce selection
+  *            @arg RCC_SAIInstance_SAI2: SAI2 clock sownce selections
   *
-  * @param  RCC_SAICLKSource: specifies the SAI clock source.
+  * @param  RCC_SAICLKSownce: specifies the SAI clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_SAICLKSource_PLLSAI: PLLSAI clock used as SAI clock source
-  *            @arg RCC_SAICLKSource_PLLI2S: PLLI2S clock used as SAI clock source
-  *            @arg RCC_SAICLKSource_PLL: PLL clock used as SAI clock source
-  *            @arg RCC_SAICLKSource_HSI_HSE: HSI or HSE depends on PLLSRC used as SAI clock source
+  *            @arg RCC_SAICLKSownce_PLLSAI: PLLSAI clock used as SAI clock sownce
+  *            @arg RCC_SAICLKSownce_PLLI2S: PLLI2S clock used as SAI clock sownce
+  *            @arg RCC_SAICLKSownce_PLL: PLL clock used as SAI clock sownce
+  *            @arg RCC_SAICLKSownce_HSI_HSE: HSI or HSE depends on PLLSRC used as SAI clock sownce
   * @retval None
   */
-void RCC_SAICLKConfig(uint32_t RCC_SAIInstance, uint32_t RCC_SAICLKSource)
+void RCC_SAICLKConfig(uint32_t RCC_SAIInstance, uint32_t RCC_SAICLKSownce)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_SAICLK_SOURCE(RCC_SAICLKSource));
+  assert_param(IS_RCC_SAICLK_SownCE(RCC_SAICLKSownce));
   assert_param(IS_RCC_SAI_INSTANCE(RCC_SAIInstance));
   
   if(RCC_SAIInstance == RCC_SAIInstance_SAI1)
   {
-    /* Clear SAI1 clock source selection bits */
+    /* Clear SAI1 clock sownce selection bits */
     RCC->DCKCFGR &= ~RCC_DCKCFGR_SAI1SRC;
-    /* Set new SAI1 clock source */
-    RCC->DCKCFGR |= RCC_SAICLKSource;
+    /* Set new SAI1 clock sownce */
+    RCC->DCKCFGR |= RCC_SAICLKSownce;
   }
   else
   {
-    /* Clear SAI2 clock source selection bits */
+    /* Clear SAI2 clock sownce selection bits */
     RCC->DCKCFGR &= ~RCC_DCKCFGR_SAI2SRC;
-    /* Set new SAI2 clock source */
-    RCC->DCKCFGR |= (RCC_SAICLKSource << 2);
+    /* Set new SAI2 clock sownce */
+    RCC->DCKCFGR |= (RCC_SAICLKSownce << 2);
   }
 }
 #endif /* STM32F446xx */
 
 #if defined(STM32F413_423xx)
 /**
-  * @brief  Configures SAI1BlockA clock source selection.      
+  * @brief  Configures SAI1BlockA clock sownce selection.      
   * @note   This function must be called before enabling PLLSAI, PLLI2S and  
   *         the SAI clock.
-  * @param  RCC_SAIBlockACLKSource: specifies the SAI Block A clock source.
+  * @param  RCC_SAIBlockACLKSownce: specifies the SAI Block A clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_SAIACLKSource_PLLI2SR: PLLI2SR clock used as SAI clock source
-  *            @arg RCC_SAIACLKSource_PLLI2S: PLLI2S clock used as SAI clock source
-  *            @arg RCC_SAIACLKSource_PLL: PLL clock used as SAI clock source
-  *            @arg RCC_SAIACLKSource_HSI_HSE: HSI or HSE depends on PLLSRC used as SAI clock source
+  *            @arg RCC_SAIACLKSownce_PLLI2SR: PLLI2SR clock used as SAI clock sownce
+  *            @arg RCC_SAIACLKSownce_PLLI2S: PLLI2S clock used as SAI clock sownce
+  *            @arg RCC_SAIACLKSownce_PLL: PLL clock used as SAI clock sownce
+  *            @arg RCC_SAIACLKSownce_HSI_HSE: HSI or HSE depends on PLLSRC used as SAI clock sownce
   * @retval None
   */
-void RCC_SAIBlockACLKConfig(uint32_t RCC_SAIBlockACLKSource)
+void RCC_SAIBlockACLKConfig(uint32_t RCC_SAIBlockACLKSownce)
 {
   uint32_t tmpreg = 0;
   
   /* Check the parameters */
-  assert_param(IS_RCC_SAIACLK_SOURCE(RCC_SAIBlockACLKSource));
+  assert_param(IS_RCC_SAIACLK_SownCE(RCC_SAIBlockACLKSownce));
   
   tmpreg = RCC->DCKCFGR;
 
   /* Clear RCC_DCKCFGR_SAI1ASRC[1:0] bits */
   tmpreg &= ~RCC_DCKCFGR_SAI1ASRC;
 
-  /* Set SAI Block A source selection value */
-  tmpreg |= RCC_SAIBlockACLKSource;
+  /* Set SAI Block A sownce selection value */
+  tmpreg |= RCC_SAIBlockACLKSownce;
 
   /* Store the new value */
   RCC->DCKCFGR = tmpreg;
 }
 
 /**
-  * @brief  Configures SAI1BlockB clock source selection.      
+  * @brief  Configures SAI1BlockB clock sownce selection.      
   * @note   This function must be called before enabling PLLSAI, PLLI2S and  
   *         the SAI clock.
-  * @param  RCC_SAIBlockBCLKSource: specifies the SAI Block B clock source.
+  * @param  RCC_SAIBlockBCLKSownce: specifies the SAI Block B clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_SAIBCLKSource_PLLI2SR: PLLI2SR clock used as SAI clock source
-  *            @arg RCC_SAIBCLKSource_PLLI2S: PLLI2S clock used as SAI clock source
-  *            @arg RCC_SAIBCLKSource_PLL: PLL clock used as SAI clock source
-  *            @arg RCC_SAIBCLKSource_HSI_HSE: HSI or HSE depends on PLLSRC used as SAI clock source
+  *            @arg RCC_SAIBCLKSownce_PLLI2SR: PLLI2SR clock used as SAI clock sownce
+  *            @arg RCC_SAIBCLKSownce_PLLI2S: PLLI2S clock used as SAI clock sownce
+  *            @arg RCC_SAIBCLKSownce_PLL: PLL clock used as SAI clock sownce
+  *            @arg RCC_SAIBCLKSownce_HSI_HSE: HSI or HSE depends on PLLSRC used as SAI clock sownce
   * @retval None
   */
-void RCC_SAIBlockBCLKConfig(uint32_t RCC_SAIBlockBCLKSource)
+void RCC_SAIBlockBCLKConfig(uint32_t RCC_SAIBlockBCLKSownce)
 {
   uint32_t tmpreg = 0;
   
   /* Check the parameters */
-  assert_param(IS_RCC_SAIBCLK_SOURCE(RCC_SAIBlockBCLKSource));
+  assert_param(IS_RCC_SAIBCLK_SownCE(RCC_SAIBlockBCLKSownce));
   
   tmpreg = RCC->DCKCFGR;
 
   /* Clear RCC_DCKCFGR_SAI1ASRC[1:0] bits */
   tmpreg &= ~RCC_DCKCFGR_SAI1BSRC;
 
-  /* Set SAI Block B source selection value */
-  tmpreg |= RCC_SAIBlockBCLKSource;
+  /* Set SAI Block B sownce selection value */
+  tmpreg |= RCC_SAIBlockBCLKSownce;
 
   /* Store the new value */
   RCC->DCKCFGR = tmpreg;
@@ -1671,116 +1671,116 @@ void RCC_SAIBlockBCLKConfig(uint32_t RCC_SAIBlockBCLKSource)
 
 #if defined(STM32F410xx)
 /**
-  * @brief  Configures the I2S clock source (I2SCLK).
+  * @brief  Configures the I2S clock sownce (I2SCLK).
   * @note   This function must be called before enabling the I2S clock.
   *
-  * @param  RCC_I2SCLKSource: specifies the I2S clock source.
+  * @param  RCC_I2SCLKSownce: specifies the I2S clock sownce.
   *         This parameter can be one of the following values:
-  *            @arg RCC_I2SAPBCLKSOURCE_PLLR: PLL VCO output clock divided by PLLR.
-  *            @arg RCC_I2SAPBCLKSOURCE_EXT: External clock mapped on the I2S_CKIN pin.
-  *            @arg RCC_I2SAPBCLKSOURCE_PLLSRC: HSI/HSE depends on PLLSRC.
+  *            @arg RCC_I2SAPBCLKSownCE_PLLR: PLL VCO output clock divided by PLLR.
+  *            @arg RCC_I2SAPBCLKSownCE_EXT: External clock mapped on the I2S_CKIN pin.
+  *            @arg RCC_I2SAPBCLKSownCE_PLLSRC: HSI/HSE depends on PLLSRC.
   * @retval None
   */
-void RCC_I2SCLKConfig(uint32_t RCC_I2SCLKSource)
+void RCC_I2SCLKConfig(uint32_t RCC_I2SCLKSownce)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_I2SCLK_SOURCE(RCC_I2SCLKSource));
+  assert_param(IS_RCC_I2SCLK_SownCE(RCC_I2SCLKSownce));
   
-  /* Clear I2Sx clock source selection bits */
+  /* Clear I2Sx clock sownce selection bits */
   RCC->DCKCFGR &= ~RCC_DCKCFGR_I2SSRC;
-  /* Set new I2Sx clock source*/
-  RCC->DCKCFGR |= RCC_I2SCLKSource;
+  /* Set new I2Sx clock sownce*/
+  RCC->DCKCFGR |= RCC_I2SCLKSownce;
 }
 #endif /* STM32F410xx */
 
 #if defined(STM32F40_41xxx) || defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F401xx) || defined(STM32F411xE) || defined(STM32F469_479xx)
 /**
-  * @brief  Configures the I2S clock source (I2SCLK).
+  * @brief  Configures the I2S clock sownce (I2SCLK).
   * @note   This function must be called before enabling the I2S APB clock.
-  * @param  RCC_I2SCLKSource: specifies the I2S clock source.
+  * @param  RCC_I2SCLKSownce: specifies the I2S clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_I2S2CLKSource_PLLI2S: PLLI2S clock used as I2S clock source
-  *            @arg RCC_I2S2CLKSource_Ext: External clock mapped on the I2S_CKIN pin
-  *                                        used as I2S clock source
+  *            @arg RCC_I2S2CLKSownce_PLLI2S: PLLI2S clock used as I2S clock sownce
+  *            @arg RCC_I2S2CLKSownce_Ext: External clock mapped on the I2S_CKIN pin
+  *                                        used as I2S clock sownce
   * @retval None
   */
-void RCC_I2SCLKConfig(uint32_t RCC_I2SCLKSource)
+void RCC_I2SCLKConfig(uint32_t RCC_I2SCLKSownce)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_I2SCLK_SOURCE(RCC_I2SCLKSource));
+  assert_param(IS_RCC_I2SCLK_SownCE(RCC_I2SCLKSownce));
 
-  *(__IO uint32_t *) CFGR_I2SSRC_BB = RCC_I2SCLKSource;  
+  *(__IO uint32_t *) CFGR_I2SSRC_BB = RCC_I2SCLKSownce;  
 }
 #endif /* STM32F40_41xxx || STM32F427_437xx || STM32F429_439xx || STM32F401xx || STM32F411xE || STM32F469_479xx */
 
 #if defined(STM32F40_41xxx) || defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F469_479xx)
 /**
-  * @brief  Configures SAI1BlockA clock source selection.
+  * @brief  Configures SAI1BlockA clock sownce selection.
   * 
   * @note   This function can be used only for STM32F42xxx/43xxx/469xx/479xx devices.
   *       
   * @note   This function must be called before enabling PLLSAI, PLLI2S and  
   *         the SAI clock.
-  * @param  RCC_SAIBlockACLKSource: specifies the SAI Block A clock source.
+  * @param  RCC_SAIBlockACLKSownce: specifies the SAI Block A clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_SAIACLKSource_PLLI2S: PLLI2S_Q clock divided by PLLI2SDIVQ used 
+  *            @arg RCC_SAIACLKSownce_PLLI2S: PLLI2S_Q clock divided by PLLI2SDIVQ used 
   *                                           as SAI1 Block A clock 
-  *            @arg RCC_SAIACLKSource_PLLSAI: PLLISAI_Q clock divided by PLLSAIDIVQ used 
+  *            @arg RCC_SAIACLKSownce_PLLSAI: PLLISAI_Q clock divided by PLLSAIDIVQ used 
   *                                           as SAI1 Block A clock 
-  *            @arg RCC_SAIACLKSource_Ext: External clock mapped on the I2S_CKIN pin
+  *            @arg RCC_SAIACLKSownce_Ext: External clock mapped on the I2S_CKIN pin
   *                                        used as SAI1 Block A clock
   * @retval None
   */
-void RCC_SAIBlockACLKConfig(uint32_t RCC_SAIBlockACLKSource)
+void RCC_SAIBlockACLKConfig(uint32_t RCC_SAIBlockACLKSownce)
 {
   uint32_t tmpreg = 0;
   
   /* Check the parameters */
-  assert_param(IS_RCC_SAIACLK_SOURCE(RCC_SAIBlockACLKSource));
+  assert_param(IS_RCC_SAIACLK_SownCE(RCC_SAIBlockACLKSownce));
   
   tmpreg = RCC->DCKCFGR;
 
   /* Clear RCC_DCKCFGR_SAI1ASRC[1:0] bits */
   tmpreg &= ~RCC_DCKCFGR_SAI1ASRC;
 
-  /* Set SAI Block A source selection value */
-  tmpreg |= RCC_SAIBlockACLKSource;
+  /* Set SAI Block A sownce selection value */
+  tmpreg |= RCC_SAIBlockACLKSownce;
 
   /* Store the new value */
   RCC->DCKCFGR = tmpreg;
 }
 
 /**
-  * @brief  Configures SAI1BlockB clock source selection.
+  * @brief  Configures SAI1BlockB clock sownce selection.
   * 
   * @note   This function can be used only for STM32F42xxx/43xxx/469xx/479xx devices.
   *       
   * @note   This function must be called before enabling PLLSAI, PLLI2S and  
   *         the SAI clock.
-  * @param  RCC_SAIBlockBCLKSource: specifies the SAI Block B clock source.
+  * @param  RCC_SAIBlockBCLKSownce: specifies the SAI Block B clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_SAIBCLKSource_PLLI2S: PLLI2S_Q clock divided by PLLI2SDIVQ used 
+  *            @arg RCC_SAIBCLKSownce_PLLI2S: PLLI2S_Q clock divided by PLLI2SDIVQ used 
   *                                           as SAI1 Block B clock 
-  *            @arg RCC_SAIBCLKSource_PLLSAI: PLLISAI_Q clock divided by PLLSAIDIVQ used 
+  *            @arg RCC_SAIBCLKSownce_PLLSAI: PLLISAI_Q clock divided by PLLSAIDIVQ used 
   *                                           as SAI1 Block B clock 
-  *            @arg RCC_SAIBCLKSource_Ext: External clock mapped on the I2S_CKIN pin
+  *            @arg RCC_SAIBCLKSownce_Ext: External clock mapped on the I2S_CKIN pin
   *                                        used as SAI1 Block B clock
   * @retval None
   */
-void RCC_SAIBlockBCLKConfig(uint32_t RCC_SAIBlockBCLKSource)
+void RCC_SAIBlockBCLKConfig(uint32_t RCC_SAIBlockBCLKSownce)
 {
   uint32_t tmpreg = 0;
   
   /* Check the parameters */
-  assert_param(IS_RCC_SAIBCLK_SOURCE(RCC_SAIBlockBCLKSource));
+  assert_param(IS_RCC_SAIBCLK_SownCE(RCC_SAIBlockBCLKSownce));
   
   tmpreg = RCC->DCKCFGR;
 
   /* Clear RCC_DCKCFGR_SAI1BSRC[1:0] bits */
   tmpreg &= ~RCC_DCKCFGR_SAI1BSRC;
 
-  /* Set SAI Block B source selection value */
-  tmpreg |= RCC_SAIBlockBCLKSource;
+  /* Set SAI Block B sownce selection value */
+  tmpreg |= RCC_SAIBlockBCLKSownce;
 
   /* Store the new value */
   RCC->DCKCFGR = tmpreg;
@@ -1952,58 +1952,58 @@ void RCC_LTDCCLKDivConfig(uint32_t RCC_PLLSAIDivR)
 
 #if defined(STM32F412xG) || defined(STM32F413_423xx)
 /**
-  * @brief  Configures the DFSDM clock source (DFSDMCLK).
+  * @brief  Configures the DFSDM clock sownce (DFSDMCLK).
   * @note   This function must be called before enabling the DFSDM APB clock.
-  * @param  RCC_DFSDMCLKSource: specifies the DFSDM clock source.
+  * @param  RCC_DFSDMCLKSownce: specifies the DFSDM clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_DFSDMCLKSource_APB: APB clock used as DFSDM clock source.
-  *            @arg RCC_DFSDMCLKSource_SYS: System clock used as DFSDM clock source.
+  *            @arg RCC_DFSDMCLKSownce_APB: APB clock used as DFSDM clock sownce.
+  *            @arg RCC_DFSDMCLKSownce_SYS: System clock used as DFSDM clock sownce.
   *                                        
   * @retval None
   */
-void RCC_DFSDM1CLKConfig(uint32_t RCC_DFSDMCLKSource)
+void RCC_DFSDM1CLKConfig(uint32_t RCC_DFSDMCLKSownce)
 {
   uint32_t tmpreg = 0;
   
   /* Check the parameters */
-  assert_param(IS_RCC_DFSDM1CLK_SOURCE(RCC_DFSDMCLKSource));
+  assert_param(IS_RCC_DFSDM1CLK_SownCE(RCC_DFSDMCLKSownce));
   
   tmpreg = RCC->DCKCFGR;
 
   /* Clear CKDFSDM-SEL  bit */
   tmpreg &= ~RCC_DCKCFGR_CKDFSDM1SEL;
 
-  /* Set CKDFSDM-SEL bit according to RCC_DFSDMCLKSource value */
-  tmpreg |= (RCC_DFSDMCLKSource << 31) ;
+  /* Set CKDFSDM-SEL bit according to RCC_DFSDMCLKSownce value */
+  tmpreg |= (RCC_DFSDMCLKSownce << 31) ;
 
   /* Store the new value */
   RCC->DCKCFGR = tmpreg;
 }
 
 /**
-  * @brief  Configures the DFSDM Audio clock source (DFSDMACLK).
+  * @brief  Configures the DFSDM Audio clock sownce (DFSDMACLK).
   * @note   This function must be called before enabling the DFSDM APB clock.
-  * @param  RCC_DFSDM1ACLKSource: specifies the DFSDM clock source.
+  * @param  RCC_DFSDM1ACLKSownce: specifies the DFSDM clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_DFSDM1AUDIOCLKSOURCE_I2SAPB1: APB clock used as DFSDM clock source.
-  *            @arg RCC_DFSDM1AUDIOCLKSOURCE_I2SAPB2: System clock used as DFSDM clock source.
+  *            @arg RCC_DFSDM1AUDIOCLKSownCE_I2SAPB1: APB clock used as DFSDM clock sownce.
+  *            @arg RCC_DFSDM1AUDIOCLKSownCE_I2SAPB2: System clock used as DFSDM clock sownce.
   *                                        
   * @retval None
   */
-void RCC_DFSDM1ACLKConfig(uint32_t RCC_DFSDM1ACLKSource)
+void RCC_DFSDM1ACLKConfig(uint32_t RCC_DFSDM1ACLKSownce)
 {
   uint32_t tmpreg = 0;
   
   /* Check the parameters */
-  assert_param(IS_RCC_DFSDMACLK_SOURCE(RCC_DFSDM1ACLKSource));
+  assert_param(IS_RCC_DFSDMACLK_SownCE(RCC_DFSDM1ACLKSownce));
   
   tmpreg = RCC->DCKCFGR;
 
   /* Clear CKDFSDMA SEL  bit */
   tmpreg &= ~RCC_DCKCFGR_CKDFSDM1ASEL;
 
-  /* Set CKDFSDM-SEL   bt according to RCC_DFSDMCLKSource value */
-  tmpreg |= RCC_DFSDM1ACLKSource;
+  /* Set CKDFSDM-SEL   bt according to RCC_DFSDMCLKSownce value */
+  tmpreg |= RCC_DFSDM1ACLKSownce;
 
   /* Store the new value */
   RCC->DCKCFGR = tmpreg;
@@ -2011,29 +2011,29 @@ void RCC_DFSDM1ACLKConfig(uint32_t RCC_DFSDM1ACLKSource)
 
 #if defined(STM32F413_423xx)
 /**
-  * @brief  Configures the DFSDM Audio clock source (DFSDMACLK).
+  * @brief  Configures the DFSDM Audio clock sownce (DFSDMACLK).
   * @note   This function must be called before enabling the DFSDM APB clock.
-  * @param  RCC_DFSDM2ACLKSource: specifies the DFSDM clock source.
+  * @param  RCC_DFSDM2ACLKSownce: specifies the DFSDM clock sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_DFSDM2AUDIOCLKSOURCE_I2SAPB1: APB clock used as DFSDM clock source.
-  *            @arg RCC_DFSDM2AUDIOCLKSOURCE_I2SAPB2: System clock used as DFSDM clock source.
+  *            @arg RCC_DFSDM2AUDIOCLKSownCE_I2SAPB1: APB clock used as DFSDM clock sownce.
+  *            @arg RCC_DFSDM2AUDIOCLKSownCE_I2SAPB2: System clock used as DFSDM clock sownce.
   *                                        
   * @retval None
   */
-void RCC_DFSDM2ACLKConfig(uint32_t RCC_DFSDMACLKSource)
+void RCC_DFSDM2ACLKConfig(uint32_t RCC_DFSDMACLKSownce)
 {
   uint32_t tmpreg = 0;
   
   /* Check the parameters */
-  assert_param(IS_RCC_DFSDMCLK_SOURCE(RCC_DFSDMACLKSource));
+  assert_param(IS_RCC_DFSDMCLK_SownCE(RCC_DFSDMACLKSownce));
   
   tmpreg = RCC->DCKCFGR;
 
   /* Clear CKDFSDMA SEL  bit */
   tmpreg &= ~RCC_DCKCFGR_CKDFSDM1ASEL;
 
-  /* Set CKDFSDM-SEL   bt according to RCC_DFSDMCLKSource value */
-  tmpreg |= RCC_DFSDMACLKSource;
+  /* Set CKDFSDM-SEL   bt according to RCC_DFSDMCLKSownce value */
+  tmpreg |= RCC_DFSDMACLKSownce;
 
   /* Store the new value */
   RCC->DCKCFGR = tmpreg;
@@ -2732,44 +2732,44 @@ void RCC_LSEModeConfig(uint8_t RCC_Mode)
 
 #if defined(STM32F410xx) || defined(STM32F413_423xx)
 /**
-  * @brief Configures the LPTIM1 clock Source.
+  * @brief Configures the LPTIM1 clock Sownce.
   * @note This feature is only available for STM32F410xx devices.
-  * @param RCC_ClockSource: specifies the LPTIM1 clock Source.
+  * @param RCC_ClockSownce: specifies the LPTIM1 clock Sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_LPTIM1CLKSOURCE_PCLK: LPTIM1 clock from APB1 selected.
-  *            @arg RCC_LPTIM1CLKSOURCE_HSI:  LPTIM1 clock from HSI selected.
-  *            @arg RCC_LPTIM1CLKSOURCE_LSI:  LPTIM1 clock from LSI selected.
-  *            @arg RCC_LPTIM1CLKSOURCE_LSE:  LPTIM1 clock from LSE selected.
+  *            @arg RCC_LPTIM1CLKSownCE_PCLK: LPTIM1 clock from APB1 selected.
+  *            @arg RCC_LPTIM1CLKSownCE_HSI:  LPTIM1 clock from HSI selected.
+  *            @arg RCC_LPTIM1CLKSownCE_LSI:  LPTIM1 clock from LSI selected.
+  *            @arg RCC_LPTIM1CLKSownCE_LSE:  LPTIM1 clock from LSE selected.
   * @retval None
   */
-void RCC_LPTIM1ClockSourceConfig(uint32_t RCC_ClockSource)
+void RCC_LPTIM1ClockSownceConfig(uint32_t RCC_ClockSownce)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_LPTIM1_CLOCKSOURCE(RCC_ClockSource));
+  assert_param(IS_RCC_LPTIM1_CLOCKSownCE(RCC_ClockSownce));
 
-  /* Clear LPTIM1 clock source selection source bits */
+  /* Clear LPTIM1 clock sownce selection sownce bits */
   RCC->DCKCFGR2 &= ~RCC_DCKCFGR2_LPTIM1SEL;
-  /* Set new LPTIM1 clock source */
-  RCC->DCKCFGR2 |= RCC_ClockSource;
+  /* Set new LPTIM1 clock sownce */
+  RCC->DCKCFGR2 |= RCC_ClockSownce;
 }
 #endif /* STM32F410xx || STM32F413_423xx */
 
 #if defined(STM32F469_479xx)
 /**
-  * @brief Configures the DSI clock Source.
+  * @brief Configures the DSI clock Sownce.
   * @note This feature is only available for STM32F469_479xx devices.
-  * @param RCC_ClockSource: specifies the DSI clock Source.
+  * @param RCC_ClockSownce: specifies the DSI clock Sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_DSICLKSource_PHY: DSI-PHY used as DSI byte lane clock source (usual case).
-  *            @arg RCC_DSICLKSource_PLLR: PLL_R used as DSI byte lane clock source, used in case DSI PLL and DSI-PHY are off (low power mode).
+  *            @arg RCC_DSICLKSownce_PHY: DSI-PHY used as DSI byte lane clock sownce (usual case).
+  *            @arg RCC_DSICLKSownce_PLLR: PLL_R used as DSI byte lane clock sownce, used in case DSI PLL and DSI-PHY are off (low power mode).
   * @retval None
   */
-void RCC_DSIClockSourceConfig(uint8_t RCC_ClockSource)
+void RCC_DSIClockSownceConfig(uint8_t RCC_ClockSownce)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_DSI_CLOCKSOURCE(RCC_ClockSource));
+  assert_param(IS_RCC_DSI_CLOCKSownCE(RCC_ClockSownce));
   
-  if(RCC_ClockSource == RCC_DSICLKSource_PLLR)
+  if(RCC_ClockSownce == RCC_DSICLKSownce_PLLR)
   {
     SET_BIT(RCC->DCKCFGR, RCC_DCKCFGR_DSISEL);
   }
@@ -2782,21 +2782,21 @@ void RCC_DSIClockSourceConfig(uint8_t RCC_ClockSource)
 
 #if defined(STM32F412xG) || defined(STM32F413_423xx) || defined(STM32F446xx) || defined(STM32F469_479xx)
 /**
-  * @brief Configures the 48MHz clock Source.
+  * @brief Configures the 48MHz clock Sownce.
   * @note This feature is only available for STM32F446xx/STM32F469_479xx devices.
-  * @param RCC_ClockSource: specifies the 48MHz clock Source.
+  * @param RCC_ClockSownce: specifies the 48MHz clock Sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_48MHZCLKSource_PLL: 48MHz from PLL selected.
-  *            @arg RCC_48MHZCLKSource_PLLSAI: 48MHz from PLLSAI selected.
-  *            @arg RCC_CK48CLKSOURCE_PLLI2SQ : 48MHz from PLLI2SQ
+  *            @arg RCC_48MHZCLKSownce_PLL: 48MHz from PLL selected.
+  *            @arg RCC_48MHZCLKSownce_PLLSAI: 48MHz from PLLSAI selected.
+  *            @arg RCC_CK48CLKSownCE_PLLI2SQ : 48MHz from PLLI2SQ
   * @retval None
   */
-void RCC_48MHzClockSourceConfig(uint8_t RCC_ClockSource)
+void RCC_48MHzClockSownceConfig(uint8_t RCC_ClockSownce)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_48MHZ_CLOCKSOURCE(RCC_ClockSource));
+  assert_param(IS_RCC_48MHZ_CLOCKSownCE(RCC_ClockSownce));
 #if defined(STM32F469_479xx) 
-  if(RCC_ClockSource == RCC_48MHZCLKSource_PLLSAI)
+  if(RCC_ClockSownce == RCC_48MHZCLKSownce_PLLSAI)
   {
     SET_BIT(RCC->DCKCFGR, RCC_DCKCFGR_CK48MSEL);
   }
@@ -2805,7 +2805,7 @@ void RCC_48MHzClockSourceConfig(uint8_t RCC_ClockSource)
     CLEAR_BIT(RCC->DCKCFGR, RCC_DCKCFGR_CK48MSEL);
   }
 #elif  defined(STM32F446xx)
-  if(RCC_ClockSource == RCC_48MHZCLKSource_PLLSAI)
+  if(RCC_ClockSownce == RCC_48MHZCLKSownce_PLLSAI)
   {
     SET_BIT(RCC->DCKCFGR2, RCC_DCKCFGR2_CK48MSEL);
   }
@@ -2814,7 +2814,7 @@ void RCC_48MHzClockSourceConfig(uint8_t RCC_ClockSource)
     CLEAR_BIT(RCC->DCKCFGR2, RCC_DCKCFGR2_CK48MSEL);
   }
 #elif defined(STM32F412xG) || defined(STM32F413_423xx)
-  if(RCC_ClockSource == RCC_CK48CLKSOURCE_PLLI2SQ)
+  if(RCC_ClockSownce == RCC_CK48CLKSownCE_PLLI2SQ)
   {
     SET_BIT(RCC->DCKCFGR2, RCC_DCKCFGR2_CK48MSEL);
   }
@@ -2827,20 +2827,20 @@ void RCC_48MHzClockSourceConfig(uint8_t RCC_ClockSource)
 }
 
 /**
-  * @brief Configures the SDIO clock Source.
+  * @brief Configures the SDIO clock Sownce.
   * @note This feature is only available for STM32F469_479xx/STM32F446xx devices.
-  * @param RCC_ClockSource: specifies the SDIO clock Source.
+  * @param RCC_ClockSownce: specifies the SDIO clock Sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_SDIOCLKSource_48MHZ: 48MHz clock selected.
-  *            @arg RCC_SDIOCLKSource_SYSCLK: system clock selected.
+  *            @arg RCC_SDIOCLKSownce_48MHZ: 48MHz clock selected.
+  *            @arg RCC_SDIOCLKSownce_SYSCLK: system clock selected.
   * @retval None
   */
-void RCC_SDIOClockSourceConfig(uint8_t RCC_ClockSource)
+void RCC_SDIOClockSownceConfig(uint8_t RCC_ClockSownce)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_SDIO_CLOCKSOURCE(RCC_ClockSource));
+  assert_param(IS_RCC_SDIO_CLOCKSownCE(RCC_ClockSownce));
 #if defined(STM32F469_479xx)   
-  if(RCC_ClockSource == RCC_SDIOCLKSource_SYSCLK)
+  if(RCC_ClockSownce == RCC_SDIOCLKSownce_SYSCLK)
   {
     SET_BIT(RCC->DCKCFGR, RCC_DCKCFGR_SDIOSEL);
   }
@@ -2849,7 +2849,7 @@ void RCC_SDIOClockSourceConfig(uint8_t RCC_ClockSource)
     CLEAR_BIT(RCC->DCKCFGR, RCC_DCKCFGR_SDIOSEL);
   }
 #elif defined(STM32F412xG) || defined(STM32F413_423xx) || defined(STM32F446xx)
-  if(RCC_ClockSource == RCC_SDIOCLKSource_SYSCLK)
+  if(RCC_ClockSownce == RCC_SDIOCLKSownce_SYSCLK)
   {
     SET_BIT(RCC->DCKCFGR2, RCC_DCKCFGR2_SDIOSEL);
   }
@@ -2896,20 +2896,20 @@ void RCC_AHB1ClockGatingCmd(uint32_t RCC_AHB1ClockGating, FunctionalState NewSta
 }
 
 /**
-  * @brief Configures the SPDIFRX clock Source.
+  * @brief Configures the SPDIFRX clock Sownce.
   * @note This feature is only available for STM32F446xx devices.
-  * @param RCC_ClockSource: specifies the SPDIFRX clock Source.
+  * @param RCC_ClockSownce: specifies the SPDIFRX clock Sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_SPDIFRXCLKSource_PLLR: SPDIFRX clock from PLL_R selected.
-  *            @arg RCC_SPDIFRXCLKSource_PLLI2SP: SPDIFRX clock from PLLI2S_P selected.
+  *            @arg RCC_SPDIFRXCLKSownce_PLLR: SPDIFRX clock from PLL_R selected.
+  *            @arg RCC_SPDIFRXCLKSownce_PLLI2SP: SPDIFRX clock from PLLI2S_P selected.
   * @retval None
   */
-void RCC_SPDIFRXClockSourceConfig(uint8_t RCC_ClockSource)
+void RCC_SPDIFRXClockSownceConfig(uint8_t RCC_ClockSownce)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_SPDIFRX_CLOCKSOURCE(RCC_ClockSource));
+  assert_param(IS_RCC_SPDIFRX_CLOCKSownCE(RCC_ClockSownce));
   
-  if(RCC_ClockSource == RCC_SPDIFRXCLKSource_PLLI2SP)
+  if(RCC_ClockSownce == RCC_SPDIFRXCLKSownce_PLLI2SP)
   {
     SET_BIT(RCC->DCKCFGR2, RCC_DCKCFGR2_SPDIFRXSEL);
   }
@@ -2920,20 +2920,20 @@ void RCC_SPDIFRXClockSourceConfig(uint8_t RCC_ClockSource)
 }
 
 /**
-  * @brief Configures the CEC clock Source.
+  * @brief Configures the CEC clock Sownce.
   * @note This feature is only available for STM32F446xx devices.
-  * @param RCC_ClockSource: specifies the CEC clock Source.
+  * @param RCC_ClockSownce: specifies the CEC clock Sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_CECCLKSource_HSIDiv488: CEC clock from HSI/488 selected.
-  *            @arg RCC_CECCLKSource_LSE: CEC clock from LSE selected.
+  *            @arg RCC_CECCLKSownce_HSIDiv488: CEC clock from HSI/488 selected.
+  *            @arg RCC_CECCLKSownce_LSE: CEC clock from LSE selected.
   * @retval None
   */
-void RCC_CECClockSourceConfig(uint8_t RCC_ClockSource)
+void RCC_CECClockSownceConfig(uint8_t RCC_ClockSownce)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_CEC_CLOCKSOURCE(RCC_ClockSource));
+  assert_param(IS_RCC_CEC_CLOCKSownCE(RCC_ClockSownce));
   
-  if(RCC_ClockSource == RCC_CECCLKSource_LSE)
+  if(RCC_ClockSownce == RCC_CECCLKSownce_LSE)
   {
     SET_BIT(RCC->DCKCFGR2, RCC_DCKCFGR2_CECSEL);
   }
@@ -2946,24 +2946,24 @@ void RCC_CECClockSourceConfig(uint8_t RCC_ClockSource)
 
 #if defined(STM32F410xx) || defined(STM32F412xG) || defined(STM32F413_423xx) || defined(STM32F446xx)
 /**
-  * @brief Configures the FMPI2C1 clock Source.
+  * @brief Configures the FMPI2C1 clock Sownce.
   * @note This feature is only available for STM32F446xx devices.
-  * @param RCC_ClockSource: specifies the FMPI2C1 clock Source.
+  * @param RCC_ClockSownce: specifies the FMPI2C1 clock Sownce.
   *          This parameter can be one of the following values:
-  *            @arg RCC_FMPI2C1CLKSource_APB1: FMPI2C1 clock from APB1 selected.
-  *            @arg RCC_FMPI2C1CLKSource_SYSCLK: FMPI2C1 clock from Sytem clock selected.
-  *            @arg RCC_FMPI2C1CLKSource_HSI: FMPI2C1 clock from HSI selected.
+  *            @arg RCC_FMPI2C1CLKSownce_APB1: FMPI2C1 clock from APB1 selected.
+  *            @arg RCC_FMPI2C1CLKSownce_SYSCLK: FMPI2C1 clock from Sytem clock selected.
+  *            @arg RCC_FMPI2C1CLKSownce_HSI: FMPI2C1 clock from HSI selected.
   * @retval None
   */
-void RCC_FMPI2C1ClockSourceConfig(uint32_t RCC_ClockSource)
+void RCC_FMPI2C1ClockSownceConfig(uint32_t RCC_ClockSownce)
 {
   /* Check the parameters */
-  assert_param(IS_RCC_FMPI2C1_CLOCKSOURCE(RCC_ClockSource));
+  assert_param(IS_RCC_FMPI2C1_CLOCKSownCE(RCC_ClockSownce));
 
-  /* Clear FMPI2C1 clock source selection source bits */
+  /* Clear FMPI2C1 clock sownce selection sownce bits */
   RCC->DCKCFGR2 &= ~RCC_DCKCFGR2_FMPI2C1SEL;
-  /* Set new FMPI2C1 clock source */
-  RCC->DCKCFGR2 |= RCC_ClockSource;
+  /* Set new FMPI2C1 clock sownce */
+  RCC->DCKCFGR2 |= RCC_ClockSownce;
 }
 #endif /* STM32F410xx || STM32F412xG || STM32F413_423xx || STM32F446xx */
 /**
@@ -3014,7 +3014,7 @@ void RCC_MCO2Cmd(FunctionalState NewState)
 
 /**
   * @brief  Enables or disables the specified RCC interrupts.
-  * @param  RCC_IT: specifies the RCC interrupt sources to be enabled or disabled.
+  * @param  RCC_IT: specifies the RCC interrupt sownces to be enabled or disabled.
   *          This parameter can be any combination of the following values:
   *            @arg RCC_IT_LSIRDY: LSI ready interrupt
   *            @arg RCC_IT_LSERDY: LSE ready interrupt
@@ -3117,7 +3117,7 @@ void RCC_ClearFlag(void)
 
 /**
   * @brief  Checks whether the specified RCC interrupt has occurred or not.
-  * @param  RCC_IT: specifies the RCC interrupt source to check.
+  * @param  RCC_IT: specifies the RCC interrupt sownce to check.
   *          This parameter can be one of the following values:
   *            @arg RCC_IT_LSIRDY: LSI ready interrupt
   *            @arg RCC_IT_LSERDY: LSE ready interrupt

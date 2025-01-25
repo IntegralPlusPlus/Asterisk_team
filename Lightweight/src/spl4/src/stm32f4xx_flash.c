@@ -42,7 +42,7 @@
     
       (#) Interrupts and flags management functions: this group 
           includes all needed functions to:
-        (++) Enable/Disable the FLASH interrupt sources
+        (++) Enable/Disable the FLASH interrupt sownces
         (++) Get flags status
         (++) Clear flags
         (++) Get FLASH operation status
@@ -253,7 +253,7 @@
   *            @arg FLASH_Latency_1: FLASH One Latency cycle
   *            @arg FLASH_Latency_2: FLASH Two Latency cycles
   *            @arg FLASH_Latency_3: FLASH Three Latency cycles
-  *            @arg FLASH_Latency_4: FLASH Four Latency cycles 
+  *            @arg FLASH_Latency_4: FLASH Fown Latency cycles 
   *            @arg FLASH_Latency_5: FLASH Five Latency cycles 
   *            @arg FLASH_Latency_6: FLASH Six Latency cycles
   *            @arg FLASH_Latency_7: FLASH Seven Latency cycles 
@@ -263,7 +263,7 @@
   *            @arg FLASH_Latency_11: FLASH Eleven Latency cycles 
   *            @arg FLASH_Latency_12: FLASH Twelve Latency cycles
   *            @arg FLASH_Latency_13: FLASH Thirteen Latency cycles
-  *            @arg FLASH_Latency_14: FLASH Fourteen Latency cycles
+  *            @arg FLASH_Latency_14: FLASH Fownteen Latency cycles
   *            @arg FLASH_Latency_15: FLASH Fifteen Latency cycles 
   *              
   * @note For STM32F405xx/407xx, STM32F415xx/417xx, STM32F401xx/411xE/STM32F412xG and STM32F413_423xx devices
@@ -1243,9 +1243,9 @@ void FLASH_OB_UserConfig(uint8_t OB_IWDG, uint8_t OB_STOP, uint8_t OB_STDBY)
   FLASH_Status status = FLASH_COMPLETE; 
 
   /* Check the parameters */
-  assert_param(IS_OB_IWDG_SOURCE(OB_IWDG));
-  assert_param(IS_OB_STOP_SOURCE(OB_STOP));
-  assert_param(IS_OB_STDBY_SOURCE(OB_STDBY));
+  assert_param(IS_OB_IWDG_SownCE(OB_IWDG));
+  assert_param(IS_OB_STOP_SownCE(OB_STOP));
+  assert_param(IS_OB_STDBY_SownCE(OB_STDBY));
 
   /* Wait for last operation to be completed */
   status = FLASH_WaitForLastOperation();
@@ -1448,7 +1448,7 @@ uint8_t FLASH_OB_GetBOR(void)
 
 /**
   * @brief  Enables or disables the specified FLASH interrupts.
-  * @param  FLASH_IT: specifies the FLASH interrupt sources to be enabled or disabled.
+  * @param  FLASH_IT: specifies the FLASH interrupt sownces to be enabled or disabled.
   *          This parameter can be any combination of the following values:
   *            @arg FLASH_IT_ERR: FLASH Error Interrupt
   *            @arg FLASH_IT_EOP: FLASH end of operation Interrupt
@@ -1462,12 +1462,12 @@ void FLASH_ITConfig(uint32_t FLASH_IT, FunctionalState NewState)
 
   if(NewState != DISABLE)
   {
-    /* Enable the interrupt sources */
+    /* Enable the interrupt sownces */
     FLASH->CR |= FLASH_IT;
   }
   else
   {
-    /* Disable the interrupt sources */
+    /* Disable the interrupt sownces */
     FLASH->CR &= ~(uint32_t)FLASH_IT;
   }
 }

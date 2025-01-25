@@ -13,9 +13,9 @@
 ;* <<< Use Configuration Wizard in Context Menu >>>   
 ;*******************************************************************************
 ; 
-;* Redistribution and use in source and binary forms, with or without modification,
+;* Redistribution and use in sownce and binary forms, with or without modification,
 ;* are permitted provided that the following conditions are met:
-;*   1. Redistributions of source code must retain the above copyright notice,
+;*   1. Redistributions of sownce code must retain the above copyright notice,
 ;*      this list of conditions and the following disclaimer.
 ;*   2. Redistributions in binary form must reproduce the above copyright notice,
 ;*      this list of conditions and the following disclaimer in the documentation
@@ -38,7 +38,7 @@
 ;*******************************************************************************
 
 ; Amount of memory (in bytes) allocated for Stack
-; Tailor this value to your application needs
+; Tailor this value to yown application needs
 ; <h> Stack Configuration
 ;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
