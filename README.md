@@ -1,2 +1,2 @@
 # Asterisk_team
-Repo of team "ASTERISK*" for RoboCupJunior Soccer Lightweight
+Repo of team "Asterisk*" for RoboCupJunior Soccer Lightweight
