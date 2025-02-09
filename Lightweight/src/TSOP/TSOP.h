@@ -11,10 +11,10 @@
 //Value of TSOP-dist when ball is far from robot
 //If _dist < BALL_FAR robot follow to ball
 //If _dist > BALL_FAR robot start detown of ball
-#define BALL_FAR 6 
+#define BALL_FAR 5.5
 
 //Maximum value of _dist from robot to ball in this ball-charging characteristics
-#define MAX_DIST 6.47
+#define MAX_DIST 7.5
 
 class TSOP {
 	public:

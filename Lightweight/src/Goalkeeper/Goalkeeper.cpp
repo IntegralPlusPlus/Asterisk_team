@@ -75,7 +75,7 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 		float speed = err * 0.024f; //0.04f  
 		vec = Vec2b(speed, 270 + _angle); 
 	} else {
-		//If robot in front of out-circle-line
+		//If robot not in front of out-circle-line
 		float err, speed;
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
 		if (gkPos == leftPart) { //left circle line
@@ -132,7 +132,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 		
 		res.length = u; //0.011 1.2
 	} else {
-		//If now robot in front of out-circle-line
+		//If now not robot in front of out-circle-line
 		float err, p, d, u;
 		
 		if (gkPos == rightPart) {

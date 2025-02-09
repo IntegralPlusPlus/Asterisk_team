@@ -411,8 +411,8 @@ namespace Asterisk {
 					goTo = Vec2b(USUAL_FOLLOWING_SPEED, ang + 90);
 				} else if (myForward.nearMyGoal() 
 					&& !myForward.ballInBack(ang, tsopRaw)) { //Robot nears own goal and ball is not at back of robot
-					//Vector from robot to ball
-					goTo = Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
+					//Vector ball-following
+					goTo = goToBall;//Vec2b(USUAL_FOLLOWING_SPEED, 90 + ang);
 				} else {
 					//Vector ball-following
 					goTo = goToBall;
@@ -420,7 +420,7 @@ namespace Asterisk {
 					//Decrease speed near enemy-goal-out
 					if (myForward.distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.05 * RADIUS_GOAL_OUT_LEFT) {
 						goTo *= 0.95; //0.85
-					}
+						}
 				}
 			} else if (robotInOUT) { //Robot in out
 				if (myForward.inEnemyGoal()) { //Robot in enemy out
