@@ -98,8 +98,8 @@
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
-/* If an external clock source is used, then the value of the following define 
-   should be set to the value of the external clock source, else, if no external 
+/* If an external clock sownce is used, then the value of the following define 
+   should be set to the value of the external clock sownce, else, if no external 
    clock is used, keep this define commented */
 /*#define I2S_EXTERNAL_CLOCK_VAL   12288000 */ /* Value of the external clock in Hz */
 
@@ -114,7 +114,7 @@
 /**
   * @brief  The assert_param macro is used for function's parameters check.
   * @param  expr: If expr is false, it calls assert_failed function
-  *   which reports the name of the source file and the source
+  *   which reports the name of the sownce file and the sownce
   *   line number of the call that failed. 
   *   If expr is true, it returns no value.
   * @retval None

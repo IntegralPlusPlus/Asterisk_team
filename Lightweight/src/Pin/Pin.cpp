@@ -77,7 +77,7 @@ Pin::Pin(char GPIOx, uint8_t pin, uint16_t fun) {
 	
 	GPIO_Init(_GPIOx, &init_GPIOx);
 	
-	if (_modeGPIO == GPIO_Mode_AF) GPIO_PinAFConfig(_GPIOx, _pinSource, _typeAF);
+	if (_modeGPIO == GPIO_Mode_AF) GPIO_PinAFConfig(_GPIOx, _pinSownce, _typeAF);
 }
 
 Pin::Pin() {
@@ -196,22 +196,22 @@ void Pin::RCC_ClockCmd() {
 
 void Pin::setPin(uint8_t pinNum) {
 	switch(pinNum) {
-		case 0: _pin = GPIO_Pin_0; _pinSource = GPIO_PinSource0; break;
-		case 1: _pin = GPIO_Pin_1; _pinSource = GPIO_PinSource1; break;
-		case 2: _pin = GPIO_Pin_2; _pinSource = GPIO_PinSource2; break;
-		case 3: _pin = GPIO_Pin_3; _pinSource = GPIO_PinSource3; break;
-		case 4: _pin = GPIO_Pin_4; _pinSource = GPIO_PinSource4; break;
-		case 5: _pin = GPIO_Pin_5; _pinSource = GPIO_PinSource5; break;
-		case 6: _pin = GPIO_Pin_6; _pinSource = GPIO_PinSource6; break;
-		case 7: _pin = GPIO_Pin_7; _pinSource = GPIO_PinSource7; break;
-		case 8: _pin = GPIO_Pin_8; _pinSource = GPIO_PinSource8; break;
-		case 9: _pin = GPIO_Pin_9; _pinSource = GPIO_PinSource9; break;
-		case 10: _pin = GPIO_Pin_10; _pinSource = GPIO_PinSource10; break;
-		case 11: _pin = GPIO_Pin_11; _pinSource = GPIO_PinSource11; break;
-		case 12: _pin = GPIO_Pin_12; _pinSource = GPIO_PinSource12; break;
-		case 13: _pin = GPIO_Pin_13; _pinSource = GPIO_PinSource13; break;
-		case 14: _pin = GPIO_Pin_14; _pinSource = GPIO_PinSource14; break;
-		default: _pin = GPIO_Pin_15; _pinSource = GPIO_PinSource15; break;
+		case 0: _pin = GPIO_Pin_0; _pinSownce = GPIO_PinSownce0; break;
+		case 1: _pin = GPIO_Pin_1; _pinSownce = GPIO_PinSownce1; break;
+		case 2: _pin = GPIO_Pin_2; _pinSownce = GPIO_PinSownce2; break;
+		case 3: _pin = GPIO_Pin_3; _pinSownce = GPIO_PinSownce3; break;
+		case 4: _pin = GPIO_Pin_4; _pinSownce = GPIO_PinSownce4; break;
+		case 5: _pin = GPIO_Pin_5; _pinSownce = GPIO_PinSownce5; break;
+		case 6: _pin = GPIO_Pin_6; _pinSownce = GPIO_PinSownce6; break;
+		case 7: _pin = GPIO_Pin_7; _pinSownce = GPIO_PinSownce7; break;
+		case 8: _pin = GPIO_Pin_8; _pinSownce = GPIO_PinSownce8; break;
+		case 9: _pin = GPIO_Pin_9; _pinSownce = GPIO_PinSownce9; break;
+		case 10: _pin = GPIO_Pin_10; _pinSownce = GPIO_PinSownce10; break;
+		case 11: _pin = GPIO_Pin_11; _pinSownce = GPIO_PinSownce11; break;
+		case 12: _pin = GPIO_Pin_12; _pinSownce = GPIO_PinSownce12; break;
+		case 13: _pin = GPIO_Pin_13; _pinSownce = GPIO_PinSownce13; break;
+		case 14: _pin = GPIO_Pin_14; _pinSownce = GPIO_PinSownce14; break;
+		default: _pin = GPIO_Pin_15; _pinSownce = GPIO_PinSownce15; break;
 	}
 }
 

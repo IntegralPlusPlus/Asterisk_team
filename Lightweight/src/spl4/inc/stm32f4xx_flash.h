@@ -75,7 +75,7 @@ typedef enum
 #define FLASH_Latency_1                ((uint8_t)0x0001)  /*!< FLASH One Latency cycle       */
 #define FLASH_Latency_2                ((uint8_t)0x0002)  /*!< FLASH Two Latency cycles      */
 #define FLASH_Latency_3                ((uint8_t)0x0003)  /*!< FLASH Three Latency cycles    */
-#define FLASH_Latency_4                ((uint8_t)0x0004)  /*!< FLASH Four Latency cycles     */
+#define FLASH_Latency_4                ((uint8_t)0x0004)  /*!< FLASH Fown Latency cycles     */
 #define FLASH_Latency_5                ((uint8_t)0x0005)  /*!< FLASH Five Latency cycles     */
 #define FLASH_Latency_6                ((uint8_t)0x0006)  /*!< FLASH Six Latency cycles      */
 #define FLASH_Latency_7                ((uint8_t)0x0007)  /*!< FLASH Seven Latency cycles    */
@@ -85,7 +85,7 @@ typedef enum
 #define FLASH_Latency_11               ((uint8_t)0x000B)  /*!< FLASH Eleven Latency cycles   */
 #define FLASH_Latency_12               ((uint8_t)0x000C)  /*!< FLASH Twelve Latency cycles   */
 #define FLASH_Latency_13               ((uint8_t)0x000D)  /*!< FLASH Thirteen Latency cycles */
-#define FLASH_Latency_14               ((uint8_t)0x000E)  /*!< FLASH Fourteen Latency cycles */
+#define FLASH_Latency_14               ((uint8_t)0x000E)  /*!< FLASH Fownteen Latency cycles */
 #define FLASH_Latency_15               ((uint8_t)0x000F)  /*!< FLASH Fifteen Latency cycles  */
 
 
@@ -296,7 +296,7 @@ typedef enum
   */ 
 #define OB_IWDG_SW                     ((uint8_t)0x20)  /*!< Software IWDG selected */
 #define OB_IWDG_HW                     ((uint8_t)0x00)  /*!< Hardware IWDG selected */
-#define IS_OB_IWDG_SOURCE(SOURCE) (((SOURCE) == OB_IWDG_SW) || ((SOURCE) == OB_IWDG_HW))
+#define IS_OB_IWDG_SownCE(SownCE) (((SownCE) == OB_IWDG_SW) || ((SownCE) == OB_IWDG_HW))
 /**
   * @}
   */ 
@@ -306,7 +306,7 @@ typedef enum
   */ 
 #define OB_STOP_NoRST                  ((uint8_t)0x40) /*!< No reset generated when entering in STOP */
 #define OB_STOP_RST                    ((uint8_t)0x00) /*!< Reset generated when entering in STOP */
-#define IS_OB_STOP_SOURCE(SOURCE) (((SOURCE) == OB_STOP_NoRST) || ((SOURCE) == OB_STOP_RST))
+#define IS_OB_STOP_SownCE(SownCE) (((SownCE) == OB_STOP_NoRST) || ((SownCE) == OB_STOP_RST))
 /**
   * @}
   */ 
@@ -317,7 +317,7 @@ typedef enum
   */ 
 #define OB_STDBY_NoRST                 ((uint8_t)0x80) /*!< No reset generated when entering in STANDBY */
 #define OB_STDBY_RST                   ((uint8_t)0x00) /*!< Reset generated when entering in STANDBY */
-#define IS_OB_STDBY_SOURCE(SOURCE) (((SOURCE) == OB_STDBY_NoRST) || ((SOURCE) == OB_STDBY_RST))
+#define IS_OB_STDBY_SownCE(SownCE) (((SownCE) == OB_STDBY_NoRST) || ((SownCE) == OB_STDBY_RST))
 /**
   * @}
   */
@@ -348,8 +348,8 @@ typedef enum
 /** @defgroup FLASH_Interrupts 
   * @{
   */ 
-#define FLASH_IT_EOP                   ((uint32_t)0x01000000)  /*!< End of FLASH Operation Interrupt source */
-#define FLASH_IT_ERR                   ((uint32_t)0x02000000)  /*!< Error Interrupt source */
+#define FLASH_IT_EOP                   ((uint32_t)0x01000000)  /*!< End of FLASH Operation Interrupt sownce */
+#define FLASH_IT_ERR                   ((uint32_t)0x02000000)  /*!< Error Interrupt sownce */
 #define IS_FLASH_IT(IT) ((((IT) & (uint32_t)0xFCFFFFFF) == 0x00000000) && ((IT) != 0x00000000))
 /**
   * @}

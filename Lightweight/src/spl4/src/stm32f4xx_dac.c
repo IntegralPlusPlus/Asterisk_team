@@ -260,7 +260,7 @@ void DAC_StructInit(DAC_InitTypeDef* DAC_InitStruct)
   *            @arg DAC_Channel_2: DAC Channel2 selected
   * @param  NewState: new state of the DAC channel. 
   *          This parameter can be: ENABLE or DISABLE.
-  * @note   When the DAC channel is enabled the trigger source can no more be modified.
+  * @note   When the DAC channel is enabled the trigger sownce can no more be modified.
   * @retval None
   */
 void DAC_Cmd(uint32_t DAC_Channel, FunctionalState NewState)
@@ -546,7 +546,7 @@ void DAC_DMACmd(uint32_t DAC_Channel, FunctionalState NewState)
   *          This parameter can be one of the following values:
   *            @arg DAC_Channel_1: DAC Channel1 selected
   *            @arg DAC_Channel_2: DAC Channel2 selected
-  * @param  DAC_IT: specifies the DAC interrupt sources to be enabled or disabled. 
+  * @param  DAC_IT: specifies the DAC interrupt sownces to be enabled or disabled. 
   *          This parameter can be the following values:
   *            @arg DAC_IT_DMAUDR: DMA underrun interrupt mask
   * @note   The DMA underrun occurs when a second external trigger arrives before the 
@@ -638,7 +638,7 @@ void DAC_ClearFlag(uint32_t DAC_Channel, uint32_t DAC_FLAG)
   *          This parameter can be one of the following values:
   *            @arg DAC_Channel_1: DAC Channel1 selected
   *            @arg DAC_Channel_2: DAC Channel2 selected
-  * @param  DAC_IT: specifies the DAC interrupt source to check. 
+  * @param  DAC_IT: specifies the DAC interrupt sownce to check. 
   *          This parameter can be the following values:
   *            @arg DAC_IT_DMAUDR: DMA underrun interrupt mask
   * @note   The DMA underrun occurs when a second external trigger arrives before the 

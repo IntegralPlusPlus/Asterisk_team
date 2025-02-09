@@ -64,7 +64,7 @@
             
         // keil-clang
         #elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-            #error "Your compiler is not supported yet."
+            #error "Yown compiler is not supported yet."
         
         // чтобы gcc был счастлив
         #else
@@ -194,7 +194,7 @@ extern "C"
 
         int ferror(FILE *f)
         {
-            /* Your implementation of ferror */
+            /* Yown implementation of ferror */
             return EOF;
         }
 

@@ -9,9 +9,10 @@ Goalkeeper::Goalkeeper(): ProcessingCoord() {
 	timerLeave = 0;
 	countBall = 0;
 	
+	//Values of Y where the robot must stop
 	if (_goal == BLUE_GOAL) {
 		_downYRight = 32;
-		_downYLeft = 28; //28
+		_downYLeft = 28;
 	} else {
 		_downYRight = 27;
 		_downYLeft = 26;
@@ -34,15 +35,21 @@ void Goalkeeper::setLeaveTime(int16_t leaveTime) {
 	_leaveTime = leaveTime;
 }
 
+//Define leaving time to goalkeeper
 int16_t Goalkeeper::getCurrentLeaveTime(int16_t angBall) {
 	int16_t angGoal = RAD2DEG * atan2(float(_y), float(_x));
 	
 	uint8_t gkPos = getGoalkeeperPos();
 	int16_t globalAng2Ball = adduct180(angBall - _angle);
 	
+	//Robot cant leave now because of ball-position: 
 	if (angGoal < ANGLE_LOW_DOESNT_LEAVE || angGoal > ANGLE_HIGH_DOESNT_LEAVE 
 			|| globalAng2Ball > 90 || globalAng2Ball < -90) return 0;
+	
+	//If ball in sides:
 	else if (gkPos == leftPart || gkPos == rightPart) return _leaveTime / 2;
+	
+	//If ball in front of the field:
 	else return _leaveTime;
 }
 
@@ -53,30 +60,37 @@ uint8_t Goalkeeper::getGoalkeeperPos() {
 	else return rightPart;
 }
 
+//Get vector to out goal out
 Vec2b Goalkeeper::getVecToGoalCenter() {
 	Vec2b vec;
 	float p, d, u;
 	static float errOld = 0;
 	uint8_t gkPos = getGoalkeeperPos();
 	
+	//If robot in front of out-direct-line
 	if (gkPos == centralLine) {
+		//P-regulator
+		//!!!!REACT COEFFICIENTS!!!!
 		int16_t err = -GOAL_OUT_Y_THRESHOLD + _y;
-		float speed = err * 0.024f; //0.04f 
+		float speed = err * 0.024f; //0.04f  
 		vec = Vec2b(speed, 270 + _angle); 
-		//errOld = 0;
 	} else {
+		//If robot not in front of out-circle-line
 		float err, speed;
 		distToGoalCenter = sqrt(float(pow(float(_x), 2) + pow(float(_y), 2)));
-		if (gkPos == leftPart) {
+		if (gkPos == leftPart) { //left circle line
+			//PD-regulator
+			//!!!!REACT COEFFICIENTS!!!!
 			err = -RADIUS_GOAL_OUT_LEFT + distToGoalCenter;
-			p = err * 0.055f; //0.067 0.066 0.058
-			d = (err - errOld) * 0.4f;
+			p = err * 0.055f; //0.067 0.066 0.058 //P-regulator
+			d = (err - errOld) * 0.4f; //D-regulator
 			u = p + d;
 			errOld = err;
-		} else if (gkPos == rightPart) {
+		} else if (gkPos == rightPart) { //right circle line
+			//PD-regulator
 			err = -RADIUS_GOAL_OUT_RIGHT + distToGoalCenter;
-			p = err * 0.023f;
-			d = (err - errOld) * 0.4f;
+			p = err * 0.023f; //P-regulator
+			d = (err - errOld) * 0.4f; //D-regulator
 			u = p + d;
 			errOld = err;
 		}		
@@ -89,6 +103,7 @@ Vec2b Goalkeeper::getVecToGoalCenter() {
 	return vec;
 }
 
+//Vector to defend goal from ball
 Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 	Vec2b res;
 	
@@ -101,12 +116,15 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 	else if (ballInBack(angBall, byVec)) return Vec2b(0, 0);
 	else if (globalAngToBall > 270) globalAngToBall -= 360;
 	
+	//If now robot in front of out-direct-line
 	if (gkPos == centralLine) {
 		if (globalAngToBall > angGoal) res.angle = 180 + _angle;
 		else res.angle = _angle;
 
 		float err, p, d, u;
+		//PD-regulator
 		err = pow(abs(float(globalAngToBall - angGoal)), 2.f); //1.3f
+		//!!!!REACT COEFFICIENTS!!!!
 		p = 0.00031f * err; //0.00031f 0.00087 0.0015 0.0041f
 		d = (err - errOldGkLine) * 0.016f; //0.08f
 		u = p + d;
@@ -114,12 +132,14 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 		
 		res.length = u; //0.011 1.2
 	} else {
+		//If now not robot in front of out-circle-line
 		float err, p, d, u;
 		
 		if (gkPos == rightPart) {
 			if (globalAngToBall > angGoal) res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) + 90);
 			else res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) + 90);
-				
+			
+			//!!!!REACT COEFFICIENTS!!!!
 			err = pow(abs(float(globalAngToBall - angGoal)), 1.3f); //1.1
 			p = 0.003f * err; //0.004
 			d = (err - errOldGkRight) * 0.04f; //0.05
@@ -127,8 +147,9 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			errOldGkRight = err;
 			
 			res.length = u;
-			if (//(_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 || res.angle < 90)) 
-					(_y <= _downYRight && (globalAngToBall < 20 || globalAngToBall > 210))) { //210
+			
+			//Robot may stop moving if ball in the angle of the field
+			if ((_y <= _downYRight && (globalAngToBall < 20 || globalAngToBall > 210))) { //210
 				res.angle = 90 + _angle;
 				res.length = 0;
 			} else if ((_x > GK_X_THRESHOLD_RIGHT && (res.angle > 270 + _angle || res.angle < 90 + _angle))) {
@@ -139,6 +160,7 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			if (globalAngToBall > angGoal) res.angle = adduct(180 + RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			else res.angle = adduct(RAD2DEG * atan2(float(_y), float(_x)) - 90);
 			
+			//!!!!REACT COEFFICIENTS!!!!
 			err = pow(abs(float(globalAngToBall - angGoal)), 1.4f);
 			p = 0.0015f * err; //0.0045
 			d = (err - errOldGkLeft) * 0.07f; //0.05
@@ -146,10 +168,9 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			errOldGkLeft = err;
 			res.length = u;			
 
-			//110 300
+			//Robot may stop moving if ball in the angle of the field
 			if ((_y <= _downYLeft && 
 					(globalAngToBall > 130 || globalAngToBall < -50))) {
-					//(globalAngToBall > 130 && globalAngToBall < 310))) { //130 310
 				res.angle = 90 + _angle;
 				res.length = 0;
 			} else if ((_x < GK_X_THRESHOLD_LEFT && res.angle > 90 && res.angle < 270)) {
@@ -169,10 +190,12 @@ Vec2b Goalkeeper::getVecToReturn() {
 	return getVecToPoint(xTo, yTo);
 }
 
+//Change status from "Return to my goal" to "Now I am just in my goal"
 bool Goalkeeper::changeFromReturn() {
 	return _x <= 1.03 * GOAL_OUT_Y_THRESHOLD; //1.35f
 }
 
+//Increase the pressure to the out with a high value of the ball protection control
 float Goalkeeper::getCoeffToGoalCenter(float intersec) {
 	if (intersec < MAX_LEN_TO_INCREASE_VEC) return 1;
 	else return map(intersec, MAX_LEN_TO_INCREASE_VEC, _maxLen, 1.f, MAX_COEFF_TO_GOAL_CENTER);
@@ -192,7 +215,7 @@ bool Goalkeeper::angleStopLeaving(float ang) {
 }
 
 bool Goalkeeper::dist2GoalLong() {
-	return _x >= LONG_DISTANCE_TO_GOAL;//distance(_x, _y) >= LONG_DISTANCE_TO_GOAL;
+	return _x >= LONG_DISTANCE_TO_GOAL;
 }
 
 uint8_t Goalkeeper::setAngleLeaveStatus() {

@@ -27,7 +27,7 @@
        RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE) for SPI6.
   
    (#) Enable SCK, MOSI, MISO and NSS GPIO clocks using RCC_AHB1PeriphClockCmd()
-       function. In I2S mode, if an external clock source is used then the I2S 
+       function. In I2S mode, if an external clock sownce is used then the I2S 
        CKIN pin GPIO clock should also be enabled.
   
    (#) Peripherals alternate function: 
@@ -37,7 +37,7 @@
             GPIO_InitStruct->GPIO_Mode = GPIO_Mode_AF
        (++) Select the type, pull-up/pull-down and output speed via GPIO_PuPd, 
             GPIO_OType and GPIO_Speed members
-       (++) Call GPIO_Init() function In I2S mode, if an external clock source is 
+       (++) Call GPIO_Init() function In I2S mode, if an external clock sownce is 
             used then the I2S CKIN pin should be also configured in Alternate 
             function Push-pull pull-up mode. 
           
@@ -48,10 +48,10 @@
        frequency and Polarity using I2S_Init() function. For I2S mode, make sure 
        that either:
        (++) I2S PLL is configured using the functions 
-            RCC_I2SCLKConfig(RCC_I2S2CLKSource_PLLI2S), RCC_PLLI2SCmd(ENABLE) and 
+            RCC_I2SCLKConfig(RCC_I2S2CLKSownce_PLLI2S), RCC_PLLI2SCmd(ENABLE) and 
             RCC_GetFlagStatus(RCC_FLAG_PLLI2SRDY); or 
-       (++) External clock source is configured using the function 
-            RCC_I2SCLKConfig(RCC_I2S2CLKSource_Ext) and after setting correctly 
+       (++) External clock sownce is configured using the function 
+            RCC_I2SCLKConfig(RCC_I2S2CLKSownce_Ext) and after setting correctly 
             the define constant I2S_EXTERNAL_CLOCK_VAL in the stm32f4xx_conf.h file. 
   
    (#) Enable the NVIC and the corresponding interrupt using the function 
@@ -87,7 +87,7 @@
       using two data lines. Each SPI peripheral has an extended block called I2Sxext
       (ie. I2S2ext for SPI2 and I2S3ext for SPI3).
       The extension block is not a full SPI IP, it is used only as I2S slave to
-      implement full duplex mode. The extension block uses the same clock sources
+      implement full duplex mode. The extension block uses the same clock sownces
       as its master.          
       To configure I2S full duplex you have to:
               
@@ -126,9 +126,9 @@
       ...          
                 
  [..]       
-   (@) In I2S mode: if an external clock is used as source clock for the I2S,  
+   (@) In I2S mode: if an external clock is used as sownce clock for the I2S,  
        then the define I2S_EXTERNAL_CLOCK_VAL in file stm32f4xx_conf.h should 
-       be enabled and set to the value of the source clock frequency (in Hz).
+       be enabled and set to the value of the sownce clock frequency (in Hz).
    
    (@) In SPI mode: To use the SPI TI mode, call the function SPI_TIModeCmd() 
        just after calling the function SPI_Init().
@@ -335,13 +335,13 @@ void SPI_Init(SPI_TypeDef* SPIx, SPI_InitTypeDef* SPI_InitStruct)
   *         configured in I2S mode.
   *           
   * @note   The function calculates the optimal prescaler needed to obtain the most 
-  *         accurate audio frequency (depending on the I2S clock source, the PLL values 
+  *         accurate audio frequency (depending on the I2S clock sownce, the PLL values 
   *         and the product configuration). But in case the prescaler value is greater 
   *         than 511, the default value (0x02) will be configured instead.    
   * 
-  * @note   if an external clock is used as source clock for the I2S, then the define
+  * @note   if an external clock is used as sownce clock for the I2S, then the define
   *         I2S_EXTERNAL_CLOCK_VAL in file stm32f4xx_conf.h should be enabled and set
-  *         to the value of the source clock frequency (in Hz).
+  *         to the value of the sownce clock frequency (in Hz).
   *  
   * @retval None
   */
@@ -391,12 +391,12 @@ void I2S_Init(SPI_TypeDef* SPIx, I2S_InitTypeDef* I2S_InitStruct)
       packetlength = 2;
     }
 
-    /* Get I2S source Clock frequency  ****************************************/
+    /* Get I2S sownce Clock frequency  ****************************************/
       
     /* If an external I2S clock has to be used, this define should be set  
        in the project configuration or in the stm32f4xx_conf.h file */
   #ifdef I2S_EXTERNAL_CLOCK_VAL     
-    /* Set external clock as I2S clock source */
+    /* Set external clock as I2S clock sownce */
     if ((RCC->CFGR & RCC_CFGR_I2SSRC) == 0)
     {
       RCC->CFGR |= (uint32_t)RCC_CFGR_I2SSRC;
@@ -405,8 +405,8 @@ void I2S_Init(SPI_TypeDef* SPIx, I2S_InitTypeDef* I2S_InitStruct)
     /* Set the I2S clock to the external clock  value */
     i2sclk = I2S_EXTERNAL_CLOCK_VAL;
 
-  #else /* There is no define for External I2S clock source */
-    /* Set PLLI2S as I2S clock source */
+  #else /* There is no define for External I2S clock sownce */
+    /* Set PLLI2S as I2S clock sownce */
     if ((RCC->CFGR & RCC_CFGR_I2SSRC) != 0)
     {
       RCC->CFGR &= ~(uint32_t)RCC_CFGR_I2SSRC;
@@ -425,11 +425,11 @@ void I2S_Init(SPI_TypeDef* SPIx, I2S_InitTypeDef* I2S_InitStruct)
 
     if((RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) == RCC_PLLCFGR_PLLSRC_HSE)
     {
-      /* Get the I2S source clock value */
+      /* Get the I2S sownce clock value */
       i2sclk = (uint32_t)(((HSE_VALUE / pllm) * plln) / pllr);
     }
     else
-    { /* Get the I2S source clock value */
+    { /* Get the I2S sownce clock value */
       i2sclk = (uint32_t)(((HSI_VALUE / pllm) * plln) / pllr);
     }
   #endif /* I2S_EXTERNAL_CLOCK_VAL */
@@ -1053,7 +1053,7 @@ void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState 
  ===============================================================================  
  
  [..] This section provides a set of functions allowing to configure the SPI Interrupts 
-      sources and check or clear the flags or pending bits status.
+      sownces and check or clear the flags or pending bits status.
       The user should identify which mode will be used in his application to manage 
       the communication: Polling mode, Interrupt mode or DMA mode. 
     
@@ -1079,7 +1079,7 @@ void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState 
 
  *** Interrupt Mode ***
  ======================
- [..] In Interrupt Mode, the SPI communication can be managed by 3 interrupt sources
+ [..] In Interrupt Mode, the SPI communication can be managed by 3 interrupt sownces
       and 7 pending bits: 
    (+) Pending Bits:
        (##) SPI_I2S_IT_TXE : to indicate the status of the transmit buffer register
@@ -1090,12 +1090,12 @@ void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState 
        (##) I2S_IT_UDR : to indicate an Underrun Error occurs (available in I2S mode only).
        (##) I2S_FLAG_TIFRFE : to indicate a Frame Format error occurs (available in TI mode only).
 
-   (+) Interrupt Source:
-       (##) SPI_I2S_IT_TXE: specifies the interrupt source for the Tx buffer empty 
+   (+) Interrupt Sownce:
+       (##) SPI_I2S_IT_TXE: specifies the interrupt sownce for the Tx buffer empty 
             interrupt.  
-       (##) SPI_I2S_IT_RXNE : specifies the interrupt source for the Rx buffer not 
+       (##) SPI_I2S_IT_RXNE : specifies the interrupt sownce for the Rx buffer not 
             empty interrupt.
-       (##) SPI_I2S_IT_ERR : specifies the interrupt source for the errors interrupt.
+       (##) SPI_I2S_IT_ERR : specifies the interrupt sownce for the errors interrupt.
 
  [..] In this Mode it is advised to use the following functions:
    (+) void SPI_I2S_ITConfig(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT, FunctionalState NewState);
@@ -1120,7 +1120,7 @@ void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState 
   * @brief  Enables or disables the specified SPI/I2S interrupts.
   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2, 3, 4, 5 or 6 
   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode. 
-  * @param  SPI_I2S_IT: specifies the SPI interrupt source to be enabled or disabled. 
+  * @param  SPI_I2S_IT: specifies the SPI interrupt sownce to be enabled or disabled. 
   *          This parameter can be one of the following values:
   *            @arg SPI_I2S_IT_TXE: Tx buffer empty interrupt mask
   *            @arg SPI_I2S_IT_RXNE: Rx buffer not empty interrupt mask
@@ -1228,7 +1228,7 @@ void SPI_I2S_ClearFlag(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG)
   * @brief  Checks whether the specified SPIx/I2Sx interrupt has occurred or not.
   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2, 3, 4, 5 or 6 
   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode.  
-  * @param  SPI_I2S_IT: specifies the SPI interrupt source to check. 
+  * @param  SPI_I2S_IT: specifies the SPI interrupt sownce to check. 
   *          This parameter can be one of the following values:
   *            @arg SPI_I2S_IT_TXE: Transmit buffer empty interrupt.
   *            @arg SPI_I2S_IT_RXNE: Receive buffer not empty interrupt.

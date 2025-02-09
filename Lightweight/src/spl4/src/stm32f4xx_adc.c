@@ -192,7 +192,7 @@
       (+) Scan Conversion Mode (multichannel or one channel) for regular group
       (+) ADC Continuous Conversion Mode (Continuous or Single conversion) for 
           regular group
-      (+) External trigger Edge and source of regular group, 
+      (+) External trigger Edge and sownce of regular group, 
       (+) Converted data alignment (left or right)
       (+) The number of ADC conversions that will be done using the sequencer for 
           regular channel group
@@ -225,7 +225,7 @@ void ADC_DeInit(void)
   * @note   This function is used to configure the global features of the ADC ( 
   *         Resolution and Data Alignment), however, the rest of the configuration
   *         parameters are specific to the regular channels group (scan mode 
-  *         activation, continuous mode activation, External trigger source and 
+  *         activation, continuous mode activation, External trigger sownce and 
   *         edge, number of conversion in the regular channels group sequencer).  
   * @param  ADCx: where x can be 1, 2 or 3 to select the ADC peripheral.
   * @param  ADC_InitStruct: pointer to an ADC_InitTypeDef structure that contains
@@ -301,7 +301,7 @@ void ADC_Init(ADC_TypeDef* ADCx, ADC_InitTypeDef* ADC_InitStruct)
   * @note   This function is used to initialize the global features of the ADC ( 
   *         Resolution and Data Alignment), however, the rest of the configuration
   *         parameters are specific to the regular channels group (scan mode 
-  *         activation, continuous mode activation, External trigger source and 
+  *         activation, continuous mode activation, External trigger sownce and 
   *         edge, number of conversion in the regular channels group sequencer).  
   * @param  ADC_InitStruct: pointer to an ADC_InitTypeDef structure which will 
   *         be initialized.
@@ -555,11 +555,11 @@ void ADC_AnalogWatchdogSingleChannelConfig(ADC_TypeDef* ADCx, uint8_t ADC_Channe
  ===============================================================================  
     [..] This section provides functions allowing to enable/ disable the internal 
          connections between the ADC and the Temperature Sensor, the Vrefint and 
-         the Vbat sources.
+         the Vbat sownces.
      
     [..] A typical configuration to get the Temperature sensor and Vrefint channels 
          voltages is done following these steps :
-      (#) Enable the internal connection of Temperature sensor and Vrefint sources 
+      (#) Enable the internal connection of Temperature sensor and Vrefint sownces 
           with the ADC channels using ADC_TempSensorVrefintCmd() function. 
       (#) Select the ADC_Channel_TempSensor and/or ADC_Channel_Vrefint using 
           ADC_RegularChannelConfig() or  ADC_InjectedChannelConfig() functions 
@@ -568,7 +568,7 @@ void ADC_AnalogWatchdogSingleChannelConfig(ADC_TypeDef* ADCx, uint8_t ADC_Channe
 
     [..] A typical configuration to get the VBAT channel voltage is done following 
          these steps :
-      (#) Enable the internal connection of VBAT source with the ADC channel using 
+      (#) Enable the internal connection of VBAT sownce with the ADC channel using 
           ADC_VBATCmd() function. 
       (#) Select the ADC_Channel_Vbat using ADC_RegularChannelConfig() or  
           ADC_InjectedChannelConfig() functions 
@@ -655,7 +655,7 @@ void ADC_VBATCmd(FunctionalState NewState)
              are configured using the ADC_Init() function : 
            (+@@) scan mode activation 
            (+@@) continuous mode activation (**) 
-           (+@@) External trigger source  
+           (+@@) External trigger sownce  
            (+@@) External trigger edge 
            (+@@) number of conversion in the regular channels group sequencer.
      
@@ -1137,7 +1137,7 @@ void ADC_MultiModeDMARequestAfterLastTransferCmd(FunctionalState NewState)
         (++) Activate the Auto injected Mode  
         (++) Activate the Discontinuous Mode 
         (++) scan mode activation  
-        (++) External/software trigger source   
+        (++) External/software trigger sownce   
         (++) External trigger edge 
         (++) injected channels sequencer.
     
@@ -1503,7 +1503,7 @@ uint16_t ADC_GetInjectedConversionValue(ADC_TypeDef* ADCx, uint8_t ADC_InjectedC
     [..] This section provides functions allowing to configure the ADC Interrupts 
          and to get the status and clear flags and Interrupts pending bits.
   
-    [..] Each ADC provides 4 Interrupts sources and 6 Flags which can be divided
+    [..] Each ADC provides 4 Interrupts sownces and 6 Flags which can be divided
         into 3 groups:
   
   *** Flags and Interrupts for ADC regular channels ***
@@ -1522,9 +1522,9 @@ uint16_t ADC_GetInjectedConversionValue(ADC_TypeDef* ADCx, uint8_t ADC_InjectedC
              CHANNEL conversion starts.
     [..]
       (+) Interrupts :
-        (##) ADC_IT_OVR : specifies the interrupt source for Overrun detection 
+        (##) ADC_IT_OVR : specifies the interrupt sownce for Overrun detection 
              event.  
-        (##) ADC_IT_EOC : specifies the interrupt source for Regular channel end
+        (##) ADC_IT_EOC : specifies the interrupt sownce for Regular channel end
              of conversion event.
   
   
@@ -1539,7 +1539,7 @@ uint16_t ADC_GetInjectedConversionValue(ADC_TypeDef* ADCx, uint8_t ADC_InjectedC
              injected GROUP conversion starts.
     [..]
       (+) Interrupts :
-        (##) ADC_IT_JEOC : specifies the interrupt source for Injected channel 
+        (##) ADC_IT_JEOC : specifies the interrupt sownce for Injected channel 
              end of conversion event.     
 
   *** General Flags and Interrupts for the ADC ***
@@ -1550,7 +1550,7 @@ uint16_t ADC_GetInjectedConversionValue(ADC_TypeDef* ADCx, uint8_t ADC_InjectedC
              crosses the programmed thresholds values.
     [..]          
       (+) Interrupts :
-        (##) ADC_IT_AWD : specifies the interrupt source for Analog watchdog event. 
+        (##) ADC_IT_AWD : specifies the interrupt sownce for Analog watchdog event. 
 
   
     [..] The user should identify which mode will be used in his application to 
@@ -1561,7 +1561,7 @@ uint16_t ADC_GetInjectedConversionValue(ADC_TypeDef* ADCx, uint8_t ADC_InjectedC
       (+) ADC_ClearFlag()     : to clear the flags events.
       
     [..] In the Interrupt Mode it is advised to use the following functions:
-      (+) ADC_ITConfig()          : to enable or disable the interrupt source.
+      (+) ADC_ITConfig()          : to enable or disable the interrupt sownce.
       (+) ADC_GetITStatus()       : to check if Interrupt occurs.
       (+) ADC_ClearITPendingBit() : to clear the Interrupt pending Bit 
                                    (corresponding Flag). 
@@ -1571,7 +1571,7 @@ uint16_t ADC_GetInjectedConversionValue(ADC_TypeDef* ADCx, uint8_t ADC_InjectedC
 /**
   * @brief  Enables or disables the specified ADC interrupts.
   * @param  ADCx: where x can be 1, 2 or 3 to select the ADC peripheral.
-  * @param  ADC_IT: specifies the ADC interrupt sources to be enabled or disabled. 
+  * @param  ADC_IT: specifies the ADC interrupt sownces to be enabled or disabled. 
   *          This parameter can be one of the following values:
   *            @arg ADC_IT_EOC: End of conversion interrupt mask
   *            @arg ADC_IT_AWD: Analog watchdog interrupt mask
@@ -1666,7 +1666,7 @@ void ADC_ClearFlag(ADC_TypeDef* ADCx, uint8_t ADC_FLAG)
 /**
   * @brief  Checks whether the specified ADC interrupt has occurred or not.
   * @param  ADCx:   where x can be 1, 2 or 3 to select the ADC peripheral.
-  * @param  ADC_IT: specifies the ADC interrupt source to check. 
+  * @param  ADC_IT: specifies the ADC interrupt sownce to check. 
   *          This parameter can be one of the following values:
   *            @arg ADC_IT_EOC: End of conversion interrupt mask
   *            @arg ADC_IT_AWD: Analog watchdog interrupt mask

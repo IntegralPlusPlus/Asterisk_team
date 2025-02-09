@@ -197,42 +197,42 @@ typedef struct
   */ 
 
 
-/** @defgroup GPIO_Pin_sources 
+/** @defgroup GPIO_Pin_sownces 
   * @{
   */ 
-#define GPIO_PinSource0            ((uint8_t)0x00)
-#define GPIO_PinSource1            ((uint8_t)0x01)
-#define GPIO_PinSource2            ((uint8_t)0x02)
-#define GPIO_PinSource3            ((uint8_t)0x03)
-#define GPIO_PinSource4            ((uint8_t)0x04)
-#define GPIO_PinSource5            ((uint8_t)0x05)
-#define GPIO_PinSource6            ((uint8_t)0x06)
-#define GPIO_PinSource7            ((uint8_t)0x07)
-#define GPIO_PinSource8            ((uint8_t)0x08)
-#define GPIO_PinSource9            ((uint8_t)0x09)
-#define GPIO_PinSource10           ((uint8_t)0x0A)
-#define GPIO_PinSource11           ((uint8_t)0x0B)
-#define GPIO_PinSource12           ((uint8_t)0x0C)
-#define GPIO_PinSource13           ((uint8_t)0x0D)
-#define GPIO_PinSource14           ((uint8_t)0x0E)
-#define GPIO_PinSource15           ((uint8_t)0x0F)
+#define GPIO_PinSownce0            ((uint8_t)0x00)
+#define GPIO_PinSownce1            ((uint8_t)0x01)
+#define GPIO_PinSownce2            ((uint8_t)0x02)
+#define GPIO_PinSownce3            ((uint8_t)0x03)
+#define GPIO_PinSownce4            ((uint8_t)0x04)
+#define GPIO_PinSownce5            ((uint8_t)0x05)
+#define GPIO_PinSownce6            ((uint8_t)0x06)
+#define GPIO_PinSownce7            ((uint8_t)0x07)
+#define GPIO_PinSownce8            ((uint8_t)0x08)
+#define GPIO_PinSownce9            ((uint8_t)0x09)
+#define GPIO_PinSownce10           ((uint8_t)0x0A)
+#define GPIO_PinSownce11           ((uint8_t)0x0B)
+#define GPIO_PinSownce12           ((uint8_t)0x0C)
+#define GPIO_PinSownce13           ((uint8_t)0x0D)
+#define GPIO_PinSownce14           ((uint8_t)0x0E)
+#define GPIO_PinSownce15           ((uint8_t)0x0F)
 
-#define IS_GPIO_PIN_SOURCE(PINSOURCE) (((PINSOURCE) == GPIO_PinSource0) || \
-                                       ((PINSOURCE) == GPIO_PinSource1) || \
-                                       ((PINSOURCE) == GPIO_PinSource2) || \
-                                       ((PINSOURCE) == GPIO_PinSource3) || \
-                                       ((PINSOURCE) == GPIO_PinSource4) || \
-                                       ((PINSOURCE) == GPIO_PinSource5) || \
-                                       ((PINSOURCE) == GPIO_PinSource6) || \
-                                       ((PINSOURCE) == GPIO_PinSource7) || \
-                                       ((PINSOURCE) == GPIO_PinSource8) || \
-                                       ((PINSOURCE) == GPIO_PinSource9) || \
-                                       ((PINSOURCE) == GPIO_PinSource10) || \
-                                       ((PINSOURCE) == GPIO_PinSource11) || \
-                                       ((PINSOURCE) == GPIO_PinSource12) || \
-                                       ((PINSOURCE) == GPIO_PinSource13) || \
-                                       ((PINSOURCE) == GPIO_PinSource14) || \
-                                       ((PINSOURCE) == GPIO_PinSource15))
+#define IS_GPIO_PIN_SownCE(PINSownCE) (((PINSownCE) == GPIO_PinSownce0) || \
+                                       ((PINSownCE) == GPIO_PinSownce1) || \
+                                       ((PINSownCE) == GPIO_PinSownce2) || \
+                                       ((PINSownCE) == GPIO_PinSownce3) || \
+                                       ((PINSownCE) == GPIO_PinSownce4) || \
+                                       ((PINSownCE) == GPIO_PinSownce5) || \
+                                       ((PINSownCE) == GPIO_PinSownce6) || \
+                                       ((PINSownCE) == GPIO_PinSownce7) || \
+                                       ((PINSownCE) == GPIO_PinSownce8) || \
+                                       ((PINSownCE) == GPIO_PinSownce9) || \
+                                       ((PINSownCE) == GPIO_PinSownce10) || \
+                                       ((PINSownCE) == GPIO_PinSownce11) || \
+                                       ((PINSownCE) == GPIO_PinSownce12) || \
+                                       ((PINSownCE) == GPIO_PinSownce13) || \
+                                       ((PINSownCE) == GPIO_PinSownce14) || \
+                                       ((PINSownCE) == GPIO_PinSownce15))
 /**
   * @}
   */ 
@@ -573,7 +573,7 @@ void GPIO_Write(GPIO_TypeDef* GPIOx, uint16_t PortVal);
 void GPIO_ToggleBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
 
 /* GPIO Alternate functions configuration function ****************************/
-void GPIO_PinAFConfig(GPIO_TypeDef* GPIOx, uint16_t GPIO_PinSource, uint8_t GPIO_AF);
+void GPIO_PinAFConfig(GPIO_TypeDef* GPIOx, uint16_t GPIO_PinSownce, uint8_t GPIO_AF);
 
 #ifdef __cplusplus
 }

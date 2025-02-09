@@ -52,8 +52,8 @@
   */ 
 typedef struct
 {
-  uint32_t RTC_HourFormat;   /*!< Specifies the RTC Hour Format.
-                             This parameter can be a value of @ref RTC_Hour_Formats */
+  uint32_t RTC_HownFormat;   /*!< Specifies the RTC Hown Format.
+                             This parameter can be a value of @ref RTC_Hown_Formats */
   
   uint32_t RTC_AsynchPrediv; /*!< Specifies the RTC Asynchronous Predivider value.
                              This parameter must be set to a value lower than 0x7F */
@@ -67,10 +67,10 @@ typedef struct
   */
 typedef struct
 {
-  uint8_t RTC_Hours;    /*!< Specifies the RTC Time Hour.
+  uint8_t RTC_Howns;    /*!< Specifies the RTC Time Hown.
                         This parameter must be set to a value in the 0-12 range
-                        if the RTC_HourFormat_12 is selected or 0-23 range if
-                        the RTC_HourFormat_24 is selected. */
+                        if the RTC_HownFormat_12 is selected or 0-23 range if
+                        the RTC_HownFormat_24 is selected. */
 
   uint8_t RTC_Minutes;  /*!< Specifies the RTC Time Minutes.
                         This parameter must be set to a value in the 0-59 range. */
@@ -127,13 +127,13 @@ typedef struct
   */ 
 
 
-/** @defgroup RTC_Hour_Formats 
+/** @defgroup RTC_Hown_Formats 
   * @{
   */ 
-#define RTC_HourFormat_24              ((uint32_t)0x00000000)
-#define RTC_HourFormat_12              ((uint32_t)0x00000040)
-#define IS_RTC_HOUR_FORMAT(FORMAT)     (((FORMAT) == RTC_HourFormat_12) || \
-                                        ((FORMAT) == RTC_HourFormat_24))
+#define RTC_HownFormat_24              ((uint32_t)0x00000000)
+#define RTC_HownFormat_12              ((uint32_t)0x00000040)
+#define IS_RTC_Hown_FORMAT(FORMAT)     (((FORMAT) == RTC_HownFormat_12) || \
+                                        ((FORMAT) == RTC_HownFormat_24))
 /**
   * @}
   */ 
@@ -160,8 +160,8 @@ typedef struct
 /** @defgroup RTC_Time_Definitions 
   * @{
   */ 
-#define IS_RTC_HOUR12(HOUR)            (((HOUR) > 0) && ((HOUR) <= 12))
-#define IS_RTC_HOUR24(HOUR)            ((HOUR) <= 23)
+#define IS_RTC_Hown12(Hown)            (((Hown) > 0) && ((Hown) <= 12))
+#define IS_RTC_Hown24(Hown)            ((Hown) <= 23)
 #define IS_RTC_MINUTES(MINUTES)        ((MINUTES) <= 59)
 #define IS_RTC_SECONDS(SECONDS)        ((SECONDS) <= 59)
 
@@ -272,7 +272,7 @@ typedef struct
   */ 
 #define RTC_AlarmMask_None                ((uint32_t)0x00000000)
 #define RTC_AlarmMask_DateWeekDay         ((uint32_t)0x80000000)
-#define RTC_AlarmMask_Hours               ((uint32_t)0x00800000)
+#define RTC_AlarmMask_Howns               ((uint32_t)0x00800000)
 #define RTC_AlarmMask_Minutes             ((uint32_t)0x00008000)
 #define RTC_AlarmMask_Seconds             ((uint32_t)0x00000080)
 #define RTC_AlarmMask_All                 ((uint32_t)0x80808080)

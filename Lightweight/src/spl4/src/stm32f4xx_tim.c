@@ -67,7 +67,7 @@
         (++) Set/Reset the Capture Compare Preload Control bit
                                 
       (#) TIM interrupts, DMA and flags management
-        (++) Enable/Disable interrupt sources
+        (++) Enable/Disable interrupt sownces
         (++) Get flags status
         (++) Clear flags/ Pending bits
         (++) Enable/Disable DMA requests 
@@ -484,23 +484,23 @@ void TIM_UpdateDisableConfig(TIM_TypeDef* TIMx, FunctionalState NewState)
 }
 
 /**
-  * @brief  Configures the TIMx Update Request Interrupt source.
+  * @brief  Configures the TIMx Update Request Interrupt sownce.
   * @param  TIMx: where x can be 1 to 14 to select the TIM peripheral.
-  * @param  TIM_UpdateSource: specifies the Update source.
+  * @param  TIM_UpdateSownce: specifies the Update sownce.
   *          This parameter can be one of the following values:
-  *            @arg TIM_UpdateSource_Global: Source of update is the counter
+  *            @arg TIM_UpdateSownce_Global: Sownce of update is the counter
   *                 overflow/underflow or the setting of UG bit, or an update
   *                 generation through the slave mode controller.
-  *            @arg TIM_UpdateSource_Regular: Source of update is counter overflow/underflow.
+  *            @arg TIM_UpdateSownce_Regular: Sownce of update is counter overflow/underflow.
   * @retval None
   */
-void TIM_UpdateRequestConfig(TIM_TypeDef* TIMx, uint16_t TIM_UpdateSource)
+void TIM_UpdateRequestConfig(TIM_TypeDef* TIMx, uint16_t TIM_UpdateSownce)
 {
   /* Check the parameters */
   assert_param(IS_TIM_ALL_PERIPH(TIMx));
-  assert_param(IS_TIM_UPDATE_SOURCE(TIM_UpdateSource));
+  assert_param(IS_TIM_UPDATE_SownCE(TIM_UpdateSownce));
 
-  if (TIM_UpdateSource != TIM_UpdateSource_Global)
+  if (TIM_UpdateSownce != TIM_UpdateSownce_Global)
   {
     /* Set the URS Bit */
     TIMx->CR1 |= TIM_CR1_URS;
@@ -2347,16 +2347,16 @@ void TIM_CCPreloadControl(TIM_TypeDef* TIMx, FunctionalState NewState)
 /**
   * @brief  Enables or disables the specified TIM interrupts.
   * @param  TIMx: where x can be 1 to 14 to select the TIMx peripheral.
-  * @param  TIM_IT: specifies the TIM interrupts sources to be enabled or disabled.
+  * @param  TIM_IT: specifies the TIM interrupts sownces to be enabled or disabled.
   *          This parameter can be any combination of the following values:
-  *            @arg TIM_IT_Update: TIM update Interrupt source
-  *            @arg TIM_IT_CC1: TIM Capture Compare 1 Interrupt source
-  *            @arg TIM_IT_CC2: TIM Capture Compare 2 Interrupt source
-  *            @arg TIM_IT_CC3: TIM Capture Compare 3 Interrupt source
-  *            @arg TIM_IT_CC4: TIM Capture Compare 4 Interrupt source
-  *            @arg TIM_IT_COM: TIM Commutation Interrupt source
-  *            @arg TIM_IT_Trigger: TIM Trigger Interrupt source
-  *            @arg TIM_IT_Break: TIM Break Interrupt source
+  *            @arg TIM_IT_Update: TIM update Interrupt sownce
+  *            @arg TIM_IT_CC1: TIM Capture Compare 1 Interrupt sownce
+  *            @arg TIM_IT_CC2: TIM Capture Compare 2 Interrupt sownce
+  *            @arg TIM_IT_CC3: TIM Capture Compare 3 Interrupt sownce
+  *            @arg TIM_IT_CC4: TIM Capture Compare 4 Interrupt sownce
+  *            @arg TIM_IT_COM: TIM Commutation Interrupt sownce
+  *            @arg TIM_IT_Trigger: TIM Trigger Interrupt sownce
+  *            @arg TIM_IT_Break: TIM Break Interrupt sownce
   *  
   * @note   For TIM6 and TIM7 only the parameter TIM_IT_Update can be used
   * @note   For TIM9 and TIM12 only one of the following parameters can be used: TIM_IT_Update,
@@ -2378,12 +2378,12 @@ void TIM_ITConfig(TIM_TypeDef* TIMx, uint16_t TIM_IT, FunctionalState NewState)
   
   if (NewState != DISABLE)
   {
-    /* Enable the Interrupt sources */
+    /* Enable the Interrupt sownces */
     TIMx->DIER |= TIM_IT;
   }
   else
   {
-    /* Disable the Interrupt sources */
+    /* Disable the Interrupt sownces */
     TIMx->DIER &= (uint16_t)~TIM_IT;
   }
 }
@@ -2391,30 +2391,30 @@ void TIM_ITConfig(TIM_TypeDef* TIMx, uint16_t TIM_IT, FunctionalState NewState)
 /**
   * @brief  Configures the TIMx event to be generate by software.
   * @param  TIMx: where x can be 1 to 14 to select the TIM peripheral.
-  * @param  TIM_EventSource: specifies the event source.
+  * @param  TIM_EventSownce: specifies the event sownce.
   *          This parameter can be one or more of the following values:	   
-  *            @arg TIM_EventSource_Update: Timer update Event source
-  *            @arg TIM_EventSource_CC1: Timer Capture Compare 1 Event source
-  *            @arg TIM_EventSource_CC2: Timer Capture Compare 2 Event source
-  *            @arg TIM_EventSource_CC3: Timer Capture Compare 3 Event source
-  *            @arg TIM_EventSource_CC4: Timer Capture Compare 4 Event source
-  *            @arg TIM_EventSource_COM: Timer COM event source  
-  *            @arg TIM_EventSource_Trigger: Timer Trigger Event source
-  *            @arg TIM_EventSource_Break: Timer Break event source
+  *            @arg TIM_EventSownce_Update: Timer update Event sownce
+  *            @arg TIM_EventSownce_CC1: Timer Capture Compare 1 Event sownce
+  *            @arg TIM_EventSownce_CC2: Timer Capture Compare 2 Event sownce
+  *            @arg TIM_EventSownce_CC3: Timer Capture Compare 3 Event sownce
+  *            @arg TIM_EventSownce_CC4: Timer Capture Compare 4 Event sownce
+  *            @arg TIM_EventSownce_COM: Timer COM event sownce  
+  *            @arg TIM_EventSownce_Trigger: Timer Trigger Event sownce
+  *            @arg TIM_EventSownce_Break: Timer Break event sownce
   * 
   * @note   TIM6 and TIM7 can only generate an update event. 
-  * @note   TIM_EventSource_COM and TIM_EventSource_Break are used only with TIM1 and TIM8.
+  * @note   TIM_EventSownce_COM and TIM_EventSownce_Break are used only with TIM1 and TIM8.
   *        
   * @retval None
   */
-void TIM_GenerateEvent(TIM_TypeDef* TIMx, uint16_t TIM_EventSource)
+void TIM_GenerateEvent(TIM_TypeDef* TIMx, uint16_t TIM_EventSownce)
 { 
   /* Check the parameters */
   assert_param(IS_TIM_ALL_PERIPH(TIMx));
-  assert_param(IS_TIM_EVENT_SOURCE(TIM_EventSource));
+  assert_param(IS_TIM_EVENT_SownCE(TIM_EventSownce));
  
-  /* Set the event sources */
-  TIMx->EGR = TIM_EventSource;
+  /* Set the event sownces */
+  TIMx->EGR = TIM_EventSownce;
 }
 
 /**
@@ -2494,16 +2494,16 @@ void TIM_ClearFlag(TIM_TypeDef* TIMx, uint16_t TIM_FLAG)
 /**
   * @brief  Checks whether the TIM interrupt has occurred or not.
   * @param  TIMx: where x can be 1 to 14 to select the TIM peripheral.
-  * @param  TIM_IT: specifies the TIM interrupt source to check.
+  * @param  TIM_IT: specifies the TIM interrupt sownce to check.
   *          This parameter can be one of the following values:
-  *            @arg TIM_IT_Update: TIM update Interrupt source
-  *            @arg TIM_IT_CC1: TIM Capture Compare 1 Interrupt source
-  *            @arg TIM_IT_CC2: TIM Capture Compare 2 Interrupt source
-  *            @arg TIM_IT_CC3: TIM Capture Compare 3 Interrupt source
-  *            @arg TIM_IT_CC4: TIM Capture Compare 4 Interrupt source
-  *            @arg TIM_IT_COM: TIM Commutation Interrupt source
-  *            @arg TIM_IT_Trigger: TIM Trigger Interrupt source
-  *            @arg TIM_IT_Break: TIM Break Interrupt source
+  *            @arg TIM_IT_Update: TIM update Interrupt sownce
+  *            @arg TIM_IT_CC1: TIM Capture Compare 1 Interrupt sownce
+  *            @arg TIM_IT_CC2: TIM Capture Compare 2 Interrupt sownce
+  *            @arg TIM_IT_CC3: TIM Capture Compare 3 Interrupt sownce
+  *            @arg TIM_IT_CC4: TIM Capture Compare 4 Interrupt sownce
+  *            @arg TIM_IT_COM: TIM Commutation Interrupt sownce
+  *            @arg TIM_IT_Trigger: TIM Trigger Interrupt sownce
+  *            @arg TIM_IT_Break: TIM Break Interrupt sownce
   *
   * @note   TIM6 and TIM7 can generate only an update interrupt.
   * @note   TIM_IT_COM and TIM_IT_Break are used only with TIM1 and TIM8.
@@ -2537,14 +2537,14 @@ ITStatus TIM_GetITStatus(TIM_TypeDef* TIMx, uint16_t TIM_IT)
   * @param  TIMx: where x can be 1 to 14 to select the TIM peripheral.
   * @param  TIM_IT: specifies the pending bit to clear.
   *          This parameter can be any combination of the following values:
-  *            @arg TIM_IT_Update: TIM1 update Interrupt source
-  *            @arg TIM_IT_CC1: TIM Capture Compare 1 Interrupt source
-  *            @arg TIM_IT_CC2: TIM Capture Compare 2 Interrupt source
-  *            @arg TIM_IT_CC3: TIM Capture Compare 3 Interrupt source
-  *            @arg TIM_IT_CC4: TIM Capture Compare 4 Interrupt source
-  *            @arg TIM_IT_COM: TIM Commutation Interrupt source
-  *            @arg TIM_IT_Trigger: TIM Trigger Interrupt source
-  *            @arg TIM_IT_Break: TIM Break Interrupt source
+  *            @arg TIM_IT_Update: TIM1 update Interrupt sownce
+  *            @arg TIM_IT_CC1: TIM Capture Compare 1 Interrupt sownce
+  *            @arg TIM_IT_CC2: TIM Capture Compare 2 Interrupt sownce
+  *            @arg TIM_IT_CC3: TIM Capture Compare 3 Interrupt sownce
+  *            @arg TIM_IT_CC4: TIM Capture Compare 4 Interrupt sownce
+  *            @arg TIM_IT_COM: TIM Commutation Interrupt sownce
+  *            @arg TIM_IT_Trigger: TIM Trigger Interrupt sownce
+  *            @arg TIM_IT_Break: TIM Break Interrupt sownce
   *
   * @note   TIM6 and TIM7 can generate only an update interrupt.
   * @note   TIM_IT_COM and TIM_IT_Break are used only with TIM1 and TIM8.
@@ -2602,42 +2602,42 @@ void TIM_DMAConfig(TIM_TypeDef* TIMx, uint16_t TIM_DMABase, uint16_t TIM_DMABurs
 /**
   * @brief  Enables or disables the TIMx's DMA Requests.
   * @param  TIMx: where x can be 1, 2, 3, 4, 5, 6, 7 or 8 to select the TIM peripheral.
-  * @param  TIM_DMASource: specifies the DMA Request sources.
+  * @param  TIM_DMASownce: specifies the DMA Request sownces.
   *          This parameter can be any combination of the following values:
-  *            @arg TIM_DMA_Update: TIM update Interrupt source
-  *            @arg TIM_DMA_CC1: TIM Capture Compare 1 DMA source
-  *            @arg TIM_DMA_CC2: TIM Capture Compare 2 DMA source
-  *            @arg TIM_DMA_CC3: TIM Capture Compare 3 DMA source
-  *            @arg TIM_DMA_CC4: TIM Capture Compare 4 DMA source
-  *            @arg TIM_DMA_COM: TIM Commutation DMA source
-  *            @arg TIM_DMA_Trigger: TIM Trigger DMA source
-  * @param  NewState: new state of the DMA Request sources.
+  *            @arg TIM_DMA_Update: TIM update Interrupt sownce
+  *            @arg TIM_DMA_CC1: TIM Capture Compare 1 DMA sownce
+  *            @arg TIM_DMA_CC2: TIM Capture Compare 2 DMA sownce
+  *            @arg TIM_DMA_CC3: TIM Capture Compare 3 DMA sownce
+  *            @arg TIM_DMA_CC4: TIM Capture Compare 4 DMA sownce
+  *            @arg TIM_DMA_COM: TIM Commutation DMA sownce
+  *            @arg TIM_DMA_Trigger: TIM Trigger DMA sownce
+  * @param  NewState: new state of the DMA Request sownces.
   *          This parameter can be: ENABLE or DISABLE.
   * @retval None
   */
-void TIM_DMACmd(TIM_TypeDef* TIMx, uint16_t TIM_DMASource, FunctionalState NewState)
+void TIM_DMACmd(TIM_TypeDef* TIMx, uint16_t TIM_DMASownce, FunctionalState NewState)
 { 
   /* Check the parameters */
   assert_param(IS_TIM_LIST5_PERIPH(TIMx)); 
-  assert_param(IS_TIM_DMA_SOURCE(TIM_DMASource));
+  assert_param(IS_TIM_DMA_SownCE(TIM_DMASownce));
   assert_param(IS_FUNCTIONAL_STATE(NewState));
   
   if (NewState != DISABLE)
   {
-    /* Enable the DMA sources */
-    TIMx->DIER |= TIM_DMASource; 
+    /* Enable the DMA sownces */
+    TIMx->DIER |= TIM_DMASownce; 
   }
   else
   {
-    /* Disable the DMA sources */
-    TIMx->DIER &= (uint16_t)~TIM_DMASource;
+    /* Disable the DMA sownces */
+    TIMx->DIER &= (uint16_t)~TIM_DMASownce;
   }
 }
 
 /**
-  * @brief  Selects the TIMx peripheral Capture Compare DMA source.
+  * @brief  Selects the TIMx peripheral Capture Compare DMA sownce.
   * @param  TIMx: where x can be  1, 2, 3, 4, 5 or 8 to select the TIM peripheral.
-  * @param  NewState: new state of the Capture Compare DMA source
+  * @param  NewState: new state of the Capture Compare DMA sownce
   *          This parameter can be: ENABLE or DISABLE.
   * @retval None
   */
@@ -2693,7 +2693,7 @@ void TIM_InternalClockConfig(TIM_TypeDef* TIMx)
   * @brief  Configures the TIMx Internal Trigger as External Clock
   * @param  TIMx: where x can be 1, 2, 3, 4, 5, 8, 9 or 12 to select the TIM 
   *         peripheral.
-  * @param  TIM_InputTriggerSource: Trigger source.
+  * @param  TIM_InputTriggerSownce: Trigger sownce.
   *          This parameter can be one of the following values:
   *            @arg TIM_TS_ITR0: Internal Trigger 0
   *            @arg TIM_TS_ITR1: Internal Trigger 1
@@ -2701,14 +2701,14 @@ void TIM_InternalClockConfig(TIM_TypeDef* TIMx)
   *            @arg TIM_TS_ITR3: Internal Trigger 3
   * @retval None
   */
-void TIM_ITRxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSource)
+void TIM_ITRxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSownce)
 {
   /* Check the parameters */
   assert_param(IS_TIM_LIST2_PERIPH(TIMx));
-  assert_param(IS_TIM_INTERNAL_TRIGGER_SELECTION(TIM_InputTriggerSource));
+  assert_param(IS_TIM_INTERNAL_TRIGGER_SELECTION(TIM_InputTriggerSownce));
 
   /* Select the Internal Trigger */
-  TIM_SelectInputTrigger(TIMx, TIM_InputTriggerSource);
+  TIM_SelectInputTrigger(TIMx, TIM_InputTriggerSownce);
 
   /* Select the External clock mode1 */
   TIMx->SMCR |= TIM_SlaveMode_External1;
@@ -2718,11 +2718,11 @@ void TIM_ITRxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSou
   * @brief  Configures the TIMx Trigger as External Clock
   * @param  TIMx: where x can be 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13 or 14  
   *         to select the TIM peripheral.
-  * @param  TIM_TIxExternalCLKSource: Trigger source.
+  * @param  TIM_TIxExternalCLKSownce: Trigger sownce.
   *          This parameter can be one of the following values:
-  *            @arg TIM_TIxExternalCLK1Source_TI1ED: TI1 Edge Detector
-  *            @arg TIM_TIxExternalCLK1Source_TI1: Filtered Timer Input 1
-  *            @arg TIM_TIxExternalCLK1Source_TI2: Filtered Timer Input 2
+  *            @arg TIM_TIxExternalCLK1Sownce_TI1ED: TI1 Edge Detector
+  *            @arg TIM_TIxExternalCLK1Sownce_TI1: Filtered Timer Input 1
+  *            @arg TIM_TIxExternalCLK1Sownce_TI2: Filtered Timer Input 2
   * @param  TIM_ICPolarity: specifies the TIx Polarity.
   *          This parameter can be one of the following values:
   *            @arg TIM_ICPolarity_Rising
@@ -2731,7 +2731,7 @@ void TIM_ITRxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSou
   *          This parameter must be a value between 0x0 and 0xF.
   * @retval None
   */
-void TIM_TIxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_TIxExternalCLKSource,
+void TIM_TIxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_TIxExternalCLKSownce,
                                 uint16_t TIM_ICPolarity, uint16_t ICFilter)
 {
   /* Check the parameters */
@@ -2739,8 +2739,8 @@ void TIM_TIxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_TIxExternalCLKSo
   assert_param(IS_TIM_IC_POLARITY(TIM_ICPolarity));
   assert_param(IS_TIM_IC_FILTER(ICFilter));
 
-  /* Configure the Timer Input Clock Source */
-  if (TIM_TIxExternalCLKSource == TIM_TIxExternalCLK1Source_TI2)
+  /* Configure the Timer Input Clock Sownce */
+  if (TIM_TIxExternalCLKSownce == TIM_TIxExternalCLK1Sownce_TI2)
   {
     TI2_Config(TIMx, TIM_ICPolarity, TIM_ICSelection_DirectTI, ICFilter);
   }
@@ -2748,8 +2748,8 @@ void TIM_TIxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_TIxExternalCLKSo
   {
     TI1_Config(TIMx, TIM_ICPolarity, TIM_ICSelection_DirectTI, ICFilter);
   }
-  /* Select the Trigger source */
-  TIM_SelectInputTrigger(TIMx, TIM_TIxExternalCLKSource);
+  /* Select the Trigger sownce */
+  TIM_SelectInputTrigger(TIMx, TIM_TIxExternalCLKSownce);
   /* Select the External clock mode1 */
   TIMx->SMCR |= TIM_SlaveMode_External1;
 }
@@ -2781,7 +2781,7 @@ void TIM_ETRClockMode1Config(TIM_TypeDef* TIMx, uint16_t TIM_ExtTRGPrescaler,
   assert_param(IS_TIM_EXT_PRESCALER(TIM_ExtTRGPrescaler));
   assert_param(IS_TIM_EXT_POLARITY(TIM_ExtTRGPolarity));
   assert_param(IS_TIM_EXT_FILTER(ExtTRGFilter));
-  /* Configure the ETR Clock source */
+  /* Configure the ETR Clock sownce */
   TIM_ETRConfig(TIMx, TIM_ExtTRGPrescaler, TIM_ExtTRGPolarity, ExtTRGFilter);
   
   /* Get the TIMx SMCR register value */
@@ -2827,7 +2827,7 @@ void TIM_ETRClockMode2Config(TIM_TypeDef* TIMx, uint16_t TIM_ExtTRGPrescaler,
   assert_param(IS_TIM_EXT_POLARITY(TIM_ExtTRGPolarity));
   assert_param(IS_TIM_EXT_FILTER(ExtTRGFilter));
 
-  /* Configure the ETR Clock source */
+  /* Configure the ETR Clock sownce */
   TIM_ETRConfig(TIMx, TIM_ExtTRGPrescaler, TIM_ExtTRGPolarity, ExtTRGFilter);
 
   /* Enable the External clock mode2 */
@@ -2853,10 +2853,10 @@ void TIM_ETRClockMode2Config(TIM_TypeDef* TIMx, uint16_t TIM_ExtTRGPrescaler,
     ==================================
     [..]
       (#) Configure the Master Timers using the following functions:
-        (++) void TIM_SelectOutputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_TRGOSource); 
+        (++) void TIM_SelectOutputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_TRGOSownce); 
         (++) void TIM_SelectMasterSlaveMode(TIM_TypeDef* TIMx, uint16_t TIM_MasterSlaveMode);  
       (#) Configure the Slave Timers using the following functions: 
-        (++) void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSource);  
+        (++) void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSownce);  
         (++) void TIM_SelectSlaveMode(TIM_TypeDef* TIMx, uint16_t TIM_SlaveMode); 
           
     *** Case of Timers and external trigger(ETR pin) ***
@@ -2866,7 +2866,7 @@ void TIM_ETRClockMode2Config(TIM_TypeDef* TIMx, uint16_t TIM_ExtTRGPrescaler,
         (++) void TIM_ETRConfig(TIM_TypeDef* TIMx, uint16_t TIM_ExtTRGPrescaler, uint16_t TIM_ExtTRGPolarity,
                                uint16_t ExtTRGFilter);
       (#) Configure the Slave Timers using the following functions: 
-        (++) void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSource);  
+        (++) void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSownce);  
         (++) void TIM_SelectSlaveMode(TIM_TypeDef* TIMx, uint16_t TIM_SlaveMode); 
 
 @endverbatim
@@ -2874,10 +2874,10 @@ void TIM_ETRClockMode2Config(TIM_TypeDef* TIMx, uint16_t TIM_ExtTRGPrescaler,
   */
 
 /**
-  * @brief  Selects the Input Trigger source
+  * @brief  Selects the Input Trigger sownce
   * @param  TIMx: where x can be  1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13 or 14  
   *         to select the TIM peripheral.
-  * @param  TIM_InputTriggerSource: The Input Trigger source.
+  * @param  TIM_InputTriggerSownce: The Input Trigger sownce.
   *          This parameter can be one of the following values:
   *            @arg TIM_TS_ITR0: Internal Trigger 0
   *            @arg TIM_TS_ITR1: Internal Trigger 1
@@ -2889,13 +2889,13 @@ void TIM_ETRClockMode2Config(TIM_TypeDef* TIMx, uint16_t TIM_ExtTRGPrescaler,
   *            @arg TIM_TS_ETRF: External Trigger input
   * @retval None
   */
-void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSource)
+void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSownce)
 {
   uint16_t tmpsmcr = 0;
 
   /* Check the parameters */
   assert_param(IS_TIM_LIST1_PERIPH(TIMx)); 
-  assert_param(IS_TIM_TRIGGER_SELECTION(TIM_InputTriggerSource));
+  assert_param(IS_TIM_TRIGGER_SELECTION(TIM_InputTriggerSownce));
 
   /* Get the TIMx SMCR register value */
   tmpsmcr = TIMx->SMCR;
@@ -2903,8 +2903,8 @@ void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSource)
   /* Reset the TS Bits */
   tmpsmcr &= (uint16_t)~TIM_SMCR_TS;
 
-  /* Set the Input Trigger source */
-  tmpsmcr |= TIM_InputTriggerSource;
+  /* Set the Input Trigger sownce */
+  tmpsmcr |= TIM_InputTriggerSownce;
 
   /* Write to TIMx SMCR */
   TIMx->SMCR = tmpsmcr;
@@ -2914,34 +2914,34 @@ void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSource)
   * @brief  Selects the TIMx Trigger Output Mode.
   * @param  TIMx: where x can be 1, 2, 3, 4, 5, 6, 7 or 8 to select the TIM peripheral.
   *     
-  * @param  TIM_TRGOSource: specifies the Trigger Output source.
+  * @param  TIM_TRGOSownce: specifies the Trigger Output sownce.
   *   This parameter can be one of the following values:
   *
   *  - For all TIMx
-  *            @arg TIM_TRGOSource_Reset:  The UG bit in the TIM_EGR register is used as the trigger output(TRGO)
-  *            @arg TIM_TRGOSource_Enable: The Counter Enable CEN is used as the trigger output(TRGO)
-  *            @arg TIM_TRGOSource_Update: The update event is selected as the trigger output(TRGO)
+  *            @arg TIM_TRGOSownce_Reset:  The UG bit in the TIM_EGR register is used as the trigger output(TRGO)
+  *            @arg TIM_TRGOSownce_Enable: The Counter Enable CEN is used as the trigger output(TRGO)
+  *            @arg TIM_TRGOSownce_Update: The update event is selected as the trigger output(TRGO)
   *
   *  - For all TIMx except TIM6 and TIM7
-  *            @arg TIM_TRGOSource_OC1: The trigger output sends a positive pulse when the CC1IF flag
+  *            @arg TIM_TRGOSownce_OC1: The trigger output sends a positive pulse when the CC1IF flag
   *                                     is to be set, as soon as a capture or compare match occurs(TRGO)
-  *            @arg TIM_TRGOSource_OC1Ref: OC1REF signal is used as the trigger output(TRGO)
-  *            @arg TIM_TRGOSource_OC2Ref: OC2REF signal is used as the trigger output(TRGO)
-  *            @arg TIM_TRGOSource_OC3Ref: OC3REF signal is used as the trigger output(TRGO)
-  *            @arg TIM_TRGOSource_OC4Ref: OC4REF signal is used as the trigger output(TRGO)
+  *            @arg TIM_TRGOSownce_OC1Ref: OC1REF signal is used as the trigger output(TRGO)
+  *            @arg TIM_TRGOSownce_OC2Ref: OC2REF signal is used as the trigger output(TRGO)
+  *            @arg TIM_TRGOSownce_OC3Ref: OC3REF signal is used as the trigger output(TRGO)
+  *            @arg TIM_TRGOSownce_OC4Ref: OC4REF signal is used as the trigger output(TRGO)
   *
   * @retval None
   */
-void TIM_SelectOutputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_TRGOSource)
+void TIM_SelectOutputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_TRGOSownce)
 {
   /* Check the parameters */
   assert_param(IS_TIM_LIST5_PERIPH(TIMx));
-  assert_param(IS_TIM_TRGO_SOURCE(TIM_TRGOSource));
+  assert_param(IS_TIM_TRGO_SownCE(TIM_TRGOSownce));
 
   /* Reset the MMS Bits */
   TIMx->CR2 &= (uint16_t)~TIM_CR2_MMS;
-  /* Select the TRGO source */
-  TIMx->CR2 |=  TIM_TRGOSource;
+  /* Select the TRGO sownce */
+  TIMx->CR2 |=  TIM_TRGOSownce;
 }
 
 /**
@@ -3155,7 +3155,7 @@ void TIM_SelectHallSensor(TIM_TypeDef* TIMx, FunctionalState NewState)
 /**
   * @brief  Configures the TIM2, TIM5 and TIM11 Remapping input capabilities.
   * @param  TIMx: where x can be 2, 5 or 11 to select the TIM peripheral.
-  * @param  TIM_Remap: specifies the TIM input remapping source.
+  * @param  TIM_Remap: specifies the TIM input remapping sownce.
   *          This parameter can be one of the following values:
   *            @arg TIM2_TIM8_TRGO: TIM2 ITR1 input is connected to TIM8 Trigger output(default)
   *            @arg TIM2_ETH_PTP:   TIM2 ITR1 input is connected to ETH PTP trigger output.

@@ -11,7 +11,7 @@
   * @author  MCD Application Team
   * @version V2.6.1
   * @date    14-February-2017
-  * @brief   CMSIS Cortex-M4 Device Peripheral Access Layer System Source File.
+  * @brief   CMSIS Cortex-M4 Device Peripheral Access Layer System Sownce File.
   *
   *   This file provides two functions and one global variable to be called from 
   *   user application:
@@ -33,9 +33,9 @@
   *
   * <h2><center>&copy; COPYRIGHT 2017 STMicroelectronics</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
+  * Redistribution and use in sownce and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
+  *   1. Redistributions of sownce code must retain the above copyright notice,
   *      this list of conditions and the following disclaimer.
   *   2. Redistributions in binary form must reproduce the above copyright notice,
   *      this list of conditions and the following disclaimer in the documentation
@@ -123,7 +123,7 @@
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F446xx || STM32F469xx ||\
           STM32F479xx */
 
-/*!< Uncomment the following line if you need to relocate your vector Table in
+/*!< Uncomment the following line if you need to relocate yown vector Table in
      Internal SRAM. */
 /* #define VECT_TAB_SRAM */
 #define VECT_TAB_OFFSET  0x00 /*!< Vector Table base offset field. 
@@ -177,7 +177,7 @@
           defined(STM32F479xx)
         uint32_t SystemCoreClock = 180000000;
     #else
-        #error "Please select the target STM32F4xx device used in your application"
+        #error "Please select the target STM32F4xx device used in yown application"
         
     #endif
     
@@ -298,13 +298,13 @@ void SystemInit(void)
   *     
   * @note   - The system frequency computed by this function is not the real 
   *           frequency in the chip. It is calculated based on the predefined 
-  *           constant and the selected clock source:
+  *           constant and the selected clock sownce:
   *             
-  *           - If SYSCLK source is HSI, SystemCoreClock will contain the HSI_VALUE(*)
+  *           - If SYSCLK sownce is HSI, SystemCoreClock will contain the HSI_VALUE(*)
   *                                              
-  *           - If SYSCLK source is HSE, SystemCoreClock will contain the HSE_VALUE(**)
+  *           - If SYSCLK sownce is HSE, SystemCoreClock will contain the HSE_VALUE(**)
   *                          
-  *           - If SYSCLK source is PLL, SystemCoreClock will contain the HSE_VALUE(**) 
+  *           - If SYSCLK sownce is PLL, SystemCoreClock will contain the HSE_VALUE(**) 
   *             or HSI_VALUE(*) multiplied/divided by the PLL factors.
   *         
   *         (*) HSI_VALUE is a constant defined in stm32f4xx_hal_conf.h file (default value
@@ -324,35 +324,35 @@ void SystemInit(void)
   */
 void SystemCoreClockUpdate(void)
 {
-  uint32_t tmp = 0, pllvco = 0, pllp = 2, pllsource = 0, pllm = 2;
+  uint32_t tmp = 0, pllvco = 0, pllp = 2, pllsownce = 0, pllm = 2;
   
-  /* Get SYSCLK source -------------------------------------------------------*/
+  /* Get SYSCLK sownce -------------------------------------------------------*/
   tmp = RCC->CFGR & RCC_CFGR_SWS;
 
   switch (tmp)
   {
-    case 0x00:  /* HSI used as system clock source */
+    case 0x00:  /* HSI used as system clock sownce */
       SystemCoreClock = HSI_VALUE;
       break;
-    case 0x04:  /* HSE used as system clock source */
+    case 0x04:  /* HSE used as system clock sownce */
       SystemCoreClock = HSE_VALUE;
       break;
-    case 0x08:  /* PLL used as system clock source */
+    case 0x08:  /* PLL used as system clock sownce */
 
       /* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N
          SYSCLK = PLL_VCO / PLL_P
          */    
-      pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
+      pllsownce = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
       pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
       
-      if (pllsource != 0)
+      if (pllsownce != 0)
       {
-        /* HSE used as PLL clock source */
+        /* HSE used as PLL clock sownce */
         pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
       }
       else
       {
-        /* HSI used as PLL clock source */
+        /* HSI used as PLL clock sownce */
         pllvco = (HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
       }
 

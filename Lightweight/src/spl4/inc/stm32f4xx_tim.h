@@ -546,7 +546,7 @@ typedef struct
   * @}
   */ 
 
-/** @defgroup TIM_interrupt_sources 
+/** @defgroup TIM_interrupt_sownces 
   * @{
   */
 
@@ -664,7 +664,7 @@ typedef struct
   * @}
   */ 
 
-/** @defgroup TIM_DMA_sources 
+/** @defgroup TIM_DMA_sownces 
   * @{
   */
 
@@ -675,7 +675,7 @@ typedef struct
 #define TIM_DMA_CC4                        ((uint16_t)0x1000)
 #define TIM_DMA_COM                        ((uint16_t)0x2000)
 #define TIM_DMA_Trigger                    ((uint16_t)0x4000)
-#define IS_TIM_DMA_SOURCE(SOURCE) ((((SOURCE) & (uint16_t)0x80FF) == 0x0000) && ((SOURCE) != 0x0000))
+#define IS_TIM_DMA_SownCE(SownCE) ((((SownCE) & (uint16_t)0x80FF) == 0x0000) && ((SownCE) != 0x0000))
 
 /**
   * @}
@@ -725,13 +725,13 @@ typedef struct
   * @}
   */ 
 
-/** @defgroup TIM_TIx_External_Clock_Source 
+/** @defgroup TIM_TIx_External_Clock_Sownce 
   * @{
   */
 
-#define TIM_TIxExternalCLK1Source_TI1      ((uint16_t)0x0050)
-#define TIM_TIxExternalCLK1Source_TI2      ((uint16_t)0x0060)
-#define TIM_TIxExternalCLK1Source_TI1ED    ((uint16_t)0x0040)
+#define TIM_TIxExternalCLK1Sownce_TI1      ((uint16_t)0x0050)
+#define TIM_TIxExternalCLK1Sownce_TI2      ((uint16_t)0x0060)
+#define TIM_TIxExternalCLK1Sownce_TI1ED    ((uint16_t)0x0040)
 
 /**
   * @}
@@ -787,34 +787,34 @@ typedef struct
   */ 
 
 
-/** @defgroup TIM_Event_Source 
+/** @defgroup TIM_Event_Sownce 
   * @{
   */
 
-#define TIM_EventSource_Update             ((uint16_t)0x0001)
-#define TIM_EventSource_CC1                ((uint16_t)0x0002)
-#define TIM_EventSource_CC2                ((uint16_t)0x0004)
-#define TIM_EventSource_CC3                ((uint16_t)0x0008)
-#define TIM_EventSource_CC4                ((uint16_t)0x0010)
-#define TIM_EventSource_COM                ((uint16_t)0x0020)
-#define TIM_EventSource_Trigger            ((uint16_t)0x0040)
-#define TIM_EventSource_Break              ((uint16_t)0x0080)
-#define IS_TIM_EVENT_SOURCE(SOURCE) ((((SOURCE) & (uint16_t)0xFF00) == 0x0000) && ((SOURCE) != 0x0000))                                          
+#define TIM_EventSownce_Update             ((uint16_t)0x0001)
+#define TIM_EventSownce_CC1                ((uint16_t)0x0002)
+#define TIM_EventSownce_CC2                ((uint16_t)0x0004)
+#define TIM_EventSownce_CC3                ((uint16_t)0x0008)
+#define TIM_EventSownce_CC4                ((uint16_t)0x0010)
+#define TIM_EventSownce_COM                ((uint16_t)0x0020)
+#define TIM_EventSownce_Trigger            ((uint16_t)0x0040)
+#define TIM_EventSownce_Break              ((uint16_t)0x0080)
+#define IS_TIM_EVENT_SownCE(SownCE) ((((SownCE) & (uint16_t)0xFF00) == 0x0000) && ((SownCE) != 0x0000))                                          
   
 /**
   * @}
   */ 
 
-/** @defgroup TIM_Update_Source 
+/** @defgroup TIM_Update_Sownce 
   * @{
   */
 
-#define TIM_UpdateSource_Global            ((uint16_t)0x0000) /*!< Source of update is the counter overflow/underflow
+#define TIM_UpdateSownce_Global            ((uint16_t)0x0000) /*!< Sownce of update is the counter overflow/underflow
                                                                    or the setting of UG bit, or an update generation
                                                                    through the slave mode controller. */
-#define TIM_UpdateSource_Regular           ((uint16_t)0x0001) /*!< Source of update is counter overflow/underflow. */
-#define IS_TIM_UPDATE_SOURCE(SOURCE) (((SOURCE) == TIM_UpdateSource_Global) || \
-                                      ((SOURCE) == TIM_UpdateSource_Regular))
+#define TIM_UpdateSownce_Regular           ((uint16_t)0x0001) /*!< Sownce of update is counter overflow/underflow. */
+#define IS_TIM_UPDATE_SownCE(SownCE) (((SownCE) == TIM_UpdateSownce_Global) || \
+                                      ((SownCE) == TIM_UpdateSownce_Regular))
 /**
   * @}
   */ 
@@ -856,26 +856,26 @@ typedef struct
   * @}
   */ 
 
-/** @defgroup TIM_Trigger_Output_Source 
+/** @defgroup TIM_Trigger_Output_Sownce 
   * @{
   */
 
-#define TIM_TRGOSource_Reset               ((uint16_t)0x0000)
-#define TIM_TRGOSource_Enable              ((uint16_t)0x0010)
-#define TIM_TRGOSource_Update              ((uint16_t)0x0020)
-#define TIM_TRGOSource_OC1                 ((uint16_t)0x0030)
-#define TIM_TRGOSource_OC1Ref              ((uint16_t)0x0040)
-#define TIM_TRGOSource_OC2Ref              ((uint16_t)0x0050)
-#define TIM_TRGOSource_OC3Ref              ((uint16_t)0x0060)
-#define TIM_TRGOSource_OC4Ref              ((uint16_t)0x0070)
-#define IS_TIM_TRGO_SOURCE(SOURCE) (((SOURCE) == TIM_TRGOSource_Reset) || \
-                                    ((SOURCE) == TIM_TRGOSource_Enable) || \
-                                    ((SOURCE) == TIM_TRGOSource_Update) || \
-                                    ((SOURCE) == TIM_TRGOSource_OC1) || \
-                                    ((SOURCE) == TIM_TRGOSource_OC1Ref) || \
-                                    ((SOURCE) == TIM_TRGOSource_OC2Ref) || \
-                                    ((SOURCE) == TIM_TRGOSource_OC3Ref) || \
-                                    ((SOURCE) == TIM_TRGOSource_OC4Ref))
+#define TIM_TRGOSownce_Reset               ((uint16_t)0x0000)
+#define TIM_TRGOSownce_Enable              ((uint16_t)0x0010)
+#define TIM_TRGOSownce_Update              ((uint16_t)0x0020)
+#define TIM_TRGOSownce_OC1                 ((uint16_t)0x0030)
+#define TIM_TRGOSownce_OC1Ref              ((uint16_t)0x0040)
+#define TIM_TRGOSownce_OC2Ref              ((uint16_t)0x0050)
+#define TIM_TRGOSownce_OC3Ref              ((uint16_t)0x0060)
+#define TIM_TRGOSownce_OC4Ref              ((uint16_t)0x0070)
+#define IS_TIM_TRGO_SownCE(SownCE) (((SownCE) == TIM_TRGOSownce_Reset) || \
+                                    ((SownCE) == TIM_TRGOSownce_Enable) || \
+                                    ((SownCE) == TIM_TRGOSownce_Update) || \
+                                    ((SownCE) == TIM_TRGOSownce_OC1) || \
+                                    ((SownCE) == TIM_TRGOSownce_OC1Ref) || \
+                                    ((SownCE) == TIM_TRGOSownce_OC2Ref) || \
+                                    ((SownCE) == TIM_TRGOSownce_OC3Ref) || \
+                                    ((SownCE) == TIM_TRGOSownce_OC4Ref))
 /**
   * @}
   */ 
@@ -1033,7 +1033,7 @@ void TIM_SetAutoreload(TIM_TypeDef* TIMx, uint32_t Autoreload);
 uint32_t TIM_GetCounter(TIM_TypeDef* TIMx);
 uint16_t TIM_GetPrescaler(TIM_TypeDef* TIMx);
 void TIM_UpdateDisableConfig(TIM_TypeDef* TIMx, FunctionalState NewState);
-void TIM_UpdateRequestConfig(TIM_TypeDef* TIMx, uint16_t TIM_UpdateSource);
+void TIM_UpdateRequestConfig(TIM_TypeDef* TIMx, uint16_t TIM_UpdateSownce);
 void TIM_ARRPreloadConfig(TIM_TypeDef* TIMx, FunctionalState NewState);
 void TIM_SelectOnePulseMode(TIM_TypeDef* TIMx, uint16_t TIM_OPMode);
 void TIM_SetClockDivision(TIM_TypeDef* TIMx, uint16_t TIM_CKD);
@@ -1098,19 +1098,19 @@ void TIM_CCPreloadControl(TIM_TypeDef* TIMx, FunctionalState NewState);
 
 /* Interrupts, DMA and flags management ***************************************/
 void TIM_ITConfig(TIM_TypeDef* TIMx, uint16_t TIM_IT, FunctionalState NewState);
-void TIM_GenerateEvent(TIM_TypeDef* TIMx, uint16_t TIM_EventSource);
+void TIM_GenerateEvent(TIM_TypeDef* TIMx, uint16_t TIM_EventSownce);
 FlagStatus TIM_GetFlagStatus(TIM_TypeDef* TIMx, uint16_t TIM_FLAG);
 void TIM_ClearFlag(TIM_TypeDef* TIMx, uint16_t TIM_FLAG);
 ITStatus TIM_GetITStatus(TIM_TypeDef* TIMx, uint16_t TIM_IT);
 void TIM_ClearITPendingBit(TIM_TypeDef* TIMx, uint16_t TIM_IT);
 void TIM_DMAConfig(TIM_TypeDef* TIMx, uint16_t TIM_DMABase, uint16_t TIM_DMABurstLength);
-void TIM_DMACmd(TIM_TypeDef* TIMx, uint16_t TIM_DMASource, FunctionalState NewState);
+void TIM_DMACmd(TIM_TypeDef* TIMx, uint16_t TIM_DMASownce, FunctionalState NewState);
 void TIM_SelectCCDMA(TIM_TypeDef* TIMx, FunctionalState NewState);
 
 /* Clocks management **********************************************************/
 void TIM_InternalClockConfig(TIM_TypeDef* TIMx);
-void TIM_ITRxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSource);
-void TIM_TIxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_TIxExternalCLKSource,
+void TIM_ITRxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSownce);
+void TIM_TIxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_TIxExternalCLKSownce,
                                 uint16_t TIM_ICPolarity, uint16_t ICFilter);
 void TIM_ETRClockMode1Config(TIM_TypeDef* TIMx, uint16_t TIM_ExtTRGPrescaler, uint16_t TIM_ExtTRGPolarity,
                              uint16_t ExtTRGFilter);
@@ -1118,8 +1118,8 @@ void TIM_ETRClockMode2Config(TIM_TypeDef* TIMx, uint16_t TIM_ExtTRGPrescaler,
                              uint16_t TIM_ExtTRGPolarity, uint16_t ExtTRGFilter);
 
 /* Synchronization management *************************************************/
-void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSource);
-void TIM_SelectOutputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_TRGOSource);
+void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSownce);
+void TIM_SelectOutputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_TRGOSownce);
 void TIM_SelectSlaveMode(TIM_TypeDef* TIMx, uint16_t TIM_SlaveMode);
 void TIM_SelectMasterSlaveMode(TIM_TypeDef* TIMx, uint16_t TIM_MasterSlaveMode);
 void TIM_ETRConfig(TIM_TypeDef* TIMx, uint16_t TIM_ExtTRGPrescaler, uint16_t TIM_ExtTRGPolarity,

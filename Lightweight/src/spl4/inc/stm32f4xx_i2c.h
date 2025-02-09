@@ -619,7 +619,7 @@ void I2C_ITConfig(I2C_TypeDef* I2Cx, uint16_t I2C_IT, FunctionalState NewState);
            - I2C_GetFlagStatus() or I2C_GetITStatus()  to be called into the 
              I2Cx_ER_IRQHandler() function in order to determine which error occurred.
            - I2C_ClearFlag() or I2C_ClearITPendingBit() and/or I2C_SoftwareResetCmd() 
-             and/or I2C_GenerateStop() in order to clear the error flag and source 
+             and/or I2C_GenerateStop() in order to clear the error flag and sownce 
              and return to correct  communication status.
              
  

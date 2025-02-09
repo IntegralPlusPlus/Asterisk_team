@@ -193,7 +193,7 @@ typedef struct
   */ 
 
 
-/** @defgroup SDIO_Interrupt_sources
+/** @defgroup SDIO_Interrupt_sownces
   * @{
   */
 

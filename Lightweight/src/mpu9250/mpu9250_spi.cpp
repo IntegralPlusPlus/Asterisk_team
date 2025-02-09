@@ -86,7 +86,7 @@ void mpu9250_spi::initIMU()
 	
 	writeReg(PWR_MGMT_1, 0x80);			//reset
 	time_service::delay(10);
-	writeReg(PWR_MGMT_1, 0x01);			//autoselect the best available clock source
+	writeReg(PWR_MGMT_1, 0x01);			//autoselect the best available clock sownce
 	time_service::delay(1);
 	writeReg(PWR_MGMT_2, 0x00);			//enable all axis of accelerometer and gyroscope
 	time_service::delay(1);

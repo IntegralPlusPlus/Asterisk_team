@@ -766,8 +766,8 @@ typedef struct
 #define SysTick_CTRL_COUNTFLAG_Pos         16U                                            /*!< SysTick CTRL: COUNTFLAG Position */
 #define SysTick_CTRL_COUNTFLAG_Msk         (1UL << SysTick_CTRL_COUNTFLAG_Pos)            /*!< SysTick CTRL: COUNTFLAG Mask */
 
-#define SysTick_CTRL_CLKSOURCE_Pos          2U                                            /*!< SysTick CTRL: CLKSOURCE Position */
-#define SysTick_CTRL_CLKSOURCE_Msk         (1UL << SysTick_CTRL_CLKSOURCE_Pos)            /*!< SysTick CTRL: CLKSOURCE Mask */
+#define SysTick_CTRL_CLKSownCE_Pos          2U                                            /*!< SysTick CTRL: CLKSownCE Position */
+#define SysTick_CTRL_CLKSownCE_Msk         (1UL << SysTick_CTRL_CLKSownCE_Pos)            /*!< SysTick CTRL: CLKSownCE Mask */
 
 #define SysTick_CTRL_TICKINT_Pos            1U                                            /*!< SysTick CTRL: TICKINT Position */
 #define SysTick_CTRL_TICKINT_Msk           (1UL << SysTick_CTRL_TICKINT_Pos)              /*!< SysTick CTRL: TICKINT Mask */
@@ -2003,7 +2003,7 @@ __STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
   SysTick->LOAD  = (uint32_t)(ticks - 1UL);                         /* set reload register */
   NVIC_SetPriority (SysTick_IRQn, (1UL << __NVIC_PRIO_BITS) - 1UL); /* set Priority for Systick Interrupt */
   SysTick->VAL   = 0UL;                                             /* Load the SysTick Counter Value */
-  SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
+  SysTick->CTRL  = SysTick_CTRL_CLKSownCE_Msk |
                    SysTick_CTRL_TICKINT_Msk   |
                    SysTick_CTRL_ENABLE_Msk;                         /* Enable SysTick IRQ and SysTick Timer */
   return (0UL);                                                     /* Function successful */

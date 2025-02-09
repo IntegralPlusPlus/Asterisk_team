@@ -590,7 +590,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup FSMC_Interrupt_sources 
+/** @defgroup FSMC_Interrupt_sownces 
   * @{
   */
 #define FSMC_IT_RisingEdge                       ((uint32_t)0x00000008)
