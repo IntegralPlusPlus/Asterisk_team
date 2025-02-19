@@ -337,7 +337,7 @@ namespace Asterisk {
 			//Target to enemy goal with small offset
 			//There is an offset due to angle inaccuracy
 			if (myGoal == YELLOW_GOAL) {
-				targetRaw = float(myForward.getTarget2Enemy() + 10); //+ 10
+				targetRaw = float(myForward.getTarget2Enemy() + 3); //+ 10
 			} else {
 				targetRaw = float(myForward.getTarget2Enemy() + 7); //+ 15
 			}
@@ -420,7 +420,7 @@ namespace Asterisk {
 					//Decrease speed near enemy-goal-out
 					if (myForward.distance(x, y, 0, DIST_BETWEEN_GOALS) < 1.05 * RADIUS_GOAL_OUT_LEFT) {
 						goTo *= 0.95; //0.85
-					}
+						}
 				}
 			} else if (robotInOUT) { //Robot in out
 				if (myForward.inEnemyGoal()) { //Robot in enemy out
@@ -428,7 +428,7 @@ namespace Asterisk {
 					if (globalBall < 30 && globalBall > -30) { 
 						goTo = goOUT;
 					} else { //Ball in sides of the robot
-						goToBall *= 0.63;
+						goToBall *= 0.1; //0.63
 						//Summ of ball-following * coefficients and vector-from-out
 						goTo = goToBall + goOUT;  
 					}

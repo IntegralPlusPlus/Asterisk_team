@@ -3,16 +3,16 @@
 ProcessingCoord::ProcessingCoord() {
 	_maxLen = 1;
 	
-	upThreshold = UP_Y - 4 * DELTA_DIST;//-2
+	upThreshold = UP_Y - 5 * DELTA_DIST;//-4
 	downThreshold = DOWN_Y + 2.5 * DELTA_DIST;
 	
 	//left and right thresholds for forward
 	if (_goal == YELLOW_GOAL) {
-		leftThreshold = -55 + DELTA_DIST;//-78
-		rightThreshold = 63 - DELTA_DIST;//60
+		leftThreshold = -48 + DELTA_DIST; //-60
+		rightThreshold = 48 - DELTA_DIST; //51
 	} else { //_goal == BLUE_GOAL
-		leftThreshold = -50 + DELTA_DIST; //-51
-		rightThreshold = 36 - DELTA_DIST; //34
+		leftThreshold = -55 + DELTA_DIST; //-45
+		rightThreshold = 46 - DELTA_DIST; //50
 	}
 } 
 
@@ -69,9 +69,9 @@ int16_t ProcessingCoord::getTarget2Enemy() {
 
 Vec2b ProcessingCoord::getVecToPoint(int16_t pointX, int16_t pointY) {
 	float dist = sqrt(pow(float(pointX - _x), 2) + pow(float(pointY - _y), 2));
-	float u = dist * 0.057f; //0.027
-	if (u < 0.25f && !(pointX == 0 && pointY == GOAL_OUT_Y_THRESHOLD)) u = 0.25f;
-	else if (u > 0.6f) u = 0.6f;
+	float u = dist * 0.037f; //0.057
+	if (u < 0.2f && !(pointX == 0 && pointY == GOAL_OUT_Y_THRESHOLD)) u = 0.2f;
+	else if (u > 0.5f) u = 0.5f;
 	
 	return Vec2b(u, adduct(atan2(float(pointY - _y), float(pointX - _x)) * RAD2DEG));
 }
@@ -108,7 +108,7 @@ bool ProcessingCoord::checkXLeft(int16_t x, uint8_t role) {
 	} else {
 		//Increase X-left-zone near the enemy goal area
 		if (_y > 210 - 90) { //- 70
-			return x > leftThreshold - 2; //- 9
+			return x > leftThreshold - 3; //- 9
 		} else {
 			return x > leftThreshold;
 		}
@@ -122,8 +122,8 @@ bool ProcessingCoord::checkXRight(int16_t x, uint8_t role) {
 		return x < THRESHOLD_X_RIGHT - DELTA_DIST - SAVE_DELTA_GK / 2;
 	} else {
 		//Increase X-right-zone near the enemy goal area
-		if (_y > 210 - 80) { //-40
-			return x < rightThreshold + 7; //+ 10
+		if (_y > 210 - 65) { //-40
+			return x < rightThreshold + 1; //+ 10
  		} else {
 			return x < rightThreshold;
 		}

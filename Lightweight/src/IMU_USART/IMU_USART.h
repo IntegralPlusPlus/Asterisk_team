@@ -8,10 +8,10 @@
 #include "usart6.h"
 
 #define RECEIVED2REAL 1.4117647058823529411764705882353f
-#define KOEFF_P 10.4f
+#define KOEFF_P 11.4f
 #define KOEFF_D 100
 #define MAXROTATION 2048
-#define K_SOFT 0.04f
+#define K_SOFT 0.08f //0.04f
 #define TARGET_K_FOFT 0.08f
 
 enum softCategoty {

@@ -11,8 +11,8 @@ Goalkeeper::Goalkeeper(): ProcessingCoord() {
 	
 	//Values of Y where the robot must stop
 	if (_goal == BLUE_GOAL) {
-		_downYRight = 32;
-		_downYLeft = 28;
+		_downYRight = 31; //32 //36
+		_downYLeft = 33; //28
 	} else {
 		_downYRight = 27;
 		_downYLeft = 26;
@@ -141,8 +141,8 @@ Vec2b Goalkeeper::getVecToIntersection(int16_t angBall) {
 			
 			//!!!!REACT COEFFICIENTS!!!!
 			err = pow(abs(float(globalAngToBall - angGoal)), 1.3f); //1.1
-			p = 0.003f * err; //0.004
-			d = (err - errOldGkRight) * 0.04f; //0.05
+			p = 0.002f * err; //0.004
+			d = (err - errOldGkRight) * 0.03f; //0.05
 			u = p + d;
 			errOldGkRight = err;
 			

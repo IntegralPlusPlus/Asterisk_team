@@ -15,7 +15,7 @@
 //202
 
 //Threshold to own out in front of the goal
-#define GOAL_OUT_Y_THRESHOLD 35
+#define GOAL_OUT_Y_THRESHOLD 38
 
 #define DIST_BETWEEN_GOALS 231
 
@@ -40,7 +40,7 @@
 
 //Ball is back from robot if he is in [LEFT_GOAL_THRESHOLD; RIGHT_GOAL_THRESHOLD] area
 #define LEFT_GOAL_THRESHOLD -23 
-#define RIGHT_GOAL_THRESHOLD 20
+#define RIGHT_GOAL_THRESHOLD 17 //20
 
 #define DELTA_GOAL_THRESHOLD 0
 

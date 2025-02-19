@@ -19,8 +19,8 @@
 #define GK_X_THRESHOLD_LEFT -41
 #define GK_X_THRESHOLD_RIGHT 30
 
-//Minimum value of Y for goalkeeper
-#define CRITICAL_DOWN_Y 15 //12
+//Minimum value of Y for goalkeeper   was:12
+#define CRITICAL_DOWN_Y 19 //12
 
 //Transition from out-direct-line to out-circle-line
 #define ANGLE_LOW_DOESNT_LEAVE 44
